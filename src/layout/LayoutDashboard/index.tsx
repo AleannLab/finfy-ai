@@ -14,6 +14,7 @@ interface LayoutDashboardProps extends PropsWithChildren { }
 const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const { messages } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
 
   const { addChart, deleteChart, charts } = useDynamicChart();
