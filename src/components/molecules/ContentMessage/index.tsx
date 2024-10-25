@@ -61,7 +61,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
                 key={index}
                 onClick={() => toggleDropdown(index)}
                 className={cn(
-                  "w-full flex justify-between hover:bg-white hover:bg-opacity-5 duration-300 items-center px-4 py-3 text-lg font-semibold text-white  rounded-lg transition-all", isOpen ? " mb-4" : ""
+                  "w-full flex justify-between hover:bg-white hover:bg-opacity-5 duration-300 items-center px-4 py-3 text-lg font-semibold text-[#473513]  rounded-lg transition-all", isOpen ? " mb-4" : ""
                 )}
               >
                 <div className="flex items-center gap-4">
@@ -115,15 +115,15 @@ const ContentMessage: FC<ContentMessageProps> = ({
           <span className="w-4 h-4">
             <Icon type="SmallLogo" />
           </span>
-          <span className="text-white text-2xl leading-3 font-medium">
-            {isLastMessage ? "Answer" : "Finfy"}
+          <span className="text-[#473513] text-2xl leading-3 font-medium">
+            {isLastMessage ? "Answer" : "Career Buddy"}
           </span>
         </div>
       )}
 
       <p
         className={cn(
-          "whitespace-pre-line text-white font-normal leading-[14px] md:leading-8",
+          "whitespace-pre-line text-[#473513] font-normal leading-[14px] md:leading-8",
           isUser
             ? "text-2xl md:text-4xl font-bold flex gap-2.5 items-center"
             : "text-sm md:text-base"

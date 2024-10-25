@@ -39,7 +39,7 @@ const CardSetupComplete = () => {
       title={
         <>
           <Icon type={"ShieldCompleteIcon"} />
-          <h4 className="text-xl text-white font-semibold ">Success</h4>
+          <h4 className="text-xl text-[#473513] font-semibold ">Success</h4>
         </>
       }
       classes={{

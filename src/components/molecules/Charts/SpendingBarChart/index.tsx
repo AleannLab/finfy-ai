@@ -227,7 +227,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
       {
         label: title,
         data: amounts,
-        backgroundColor: (chartType === 'pie' || chartType === 'bar') ? ["#0EA5E9", "#515AD9", "#6870DA", "#9CA3AF", "#374061"] : "#515AD9",
+        backgroundColor: (chartType === 'pie' || chartType === 'bar') ? ["#0EA5E9", "#FBAB18", "#6870DA", "#9CA3AF", "#374061"] : "#FBAB18",
         borderColor: "rgb(81, 90, 217)",
         hoverBackgroundColor: "#6870DA",
         borderWidth: 1,
@@ -286,7 +286,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
         {renderChart()}
       </div>
       <div className="mt-6">
-        <h3 className="text-2xl font-semibold text-white mb-4">
+        <h3 className="text-2xl font-semibold text-[#473513] mb-4">
           {title}
         </h3>
         <div
@@ -296,7 +296,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
             scrollbarColor: "#6B7280 #2D3748",
           }}
         >
-          <ul className="text-white">
+          <ul className="text-[#473513]">
             {labels.map((label, index) => (
               <li
                 key={label}

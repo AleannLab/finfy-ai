@@ -59,7 +59,7 @@ const Field: FC<FieldProps> = forwardRef(
               {...props}
               ref={ref}
               className={cn(
-                "text-white outline-none bg-transparent h-full w-full placeholder:text-base placeholder:font-light",
+                "text-[#473513] outline-none bg-transparent h-full w-full placeholder:text-base placeholder:font-light",
                 props?.className
               )}
             />

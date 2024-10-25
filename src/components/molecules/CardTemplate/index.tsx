@@ -31,7 +31,7 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {title && typeof title === "string" ? (
             <Card.Title
               className={cn(
-                "text-white text-2xl text-start font-bold",
+                "text-[#473513] text-2xl text-start font-bold",
                 classes?.cardTitle
               )}
             >

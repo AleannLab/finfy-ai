@@ -5,7 +5,7 @@ const PersonalizeTab = () => {
   return (
     <div className="my-9">
       <div className="p-3 border rounded-md bg-navy-15 border-navy-5">
-        <div className="text-white rounded-none border-none pt-4">
+        <div className="text-[#473513] rounded-none border-none pt-4">
           <Icon
             type="QuestionMarkCircle"
             className="absolute top-3.5 right-10 cursor-pointer"

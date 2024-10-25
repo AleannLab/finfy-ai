@@ -5,7 +5,7 @@ const SettingsSection = () => {
   return (
     <div className="flex flex-col h-full w-full">
       <div className="flex-grow sticky top-0 bg-navy-25">
-        <h1 className="font-semibold px-10 pt-5 text-white text-2xl">
+        <h1 className="font-semibold px-10 pt-5 text-[#473513] text-2xl">
           Settings
         </h1>
         <SeparatorLine />
@@ -16,11 +16,11 @@ const SettingsSection = () => {
         </div>
       </div>
       <footer className="flex gap-5 items-center justify-center text-sm text-grey-15 py-4">
-        <p className="hover:text-white cursor-pointer">Pro</p>
-        <p className="hover:text-white cursor-pointer">Enterprise</p>
-        <p className="hover:text-white cursor-pointer">Playground</p>
-        <p className="hover:text-white cursor-pointer">Blog</p>
-        <p className="hover:text-white cursor-pointer">Careers</p>
+        <p className="hover:text-[#473513] cursor-pointer">Pro</p>
+        <p className="hover:text-[#473513] cursor-pointer">Enterprise</p>
+        <p className="hover:text-[#473513] cursor-pointer">Playground</p>
+        <p className="hover:text-[#473513] cursor-pointer">Blog</p>
+        <p className="hover:text-[#473513] cursor-pointer">Careers</p>
       </footer>
     </div>
   );

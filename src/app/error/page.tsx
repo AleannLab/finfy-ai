@@ -7,7 +7,7 @@ export default function ErrorPage() {
       <p className="text-xl text-gray-700 mb-6">Sorry, something went wrong.</p>
       <Link
         href="/"
-        className="px-6 py-3 text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-200"
+        className="px-6 py-3 text-[#473513] bg-blue-600 rounded hover:bg-blue-700 transition duration-200"
       >
         Go Back Home
       </Link>

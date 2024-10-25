@@ -32,10 +32,10 @@ export const DesktopChartModal: FC<DesktopChartModalProps> = ({
         className="bg-[#272E48] rounded-lg h-min p-8 w-full overflow-y-auto relative max-h-[calc(100vh-100px)] transform transition-transform duration-300"
         style={{ transform: isOpen ? "scale(1)" : "scale(0.95)" }}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-white">
+        <button onClick={onClose} className="absolute top-4 right-4 text-[#473513]">
           <X className="w-6 h-6" />
         </button>
-        <h3 className="text-2xl font-semibold text-white mb-4">
+        <h3 className="text-2xl font-semibold text-[#473513] mb-4">
           {title}
         </h3>
         {component}

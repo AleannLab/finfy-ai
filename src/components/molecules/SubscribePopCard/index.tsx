@@ -71,7 +71,7 @@ const SubscribePopCard = ({isOnboarding = false}: {isOnboarding?: boolean}) => {
   };
 
   return (
-    <div className="text-white mx-auto bg-navy-25 rounded-lg border-none pt-4 max-w-72">
+    <div className="text-[#473513] mx-auto bg-navy-25 rounded-lg border-none pt-4 max-w-72">
       <div className="w-full flex flex-col justify-center items-center mt-5 gap-1.5">
         <Icon type="FullLogoIcon" className="w-32" />
         <p className="text-grey-15 text-xs text-center">
@@ -84,7 +84,7 @@ const SubscribePopCard = ({isOnboarding = false}: {isOnboarding?: boolean}) => {
                 {item.icon}
               </span>
               <div className="w-full gap-1 flex flex-col">
-                <h3 className="text-sm text-white font-medium">{item.title}</h3>
+                <h3 className="text-sm text-[#473513] font-medium">{item.title}</h3>
                 <p className="text-xs text-grey-15 font-medium">{item.desc}</p>
               </div>
             </li>
@@ -147,7 +147,7 @@ const RadioOption: FC<RadioOptionProps> = ({
     onClick={onSelect}
   >
     <span className="text-[10px] text-grey-15 font-normal">{label}</span>
-    <span className="text-white text-xs font-medium flex gap-0.5">{price}</span>
+    <span className="text-[#473513] text-xs font-medium flex gap-0.5">{price}</span>
   </div>
 );
 

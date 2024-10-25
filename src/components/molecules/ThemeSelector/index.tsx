@@ -6,7 +6,7 @@ const ThemeSelector = ({ placeholder }: { placeholder: string }) => {
       <Select.Trigger className="w-[180px]">
         <Select.Value placeholder={placeholder} />
       </Select.Trigger>
-      <Select.Content className="bg-navy-25 text-white">
+      <Select.Content className="bg-navy-25 text-[#473513]">
         <Select.Item value="light">Light</Select.Item>
         <Select.Item value="dark">Dark</Select.Item>
         <Select.Item value="system">System</Select.Item>

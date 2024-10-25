@@ -186,7 +186,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
           >
             {left}
             {selectOption?.value && !isOpen && (
-              <div className="bg-transparent text-sm font-medium text-white absolute top-1/2 -translate-y-1/2">
+              <div className="bg-transparent text-sm font-medium text-[#473513] absolute top-1/2 -translate-y-1/2">
                 {selectOption.label}
               </div>
             )}
@@ -197,7 +197,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
               onChange={handleChange}
               onFocus={handleOpenList}
               className={cx(
-                "text-white bg-transparent outline-none z-10 text-sm font-medium h-full w-full placeholder:text-sm placeholder:font-medium",
+                "text-[#473513] bg-transparent outline-none z-10 text-sm font-medium h-full w-full placeholder:text-sm placeholder:font-medium",
                 { "placeholder:text-transparent": selectOption?.value },
                 props?.className
               )}
@@ -221,7 +221,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                         key={option.value}
                         onClick={() => handleClick(option)}
                         className={cn(
-                          "px-4 pl-10 py-2 flex gap-1 relative items-center text-white text-sm font-medium hover:bg-navy-15 cursor-pointer",
+                          "px-4 pl-10 py-2 flex gap-1 relative items-center text-[#473513] text-sm font-medium hover:bg-navy-15 cursor-pointer",
                           {
                             "bg-navy-15": selectOption?.value === option.value,
                           }
@@ -239,7 +239,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     );
                   })
                 ) : (
-                  <li className="px-4 py-2 text-white hover:bg-gray-100 cursor-pointer">
+                  <li className="px-4 py-2 text-[#473513] hover:bg-gray-100 cursor-pointer">
                     Nothing found
                   </li>
                 )}

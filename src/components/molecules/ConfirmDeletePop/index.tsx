@@ -40,7 +40,7 @@ const ConfirmDeletePop: FC<ConfirmDeletePopProps> = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger className="text-sm w-full">{children}</Dialog.Trigger>
-      <Dialog.Content className="text-white bg-navy-25 rounded-none border-none pt-4 max-w-96">
+      <Dialog.Content className="text-[#473513] bg-navy-25 rounded-none border-none pt-4 max-w-96">
         <Dialog.Header className="mb-0 mt-5">
           <div className="flex items-center">
             <Dialog.Title className="font-semibold text-2xl text-center">

@@ -13,12 +13,12 @@ const CardSubscribePlan: FC<CardSubscribePlanProps> = ({ plan }) => {
   return (
     <CardTemplate className="mx-auto">
       <CardTemplate.Content className="relative">
-        <div className="bg-navy-25 mx-auto rounded-xl p-6 max-w-sm text-white">
+        <div className="bg-navy-25 mx-auto rounded-xl p-6 max-w-sm text-[#473513]">
           <div className="flex absolute -top-8 left-0 right-0 items-center justify-center gap-2 mb-6">
-            <span className="text-gray-400 text-sm cursor-pointer hover:text-white">
+            <span className="text-gray-400 text-sm cursor-pointer hover:text-[#473513]">
               Monthly
             </span>
-            <span className="text-gray-400 text-sm cursor-pointer hover:text-white">
+            <span className="text-gray-400 text-sm cursor-pointer hover:text-[#473513]">
               Annually
             </span>
           </div>

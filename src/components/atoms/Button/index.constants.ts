@@ -1,13 +1,13 @@
 import type { Color, Size } from "./index.types";
 
 const variantClasses: Record<Color, string> = {
-  default: "bg-purple-15 text-white shadow hover:bg-purple-5",
+  default: "bg-purple-15 text-[#473513] shadow hover:bg-purple-5",
   destructive: "text-purple-15 bg-purple-15 bg-opacity-10 hover:bg-opacity-30",
   outline:
-    "border border-input bg-background shadow-sm text-white hover:bg-navy-15 hover:text-navy-15-foreground",
-  secondary: "bg-secondary text-white shadow-sm hover:bg-secondary/80",
-  ghost: "hover:bg-navy-5 text-grey-15 hover:text-white",
-  link: "text-white underline-offset-4 hover:underline",
+    "border border-input bg-background shadow-sm text-[#473513] hover:bg-navy-15 hover:text-navy-15-foreground",
+  secondary: "bg-secondary text-[#473513] shadow-sm hover:bg-secondary/80",
+  ghost: "hover:bg-navy-5 text-grey-15 hover:text-[#473513]",
+  link: "text-[#473513] underline-offset-4 hover:underline",
 };
 
 const sizeClassesWithText: Record<Size, string> = {

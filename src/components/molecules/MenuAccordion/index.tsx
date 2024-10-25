@@ -75,7 +75,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
         isHideChevron={isHideChevron}
         disabled={isHideChevron}
         onClick={() => handleOpen()}
-        className={cn("p-2 rounded-sm group hover:text-white hover:bg-navy-5", {
+        className={cn("p-2 rounded-sm group hover:text-[#473513] hover:bg-navy-5", {
           "bg-navy-25": isActive,
         })}
       >
@@ -115,7 +115,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                       }
                       className="flex flex-col w-[70%] lg:w-[180px]"
                     >
-                      <p className="menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white text-grey-5">
+                      <p className="menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-[#473513] text-grey-5">
                         {content.title}
                       </p>
                     </button>

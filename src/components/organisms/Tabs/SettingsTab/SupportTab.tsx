@@ -6,14 +6,14 @@ const SupportTab = () => {
     <div className="my-9">
       <div className="p-4 border rounded-md bg-navy-15 border-navy-5">
         <div className="flex flex-col gap-4 mb-8">
-          <h3 className="flex gap-2 text-2xl font-semibold text-white items-center">
+          <h3 className="flex gap-2 text-2xl font-semibold text-[#473513] items-center">
             <Icon
               type="SupportIcon"
               className="w-6 h-6 stroke-transparent fill-white"
             />
             Contact us
           </h3>
-          <p className="text-white font-semibold text-sm">
+          <p className="text-[#473513] font-semibold text-sm">
             Our friendly support team is here to help you.
           </p>
         </div>
@@ -58,7 +58,7 @@ const SupportTab = () => {
           <div className="col-span-2 flex flex-col gap-2">
             <Label>Message</Label>
             <Textarea
-              placeholder="Hello Finfy team"
+              placeholder="Hello Career Buddy team"
               className="border-purple-15 min-h-[111px] bg-navy-25"
             />
           </div>

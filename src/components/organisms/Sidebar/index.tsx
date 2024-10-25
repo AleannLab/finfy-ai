@@ -53,8 +53,8 @@ const Sidebar = () => {
             {open ? (
               <Image
                 src="/icons/full-logo.svg"
-                height={100}
-                width={100}
+                height={28}
+                width={30}
                 alt="logo"
                 className="cursor-pointer"
               />
@@ -80,7 +80,7 @@ const Sidebar = () => {
             />
 
             <span
-              className={cn("text-base text-grey-15 group-hover:text-white", {
+              className={cn("text-base text-grey-15 group-hover:text-[#473513]", {
                 "lg:hidden": !open,
               })}
             >
@@ -136,7 +136,7 @@ const Sidebar = () => {
         {/* <Button
           full
           className={cn(
-            "justify-start items-center text-xs font-semibold border-t border-t-navy-5 text-white p-6 !rounded-none",
+            "justify-start items-center text-xs font-semibold border-t border-t-navy-5 text-[#473513] p-6 !rounded-none",
             {
               "lg:hidden": !open,
             }

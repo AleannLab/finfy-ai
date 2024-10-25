@@ -3,7 +3,7 @@ import { LayoutDashboard } from "@/layout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Finfy",
+  title: "Dashboard | Career Buddy",
   description: "Chat",
 };
 

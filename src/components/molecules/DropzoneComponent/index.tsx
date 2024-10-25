@@ -46,7 +46,7 @@ const DropzoneComponent = (props: DropzoneProps) => {
       )}
     >
       <input {...getInputProps()} />
-      <span className="text-2xl font-semibold text-white flex items-center gap-2">
+      <span className="text-2xl font-semibold text-[#473513] flex items-center gap-2">
         <Icon type="DocumentIcon" className="w-6 h-6 stroke-white" />
         Drop files to begin upload, or <span className="text-purple-15">browse</span>.
       </span>

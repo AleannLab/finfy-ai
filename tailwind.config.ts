@@ -144,12 +144,12 @@ const config: Config = {
         },
         purple: {
           5: "#6B73DF",
-          15: "#515AD9",
+          15: "#FBAB18",
         },
         navy: {
-          5: "#374061",
-          15: "#272E48",
-          25: "#1F263D",
+          5: "#74BBC9",
+          15: "#F9FCF5",
+          25: "#FFFFFF",
         },
       },
       borderRadius: {

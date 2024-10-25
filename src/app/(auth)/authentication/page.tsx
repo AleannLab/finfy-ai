@@ -2,7 +2,7 @@ import { AuthenticationPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Authentication | Finfy",
+  title: "Authentication | Career Buddy",
   description: "Chat",
 };
 

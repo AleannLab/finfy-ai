@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     console.log(currentUrl, "currentUrl");
     const tokenResponse = await plaidClient.linkTokenCreate({
       user: { client_user_id: process.env.PLAID_CLIENT_ID as string },
-      client_name: "Finfy",
+      client_name: "Career Buddy",
       language: "en",
       country_codes: [CountryCode.Us],
       products: [

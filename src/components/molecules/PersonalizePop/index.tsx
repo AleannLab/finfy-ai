@@ -5,7 +5,7 @@ const PersonalizePop = () => {
   return (
     <Dialog>
       <Dialog.Trigger className="text-sm">Personalization</Dialog.Trigger>
-      <Dialog.Content className="text-white bg-navy-25 rounded-none border-none pt-4">
+      <Dialog.Content className="text-[#473513] bg-navy-25 rounded-none border-none pt-4">
         <Icon
           type="QuestionMarkCircle"
           className="absolute top-3.5 right-10 cursor-pointer"

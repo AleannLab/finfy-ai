@@ -21,7 +21,7 @@ const DropDownModal: FC<DropDownModalProps> = ({ children, chatId, title }) => {
       <DropdownMenu.Trigger asChild>
         <div>{children}</div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="bg-navy-25 border-navy-5 text-white">
+      <DropdownMenu.Content className="bg-navy-25 border-navy-5 text-[#473513]">
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
           <DropdownMenu.Item className="flex cursor-pointer hover:bg-navy-5 items-center w-full gap-4">
