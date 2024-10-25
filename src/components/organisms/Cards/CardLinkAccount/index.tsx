@@ -20,6 +20,7 @@ const CardLinkAccount: FC<HomePageProps> = ({ redirect, pathRedirect }) => {
   useEffect(() => {
     if (transactions?.length) {
       toast.success("The bank connection was successful");
+      console.log(transactions?.length);
       if (pathRedirect) {
         redirect();
       } else {

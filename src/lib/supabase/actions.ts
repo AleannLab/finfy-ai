@@ -179,12 +179,16 @@ export const saveTransactionsAndAccounts = async (
   transactions: Transaction[],
   userId: string
 ) => {
+  console.log("formattedTransactions 0")
+
   try {
     const uniqueAccounts = transactions.reduce(
       (acc: Account[], transaction) => {
         if (
           !acc.some((account) => account.account_id === transaction.account_id)
         ) {
+
+          console.log(acc, transaction.account_id )
 
           const account: Account = {
             account_id: transaction.account_id,
@@ -211,6 +215,7 @@ export const saveTransactionsAndAccounts = async (
       throw accountError;
     }
 
+    console.log("formattedTransactions 1")
 
 
     const formattedTransactions = transactions.map((transaction) => ({
@@ -246,6 +251,8 @@ export const saveTransactionsAndAccounts = async (
       website: transaction.website,
       user_id: `${userId}`,
     }));
+
+    console.log("formattedTransactions 2")
 
     const { error: transactionError } = await supabase
       .from("transactions")

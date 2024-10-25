@@ -66,6 +66,7 @@ const usePlaid = () => {
         body: JSON.stringify({ access_token: token }),
       });
       const { transactions } = await response.json();
+      console.log("transactions", transactions)
       if (user?.id) {
         await saveTransactionsAndAccounts(transactions, user.id);
       }
