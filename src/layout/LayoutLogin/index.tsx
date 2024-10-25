@@ -32,11 +32,11 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
           objectFit="contain"
           alt="view"
         />
-        <div className="flex flex-col gap-6 items-start max-w-xl">
-          <h1 className="text-navy-15 text-4xl font-bold">
-            Financially empower yourself with IMALI
-          </h1>
-          <p className="text-navy-15 text-lg font-medium">
+        <div className="flex text-[#272E48] flex-col gap-6 items-start max-w-xl">
+          <h1 className=" text-4xl font-bold">
+            Financially empower yourself with <span className="text-[#74BBC9]">Career buddy</span>
+          </h1> 
+          <p className=" text-lg font-medium">
             Empower Your Financial Institution with Customizable Virtual
             Financial Assistants and Conversational AI, Tailored to Speak Your
             Customers Language on Their Preferred Channels.
@@ -49,9 +49,9 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
           src={"/images/bg-login-page.png"}
           alt="background-login-page"
           objectFit="cover"
-          className={"opacity-20"}
+          className={""}
         />
-        <div className={"h-full flex-col flex bg-purple-15"}>
+        <div className={"h-full flex-col flex bg-[#547A91]"}>
           <div className="flex-1 flex justify-center items-center relative z-10 p-6">
             {children}
           </div>
