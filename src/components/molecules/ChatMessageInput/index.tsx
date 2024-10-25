@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
+import { useDispatch } from "react-redux";
+import { setMessages } from "@/lib/store/features/chat/chatSlice";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -27,6 +29,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     history,
     isLoading,
     setIsLoadingSendQuery,
+    messages
   } = useChat();
 
   const [message, setMessage] = useState("");
@@ -53,53 +56,86 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   //   return () => document.removeEventListener("mousedown", handleClickOutside);
   // }, []);
 
+  const dispatch = useDispatch()
+
   const onSubmit = async (formData: FormData) => {
-    if (!isLoading) {
-      setIsLoadingSendQuery(true);
-      const value = formData.get("message") as string;
-      setMessage("");
-      handleClose && handleClose();
-      const userId = user?.id;
-      if (value && userId) {
-        let currentChatId = chatId;
-        if (handleClose) {
-          handleResetChat();
-        }
-        if (!currentChatId || handleClose) {
-          const chat = await createChat(userId, value);
-          currentChatId = chat.payload.id;
-          router.push(`/dashboard/chat/${currentChatId}`, undefined);
-        }
-        if (currentChatId) {
-          createMessage({
-            chat_id: currentChatId,
-            user_id: userId,
-            content: value,
-            message_type: "user",
-            is_processed: true,
-          });
-          const data: any = await sendChatQuery(
-            `${userId}`,
-            currentChatId,
-            history,
-            value
-          );
-          if (data?.error) {
-            toast.error(data.error.message);
-          } else {
-            createMessage({
-              chat_id: currentChatId,
-              user_id: userId,
-              content: data.payload.output.text || data.payload.output,
-              message_type: "bot",
-              is_processed: true,
-              calculations: JSON.stringify(data.payload.calculations),
-            });
-          }
+    // if (!isLoading) {
+    //   setIsLoadingSendQuery(true);
+    //   const value = formData.get("message") as string;
+    //   setMessage("");
+    //   handleClose && handleClose();
+    //   const userId = user?.id;
+    //   if (value && userId) {
+    //     let currentChatId = chatId;
+    //     if (handleClose) {
+    //       handleResetChat();
+    //     }
+    //     if (!currentChatId || handleClose) {
+    //       const chat = await createChat(userId, value);
+    //       currentChatId = chat.payload.id;
+    //       router.push(`/dashboard/chat/${currentChatId}`, undefined);
+    //     }
+    //     if (currentChatId) {
+    //       createMessage({
+    //         chat_id: currentChatId,
+    //         user_id: userId,
+    //         content: value,
+    //         message_type: "user",
+    //         is_processed: true,
+    //       });
+    //       const data: any = await sendChatQuery(
+    //         `${userId}`,
+    //         currentChatId,
+    //         history,
+    //         value
+    //       );
+    //       if (data?.error) {
+    //         toast.error(data.error.message);
+    //       } else {
+    //         createMessage({
+    //           chat_id: currentChatId,
+    //           user_id: userId,
+    //           content: data.payload.output.text || data.payload.output,
+    //           message_type: "bot",
+    //           is_processed: true,
+    //           calculations: JSON.stringify(data.payload.calculations),
+    //         });
+    //       }
+    //     }
+    //   }
+    //   setIsLoadingSendQuery(false);
+    // }
+    setIsLoadingSendQuery(true);
+    setMessage("")
+  
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
+          threadId: null,
+          message,
+        }),
+      });
+
+ 
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let newMessages = [];
+  
+      if (reader) {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+  
+          const chunk = decoder.decode(value);
+          newMessages.push({ id: Date.now(), content: chunk, message_type: "assistant" });
+          dispatch(setMessages([...messages, { id: Date.now(), content: message, message_type: "user" }, ...newMessages]));
         }
       }
+  
       setIsLoadingSendQuery(false);
-    }
+
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {

@@ -17,7 +17,6 @@ interface ConversationProps {
 const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, isLoading } = useChat();
-  const suggests = useSelector((state: RootState) => state.chat.suggests);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollIntoView();
@@ -29,7 +28,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
         <div
           className={cn(
             "react-scroll-to-bottom--css-ikyem-79elbk absolute inset-0",
-            suggests ? "pb-52 md:pb-60" : "pb-24 md:pb-28"
+            "pb-24 md:pb-28"
           )}
         >
           <div className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center gap-2.5 md:gap-5 overflow-x-hidden pr-2">

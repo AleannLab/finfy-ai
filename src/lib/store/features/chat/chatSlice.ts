@@ -141,6 +141,7 @@ export const updateChat = createAsyncThunk(
   }
 );
 
+
 export const deleteChat = createAsyncThunk(
   "chat/deleteChat",
   async (chatId: string, { rejectWithValue }) => {
@@ -205,6 +206,10 @@ const chatSlice = createSlice({
     setSuggestQuestions(state, action: PayloadAction<any>) {
       state.suggests = action.payload;
     },
+    setMessages(state, action: PayloadAction<any[]>) {
+      state.messages = action.payload;
+    }
+    
   },
   extraReducers: (builder) => {
     builder
@@ -304,5 +309,6 @@ export const {
   setIsLoading,
   setChatId,
   setSuggestQuestions,
+  setMessages, 
 } = chatSlice.actions;
 export default chatSlice.reducer;
