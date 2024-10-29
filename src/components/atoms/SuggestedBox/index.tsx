@@ -1,17 +1,25 @@
 import { useChat, useUser } from "@/hooks";
+import { setSuggest } from "@/lib/store/features/suggest/suggestSlice";
+import { useAppSelector } from "@/lib/store/hooks";
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 interface SuggestBoxProps {
   label: string;
   content: string;
   icon: string;
+  item: any;
 }
 
-const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon }) => {
+const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
+  const suggest = useAppSelector((state) => state.suggest.suggest);
+
   const { user } = useUser();
   const router = useRouter();
+  const dispatch = useDispatch()
   const {
     createChat,
     sendChatQuery,
@@ -23,50 +31,10 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon }) => {
   } = useChat();
 
   const handleClick = async () => {
-    if (!isLoading) {
-      setIsLoadingSendQuery(true);
-      const value = content;
-      const userId = user?.id;
-      if (value && userId) {
-        let currentChatId = chatId;
-        if (!currentChatId) {
-          const chat = await createChat(userId, value);
-          currentChatId = chat.payload.id;
-          router.push(`/dashboard/chat/${currentChatId}`, undefined);
-        }
-        if (currentChatId) {
-          createMessage({
-            chat_id: currentChatId,
-            user_id: userId,
-            content: value,
-            message_type: "user",
-            is_processed: true,
-          });
-          const data: any = await sendChatQuery(
-            `${userId}`,
-            currentChatId,
-            history,
-            value
-          );
-
-          if (data?.error) {
-            toast.error(data.error.message);
-          } else {
-            createMessage({
-              chat_id: currentChatId,
-              user_id: userId,
-              content: data.payload.output.text || data.payload.output,
-              message_type: "bot",
-              is_processed: true,
-            });
-          }
-        }
-      }
-      setIsLoadingSendQuery(false);
-    }
+    dispatch(setSuggest(item))
   };
   return (
-    <button onClick={handleClick} className="suggest-box flex flex-col items-start block-suggest">
+    <button onClick={handleClick} className={cn("suggest-box flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "!border-black" : "")}>
       <p className="text-[#473513] mb-1 text-start">
         {icon} {label}
       </p>

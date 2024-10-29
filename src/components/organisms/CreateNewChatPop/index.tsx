@@ -4,6 +4,7 @@ import { Button, Dialog, Icon } from "@/components/atoms";
 import { FC, PropsWithChildren, useState } from "react";
 import { AssistInput } from "@/components/organisms";
 import { useSidebar } from "@/hooks";
+import { useRouter } from "next/navigation";
 
 interface CreateNewChatPopProps extends PropsWithChildren {}
 

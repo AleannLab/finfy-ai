@@ -81,8 +81,8 @@ export const useChat = () => {
   );
 
   const createChatCallback = useCallback(
-    async (userId: string, title: string) => {
-      const data = await dispatch(createChat({ userId, title }));
+    async (userId: string, title: string, chatId: any ) => {
+      const data = await dispatch(createChat({ userId, title, chatId }));
       return data;
     },
     [dispatch]

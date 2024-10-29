@@ -1,10 +1,12 @@
 "use client";
 import { Icon } from "@/components/atoms";
 import { useUser } from "@/hooks";
+import { useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
 
 const HeaderText = () => {
   const { user } = useUser();
+  const suggest = useAppSelector((state) => state.suggest.suggest);
   const pathname = usePathname();
   const firstName = "Nieve";
 
@@ -13,7 +15,7 @@ const HeaderText = () => {
       title: (
         <>
           <span className="text-purple-15">Hey {user?.name}!</span> I&apos;m
-          your financial assistant.
+          your {suggest?.category} assistant.
         </>
       ),
       cta: (

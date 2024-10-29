@@ -2,7 +2,7 @@
 
 import { useAppDispatch } from "@/lib/store/hooks";
 import { FC } from "react";
-import { setSuggest } from "@/lib/store/features/suggest/suggestSlice";
+import { setSuggests } from "@/lib/store/features/suggest/suggestSlice";
 interface FocusAssistantOptionProps {
   title: string;
   text: string;
@@ -16,7 +16,7 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    dispatch(setSuggest(suggest));
+    dispatch(setSuggests(suggest));
   };
   return (
     <button

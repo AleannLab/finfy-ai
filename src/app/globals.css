@@ -197,7 +197,6 @@ input:-webkit-autofill:active{
 .markdown-special ul li,
 .markdown-special ol li {
   font-size: 1rem;
-  color: white;
 }
 
 /* You can also add specific bullet styling */
@@ -217,7 +216,6 @@ input:-webkit-autofill:active{
   font-size: 1.2rem;
   line-height: 1.5rem;
   font-weight: 500;
-  color: white; /* White color for headers */
 }
 
 /* Make table scrollable on small screens */
@@ -260,7 +258,6 @@ input:-webkit-autofill:active{
     font-size: 1.5rem;
     line-height: 1.75rem;
     font-weight: bold;
-    color: white; /* White color for headers */  
   }
 
     .markdown-special table {
@@ -289,11 +286,9 @@ input:-webkit-autofill:active{
 }
 
 .markdown-special tr:nth-child(even) {
-  background-color: #3a3f47;
 }
 
 .markdown-special tr:hover {
-  background-color: #555a64;
 }
 
 

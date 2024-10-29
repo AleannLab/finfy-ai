@@ -18,7 +18,7 @@ export const categorizeDate = (dateStr: string): string => {
   const date = new Date(dateStr);
 
   if (isNaN(date.getTime())) {
-    return "Invalid Date";
+    return "Last 2 weeks";
   }
 
   if (isToday(date)) {

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 interface LayoutDashboardProps extends PropsWithChildren { }
 
 const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
-  const { messages } = useChat();
+  const { messages, isLoading } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
@@ -41,7 +41,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   return (
     <><div className={cn("bg-navy-25  w-full p-4 pt-16 lg:p-10 flex flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen" )}>
       <Header />
-      {messages.length ? (
+      {(messages.length || isLoading) ? (
         <Conversation handleOpenModal={handleOpenModal} />
       ) : (
         <>

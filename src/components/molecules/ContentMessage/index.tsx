@@ -108,12 +108,21 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
   };
 
+  function cleanMarkdown(text: string): string {
+    return text
+      .replace(/<\/?[^>]+(>|$)/g, "")  
+      .replace(/\s+/g, " ") 
+      .replace(/(\*\*)\s*(.*?)\s*(\*\*)/g, "$1$2$3")
+      .trim();
+  }
+  
+
   return (
     <div className="flex flex-col h-full">
       {!isUser && !isLoading && (
         <div className="flex items-end gap-4 mb-4">
           <span className="w-4 h-4">
-            <Icon type="SmallLogo" />
+            <Icon height="16px" width="16px" type="SmallLogo" />
           </span>
           <span className="text-[#473513] text-2xl leading-3 font-medium">
             {isLastMessage ? "Answer" : "Career Buddy"}
@@ -138,7 +147,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
             rehypePlugins={[rehypeRaw]}
             components={renderers}
           >
-            {text as string}
+            {cleanMarkdown(text as string)}
           </Markdown>
         )}
       </p>

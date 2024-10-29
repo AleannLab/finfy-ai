@@ -2,36 +2,42 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const fakeSuggestionData = [
   {
-    label: "Recent Transactions",
-    content: "Payment of $250 received from John Doe. Balance updated.",
-    icon: "💸",
-    category: "transactions",
+    label: "Mathematics Update",
+    content: "New exercises on calculus are now available for you to practice.",
+    icon: "📐",
+    category: "mathematics",
+    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  },
+  // {
+  //   label: "Maths Literacy Tip",
+  //   content: "Explore real-world examples to strengthen your financial math skills.",
+  //   icon: "🧮",
+  //   category: "maths-literacy",
+  //   assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  // },
+  {
+    label: "English Literature Insights",
+    content: "Analyze Shakespeare's 'Hamlet' with a new guided walkthrough.",
+    icon: "📚",
+    category: "english",
+    assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
   },
   {
-    label: "Pending Payments",
-    content: "You have a pending payment of $75 to Acme Corp.",
-    icon: "💳",
-    category: "payments",
+    label: "Physics Experiment Idea",
+    content: "Try a DIY project on Newton's laws with simple materials.",
+    icon: "⚗️",
+    category: "physical-sciences",
+    assistantId: "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
   },
   {
-    label: "Account Balance",
-    content: "Your current account balance is $1,450.75.",
-    icon: "🏦",
-    category: "balance",
-  },
-  {
-    label: "Expense Alert",
-    content: "You spent $120 on groceries today.",
-    icon: "🛒",
-    category: "expense",
-  },
-  {
-    label: "Investment Update",
-    content: "Your portfolio gained $500 in value this week.",
-    icon: "📈",
-    category: "investment",
+    label: "Economics Market Update",
+    content: "Explore this week's trends in the stock market with a detailed report.",
+    icon: "💹",
+    category: "economics",
+    assistantId: "asst_stEGiVDTlMIeDM7XGiezPI28",
   },
 ];
+
 
 const mockData = [
   {
@@ -254,11 +260,13 @@ const mockData = [
 
 interface SuggestState {
   suggest: any;
+  suggests: any;
   focusSuggests: any;
 }
 
 const initialState: SuggestState = {
-  suggest: fakeSuggestionData,
+  suggest: fakeSuggestionData?.[0],
+  suggests: fakeSuggestionData,
   focusSuggests: mockData,
 };
 
@@ -266,12 +274,15 @@ export const suggestSlice = createSlice({
   name: "suggested",
   initialState,
   reducers: {
+    setSuggests: (state, action) => {
+      state.suggests = action.payload;
+    },
     setSuggest: (state, action) => {
       state.suggest = action.payload;
     },
   },
 });
 
-export const { setSuggest } = suggestSlice.actions;
+export const { setSuggests, setSuggest } = suggestSlice.actions;
 
 export default suggestSlice.reducer;

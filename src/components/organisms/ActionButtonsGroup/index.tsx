@@ -12,7 +12,7 @@ import { FC } from "react";
 const ActionButtonsGroup: FC = () => {
   return (
     <nav className="hidden lg:flex text-grey-15 gap-2 mb-2">
-      <FocusAssistantPopover>
+      {/* <FocusAssistantPopover>
         <ActionButton
           Icon={
             <Icon
@@ -32,7 +32,7 @@ const ActionButtonsGroup: FC = () => {
           />
         }
         text={"Attach"}
-      />
+      /> */}
     </nav>
   );
 }

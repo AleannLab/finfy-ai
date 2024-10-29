@@ -30,9 +30,9 @@ const SuggestedQuestion: FC<SuggestedQuestionProps> = ({ question }) => {
       if (value && userId) {
         let currentChatId = chatId;
         if (!currentChatId) {
-          const chat = await createChat(userId, value);
-          currentChatId = chat.payload.id;
-          router.push(`/dashboard/chat/${currentChatId}`, undefined);
+          // const chat = await createChat(userId, value);
+          // currentChatId = chat.payload.id;
+          // router.push(`/dashboard/chat/${currentChatId}`, undefined);
         }
         if (currentChatId) {
           createMessage({

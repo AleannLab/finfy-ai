@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
-import { setMessages } from "@/lib/store/features/chat/chatSlice";
+import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
+import { useAppSelector } from "@/lib/store/hooks";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -35,7 +36,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const [message, setMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage Popover
   const textareaRef = useAutoResizeTextArea();
-  const popoverRef = useRef<HTMLDivElement | null>(null);
+  const popoverRef = useRef<HTMLDivElement | null>(null)
+  const suggest = useAppSelector((state) => state.suggest.suggest);
 
   const handleOpenPopup = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -51,92 +53,116 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       setIsPopupOpen(false);
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
-
-  const dispatch = useDispatch()
-
   const onSubmit = async (formData: FormData) => {
-    // if (!isLoading) {
-    //   setIsLoadingSendQuery(true);
-    //   const value = formData.get("message") as string;
-    //   setMessage("");
-    //   handleClose && handleClose();
-    //   const userId = user?.id;
-    //   if (value && userId) {
-    //     let currentChatId = chatId;
-    //     if (handleClose) {
-    //       handleResetChat();
-    //     }
-    //     if (!currentChatId || handleClose) {
-    //       const chat = await createChat(userId, value);
-    //       currentChatId = chat.payload.id;
-    //       router.push(`/dashboard/chat/${currentChatId}`, undefined);
-    //     }
-    //     if (currentChatId) {
-    //       createMessage({
-    //         chat_id: currentChatId,
-    //         user_id: userId,
-    //         content: value,
-    //         message_type: "user",
-    //         is_processed: true,
-    //       });
-    //       const data: any = await sendChatQuery(
-    //         `${userId}`,
-    //         currentChatId,
-    //         history,
-    //         value
-    //       );
-    //       if (data?.error) {
-    //         toast.error(data.error.message);
-    //       } else {
-    //         createMessage({
-    //           chat_id: currentChatId,
-    //           user_id: userId,
-    //           content: data.payload.output.text || data.payload.output,
-    //           message_type: "bot",
-    //           is_processed: true,
-    //           calculations: JSON.stringify(data.payload.calculations),
-    //         });
-    //       }
-    //     }
-    //   }
-    //   setIsLoadingSendQuery(false);
-    // }
     setIsLoadingSendQuery(true);
+    const savedInput = message;
     setMessage("")
+  
+    const inValue = formData.get("message") as string;
+    const userId = user?.id;
+  
+    if (!inValue || !userId) {
+      console.error("Missing message or userId");
+      setIsLoadingSendQuery(false);
+      return;
+    }
+  
+    try {
+      const assistantId =  suggest?.assistantId;
+      let threadId: string | null = null;
+
+      const currentPath = window.location.href;
+      const match = currentPath.match(/\/dashboard\/chat\/(thread_[\w\d]+)/);
+      if (match) {
+        threadId = match[1]; // Зберігаємо threadId
+        console.log("Found threadId from URL:", threadId);
+      }      let accumulatedResponse = "";
+  
+      if (handleClose) {
+        handleClose();
+        handleResetChat();
+      }
   
       const response = await fetch("/api/openai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
-          threadId: null,
-          message,
+          message: `${inValue}`,
+          assistantId,
+          chatId: threadId,
         }),
       });
-
- 
+  
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
-      let newMessages = [];
   
       if (reader) {
         while (true) {
           const { value, done } = await reader.read();
           if (done) break;
   
-          const chunk = decoder.decode(value);
-          newMessages.push({ id: Date.now(), content: chunk, message_type: "assistant" });
-          dispatch(setMessages([...messages, { id: Date.now(), content: message, message_type: "user" }, ...newMessages]));
+          const chunk = decoder.decode(value, { stream: true }).trim();
+  
+          const cleanChunk = chunk.startsWith("data:")
+            ? chunk.slice(5).trim()
+            : chunk;
+  
+          try {
+            const json = JSON.parse(cleanChunk);
+  
+            if (json.threadId) {
+              threadId = json.threadId;
+  
+              router.push(`/dashboard/chat/${threadId}`, undefined);
+  
+              await createChat(userId, inValue.slice(0, 30) + "...", threadId);
+            }
+  
+            if (json.message) {
+              console.log("Accumulated Message:", json.message);
+              accumulatedResponse += json.message + " ";
+            }
+          } catch (error) {
+            console.error("Error parsing chunk:", error);
+            accumulatedResponse += cleanChunk + " ";
+          }
         }
       }
   
-      setIsLoadingSendQuery(false);
+      accumulatedResponse = accumulatedResponse.trim();
+      console.log("Final Response:", accumulatedResponse);
+  
+      if (threadId) {
+        await createMessage({
+          chat_id: threadId,
+          user_id: userId,
+          content: savedInput,
+          message_type: "user",
+          is_processed: true,
+        });
 
+        await createMessage({
+          chat_id: threadId,
+          user_id: userId,
+          content: accumulatedResponse,
+          message_type: "assistant",
+          is_processed: true,
+        });
+        console.log("Message saved successfully");
+      } else {
+        console.error("Thread ID not found");
+        toast.error("Thread ID not received. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error in onSubmit:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsLoadingSendQuery(false);
+    }
   };
+  
+  
+  
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;

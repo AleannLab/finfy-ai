@@ -88,32 +88,44 @@ export const createMessage = createAsyncThunk(
 
 export const createChat = createAsyncThunk(
   "chat/createChat",
-  async ({ userId, title }: any) => {
+  async ({ userId, title, chatId }: { userId: string; title: string, chatId: any }, { dispatch }) => {
     const index = randomNumber(1, emojis.length);
 
     const { data, error } = await supabase
       .from("chats")
-      .insert([{ user_id: userId, title: `${emojis[index]} ${title}` }])
+      .insert([{ title: `${title}`, id: userId, chatId }])
       .select();
+
     if (error) {
       Sentry.captureException(error);
-      throw error;
+      console.error("Error creating chat:", error);
+      throw new Error("Failed to create chat.");
     }
-    return data.at(0);
+
+    if (!data || data.length === 0) {
+      throw new Error("No chat data returned from Supabase.");
+    }
+
+    dispatch(fetchChatsByUserId(userId))
+
+    return data[0];
   }
 );
 
+
+
 export const fetchChatsByUserId = createAsyncThunk(
   "chat/fetchChatsByUserId",
-  async (userId: string) => {
+  async (userId: string, { dispatch, getState }) => {
     const { data, error } = await supabase
       .from("chats")
       .select("*")
-      .eq("user_id", userId);
+      .eq("id", userId);
     if (error) {
       Sentry.captureException(error);
       throw error;
     }
+    dispatch(setChats(data));
     return data;
   }
 );
@@ -128,7 +140,7 @@ export const updateChat = createAsyncThunk(
       const { data, error } = await supabase
         .from("chats")
         .update(updateData)
-        .eq("id", id)
+        .eq("chatId", id)
         .select();
       if (error) {
         Sentry.captureException(error);
@@ -146,7 +158,7 @@ export const deleteChat = createAsyncThunk(
   "chat/deleteChat",
   async (chatId: string, { rejectWithValue }) => {
     try {
-      const { error } = await supabase.from("chats").delete().eq("id", chatId);
+      const { error } = await supabase.from("chats").delete().eq("chatId", chatId);
       if (error) {
         Sentry.captureException(error);
         throw error;
@@ -160,7 +172,7 @@ export const deleteChat = createAsyncThunk(
 
 export const fetchMessagesForChat = createAsyncThunk(
   "chat/fetchMessagesForChat",
-  async (chatId: string, { rejectWithValue }) => {
+  async (chatId: string, { dispatch, getState, rejectWithValue }) => {
     try {
       const { data, error } = await supabase
         .from("messages")
@@ -170,6 +182,8 @@ export const fetchMessagesForChat = createAsyncThunk(
         Sentry.captureException(error);
         throw error;
       }
+      dispatch(setMessages(data));
+      dispatch(setIsLoading(false));
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -208,92 +222,16 @@ const chatSlice = createSlice({
     },
     setMessages(state, action: PayloadAction<any[]>) {
       state.messages = action.payload;
-    }
-    
+    },
+    setChats(state, action: PayloadAction<any[]>) {
+      state.chats = action.payload;
+    },
+    addMessage(state, action: PayloadAction<any>) {
+      state.messages.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(sendChatQuery.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(sendChatQuery.fulfilled, (state, action) => {
-        if (action.payload.output) {
-          state.output = action.payload.output.text || action.payload.output;
-          state.calculations = action.payload.calculations;
-          state.suggests = action.payload?.suggested_questions || null;
-          if (state.user_query) {
-            state.history.push(state.user_query);
-          }
-        }
-      })
-      .addCase(sendChatQuery.rejected, (state, action) => {
-        state.error = action.payload as string;
-      })
-
-      .addCase(createChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(createChat.fulfilled, (state, action) => {
-        state.chats.push(action.payload);
-        state.chat_id = action.payload.id;
-      })
-      .addCase(createChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-      .addCase(fetchChatsByUserId.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(
-        fetchChatsByUserId.fulfilled,
-        (state, action: PayloadAction<any[]>) => {
-          state.chats = action.payload;
-        }
-      )
-      .addCase(fetchChatsByUserId.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(updateChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(updateChat.fulfilled, (state, action) => {
-        const index = state.chats.findIndex(
-          (chat) => chat.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.chats[index] = action.payload;
-        }
-      })
-      .addCase(updateChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(deleteChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(deleteChat.fulfilled, (state, action: PayloadAction<string>) => {
-        state.chats = state.chats.filter((chat) => chat.id !== action.payload);
-      })
-      .addCase(deleteChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(fetchMessagesForChat.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(
-        fetchMessagesForChat.fulfilled,
-        (state, action: PayloadAction<any[]>) => {
-          state.loading = false;
-          state.messages = action.payload;
-          state.history = action.payload.map((message) => message.content);
-        }
-      )
-      .addCase(fetchMessagesForChat.rejected, (state, action) => {
-        state.loading = false;
-        state.error = getErrorMessage(action.error) || null;
-      })
       .addCase(createMessage.fulfilled, (state, action: PayloadAction<any>) => {
         state.history.push(action.payload.content);
         state.messages.push(action.payload);
@@ -305,10 +243,12 @@ export const {
   setUserQuery,
   addToHistory,
   resetChat,
+  setChats,
   setIsLoadingSendMessage,
   setIsLoading,
   setChatId,
   setSuggestQuestions,
-  setMessages, 
+  setMessages,
+  addMessage,
 } = chatSlice.actions;
 export default chatSlice.reducer;

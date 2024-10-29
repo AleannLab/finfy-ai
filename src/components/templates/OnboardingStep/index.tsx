@@ -22,16 +22,16 @@ interface OnboardingStepPops {
 const stepComponents: {
   [key: string]: (props: any) => JSX.Element;
 } = {
-  [routesOnboarding.verifyPhoneNumber]: CardVerifyPhoneNumber,
-  [routesOnboarding.confirmPhoneNumber]: CardConfirmPhoneNumber,
-  [routesOnboarding.selectPlan]: CardSelectPlan,
-  [routesOnboarding.personalize]: CardPersonalize,
-  [routesOnboarding.userPolicy]: CardUserPolicy,
-  [routesOnboarding.finalUserPolicy]: CardFinalUserPolicy,
-  [routesOnboarding.selectCountry]: CardSelectCountry,
-  [routesOnboarding.connectBank]: CardLinkAccount,
-  [routesOnboarding.selectCurrency]: CardSelectCurrency,
-  [routesOnboarding.addStripe]: AddStripe,
+  // [routesOnboarding.verifyPhoneNumber]: CardVerifyPhoneNumber,
+  // [routesOnboarding.confirmPhoneNumber]: CardConfirmPhoneNumber,
+  // [routesOnboarding.selectPlan]: CardSelectPlan,
+  // [routesOnboarding.personalize]: CardPersonalize,
+  // [routesOnboarding.userPolicy]: CardUserPolicy,
+  // [routesOnboarding.finalUserPolicy]: CardFinalUserPolicy,
+  // [routesOnboarding.selectCountry]: CardSelectCountry,
+  // [routesOnboarding.connectBank]: CardLinkAccount,
+  // [routesOnboarding.selectCurrency]: CardSelectCurrency,
+  // [routesOnboarding.addStripe]: AddStripe,
   [routesOnboarding.setupComplete]: CardSetupComplete,
 };
 

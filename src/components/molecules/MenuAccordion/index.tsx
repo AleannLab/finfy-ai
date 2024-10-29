@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Accordion, Button, Icon as IconComponent } from "@/components/atoms";
 import { DropDownModal } from "@/components/molecules";
 import Link from "next/link";
@@ -109,8 +109,8 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                     <button
                       onClick={() =>
                         handleClick(
-                          content.id ? `${item.link}/${content.id}` : item.link,
-                          content.id
+                          content.chatId ? `${item.link}/${content.chatId}` : content.id ? `${item.link}/${content.id}` : item.link,
+                          content.chatId
                         )
                       }
                       className="flex flex-col w-[70%] lg:w-[180px]"
@@ -165,6 +165,10 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
 const MenuAccordion: FC = () => {
   const { chats, handleResetChat } = useChat();
   const { handleOpen } = useSidebar();
+
+  useEffect(()=> {
+    console.log("chatschats", chats)
+  }, [chats])
 
   return (
     <Accordion
