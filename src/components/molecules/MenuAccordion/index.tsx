@@ -34,7 +34,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   href,
   onClick,
 }) => {
-  const { open } = useSidebar();
+  const { open, handleToggle } = useSidebar();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const pathname = usePathname();
@@ -64,6 +64,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
       dispatch(fetchMessagesForChat(chatId as string));
       dispatch(setChatId(chatId as string));
     }
+    handleToggle()
   };
 
   const isActive =
@@ -76,7 +77,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
         disabled={isHideChevron}
         onClick={() => handleOpen()}
         className={cn("p-2 rounded-sm group hover:text-[#473513] hover:bg-navy-5", {
-          "bg-navy-25": isActive,
+          "": isActive,
         })}
       >
         <div className={"flex justify-between w-full items-center"}>
@@ -104,7 +105,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                 {contents.map((content: any, index: number) => (
                   <div
                     key={index}
-                    className="flex justify-between max-w-[calc(90%-50px)] lg:max-w-full hover:bg-navy-25 p-2 rounded-sm"
+                    className="flex justify-between max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm"
                   >
                     <button
                       onClick={() =>
@@ -113,9 +114,9 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                           content.chatId
                         )
                       }
-                      className="flex flex-col w-[70%] lg:w-[180px]"
+                      className="flex flex-col w-[90%] lg:w-[180px]"
                     >
-                      <p className="menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-[#473513] text-grey-5">
+                      <p className="menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white text-[#547A91]">
                         {content.title}
                       </p>
                     </button>

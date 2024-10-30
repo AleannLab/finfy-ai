@@ -69,10 +69,12 @@ const Sidebar = () => {
             />
           </Button>
         </div>
-        <CreateNewChatPop>
+        {/* <CreateNewChatPop> */}
           <Button
             onClick={()=> {
               router.push('/dashboard')
+              handleToggle()
+              handleResetChat()
             }}
             variant="ghost"
             className="flex gap-2 bg-navy-25 group text-nowrap border-purple-15 justify-start px-2 items-center border w-full !rounded-sm"
@@ -90,7 +92,7 @@ const Sidebar = () => {
               New Thread
             </span>
           </Button>
-        </CreateNewChatPop>
+        {/* </CreateNewChatPop> */}
       </div>
       <ScrollableArea className="px-2">
         <MenuAccordion />

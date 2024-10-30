@@ -3,11 +3,11 @@
 import { Button, Icon } from "@/components/atoms";
 import { CardTemplate } from "@/components/molecules";
 import { useNavigationOnboarding, useUser } from "@/hooks";
-import { setDataUser, updateUser } from "@/lib/store/features/user/userSlice";
+import { fetchUserById, setDataUser, updateUser } from "@/lib/store/features/user/userSlice";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import toast from "react-hot-toast";
 
 const CardSetupComplete = () => {
@@ -17,21 +17,37 @@ const CardSetupComplete = () => {
   const { user } = useUser();
   const router = useRouter();
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (!user?.id) {
+        console.warn("User not found. Refreshing page...");
+        router.refresh();
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [user?.id, router]);
+
   const handleClickComplete = () => {
     startTransition(async () => {
-      if (user?.id) {
-        await dispatch(setDataUser(user?.id));
+      try {
         if (user?.id) {
-          await dispatch(
-            updateUser({
-              finished_onboarding: true,
-            })
-          );
+          await dispatch(setDataUser(user?.id));
+          if (user?.id) {
+            await dispatch(
+              updateUser({
+                finished_onboarding: true,
+              })
+            );
+          }
+          router.push("/dashboard");
+        } else {
+          router.refresh();
         }
-        router.push("/dashboard");
-      } else {
+      } catch {
         toast.error("Something Wrong!");
       }
+
     });
   };
   return (
@@ -46,30 +62,11 @@ const CardSetupComplete = () => {
         cardHeader: "flex flex-col justify-center items-center",
         cardDescription: "text-center",
       }}
-      description="Thank you! Your bank account was connected to Imali"
+      description="Thank you! Registration finished"
     >
       <CardTemplate.Footer className="flex justify-between flex-col w-full gap-3 items-center mt-6">
-        <Button
-          variant="ghost"
-          as="link"
-          href="/onboarding/connect-bank?redirect=/onboarding/setup-complete"
-          size="xl"
-          full
-        >
-          Connect another account
-        </Button>
         <Button onClick={handleClickComplete} size="xl" full>
-          {isPending ? <Loader2 className="animate-spin" /> : "Go to Dashboard"}
-        </Button>
-        <Button
-          size="xl"
-          onClick={prevStep}
-          type="button"
-          full
-          variant="destructive"
-          className="!rounded-md"
-        >
-          Back
+          {(isPending || !user?.id) ? <Loader2 className="animate-spin" /> : "Go to Dashboard"}
         </Button>
       </CardTemplate.Footer>
     </CardTemplate>
