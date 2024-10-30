@@ -19,9 +19,11 @@ const CardSetupComplete = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      console.log(user);
+
       if (!user?.id) {
-        console.warn("User not found. Refreshing page...");
-        router.refresh();
+        console.log("User not found. Refreshing page...");
+        window.location.reload()
       }
     }, 1000);
 
@@ -42,7 +44,7 @@ const CardSetupComplete = () => {
           }
           router.push("/dashboard");
         } else {
-          router.refresh();
+          window.location.reload()
         }
       } catch {
         toast.error("Something Wrong!");
