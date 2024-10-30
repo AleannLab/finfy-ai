@@ -49,7 +49,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           <div className="flex flex-1 flex-col">
             <div className="flex items-center h-fit text-grey-15">
               <Icon type="LightningBolt" className="text-grey-15" />
-              <p className="text-base">Change yor assistant</p>
+              <p className="text-base">Change your assistant</p>
             </div>
             <HomeSuggestBoxes />
           </div>
