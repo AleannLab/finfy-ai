@@ -95,7 +95,7 @@ const useVoiceChat = () => {
       //   {
       //     name: "show_resume",
       //     description:
-      //       "Shows Roel's resume and provides the user with more info about Roel. Use this when they want to know more about Roel.",
+      //       "Shows resume and provides the user with more info ",
       //     parameters: {},
       //     handler: async () => {
       //       setCurrentTool(<Resume onClose={() => setCurrentTool(null)} />);
@@ -159,37 +159,6 @@ const useVoiceChat = () => {
       client.reset();
     };
   }, []);
-
-  //   useEffect(() => {
-  //     let isLoaded = true;
-
-  //     const render = () => {
-  //         if (isLoaded) {
-  //             const wavRecorder = wavRecorderRef.current;
-  //             const wavStreamPlayer = wavStreamPlayerRef.current;
-  //             // const result1 = wavRecorder.recording
-  //             // ? wavRecorder.getFrequencies("voice")
-  //             // : { values: new Float32Array([0]) };
-  //             // const result2 = wavStreamPlayer.analyser
-  //             // ? wavStreamPlayer.getFrequencies("voice")
-  //             // : { values: new Float32Array([0]) };
-  //             if (wavRecorder.recording) {
-  //                 console.log('CHECK', wavRecorder.getFrequencies("voice"))
-  //                 setIsListening(true)
-  //             } else {
-  //                 setIsListening(false)
-  //             }
-
-  //             window.requestAnimationFrame(render);
-  //         }
-  //     }
-
-  //     render();
-
-  //     return () => {
-  //       isLoaded = false;
-  //     };
-  //   }, []);
 
   const sendTextMessage = (input: string) => {
     clientRef.current?.sendUserMessageContent([
