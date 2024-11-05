@@ -4,11 +4,10 @@ import { Button } from "@/components/atoms";
 import useVoiceChat from "@/hooks/useVoiceChat";
 import { WavRenderer } from "@/lib/wavtools";
 import {
-  PlayIcon,
-  PauseIcon,
   Cross2Icon,
   SpeakerLoudIcon,
   SpeakerOffIcon,
+  PlusCircledIcon
 } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import Image from "next/image";
@@ -122,7 +121,7 @@ const AudioChat = () => {
               connectConversation();
             }}
           >
-            <SpeakerOffIcon className="size-4" color="white" />
+            <PlusCircledIcon className="size-4" color="white" />
           </Button>
         )}
         {
@@ -138,17 +137,7 @@ const AudioChat = () => {
               className="w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
               disabled={isConnecting}
               onClick={() => {
-                toggleMute();
-                // if (isConnected) {
-                //   toggleMute();
-                // } else {
-                //   setIsConnecting(true);
-                //   connectConversation();
-                //   setTimeout(() => {
-                //     toggleMute();
-                //     setIsConnecting(false);
-                //   }, 1000);
-                // }
+                toggleMute()
               }}
             >
               {isMuted && <SpeakerOffIcon className="size-4" color="white" />}
