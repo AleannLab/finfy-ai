@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon, Textarea } from "@/components/atoms";
+import { Button, Icon, Modal, Textarea } from "@/components/atoms";
 import { useAutoResizeTextArea, useChat, useUser } from "@/hooks";
 import { Loader2 } from "lucide-react";
 import { ChangeEvent, FC, useRef, useState, useEffect, useCallback } from "react";
@@ -11,6 +11,8 @@ import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/compon
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
 import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
+import { SpeakerModerateIcon } from "@radix-ui/react-icons";
+import { AudioChat } from "../AudioChat";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 
 interface ChatMessageInputProps {
@@ -39,6 +41,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const textareaRef = useAutoResizeTextArea();
   const popoverRef = useRef<HTMLDivElement | null>(null)
   const suggest = useAppSelector((state) => state.suggest.suggest);
+  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const handleOpenPopup = (event: React.MouseEvent) => {
@@ -152,6 +155,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
+        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={() => setIsVoiceChatModalOpen(true)}>
+          <SpeakerModerateIcon className="size-4" color='white'/>
+        </Button>
         <Button size="xl" type="submit" className="w-10 h-10 p-3">
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -160,6 +166,17 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
+      <Modal
+        open={isVoiceChatModalOpen}
+        onClose={() => setIsVoiceChatModalOpen(false)}
+        classes={{
+          container: "w-[50%] flex items-center justify-center",
+          background: "backdrop-blur-none",
+          wrapper: "!w-[40%] h-[50%] backdrop-blur-none bg-white rounded-xl",
+        }}
+      >
+        <AudioChat />
+      </Modal>
     </form>
   );
 };
