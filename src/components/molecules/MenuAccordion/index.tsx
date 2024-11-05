@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Accordion, Button, Icon as IconComponent } from "@/components/atoms";
 import { DropDownModal } from "@/components/molecules";
 import Link from "next/link";
@@ -69,16 +69,21 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
 
   const isActive =
     pathname === item.link || pathname.startsWith(`${item.link}/`);
+  const isActiveType =
+    item.href.includes(pathname);
 
   return (
     <Accordion.Item className="flex flex-col gap-0.5" value={item.value}>
       <Accordion.Trigger
         isHideChevron={isHideChevron}
         disabled={isHideChevron}
-        onClick={() => handleOpen()}
-        className={cn("p-2 rounded-sm group hover:text-[#473513] hover:bg-navy-5", {
-          "": isActive,
-        })}
+        onClick={() => {
+           handleOpen()
+           router.push(href)
+        }}
+        className={cn("p-2 rounded-sm group", {
+          "bg-[#547A91] !text-white hover:!text-white": isActiveType,
+        }, {"hover:text-[#473513] hover:bg-navy-5": !isActiveType})}
       >
         <div className={"flex justify-between w-full items-center"}>
           <Link
@@ -102,7 +107,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             Object.entries(groupedContents).map(([group, contents]: any) => (
               <Accordion.Content key={group}>
                 <p className="text-sm lg:text-xs my-1">{group}</p>
-                {contents.map((content: any, index: number) => (
+                {contents.filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => (
                   <div
                     key={index}
                     className="flex justify-between max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm"
@@ -166,13 +171,22 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
 const MenuAccordion: FC = () => {
   const { chats, handleResetChat } = useChat();
   const { handleOpen } = useSidebar();
+  const [value, setValue] = useState('')
+  const pathname = usePathname();
 
   useEffect(()=> {
-    console.log("chatschats", chats)
-  }, [chats])
+    
+    if (pathname.includes('tutor')) {
+      setValue('tutor')
+    } 
+    if (pathname.includes('career-coach')) {
+      setValue('career-coach')
+    }
+  }, [pathname])
 
   return (
     <Accordion
+      value={value}
       type="single"
       collapsible
       className="flex flex-col gap-0.5 max-w-[calc(100%)]"
@@ -181,7 +195,7 @@ const MenuAccordion: FC = () => {
         <MenuAccordionItem
           key={item.value}
           item={item}
-          contents={item.value === "assistant" ? chats : item.contents}
+          contents={item.value === "career-coach" || item.value === "tutor" ? chats : item.contents}
           handleOpen={handleOpen}
           isHideChevron={item.isHideChevron}
           onClick={handleResetChat}

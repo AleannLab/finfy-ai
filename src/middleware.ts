@@ -74,6 +74,9 @@ export async function middleware(request: NextRequest) {
     if (!user && !isAuthRoute) {
       return NextResponse.redirect(new URL("/authentication", request.url));
     }
+    if (path == "/dashboard") {
+      return NextResponse.redirect(new URL("/dashboard/career-coach", request.url));
+    }
     if (!path.includes("/dashboard")) {
       const { data, error } = await supabase
       .from("users")
@@ -81,7 +84,7 @@ export async function middleware(request: NextRequest) {
       .ilike("email", `${user?.email}`)
       .single();
       if (data?.finished_onboarding) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+        return NextResponse.redirect(new URL("/dashboard/career-coach", request.url));
       } else if (!path.includes("/onboarding")) {
         return NextResponse.redirect(new URL("/onboarding", request.url));
       }

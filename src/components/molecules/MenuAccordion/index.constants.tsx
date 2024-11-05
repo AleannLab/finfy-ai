@@ -11,12 +11,12 @@ export const menuItems: MenuItem[] = [
       />
     ),
     title: "Career Coach",
-    link: "/dashboard/chat",
-    href: "/dashboard",
+    link: "/dashboard/career-coach/chat",
+    href: "/dashboard/career-coach",
     contents: [],
   },
   {
-    value: "assistant",
+    value: "tutor",
     icon: () => (
       <Icon
         type="SparkleIcon"
@@ -24,8 +24,8 @@ export const menuItems: MenuItem[] = [
       />
     ),
     title: "Tutor",
-    link: "/dashboard/chat",
-    href: "/dashboard",
+    link: "/dashboard/tutor/chat",
+    href: "/dashboard/tutor",
     contents: [],
   },
 ];

@@ -88,12 +88,12 @@ export const createMessage = createAsyncThunk(
 
 export const createChat = createAsyncThunk(
   "chat/createChat",
-  async ({ userId, title, chatId }: { userId: string; title: string, chatId: any }, { dispatch }) => {
+  async ({ userId, title, chatId, type }: { userId: string; title: string, chatId: any, type: string }, { dispatch }) => {
     const index = randomNumber(1, emojis.length);
 
     const { data, error } = await supabase
       .from("chats")
-      .insert([{ title: `${title}`, id: userId, chatId }])
+      .insert([{ title: `${title}`, id: userId, chatId, type }])
       .select();
 
     if (error) {

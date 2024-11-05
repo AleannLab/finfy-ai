@@ -16,11 +16,12 @@ import {
   setSuggestQuestions,
 } from "@/lib/store/features/chat/chatSlice";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const useChat = () => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   const chatState = useSelector((state: RootState) => state.chat);
 
@@ -119,11 +120,11 @@ export const useChat = () => {
 
             try {
               const json = JSON.parse(cleanChunk);
-
+              const type = pathname.includes("tutor") ? "tutor" : "career-coach";
               if (json.threadId) {
                 threadId = json.threadId;
-                router.push(`/dashboard/chat/${threadId}`, undefined);
-                createChatCallback(userId, message.slice(0, 30) + "...", threadId);
+                router.push(`${pathname}/chat/${threadId}`, undefined);
+                createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
               }
 
               if (json.message) {
@@ -190,8 +191,9 @@ export const useChat = () => {
   );
 
   const createChatCallback = useCallback(
-    async (userId: string, title: string, chatId: any ) => {
-      const data = await dispatch(createChat({ userId, title, chatId }));
+    async (userId: string, title: string, chatId: any, type: string ) => {
+
+      const data = await dispatch(createChat({ userId, title, chatId, type }));
       return data;
     },
     [dispatch]

@@ -46,7 +46,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       ) : (
         <>
           <HeaderText />
-          <div className="flex max-w-[1050px] flex-1 flex-col">
+          <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
             <div className="flex items-center h-fit text-grey-15">
               <Icon type="LightningBolt" className="text-grey-15" />
               <p className="text-base">Suggestions</p>

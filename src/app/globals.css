@@ -154,7 +154,7 @@ input:-webkit-autofill:active{
   margin-top: 18px;
   position: relative;
   border-radius: 4px;
-  color: #515ada;
+  color: #fbab18;
   background: currentColor;
   box-sizing: border-box;
   animation: animloader 0.5s 0.9s linear infinite alternate;

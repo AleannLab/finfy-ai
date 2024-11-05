@@ -1,15 +1,18 @@
 "use client";
 import { Icon } from "@/components/atoms";
 import { useUser } from "@/hooks";
-import { useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
 import { FocusAssistantPopover } from "../Popovers";
 import { ActionButton } from "../ActionButton";
+import { useEffect } from "react";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
 const HeaderText = () => {
   const { user } = useUser();
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
   const firstName = "Nieve";
   let isHome = false;
 
@@ -94,6 +97,21 @@ const HeaderText = () => {
     content = headerText.home;
     isHome = true;
   }
+
+
+  useEffect(() => {
+    if (pathname.includes('tutor')) {
+      dispatch(setFocusSuggests(tutor))
+      dispatch(setSuggest(defaultTutor))
+      dispatch(setSuggests(tutorSuggestionData))
+    }
+    if (pathname.includes('career-coach')) {
+      dispatch(setFocusSuggests(careerCoach))
+      dispatch(setSuggest(defaultCareerCoachAssistant))
+      dispatch(setSuggests(careerCoachAssistantSuggestionData))
+
+    }
+  }, [pathname])
 
   return (
     <div>

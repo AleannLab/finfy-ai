@@ -1,6 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const fakeSuggestionData = [
+export const defaultCareerCoachAssistant =  {
+    label: "Career Coach Assistant",
+    content: "Ask me any questions",
+    icon: "📘",
+    category: "career coach",
+    assistantId: "asst_XizmVhjCdwImRlerh0Z5bh9e",
+};
+
+export const defaultTutor =  {
+    label: "Tutor",
+    content: "Ask me any questions",
+    icon: "📘",
+    category: "tutor",
+    assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
+};
+
+export const tutorSuggestionData = [
   {
     label: "Mathematics",
     content: "Master math concepts and ace your exams.",
@@ -31,8 +47,38 @@ const fakeSuggestionData = [
   },
 ];
 
+export const careerCoachAssistantSuggestionData = [
+  {
+    label: "CoachXpert",
+    content: "What are top skills needed in South Africa?",
+    icon: "🎓",
+    category: "career",
+    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn"
+  },
+  {
+    label: "CampusNavigator",
+    content: "Which universities offer computer science?",
+    icon: "🏫",
+    category: "education",
+    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc"
+  },
+  {
+    label: "CourseQuest",
+    content: "What online courses can I take for free?",
+    icon: "📚",
+    category: "courses",
+    assistantId: ""
+  },
+  {
+    label: "BursaryFinder",
+    content: "Where can I find bursaries for 2024?",
+    icon: "💰",
+    category: "scholarships",
+    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS"
+  }
+];
 
-const mockData = [
+export const tutor = [
   {
     title: "📘 Mathematics",
     text: "Master math concepts and ace your exams.",
@@ -239,6 +285,7 @@ const mockData = [
   },
   {
     title: "💼 Economics",
+    category: "economics",
     text: "Understand economics deeply and score high marks.",
     assistantId: "asst_stEGiVDTlMIeDM7XGiezPI28",
     suggest: [
@@ -638,6 +685,246 @@ const mockData = [
   },
 ];
 
+export const careerCoach = [
+  {
+    title: "🎓 CoachXpert",
+    text: "Guiding your career growth.",
+    category: "career",
+    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn",
+    suggest: [
+      {
+        label: "Choosing Grade 9 Subjects",
+        content: "What subjects should I choose in Grade 9?"
+      },
+      {
+        label: "Aligning Subjects with Careers",
+        content: "How do I align my subject choices with future career goals?"
+      },
+      {
+        label: "Preparing for FET Phase",
+        content: "How do I prepare for the transition from Grade 9 to FET?"
+      },
+      {
+        label: "Creating a Study Plan",
+        content: "How can I create an effective study plan for Grade 12?"
+      },
+      {
+        label: "Exploring University Pathways",
+        content: "Which university courses align with my subjects?"
+      },
+      {
+        label: "Preparing for Bursary Applications",
+        content: "How do I get ready to apply for bursaries?"
+      },
+      {
+        label: "Setting Career Goals",
+        content: "How do I set career goals while still in school?"
+      },
+      {
+        label: "Exploring Vocational Training",
+        content: "What are the best vocational training options in South Africa?"
+      },
+      {
+        label: "Understanding TVET Colleges",
+        content: "What are TVET colleges, and should I apply?"
+      },
+      {
+        label: "Planning for High-Demand Careers",
+        content: "Which high-demand careers should I consider?"
+      },
+      {
+        label: "Finding Mentorship Opportunities",
+        content: "How can I find a mentor in my field of interest?"
+      },
+      {
+        label: "Balancing Studies and Extracurriculars",
+        content: "How do I balance my studies with sports and hobbies?"
+      }
+    ]
+  },
+  {
+    title: "💰 BursaryFinder",
+    text: "Unlock scholarships for you.",
+    category: "scholarships",
+    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
+    suggest: [
+      {
+        label: "2024 Bursaries",
+        content: "Where can I find bursaries for 2024?"
+      },
+      {
+        label: "SA Bursaries",
+        content: "Which companies offer bursaries in South Africa?"
+      },
+      {
+        label: "Bursary Application",
+        content: "How do I apply for a bursary?"
+      },
+      {
+        label: "First-Year Bursaries",
+        content: "Are there bursaries for first-year students?"
+      },
+      {
+        label: "Study Abroad Bursaries",
+        content: "Can I get a bursary for studying abroad?"
+      },
+      {
+        label: "Engineering Bursaries",
+        content: "What bursaries are available for engineering?"
+      },
+      {
+        label: "Bursary Motivation Letter",
+        content: "How do I write a bursary motivation letter?"
+      },
+      {
+        label: "Postgrad Bursaries",
+        content: "Are there bursaries for postgraduate studies?"
+      },
+      {
+        label: "Field-Specific Bursaries",
+        content: "How can I get a bursary for my field?"
+      },
+      {
+        label: "Bursary Deadlines",
+        content: "When is the deadline for bursary applications?"
+      },
+      {
+        label: "Rural Bursaries",
+        content: "Are there bursaries for rural students?"
+      },
+      {
+        label: "Women in STEM",
+        content: "What bursaries are available for women in STEM?"
+      }
+    ]
+  },
+  {
+    title: "🏫 CampusNavigator",
+    text: "Discover your perfect school.",
+    category: "education",
+    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
+    suggest: [
+      {
+        label: "Top TVET Colleges",
+        content: "How do I find a top TVET college?"
+      },
+      {
+        label: "Best Technical Universities",
+        content: "What's the best technical university in SA?"
+      },
+      {
+        label: "Private Engineering Colleges",
+        content: "Which private colleges offer engineering courses?"
+      },
+      {
+        label: "TVET College Application",
+        content: "How do I apply to a TVET college?"
+      },
+      {
+        label: "University vs TVET",
+        content: "What's the difference between universities and TVET colleges?"
+      },
+      {
+        label: "Study Graphic Design",
+        content: "Where can I study graphic design in SA?"
+      },
+      {
+        label: "Public vs Private Colleges",
+        content: "How do I choose between public and private colleges?"
+      },
+      {
+        label: "Online Degree Programs",
+        content: "Which universities offer online degree programs?"
+      },
+      {
+        label: "Find Right Campus",
+        content: "How do I find the right campus for me?"
+      },
+      {
+        label: "Top Business Schools",
+        content: "What are the top-rated business schools in South Africa?"
+      },
+      {
+        label: "Evening Classes",
+        content: "Which universities offer evening classes?"
+      },
+      {
+        label: "Local University Scholarships",
+        content: "How do I find scholarships for local universities?"
+      }
+    ]
+  },
+  {
+    title: "🔍 CareerExplorer",
+    text: "Find your passion, shape future.",
+    category: "career-exploration",
+    assistantId: "asst_c6ZOXBtcSSw7Jy3F7zkzeryA",
+    suggest: [
+      {
+        label: "Careers in Demand",
+        content: "What careers are in demand in South Africa?"
+      },
+      {
+        label: "Explore Career Options",
+        content: "How do I explore different career options?"
+      },
+      {
+        label: "Emerging SA Careers",
+        content: "What are emerging careers in SA?"
+      },
+      {
+        label: "Find Your Passion",
+        content: "How do I find my passion?"
+      },
+      {
+        label: "Creative Careers",
+        content: "What's a good career for creatives?"
+      },
+      {
+        label: "Top-Paying Careers",
+        content: "Which careers pay the most in SA?"
+      },
+      {
+        label: "Renewable Energy Careers",
+        content: "How can I start a career in renewable energy?"
+      },
+      {
+        label: "Introvert-Friendly Careers",
+        content: "What's the best career for introverts?"
+      },
+      {
+        label: "Become a Data Scientist",
+        content: "How do I become a data scientist?"
+      },
+      {
+        label: "Helping Professions",
+        content: "What careers suit someone who loves helping others?"
+      },
+      {
+        label: "Career Trends",
+        content: "What are the top career trends in SA?"
+      },
+      {
+        label: "Start in AI",
+        content: "How do I start a career in AI?"
+      }
+    ]
+  },
+  {
+    title: "📚 CourseQuest",
+    text: "Pursue the ideal courses.",
+    category: "courses",
+    assistantId: "",
+    suggest: []
+  },
+  {
+    title: "🏛 EduPathfinder",
+    text: "Helping you find the best places to study.",
+    category: "education-path",
+    assistantId: "",
+    suggest: []
+  }
+];
 
 
 
@@ -649,9 +936,9 @@ interface SuggestState {
 }
 
 const initialState: SuggestState = {
-  suggest: fakeSuggestionData?.[0],
-  suggests: fakeSuggestionData,
-  focusSuggests: mockData,
+  suggest: {},
+  suggests: [],
+  focusSuggests: [],
 };
 
 export const suggestSlice = createSlice({
@@ -661,12 +948,15 @@ export const suggestSlice = createSlice({
     setSuggests: (state, action) => {
       state.suggests = action.payload;
     },
+    setFocusSuggests: (state, action) => {
+      state.focusSuggests = action.payload;
+    },
     setSuggest: (state, action) => {
       state.suggest = action.payload;
     },
   },
 });
 
-export const { setSuggests, setSuggest } = suggestSlice.actions;
+export const { setSuggests, setSuggest, setFocusSuggests } = suggestSlice.actions;
 
 export default suggestSlice.reducer;

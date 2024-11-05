@@ -1,9 +1,10 @@
 "use client";
 
 import { useAppDispatch } from "@/lib/store/hooks";
-import { FC } from "react";
-import { setSuggest, setSuggests } from "@/lib/store/features/suggest/suggestSlice";
+import { FC, useEffect } from "react";
+import { careerCoach, setFocusSuggests, setSuggest, setSuggests, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 interface FocusAssistantOptionProps {
   title: string;
   text: string;
@@ -21,7 +22,7 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
   const handleClick = () => {
     dispatch(setSuggests(suggest));
     dispatch(setSuggest(item))
-  };
+  }; 
   return (
     <button
       onClick={handleClick}
