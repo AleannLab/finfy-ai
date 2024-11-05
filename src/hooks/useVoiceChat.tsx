@@ -10,16 +10,18 @@ import { ReactNode } from "react";
 const useVoiceChat = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [currentTool, setCurrentTool] = useState<ReactNode | null>(null);
   const [isTalking, setIsTalking] = useState(false);
+  const [isListening, setIsListening] = useState<any>();
+  const [currentTool, setCurrentTool] = useState<ReactNode | null>(null);
 
   const startTimeRef = useRef(new Date().toISOString());
   const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
   const wavStreamPlayerRef = useRef(new WavStreamPlayer({ sampleRate: 24000 }));
   const clientRef = useRef<RealtimeClient>(
     new RealtimeClient({
-      apiKey: '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',
-      dangerouslyAllowAPIKeyInBrowser: true
+      apiKey:
+        "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",
+      dangerouslyAllowAPIKeyInBrowser: true,
     })
   );
 
@@ -46,6 +48,7 @@ const useVoiceChat = () => {
     if (clientRef.current) clientRef.current.disconnect();
     await wavRecorderRef.current.end();
     wavStreamPlayerRef.current.interrupt();
+    setIsMuted(true);
   }, []);
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const useVoiceChat = () => {
 
     const wavStreamPlayer = wavStreamPlayerRef.current;
     const client = clientRef.current;
+    const wavRecorder = wavRecorderRef.current;
 
     client.updateSession({
       instructions,
@@ -75,27 +79,27 @@ const useVoiceChat = () => {
           return "Goodbye";
         },
       },
-    //   {
-    //     name: "schedule_call",
-    //     description: "Shows a button which can be used to schedule a call.",
-    //     parameters: {},
-    //     handler: async () => {
-    //       setCurrentTool(<ScheduleButton />);
-    //       return { ok: true };
-    //     },
-    //   },
-    //   {
-    //     name: "show_resume",
-    //     description:
-    //       "Shows Roel's resume and provides the user with more info about Roel. Use this when they want to know more about Roel.",
-    //     parameters: {},
-    //     handler: async () => {
-    //       setCurrentTool(<Resume onClose={() => setCurrentTool(null)} />);
-    //       return {
-    //         ok: true,
-    //       };
-    //     },
-    //   },
+      //   {
+      //     name: "schedule_call",
+      //     description: "Shows a button which can be used to schedule a call.",
+      //     parameters: {},
+      //     handler: async () => {
+      //       setCurrentTool(<ScheduleButton />);
+      //       return { ok: true };
+      //     },
+      //   },
+      //   {
+      //     name: "show_resume",
+      //     description:
+      //       "Shows Roel's resume and provides the user with more info about Roel. Use this when they want to know more about Roel.",
+      //     parameters: {},
+      //     handler: async () => {
+      //       setCurrentTool(<Resume onClose={() => setCurrentTool(null)} />);
+      //       return {
+      //         ok: true,
+      //       };
+      //     },
+      //   },
     ];
 
     tools.forEach((tool) =>
@@ -107,9 +111,6 @@ const useVoiceChat = () => {
 
     client.realtime.on("server.error", async (error: unknown) => {
       console.error(error);
-      alert(
-        "OpenAI is expensive :'( This app ran out of credits. Please try again later."
-      );
       disconnectConversation();
     });
 
@@ -151,6 +152,37 @@ const useVoiceChat = () => {
     };
   }, []);
 
+  //   useEffect(() => {
+  //     let isLoaded = true;
+
+  //     const render = () => {
+  //         if (isLoaded) {
+  //             const wavRecorder = wavRecorderRef.current;
+  //             const wavStreamPlayer = wavStreamPlayerRef.current;
+  //             // const result1 = wavRecorder.recording
+  //             // ? wavRecorder.getFrequencies("voice")
+  //             // : { values: new Float32Array([0]) };
+  //             // const result2 = wavStreamPlayer.analyser
+  //             // ? wavStreamPlayer.getFrequencies("voice")
+  //             // : { values: new Float32Array([0]) };
+  //             if (wavRecorder.recording) {
+  //                 console.log('CHECK', wavRecorder.getFrequencies("voice"))
+  //                 setIsListening(true)
+  //             } else {
+  //                 setIsListening(false)
+  //             }
+
+  //             window.requestAnimationFrame(render);
+  //         }
+  //     }
+
+  //     render();
+
+  //     return () => {
+  //       isLoaded = false;
+  //     };
+  //   }, []);
+
   const sendTextMessage = (input: string) => {
     clientRef.current?.sendUserMessageContent([
       { type: "input_text", text: input },
@@ -171,12 +203,15 @@ const useVoiceChat = () => {
   return {
     isConnected,
     isTalking,
+    isListening,
     isMuted,
     connectConversation,
     disconnectConversation,
     currentTool,
     sendTextMessage,
     toggleMute,
+    wavRecorderRef,
+    wavStreamPlayerRef,
   };
 };
 
