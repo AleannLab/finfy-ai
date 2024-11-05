@@ -3,12 +3,15 @@ import { Icon } from "@/components/atoms";
 import { useUser } from "@/hooks";
 import { useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
+import { FocusAssistantPopover } from "../Popovers";
+import { ActionButton } from "../ActionButton";
 
 const HeaderText = () => {
   const { user } = useUser();
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const pathname = usePathname();
   const firstName = "Nieve";
+  let isHome = false;
 
   const headerText = {
     home: {
@@ -89,23 +92,41 @@ const HeaderText = () => {
     content = headerText.goals;
   } else {
     content = headerText.home;
+    isHome = true;
   }
 
   return (
-  <div>
-    <div className="lg:flex hidden flex-col w-full items-center justify-center pb-5 lg:pb-10">
-      {content && (
-        <>
-          <h1 className="header text-center">{content.title}</h1>
-          {content.cta}
-        </>
-      )}
+    <div>
+      <div className="flex w-full">
+        {isHome &&
+          (<>
+            <FocusAssistantPopover>
+              <ActionButton
+                Icon={
+                  <Icon
+                    type="SearchIcon"
+                    className="fill-purple-15 group-hover:fill-white h-3.5 w-5"
+                  />
+                }
+                text={"Focus"}
+              />
+            </FocusAssistantPopover>
+          </>)
+        }
+      </div>
+      <div className="lg:flex hidden flex-col w-full items-center justify-center pb-5 lg:pb-10">
+        {content && (
+          <>
+            <h1 className="header text-center">{content.title}</h1>
+            {content.cta}
+          </>
+        )}
+      </div>
+      <div className="lg:hidden flex flex-col w-full items-center justify-center pb-5 lg:pb-10">
+        <Icon type="LogoIcon" />
+      </div>
     </div>
-    <div className="lg:hidden flex flex-col w-full items-center justify-center pb-5 lg:pb-10">
-      <Icon type="LogoIcon" />
-    </div>
-  </div>
-    
+
   );
 };
 

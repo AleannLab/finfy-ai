@@ -2,7 +2,7 @@
 
 import { AssistInput, Conversation } from "@/components/organisms";
 import { Button, Icon } from "@/components/atoms";
-import { DynamicChart, Header, HeaderText, HomeSuggestBoxes } from "@/components/molecules";
+import { ChatMessageInput, DynamicChart, Header, HeaderText, HomeSuggestBoxes } from "@/components/molecules";
 import { FC, PropsWithChildren, useState } from "react";
 import { useChat, useDynamicChart, useUser } from "@/hooks";
 import { DesktopChartModal } from "@/components/molecules/DesktopChartModal/DesktopChartModal";
@@ -14,7 +14,7 @@ interface LayoutDashboardProps extends PropsWithChildren { }
 const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const { messages, isLoading } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
 
   const { addChart, deleteChart, charts } = useDynamicChart();
@@ -39,26 +39,28 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   };
 
   return (
-    <><div className={cn("bg-navy-25  w-full p-4 pt-16 lg:p-10 flex flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen" )}>
+    <><div className={cn("bg-navy-25  w-full p-4 pt-16 lg:p-10 flex flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       {(messages.length || isLoading) ? (
         <Conversation handleOpenModal={handleOpenModal} />
       ) : (
         <>
           <HeaderText />
-          <div className="flex flex-1 flex-col">
+          <div className="flex max-w-[1050px] flex-1 flex-col">
             <div className="flex items-center h-fit text-grey-15">
               <Icon type="LightningBolt" className="text-grey-15" />
-              <p className="text-base">Change your assistant</p>
+              <p className="text-base">Suggestions</p>
             </div>
             <HomeSuggestBoxes />
+            <div className="mt-6">
+              <ChatMessageInput isDark={false} />
+            </div>
           </div>
         </>
       )}
-      <div className="bg-[#1F263D]">
-      <AssistInput isDark={!!selectedChartId} />
-
-      </div>
+      {!!messages.length && <div className="bg-[#1F263D]">
+        <AssistInput isDark={!!selectedChartId} />
+      </div>}
     </div>
       <div className={cn("flex", selectedChartId ? "w-full h-screen" : "")}>
         <DesktopChartModal

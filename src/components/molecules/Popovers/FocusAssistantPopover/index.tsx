@@ -26,6 +26,7 @@ const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
                 text={item.text}
                 key={index}
                 suggest={item.suggest}
+                item={item}
               />
             );
           })}

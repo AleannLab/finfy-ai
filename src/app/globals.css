@@ -58,7 +58,7 @@
     @apply font-semibold text-[#473513] text-4xl;
   }
   .suggest-box {
-    @apply border text-sm min-w-52 flex-1 max-w-80 p-2 rounded-md border-navy-5 hover:bg-navy-5 cursor-pointer;
+    @apply border text-sm min-w-52 flex-1 p-2 rounded-md border-navy-5 hover:bg-navy-5 cursor-pointer;
   }
   .menu-button-btn {
     @apply border-t border-navy-5 p-4 text-[#473513];

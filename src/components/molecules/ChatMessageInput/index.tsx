@@ -3,7 +3,7 @@
 import { Button, Icon, Modal, Textarea } from "@/components/atoms";
 import { useAutoResizeTextArea, useChat, useUser } from "@/hooks";
 import { Loader2 } from "lucide-react";
-import { ChangeEvent, FC, useRef, useState, useEffect } from "react";
+import { ChangeEvent, FC, useRef, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
@@ -11,9 +11,9 @@ import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/compon
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
 import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
-import { useAppSelector } from "@/lib/store/hooks";
 import { SpeakerModerateIcon } from "@radix-ui/react-icons";
 import { AudioChat } from "../AudioChat";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -32,7 +32,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     history,
     isLoading,
     setIsLoadingSendQuery,
-    messages
+    messages,
+    submitChat
   } = useChat();
 
   const [message, setMessage] = useState("");
@@ -41,6 +42,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const popoverRef = useRef<HTMLDivElement | null>(null)
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const handleOpenPopup = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -57,112 +59,36 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const onSubmit = async (formData: FormData) => {
-    setIsLoadingSendQuery(true);
-    const savedInput = message;
-    setMessage("")
-  
     const inValue = formData.get("message") as string;
     const userId = user?.id;
-  
+
     if (!inValue || !userId) {
       console.error("Missing message or userId");
-      setIsLoadingSendQuery(false);
       return;
     }
-  
-    try {
-      const assistantId =  suggest?.assistantId;
-      let threadId: string | null = null;
 
-      const currentPath = window.location.href;
-      const match = currentPath.match(/\/dashboard\/chat\/(thread_[\w\d]+)/);
-      if (match) {
-        threadId = match[1]; // Зберігаємо threadId
-        console.log("Found threadId from URL:", threadId);
-      }      let accumulatedResponse = "";
-  
-      if (handleClose) {
-        handleClose();
-        handleResetChat();
-      }
-  
-      const response = await fetch("/api/openai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: `${inValue}`,
-          assistantId,
-          chatId: threadId,
-        }),
-      });
-  
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-  
-      if (reader) {
-        while (true) {
-          const { value, done } = await reader.read();
-          if (done) break;
-  
-          const chunk = decoder.decode(value, { stream: true }).trim();
-  
-          const cleanChunk = chunk.startsWith("data:")
-            ? chunk.slice(5).trim()
-            : chunk;
-  
-          try {
-            const json = JSON.parse(cleanChunk);
-  
-            if (json.threadId) {
-              threadId = json.threadId;
-  
-              router.push(`/dashboard/chat/${threadId}`, undefined);
-  
-              await createChat(userId, inValue.slice(0, 30) + "...", threadId);
-            }
-  
-            if (json.message) {
-              console.log("Accumulated Message:", json.message);
-              accumulatedResponse += json.message + " ";
-            }
-          } catch (error) {
-            console.error("Error parsing chunk:", error);
-            accumulatedResponse += cleanChunk + " ";
-          }
-        }
-      }
-  
-      accumulatedResponse = accumulatedResponse.trim();
-      console.log("Final Response:", accumulatedResponse);
-  
-      if (threadId) {
-        await createMessage({
-          chat_id: threadId,
-          user_id: userId,
-          content: savedInput,
-          message_type: "user",
-          is_processed: true,
-        });
+    const assistantId = suggest?.assistantId;
+    const currentPath = window.location.href;
+    const match = currentPath.match(/\/dashboard\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : null;
 
-        await createMessage({
-          chat_id: threadId,
-          user_id: userId,
-          content: accumulatedResponse,
-          message_type: "assistant",
-          is_processed: true,
-        });
-        console.log("Message saved successfully");
-      } else {
-        console.error("Thread ID not found");
-        toast.error("Thread ID not received. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error in onSubmit:", error);
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setIsLoadingSendQuery(false);
+    if (handleClose) {
+      handleClose();
+      handleResetChat();
     }
+
+    // Calling `submitChat` from `useChat` hook
+    await submitChat({
+      message: inValue,
+      userId,
+      assistantId: assistantId || "",
+      threadIdFromURL,
+    });
+
+    // Reset the input field after submission
+    setMessage("");
   };
+
   
   
   
