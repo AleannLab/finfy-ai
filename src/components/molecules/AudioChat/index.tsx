@@ -27,6 +27,7 @@ const AudioChat = () => {
     isListening,
     wavRecorderRef,
     wavStreamPlayerRef,
+    items
   } = useVoiceChat();
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);

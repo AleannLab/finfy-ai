@@ -4,6 +4,7 @@ import { WavRecorder, WavStreamPlayer } from "@/lib/wavtools";
 import { RealtimeClient } from "@openai/realtime-api-beta";
 import { instructions } from "@/lib/prompt";
 import { ReactNode } from "react";
+import { ItemType } from "@openai/realtime-api-beta/dist/lib/client";
 // import Resume from "@/features/chat/components/resume";
 // import ScheduleButton from "@/features/chat/components/scheduleButton";
 
@@ -13,6 +14,7 @@ const useVoiceChat = () => {
   const [isTalking, setIsTalking] = useState(false);
   const [isListening, setIsListening] = useState<any>();
   const [currentTool, setCurrentTool] = useState<ReactNode | null>(null);
+  const [items, setItems] = useState<ItemType[]>([]);
 
   const startTimeRef = useRef(new Date().toISOString());
   const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
@@ -40,6 +42,7 @@ const useVoiceChat = () => {
       client.connect(),
     ]);
 
+    setItems(client.conversation.getItems());
     client.sendUserMessageContent([{ type: "input_text", text: "Hello!" }]);
   }, []);
 
@@ -49,6 +52,7 @@ const useVoiceChat = () => {
     await wavRecorderRef.current.end();
     wavStreamPlayerRef.current.interrupt();
     setIsMuted(true);
+    setItems([]);
   }, []);
 
   useEffect(() => {
@@ -125,6 +129,7 @@ const useVoiceChat = () => {
       }
     });
     client.on("conversation.updated", async ({ item, delta }: any) => {
+      const items = client.conversation.getItems();
       if (delta?.audio) {
         wavStreamPlayer.add16BitPCM(delta.audio, item.id);
         setIsTalking(true);
@@ -144,7 +149,10 @@ const useVoiceChat = () => {
           setTimeout(() => setIsTalking(false), audioDurationMs);
         }
       }
+      setItems(items);
     });
+
+    setItems(client.conversation.getItems());
 
     return () => {
       // cleanup; resets to defaults
@@ -212,6 +220,7 @@ const useVoiceChat = () => {
     toggleMute,
     wavRecorderRef,
     wavStreamPlayerRef,
+    items
   };
 };
 
