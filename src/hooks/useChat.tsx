@@ -81,22 +81,22 @@ export const useChat = () => {
       handleResetChat?: () => void;
     }) => {
       setIsLoadingSendQuery(true);
-
+  
       const savedInput = message;
       let accumulatedResponse = "";
       let threadId = threadIdFromURL || null;
-
+  
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
         return;
       }
-
+  
       try {
         if (handleClose) {
           handleClose();
         }
-
+  
         const response = await fetch("/api/openai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -106,39 +106,41 @@ export const useChat = () => {
             chatId: threadId,
           }),
         });
-
+  
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
-
+  
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-
-            const chunk = decoder.decode(value, { stream: true }).trim();
-            const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-
+  
+            const chunk = decoder.decode(value, { stream: true });
+  
             try {
-              const json = JSON.parse(cleanChunk);
+              const json = JSON.parse(chunk);
               const type = pathname.includes("tutor") ? "tutor" : "career-coach";
-              if (json.threadId) {
+  
+              if (json.threadId && !pathname.includes("thread")) {
                 threadId = json.threadId;
                 router.push(`${pathname}/chat/${threadId}`, undefined);
                 createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
               }
-
+  
               if (json.message) {
-                accumulatedResponse += json.message + " ";
+                accumulatedResponse += json.message;
+                console.log(`json.message .${json.message}.`)
               }
             } catch (error) {
               console.error("Error parsing chunk:", error);
-              accumulatedResponse += cleanChunk + " ";
+              console.log("cleanChunk:", chunk)
+              accumulatedResponse += chunk + "";
             }
           }
         }
-
+  
         accumulatedResponse = accumulatedResponse.trim();
-
+  
         if (threadId) {
           await fetchCreateMessage({
             chat_id: threadId,
@@ -147,7 +149,7 @@ export const useChat = () => {
             message_type: "user",
             is_processed: true,
           });
-
+  
           await fetchCreateMessage({
             chat_id: threadId,
             user_id: userId,
@@ -155,7 +157,7 @@ export const useChat = () => {
             message_type: "assistant",
             is_processed: true,
           });
-
+  
           console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
@@ -169,6 +171,113 @@ export const useChat = () => {
     },
     [dispatch, router]
   );
+  
+
+  // const submitChat = useCallback(
+  //   async ({
+  //     message,
+  //     userId,
+  //     assistantId,
+  //     threadIdFromURL,
+  //     handleClose,
+  //     handleResetChat,
+  //   }: {
+  //     message: string;
+  //     userId: string;
+  //     assistantId: string | null;
+  //     threadIdFromURL?: string | null;
+  //     handleClose?: () => void;
+  //     handleResetChat?: () => void;
+  //   }) => {
+  //     setIsLoadingSendQuery(true);
+
+  //     const savedInput = message;
+  //     let accumulatedResponse = "";
+  //     let threadId = threadIdFromURL || null;
+
+  //     if (!message || !userId) {
+  //       console.error("Missing message or userId");
+  //       setIsLoadingSendQuery(false);
+  //       return;
+  //     }
+
+  //     try {
+  //       if (handleClose) {
+  //         handleClose();
+  //       }
+
+  //       const response = await fetch("/api/openai", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           message,
+  //           assistantId,
+  //           chatId: threadId,
+  //         }),
+  //       });
+
+  //       const reader = response.body?.getReader();
+  //       const decoder = new TextDecoder();
+
+  //       if (reader) {
+  //         while (true) {
+  //           const { value, done } = await reader.read();
+  //           if (done) break;
+
+  //           const chunk = decoder.decode(value, { stream: true }).trim();
+  //           const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
+
+  //           try {
+  //             const json = JSON.parse(cleanChunk);
+  //             const type = pathname.includes("tutor") ? "tutor" : "career-coach";
+  //             if (json.threadId) {
+  //               threadId = json.threadId;
+  //               router.push(`${pathname}/chat/${threadId}`, undefined);
+  //               createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
+  //             }
+
+  //             if (json.message) {
+  //               accumulatedResponse += json.message + " ";
+  //             }
+  //           } catch (error) {
+  //             console.error("Error parsing chunk:", error);
+  //             accumulatedResponse += cleanChunk + " ";
+  //           }
+  //         }
+  //       }
+
+  //       accumulatedResponse = accumulatedResponse.trim();
+
+  //       if (threadId) {
+  //         await fetchCreateMessage({
+  //           chat_id: threadId,
+  //           user_id: userId,
+  //           content: savedInput,
+  //           message_type: "user",
+  //           is_processed: true,
+  //         });
+
+  //         await fetchCreateMessage({
+  //           chat_id: threadId,
+  //           user_id: userId,
+  //           content: accumulatedResponse,
+  //           message_type: "assistant",
+  //           is_processed: true,
+  //         });
+
+  //         console.log("Message saved successfully");
+  //       } else {
+  //         toast.error("Thread ID not received. Please try again.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error in submitChat:", error);
+  //       toast.error("Something went wrong. Please try again.");
+  //     } finally {
+  //       setIsLoadingSendQuery(false);
+  //     }
+  //   },
+  //   [dispatch, router]
+  // );
 
   const sendChatQueryCallback = useCallback(
     async (

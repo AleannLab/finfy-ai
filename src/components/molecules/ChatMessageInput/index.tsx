@@ -59,6 +59,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const onSubmit = async (formData: FormData) => {
+    setMessage("");
     const inValue = formData.get("message") as string;
     const userId = user?.id;
 
@@ -69,8 +70,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
     const assistantId = suggest?.assistantId;
     const currentPath = window.location.href;
-    const match = currentPath.match(/\/dashboard\/chat\/(thread_[\w\d]+)/);
-    const threadIdFromURL = match ? match[1] : null;
+    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
 
     if (handleClose) {
       handleClose();

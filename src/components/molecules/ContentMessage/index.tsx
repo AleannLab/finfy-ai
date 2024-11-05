@@ -108,13 +108,6 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
   };
 
-  function cleanMarkdown(text: string): string {
-    return text
-      .replace(/<\/?[^>]+(>|$)/g, "")  
-      .replace(/\s+/g, " ") 
-      .replace(/(\*\*)\s*(.*?)\s*(\*\*)/g, "$1$2$3")
-      .trim();
-  }
   
 
   return (
@@ -147,7 +140,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
             rehypePlugins={[rehypeRaw]}
             components={renderers}
           >
-            {cleanMarkdown(text as string)}
+            {text as string}
           </Markdown>
         )}
       </p>
