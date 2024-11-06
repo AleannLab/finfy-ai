@@ -111,11 +111,16 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
   };
 
-  function formatMathContent(text: any): any {
-    text = text.replace(/\\\[(.*?)\\\]/g, (_: any, formula: string) => `$$ ${formula.trim()} $$`);
+  function adaptMarkdownForMath(text: string): string {
+    text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+  
+    text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+  
+
     return text;
   }
-
+  
+  
   return (
     <div className="flex flex-col h-full">
       {!isUser && !isLoading && (
@@ -144,9 +149,9 @@ const ContentMessage: FC<ContentMessageProps> = ({
             className={"markdown !whitespace-normal markdown-special"}
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeRaw, rehypeKatex]}
-            // components={renderers}
+            components={renderers}
           >
-            {formatMathContent(text) as string}
+            {adaptMarkdownForMath(text as string) as string}
           </Markdown>
         )}
       </p>
