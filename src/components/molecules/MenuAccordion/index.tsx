@@ -70,7 +70,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   const isActive =
     pathname === item.link || pathname.startsWith(`${item.link}/`);
   const isActiveType =
-    item.href.includes(pathname);
+  pathname.includes(item.href);
 
   return (
     <Accordion.Item className="flex flex-col gap-0.5" value={item.value}>
@@ -82,7 +82,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
            router.push(href)
         }}
         className={cn("p-2 rounded-sm group", {
-          "bg-[#547A91] !text-white hover:!text-white": isActiveType,
+          "bg-[#547A91] ": isActiveType,
         }, {"hover:text-[#473513] hover:bg-navy-5": !isActiveType})}
       >
         <div className={"flex justify-between w-full items-center"}>
@@ -91,10 +91,10 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             onClick={onClick}
             className="flex gap-3 items-center"
           >
-            <span className="w-6 h-6 flex justify-center items-center">
+            <span className={cn("w-6 h-6 flex justify-center group-hover:text-[#F3F9ED] items-center", isActiveType ? "text-[#F3F9ED] " : "")}>
               <Icon />
             </span>
-            <span>{item.title}</span>
+            <span className={cn("group-hover:text-[#F3F9ED] ", isActiveType ? "text-[#F3F9ED] " : "")}>{item.title}</span>
           </Link>
           {isHideChevron && (
             <span className="text-[10px] font-normal">Coming Soon</span>
