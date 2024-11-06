@@ -5,8 +5,11 @@ import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { FC, ReactNode, useState } from "react";
 import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 interface ContentMessageProps {
   text: ReactNode;
@@ -109,7 +112,18 @@ const ContentMessage: FC<ContentMessageProps> = ({
   };
 
   
-
+  function formatMathContent(text: any): any {
+    // Замінює блочні формули, що починаються з \[ і закінчуються \], на $$ ... $$
+    text = text.replace(/\\\[(.*?)\\\]/gs, (_: any, formula: any) => `$$ ${formula.trim()} $$`);
+    
+    // Замінює вбудовані формули, що обгорнуті \( і \), на \( ... \)
+    text = text.replace(/\\\((.*?)\\\)/g, (_: any, formula: any) => `\\(${formula.trim()}\\)`);
+    
+    return text;
+  }
+  
+  console.log(text, "text");
+  
   return (
     <div className="flex flex-col h-full">
       {!isUser && !isLoading && (
@@ -136,11 +150,11 @@ const ContentMessage: FC<ContentMessageProps> = ({
         ) : (
           <Markdown
             className={"markdown !whitespace-normal markdown-special"}
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={renderers}
           >
-            {text as string}
+            {formatMathContent(text) as string}
           </Markdown>
         )}
       </p>

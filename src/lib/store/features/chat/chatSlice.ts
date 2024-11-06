@@ -120,7 +120,7 @@ export const fetchChatsByUserId = createAsyncThunk(
     const { data, error } = await supabase
       .from("chats")
       .select("*")
-      .eq("id", userId);
+      .eq("id", userId)
     if (error) {
       Sentry.captureException(error);
       throw error;
@@ -177,11 +177,15 @@ export const fetchMessagesForChat = createAsyncThunk(
       const { data, error } = await supabase
         .from("messages")
         .select("*")
-        .eq("chat_id", chatId);
+        .eq("chat_id", chatId)
+        .order("created_at", { ascending: true });
+
       if (error) {
         Sentry.captureException(error);
         throw error;
       }
+
+      console.log(data)
       dispatch(setMessages(data));
       dispatch(setIsLoading(false));
       return data;

@@ -116,12 +116,14 @@ export const useChat = () => {
             if (done) break;
   
             const chunk = decoder.decode(value, { stream: true });
+            const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
+
   
             try {
-              const json = JSON.parse(chunk);
+              const json = JSON.parse(cleanChunk);
               const type = pathname.includes("tutor") ? "tutor" : "career-coach";
   
-              if (json.threadId && !pathname.includes("thread")) {
+              if (json.threadId ) {
                 threadId = json.threadId;
                 router.push(`${pathname}/chat/${threadId}`, undefined);
                 createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
