@@ -157,7 +157,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={() => setIsVoiceChatModalOpen(true)}>
+        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={(e) => {
+          e.preventDefault();
+          setIsVoiceChatModalOpen(true);
+        }}>
           <SpeakerModerateIcon className="size-4" color='white'/>
         </Button>
         <Button size="xl" type="submit" className="w-10 h-10 p-3">
