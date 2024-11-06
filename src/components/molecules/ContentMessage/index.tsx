@@ -113,10 +113,8 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   
   function formatMathContent(text: any): any {
-    // Замінює блочні формули, що починаються з \[ і закінчуються \], на $$ ... $$
     text = text.replace(/\\\[(.*?)\\\]/gs, (_: any, formula: any) => `$$ ${formula.trim()} $$`);
     
-    // Замінює вбудовані формули, що обгорнуті \( і \), на \( ... \)
     text = text.replace(/\\\((.*?)\\\)/g, (_: any, formula: any) => `\\(${formula.trim()}\\)`);
     
     return text;
