@@ -43,6 +43,18 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const [shouldFocus, setShouldFocus] = useState(true);
+
+  const openVoiceChatModal = () => {
+    setShouldFocus(false);
+    setIsVoiceChatModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (!isVoiceChatModalOpen) {
+      setShouldFocus(true);
+    }
+  }, [isVoiceChatModalOpen]);
 
   const handleOpenPopup = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -114,7 +126,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const setTextareaRef = (element: HTMLTextAreaElement) => {
-    if (element) {
+    if (element && shouldFocus) {
       element.focus();
       (textareaRef.current as any) = element;
     }
@@ -157,10 +169,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={(e) => {
-          e.preventDefault();
-          setIsVoiceChatModalOpen(true);
-        }}>
+        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={openVoiceChatModal}>
           <SpeakerModerateIcon className="size-4" color='white'/>
         </Button>
         <Button size="xl" type="submit" className="w-10 h-10 p-3">
