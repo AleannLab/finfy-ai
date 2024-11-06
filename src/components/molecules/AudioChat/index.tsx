@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@/components/atoms";
+import { useChat, useUser } from "@/hooks";
 import useVoiceChat from "@/hooks/useVoiceChat";
+import { useAppSelector } from "@/lib/store/hooks";
 import { WavRenderer } from "@/lib/wavtools";
 import {
   Cross2Icon,
@@ -16,6 +18,7 @@ import { useEffect, useRef, useState } from "react";
 interface AudioChatProps {}
 
 const AudioChat = () => {
+  const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
     toggleMute,
@@ -27,10 +30,12 @@ const AudioChat = () => {
     wavRecorderRef,
     wavStreamPlayerRef,
     items
-  } = useVoiceChat();
+  } = useVoiceChat(suggest?.assistantId);
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
+  const { createMessage } = useChat();
+  const { user } = useUser();
 
   useEffect(() => {
     let isLoaded = true;

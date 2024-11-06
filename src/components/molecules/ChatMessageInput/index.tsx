@@ -172,9 +172,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         open={isVoiceChatModalOpen}
         onClose={() => setIsVoiceChatModalOpen(false)}
         classes={{
-          container: "w-[50%] flex items-center justify-center",
+          container: "!w-[90%] md:w-[50%] flex items-center justify-center",
           background: "backdrop-blur-none",
-          wrapper: "!w-[40%] h-[50%] backdrop-blur-none bg-white rounded-xl",
+          wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
         <AudioChat />

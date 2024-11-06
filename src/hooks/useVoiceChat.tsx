@@ -1,14 +1,15 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WavRecorder, WavStreamPlayer } from "@/lib/wavtools";
 import { RealtimeClient } from "@openai/realtime-api-beta";
 import { instructions } from "@/lib/prompt";
 import { ReactNode } from "react";
 import { ItemType } from "@openai/realtime-api-beta/dist/lib/client";
+import { defaultTutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 // import Resume from "@/features/chat/components/resume";
 // import ScheduleButton from "@/features/chat/components/scheduleButton";
 
-const useVoiceChat = () => {
+const useVoiceChat = (assistantId?: string) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
@@ -26,6 +27,21 @@ const useVoiceChat = () => {
       dangerouslyAllowAPIKeyInBrowser: true,
     })
   );
+
+  const currentAssistantInstructions = useMemo(() => {
+    if (!assistantId) {
+        return defaultTutor.instructions;
+    }
+
+    const currentSuggestionData = tutorSuggestionData.filter((data) => data.assistantId === assistantId);
+
+    if (!currentSuggestionData.length) {
+        return defaultTutor.instructions;
+    }
+
+    return currentSuggestionData[0].instructions;
+
+  },[assistantId]);
 
   const connectConversation = useCallback(async () => {
     if (!clientRef.current) return;
@@ -63,7 +79,7 @@ const useVoiceChat = () => {
     const wavRecorder = wavRecorderRef.current;
 
     client.updateSession({
-      instructions,
+      instructions: currentAssistantInstructions,
       voice: "alloy",
       input_audio_transcription: { model: "whisper-1" },
       turn_detection: { type: "server_vad" },
