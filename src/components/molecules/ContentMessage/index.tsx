@@ -113,12 +113,16 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   function adaptMarkdownForMath(text: string): string {
     text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
-  
+    
     text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+    
+    text = text.replace(/\*\*(\s*\$\$.*?\$\$\s*)\*\*/g, (_, formula: string) => `**${formula.trim()}**`);
   
-
+    text = text.replace(/\$\$\s+/g, '$$').replace(/\s+\$\$/g, '$$');
+  
     return text;
   }
+  
   
   
   return (
