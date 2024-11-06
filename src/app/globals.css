@@ -298,7 +298,7 @@ input:-webkit-autofill:active{
   display: inline-block;
   position: relative;
   border-radius: 4px;
-  color: #515ada;
+  color: #fbab18;
   background: currentColor;
   box-sizing: border-box;
   animation: small-animloader 0.5s 0.3s linear infinite alternate;
