@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import {
@@ -14,6 +14,7 @@ import {
   resetChat,
   setIsLoadingSendMessage,
   setSuggestQuestions,
+  setStreamMessage,
 } from "@/lib/store/features/chat/chatSlice";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -91,6 +92,17 @@ export const useChat = () => {
         setIsLoadingSendQuery(false);
         return;
       }
+
+      if (threadId) {
+        await fetchCreateMessage({
+          chat_id: threadId,
+          user_id: userId,
+          content: savedInput,
+          message_type: "user",
+          is_processed: true,
+        });
+        // setIsLoadingSendQuery(false);
+      }
   
       try {
         if (handleClose) {
@@ -108,8 +120,7 @@ export const useChat = () => {
         });
   
         const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
-  
+        const decoder = new TextDecoder(); 
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
@@ -124,14 +135,24 @@ export const useChat = () => {
                 const json = JSON.parse(cleanChunk);
                 const type = pathname.includes("tutor") ? "tutor" : "career-coach";
         
-                if (json.threadId) {
+                if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   router.push(`${pathname}/chat/${threadId}`, undefined);
                   createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
-                }
-        
+                }  
+                if (json.threadId) {
+                  await fetchCreateMessage({
+                    chat_id: json.threadId,
+                    user_id: userId,
+                    content: savedInput,
+                    message_type: "user",
+                    is_processed: true,
+                  });
+                }     
                 if (json.message) {
                   accumulatedResponse += json.message;
+                  dispatch(setStreamMessage(accumulatedResponse))
+                  setIsLoadingSendQuery(false);
                   console.log(`json.message .${json.message}.`);
                 }
               } catch (error) {
@@ -139,21 +160,18 @@ export const useChat = () => {
               }
             } else {
               accumulatedResponse += chunk;
+              setIsLoadingSendQuery(false);
+              dispatch(setStreamMessage(accumulatedResponse))
             }
           }
         }
         accumulatedResponse = accumulatedResponse.trim();
+        dispatch(setStreamMessage(""))
+        setIsLoadingSendQuery(false);
 
   
         if (threadId) {
-          await fetchCreateMessage({
-            chat_id: threadId,
-            user_id: userId,
-            content: savedInput,
-            message_type: "user",
-            is_processed: true,
-          });
-  
+ 
           await fetchCreateMessage({
             chat_id: threadId,
             user_id: userId,
@@ -327,6 +345,7 @@ export const useChat = () => {
   );
 
   return {
+    streamMessage: chatState.streamMessage,
     isLoading: chatState.loadingSendMessage,
     chats: chatState.chats,
     messages: chatState.messages,

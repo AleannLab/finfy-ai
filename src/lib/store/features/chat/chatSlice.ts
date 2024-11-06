@@ -18,6 +18,7 @@ interface ChatState {
   chats: any[];
   messages: any[];
   suggests: any;
+  streamMessage: string;
 }
 
 interface ChatResponse {
@@ -37,6 +38,7 @@ const initialState: ChatState = {
   calculations: null,
   chats: [],
   messages: [],
+  streamMessage: "",
   suggests: null,
 };
 
@@ -202,6 +204,9 @@ const chatSlice = createSlice({
     setUserQuery(state, action: PayloadAction<string>) {
       state.user_query = action.payload;
     },
+    setStreamMessage(state, action: PayloadAction<string>) {
+      state.streamMessage = action.payload;
+    },
     addToHistory(state, action: PayloadAction<string>) {
       state.history.push(action.payload);
     },
@@ -254,5 +259,6 @@ export const {
   setSuggestQuestions,
   setMessages,
   addMessage,
+  setStreamMessage
 } = chatSlice.actions;
 export default chatSlice.reducer;

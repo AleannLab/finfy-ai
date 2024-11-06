@@ -16,7 +16,7 @@ interface ConversationProps {
 
 const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { messages, isLoading } = useChat();
+  const { messages, isLoading, streamMessage } = useChat();
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollIntoView();
@@ -60,7 +60,15 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                   </Fragment>
                 );
               })}
-              {isLoading && (
+              {!!streamMessage?.length && (
+                <Message
+                  text={streamMessage}
+                  date={""}
+                  isUser={false}
+                  isLastMessage={true}
+                />
+              )}
+              {isLoading && !streamMessage?.length && (
                 <Message
                   text={
                     <div className="flex items-end gap-4">

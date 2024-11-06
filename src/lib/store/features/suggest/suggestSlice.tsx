@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const defaultCareerCoachAssistant =  {
-    label: "Career Coach Assistant",
-    content: "Ask me any questions",
-    icon: "📘",
-    category: "career coach",
-    assistantId: "asst_XizmVhjCdwImRlerh0Z5bh9e",
-    instructions: `System settings:
+export const defaultCareerCoachAssistant = {
+  label: "Career Coach Assistant",
+  content: "Ask me any questions",
+  icon: "📘",
+  category: "career coach",
+  assistantId: "asst_XizmVhjCdwImRlerh0Z5bh9e",
+  instructions: `System settings:
       Tool use: enabled.
 
       Instructions:
@@ -24,13 +24,13 @@ export const defaultCareerCoachAssistant =  {
       `
 };
 
-export const defaultTutor =  {
-    label: "Tutor",
-    content: "Ask me any questions",
-    icon: "📘",
-    category: "tutor",
-    assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
-    instructions: `System settings:
+export const defaultTutor = {
+  label: "Tutor",
+  content: "Ask me any questions",
+  icon: "📘",
+  category: "tutor",
+  assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
+  instructions: `System settings:
       Tool use: enabled.
 
       Instructions:
@@ -149,7 +149,7 @@ export const careerCoachAssistantSuggestionData = [
     content: "What are top skills needed in South Africa?",
     icon: "🎓",
     category: "career",
-    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn",
+    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfzatn",
     instructions: `System settings:
       Tool use: enabled.
 
