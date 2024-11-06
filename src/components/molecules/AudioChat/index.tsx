@@ -15,9 +15,11 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-interface AudioChatProps {}
+interface AudioChatProps {
+    isClosed: boolean
+}
 
-const AudioChat = () => {
+const AudioChat = ({ isClosed }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -36,6 +38,12 @@ const AudioChat = () => {
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const { createMessage } = useChat();
   const { user } = useUser();
+
+  useEffect(() => {
+    if (isClosed) {
+        disconnectConversation();
+    }
+  },[isClosed]);
 
   useEffect(() => {
     let isLoaded = true;

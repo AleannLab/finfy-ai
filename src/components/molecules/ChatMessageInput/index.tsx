@@ -44,9 +44,11 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [shouldFocus, setShouldFocus] = useState(true);
+  const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
 
   const openVoiceChatModal = () => {
     setShouldFocus(false);
+    setCloseAudioChat(false);
     setIsVoiceChatModalOpen(true);
   };
 
@@ -182,14 +184,19 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       </div>
       <Modal
         open={isVoiceChatModalOpen}
-        onClose={() => setIsVoiceChatModalOpen(false)}
+        onClose={() => {
+          setCloseAudioChat(true);
+          setTimeout(() => {
+            setIsVoiceChatModalOpen(false)
+          }, 200)
+        }}
         classes={{
           container: "!w-[90%] md:w-[50%] flex items-center justify-center",
           background: "backdrop-blur-none",
           wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat />
+        <AudioChat isClosed={closeAudioChat} />
       </Modal>
     </form>
   );
