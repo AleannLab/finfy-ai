@@ -111,16 +111,15 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
   };
 
+  function adaptMarkdownForMath(text: string): string {
+    text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
   
-  function formatMathContent(text: any): any {
-    text = text.replace(/\\\[(.*?)\\\]/gs, (_: any, formula: any) => `$$ ${formula.trim()} $$`);
-    
-    text = text.replace(/\\\((.*?)\\\)/g, (_: any, formula: any) => `\\(${formula.trim()}\\)`);
-    
+    text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+  
+
     return text;
   }
   
-  console.log(text, "text");
   
   return (
     <div className="flex flex-col h-full">
@@ -152,7 +151,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
             rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={renderers}
           >
-            {formatMathContent(text) as string}
+            {adaptMarkdownForMath(text as string) as string}
           </Markdown>
         )}
       </p>

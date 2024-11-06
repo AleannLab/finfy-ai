@@ -114,34 +114,36 @@ export const useChat = () => {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-  
+        
             const chunk = decoder.decode(value, { stream: true });
-            const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-
-  
-            try {
-              const json = JSON.parse(cleanChunk);
-              const type = pathname.includes("tutor") ? "tutor" : "career-coach";
-  
-              if (json.threadId ) {
-                threadId = json.threadId;
-                router.push(`${pathname}/chat/${threadId}`, undefined);
-                createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
+        
+            if (chunk.includes("threadId")) {
+              const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
+        
+              try {
+                const json = JSON.parse(cleanChunk);
+                const type = pathname.includes("tutor") ? "tutor" : "career-coach";
+        
+                if (json.threadId) {
+                  threadId = json.threadId;
+                  router.push(`${pathname}/chat/${threadId}`, undefined);
+                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
+                }
+        
+                if (json.message) {
+                  accumulatedResponse += json.message;
+                  console.log(`json.message .${json.message}.`);
+                }
+              } catch (error) {
+                console.error("Error parsing chunk:", error);
               }
-  
-              if (json.message) {
-                accumulatedResponse += json.message;
-                console.log(`json.message .${json.message}.`)
-              }
-            } catch (error) {
-              console.error("Error parsing chunk:", error);
-              console.log("cleanChunk:", chunk)
-              accumulatedResponse += chunk + "";
+            } else {
+              accumulatedResponse += chunk;
             }
           }
         }
-  
         accumulatedResponse = accumulatedResponse.trim();
+
   
         if (threadId) {
           await fetchCreateMessage({
