@@ -20,15 +20,16 @@ const HeaderText = () => {
     home: {
       title: (
         <>
-          <span className="text-purple-15">Hey {user?.name}!</span> I&apos;m
+          <span className="text-[#74BBC9]">Hey {user?.name}!</span> I&apos;m
           your {suggest?.category} assistant.
         </>
       ),
-      cta: (
-        <p className="text-grey-15 text-lg mt-2">
-          Ask any question to get started.
-        </p>
-      ),
+      cta: <></>,
+      // cta: (
+      //   <p className="text-grey-15 text-lg mt-2">
+      //     Ask any question to get started.
+      //   </p>
+      // ),
     },
     payments: {
       title: (
