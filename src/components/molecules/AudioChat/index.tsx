@@ -39,7 +39,7 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
   const { createMessage, submitChatFromAudioChat } = useChat();
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
-  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ role: string, message: string }[]>([]);
+  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ id: string, role: string, message: string }[]>([]);
 
   const userId = useMemo(() => {
     return user?.id;
@@ -72,15 +72,30 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
     };
     const prepareMessagesToStore = () => {
         items.forEach((item) => {
-            const { id, formatted } = item;
-            if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
-              setProcessedIds((prevIds) => new Set(prevIds).add(id));
+            const { id, formatted, status, role } = item;
+            if (role === 'user') {
+                const messageText = formatted.text || formatted.transcript || "";
+                if (!processedIds.has(id)) {
+                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
+                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
+                } else {
+                   if (status === 'completed') {
+                    const updatedPreparedMessages = preparedMessagesToStore.map((msg) => {
+                        if (msg.id === id) {
+                            return { id: id, role: role as string, message: messageText }
+                        }
 
-              if (formatted.text && formatted.text.trim() !== "") {
-               setPreparedMessagesToStore((prev) => [...prev, { role: item.role as string, message: formatted.text as string }]);
-              } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
-                setPreparedMessagesToStore((prev) => [...prev, { role: item.role as string, message: formatted.transcript as string }]);
-              }
+                        return msg;
+                    });
+                    setPreparedMessagesToStore(updatedPreparedMessages);
+                   } 
+                }
+            } else if (role === 'assistant') {
+                const messageText = formatted.text || formatted.transcript || "";
+                if (!processedIds.has(id) && status === 'completed') {
+                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
+                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
+                }
             }
           });
     }

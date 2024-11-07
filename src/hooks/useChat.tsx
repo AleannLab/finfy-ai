@@ -267,17 +267,17 @@ export const useChat = () => {
         }
   
         if (threadId) {
-          const messagePromises = messages.map((msg) => {
-            return fetchCreateMessage({
-              chat_id: threadId,
-              user_id: userId,
-              content: msg.message,
-              message_type: msg.role,
-              is_processed: true,
-            });
+          messages.forEach(async (msg) => {
+            if (msg.message.trim().length > 0) {
+              await fetchCreateMessage({
+                chat_id: threadId,
+                user_id: userId,
+                content: msg.message,
+                message_type: msg.role,
+                is_processed: true,
+              });
+            }
           });
-          
-          await Promise.all(messagePromises)
   
           console.log("Message saved successfully");
         } else {
