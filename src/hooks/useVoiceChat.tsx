@@ -9,13 +9,17 @@ import { defaultTutor, tutorSuggestionData } from "@/lib/store/features/suggest/
 // import Resume from "@/features/chat/components/resume";
 // import ScheduleButton from "@/features/chat/components/scheduleButton";
 
+type ItemTypeWithStatus = ItemType & {
+    status: 'completed' | 'in_progress' | 'incomplete'
+}
+
 const useVoiceChat = (assistantId?: string) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
   const [isListening, setIsListening] = useState<any>();
   const [currentTool, setCurrentTool] = useState<ReactNode | null>(null);
-  const [items, setItems] = useState<ItemType[]>([]);
+  const [items, setItems] = useState<ItemTypeWithStatus[]>([]);
 
   const startTimeRef = useRef(new Date().toISOString());
   const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
@@ -58,7 +62,7 @@ const useVoiceChat = (assistantId?: string) => {
       client.connect(),
     ]);
 
-    setItems(client.conversation.getItems());
+    setItems(client.conversation.getItems() as ItemTypeWithStatus[]);
     client.sendUserMessageContent([{ type: "input_text", text: "Hello!" }]);
   }, []);
 
@@ -165,10 +169,10 @@ const useVoiceChat = (assistantId?: string) => {
           setTimeout(() => setIsTalking(false), audioDurationMs);
         }
       }
-      setItems(items);
+      setItems(items as ItemTypeWithStatus[]);
     });
 
-    setItems(client.conversation.getItems());
+    setItems(client.conversation.getItems() as ItemTypeWithStatus[]);
 
     return () => {
       // cleanup; resets to defaults

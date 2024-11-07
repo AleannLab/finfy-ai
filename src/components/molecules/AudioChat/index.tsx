@@ -38,6 +38,31 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const { createMessage } = useChat();
   const { user } = useUser();
+  const [processedIds, setProcessedIds] = useState(new Set());
+
+  useEffect(() => {
+    const processMessages = () => {
+      items.forEach((item) => {
+        const { id, formatted } = item;
+
+        if (!processedIds.has(id) && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+          setProcessedIds((prevIds) => new Set(prevIds).add(id));
+
+          if (formatted.text && formatted.text.trim() !== "") {
+            createMessageTest(formatted.text);
+          } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
+            createMessageTest(formatted.transcript);
+          }
+        }
+      });
+    };
+
+    processMessages();
+  }, [items, processedIds]);
+
+const createMessageTest = (content: string) => {
+    console.log("Storing message:", content);
+};
 
   useEffect(() => {
     if (isClosed) {
