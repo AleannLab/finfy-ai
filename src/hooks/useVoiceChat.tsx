@@ -13,7 +13,7 @@ type ItemTypeWithStatus = ItemType & {
     status: 'completed' | 'in_progress' | 'incomplete'
 }
 
-const useVoiceChat = (assistantId?: string) => {
+const useVoiceChat = (instructionsForAssistant?: string) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
@@ -32,20 +32,6 @@ const useVoiceChat = (assistantId?: string) => {
     })
   );
 
-  const currentAssistantInstructions = useMemo(() => {
-    if (!assistantId) {
-        return defaultTutor.instructions;
-    }
-
-    const currentSuggestionData = tutorSuggestionData.filter((data) => data.assistantId === assistantId);
-
-    if (!currentSuggestionData.length) {
-        return defaultTutor.instructions;
-    }
-
-    return currentSuggestionData[0].instructions;
-
-  },[assistantId]);
 
   const connectConversation = useCallback(async () => {
     if (!clientRef.current) return;
@@ -83,7 +69,7 @@ const useVoiceChat = (assistantId?: string) => {
     const wavRecorder = wavRecorderRef.current;
 
     client.updateSession({
-      instructions: currentAssistantInstructions,
+      instructions: instructionsForAssistant ? instructionsForAssistant : instructions,
       voice: "alloy",
       input_audio_transcription: { model: "whisper-1" },
       turn_detection: { type: "server_vad" },

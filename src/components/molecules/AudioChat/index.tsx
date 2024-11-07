@@ -16,10 +16,11 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 interface AudioChatProps {
-    isClosed: boolean
+    isClosed: boolean;
+    chatContext: string;
 }
 
-const AudioChat = ({ isClosed }: AudioChatProps) => {
+const AudioChat = ({ isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -32,7 +33,8 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
     wavRecorderRef,
     wavStreamPlayerRef,
     items
-  } = useVoiceChat(suggest?.assistantId);
+  } = useVoiceChat(suggest?.instructions + chatContext);
+
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);

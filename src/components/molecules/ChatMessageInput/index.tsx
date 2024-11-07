@@ -3,7 +3,7 @@
 import { Button, Icon, Modal, Textarea } from "@/components/atoms";
 import { useAutoResizeTextArea, useChat, useUser } from "@/hooks";
 import { Loader2 } from "lucide-react";
-import { ChangeEvent, FC, useRef, useState, useEffect, useCallback } from "react";
+import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
@@ -134,6 +134,18 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     }
   };
 
+  const chatContext = useMemo(() => {
+    if (messages && messages.length > 0) {
+      const dialogText = `Here is the context of your dialog with the client:\n${messages
+        .map(item => `${item.message_type}: ${item.content}`)
+        .join(",\n")}`;
+  
+      return dialogText;
+    }
+
+    return "";
+  },[messages]);
+
   return (
     <form
       action={onSubmit}
@@ -196,7 +208,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} />
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} />
       </Modal>
     </form>
   );
