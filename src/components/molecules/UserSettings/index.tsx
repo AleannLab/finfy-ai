@@ -24,7 +24,7 @@ const UserSettings = () => {
   };
   return (
     <div
-      className={cn("menu-button-btn mx-auto flex space-x-2 items-center", {
+      className={cn("menu-button-btn mx-auto flex space-x-2 text-[#547a91] border-t border-[#74bbc9]/30 items-center", {
         "lg:!px-1 lg:!py-2 lg:justify-center": !openSidebar,
       })}
     >
@@ -85,7 +85,7 @@ const UserSettings = () => {
         )}
       />
       {!open && openSidebar && (
-        <Icon type="GearIcon" className="min-w-4 h-4 fill-white" />
+        <Icon type="GearIcon" className="min-w-4 h-4 !ml-3 fill-[#547a91]" />
       )}
     </div>
   );

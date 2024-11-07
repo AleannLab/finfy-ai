@@ -163,7 +163,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         value={message}
         onChange={handleChange}
         className={cn(
-          "lg:pl-4 h-16 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#473513] py-5 pr-24 lg:pr-48",
+          "lg:pl-4 h-16 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#547a91] py-5 pr-24 lg:pr-48",
           isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
         )}
         placeholder="Ask anything..."
@@ -178,7 +178,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
-            <Icon type="ArrowRightIcon" className="size-4 text-[#473513]" />
+            <Icon type="ArrowRightIcon" className="size-4 text-[#547a91]" />
           )}
         </Button>
       </div>

@@ -61,7 +61,7 @@ const CardLinkAccount: FC<HomePageProps> = ({ redirect, pathRedirect }) => {
             <Button
               onClick={() => open && open()}
               disabled={!isLinkReady || isLoading}
-              className="my-4 w-full text-[#473513]"
+              className="my-4 w-full text-[#547a91]"
             >
               {!isLinkReady || isLoading ? (
                 <Loader2 className="animate-spin" />

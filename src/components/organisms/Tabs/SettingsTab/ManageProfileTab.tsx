@@ -44,29 +44,29 @@ const ManageProfileTab = () => {
       <div className="p-3 border rounded-md bg-navy-15 border-navy-5">
         <div className="flex items-center justify-between">
           <div className="">
-            <p className="text-[#473513] mb-2">Appearance</p>
+            <p className="text-[#547a91] mb-2">Appearance</p>
             <p className="text-xs">Set your preferred theme for Perplexity</p>
           </div>
-          <div className="text-[#473513]">
+          <div className="text-[#547a91]">
             <ThemeButtons />
           </div>
         </div>
         <SeparatorLine />
         <div className="flex items-center justify-between">
           <div className="w-full">
-            <p className="text-[#473513] mb-2">Language</p>
+            <p className="text-[#547a91] mb-2">Language</p>
             <p className="text-xs">
               Set your preferred language for Perplexity&apos;s interface
             </p>
           </div>
-          <div className="text-[#473513]">
+          <div className="text-[#547a91]">
             <ThemeSelector placeholder="English" />
           </div>
         </div>
       </div>
       <div className="mt-8">
         <p className="my-4">Account</p>
-        <div className="p-3 border rounded-md bg-navy-15 border-navy-5 text-[#473513]">
+        <div className="p-3 border rounded-md bg-navy-15 border-navy-5 text-[#547a91]">
           <div className="w-full flex items-center justify-between">
             <p>Avatar</p>
             <UserAvatarWithUpload />
@@ -129,7 +129,7 @@ const ManageProfileTab = () => {
                 exclude your data this process.
               </p>
             </div>
-            <div className="flex items-center text-[#473513]">
+            <div className="flex items-center text-[#547a91]">
               <SwitchTemplate />
             </div>
           </div>

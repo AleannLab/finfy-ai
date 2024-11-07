@@ -174,7 +174,7 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
                 disconnectConversation();
               }}
             >
-              {<Cross2Icon className="size-4 text-[#473513]" color="white" />}
+              {<Cross2Icon className="size-4 text-[#547a91]" color="white" />}
             </Button>
           </div>
         }

@@ -31,10 +31,10 @@ export const MobileChartModal: FC<MobileChartModalProps> = ({
       <div
         className={`bg-[#272E48] rounded-lg max-w-[661px] p-8 w-full max-h-[90vh] overflow-y-auto relative transform transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-95'}`}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-[#473513]">
+        <button onClick={onClose} className="absolute top-4 right-4 text-[#547a91]">
           <X className="w-6 h-6" />
         </button>
-        <h3 className="text-2xl font-semibold text-[#473513] mb-4">
+        <h3 className="text-2xl font-semibold text-[#547a91] mb-4">
           {title}
         </h3>
         {component}

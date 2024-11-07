@@ -6,8 +6,8 @@ export const menuItems: MenuItem[] = [
     value: "career-coach",
     icon: () => (
       <Icon
-        type="DocumentIcon"
-        className="w-6 h-6 stroke-grey-15 group-hover:stroke-white"
+        type="SparkleIcon"
+        className="w-6 h-6"
       />
     ),
     title: "Career Coach",
@@ -19,8 +19,8 @@ export const menuItems: MenuItem[] = [
     value: "tutor",
     icon: () => (
       <Icon
-        type="SparkleIcon"
-        className="w-6 h-6 stroke-grey-15 group-hover:stroke-white"
+        type="DocumentIcon"
+        className="w-6 h-6"
       />
     ),
     title: "Tutor",

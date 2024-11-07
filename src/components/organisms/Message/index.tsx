@@ -22,7 +22,7 @@ const Message: FC<MessageProps> = (props) => {
         <div className={"flex gap-2.5 select-none w-full justify-start"}>
           <div
             className={cn(
-              "message relative inline-block text-[#473513] w-full rounded-md px-4 py-1 md:px-5 md:py-2"
+              "message relative inline-block text-[#547a91] w-full rounded-md px-4 py-1 md:px-5 md:py-2"
             )}
           >
             <ContentMessage

@@ -59,7 +59,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   };
   return (
     <button onClick={handleClick} className={cn("suggest-box flex-grow !border-opacity-15 bg-[#F3F9ED] flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "")}>
-      <p className="text-[#473513] mb-1 text-start">
+      <p className="text-[#547a91] mb-1 text-start">
         {icon} {label}
       </p>
       <div className="relative text-grey-15">

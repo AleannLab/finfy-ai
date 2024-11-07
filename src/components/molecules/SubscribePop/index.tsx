@@ -57,7 +57,7 @@ const SubscribePop: FC<SubscribePopProps> = ({ children }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger className="text-sm w-full">{children}</Dialog.Trigger>
-      <Dialog.Content className="text-[#473513] bg-navy-25 rounded-lg border-none pt-4 max-w-72">
+      <Dialog.Content className="text-[#547a91] bg-navy-25 rounded-lg border-none pt-4 max-w-72">
         {loading ? <></> : <SubscribePopCard />}
         <Dialog.Close asChild>
           <Button

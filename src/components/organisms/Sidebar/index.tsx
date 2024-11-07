@@ -37,7 +37,7 @@ const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "right-sidebar transition-all flex flex-col gap-5 fixed inset-0 z-50 w-full lg:sticky lg:max-w-64",
+        "right-sidebar transition-all flex flex-col fixed inset-0 z-50 w-full lg:sticky lg:max-w-64",
         open
           ? "translate-x-0 w-[calc(100%-38px)] lg:w-full"
           : "-translate-x-full lg:translate-x-0 lg:max-w-14"
@@ -51,13 +51,19 @@ const Sidebar = () => {
         >
           <button onClick={handleClick}>
             {open ? (
-              <Image
-                src="/icons/full-logo.svg"
-                height={28}
-                width={30}
-                alt="logo"
-                className="cursor-pointer"
-              />
+              // <Image
+              //   src="/icons/full-logo.svg"
+              //   height={28}
+              //   width={30}
+              //   alt="logo"
+              //   className="cursor-pointer"
+              // />
+              <>
+                <div className="w-[169px] h-9 relative">
+                  <div className="w-[110px] left-[38px] top-[10px] absolute text-[#547a91] text-base font-semibold leading-none">Career Buddy</div>
+                  <Icon type="LogoIcon" />
+                </div>
+              </>
             ) : (
               <Icon type="LogoIcon" />
             )}
@@ -70,7 +76,7 @@ const Sidebar = () => {
           </Button>
         </div>
         {/* <CreateNewChatPop> */}
-          <Button
+        {/* <Button
             onClick={()=> {
               router.push('/dashboard')
               handleToggle()
@@ -85,13 +91,13 @@ const Sidebar = () => {
             />
 
             <span
-              className={cn("text-base text-grey-15 group-hover:text-[#473513]", {
+              className={cn("text-base text-grey-15 group-hover:text-[#547a91]", {
                 "lg:hidden": !open,
               })}
             >
               New Thread
             </span>
-          </Button>
+          </Button> */}
         {/* </CreateNewChatPop> */}
       </div>
       <ScrollableArea className="px-2">
@@ -141,7 +147,7 @@ const Sidebar = () => {
         {/* <Button
           full
           className={cn(
-            "justify-start items-center text-xs font-semibold border-t border-t-navy-5 text-[#473513] p-6 !rounded-none",
+            "justify-start items-center text-xs font-semibold border-t border-t-navy-5 text-[#547a91] p-6 !rounded-none",
             {
               "lg:hidden": !open,
             }
@@ -151,7 +157,7 @@ const Sidebar = () => {
           Business Profile
         </Button> */}
         <UserSettings />
-        <div
+        {/* <div
           className={cn("menu-button-btn", {
             "lg:!p-2": !open,
           })}
@@ -162,7 +168,7 @@ const Sidebar = () => {
               <span className={cn({ "lg:hidden": !open })}>Try pro</span>
             </Button>
           </SubscribePop>
-        </div>
+        </div> */}
       </div>
     </aside>
   );

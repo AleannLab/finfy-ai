@@ -5,6 +5,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/hooks";
 
 const AccordionComponent = AccordionPrimitive.Root;
 
@@ -20,27 +21,31 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     isHideChevron?: boolean;
+    isOpen?: boolean;
   }
->(({ className, children, isHideChevron, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex items-center">
+>(({ className, children, isHideChevron, ...props }, ref) => {
+  const { open } = useSidebar();
+  return (
+  <AccordionPrimitive.Header className="flex items-center max-w-full ">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-between text-sm font-medium transition-all [&[data-state=open]>svg]:rotate-180",
-        className
+        "flex flex-1 items-center justify-between !max-h-10 text-sm font-medium transition-all max-w-full [&[data-state=open]>svg]:rotate-180",
+        className, open ? "" : "!max-w-10" 
       )}
       {...props}
     >
       {children}
-      {!isHideChevron && (
+      {!isHideChevron && open && (
         <ChevronDownIcon
-          className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+          // color={props?.isOpen ? "#f3f9fd" : "#547a91"}
+          className={cn("h-4 w-4 shrink-0 transition-transform duration-200")}
           aria-hidden
         />
       )}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
-));
+)});
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<

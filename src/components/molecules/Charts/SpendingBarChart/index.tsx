@@ -286,7 +286,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
         {renderChart()}
       </div>
       <div className="mt-6">
-        <h3 className="text-2xl font-semibold text-[#473513] mb-4">
+        <h3 className="text-2xl font-semibold text-[#547a91] mb-4">
           {title}
         </h3>
         <div
@@ -296,7 +296,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
             scrollbarColor: "#6B7280 #2D3748",
           }}
         >
-          <ul className="text-[#473513]">
+          <ul className="text-[#547a91]">
             {labels.map((label, index) => (
               <li
                 key={label}

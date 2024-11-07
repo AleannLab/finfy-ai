@@ -28,7 +28,7 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
       onClick={handleClick}
       className={cn("flex flex-col gap-2 items-start hover:bg-navy-5 p-2 rounded-md", item?.assistantId ? "opacity-100" : " opacity-20")}
     >
-      <h3 className="text-[#473513] font-semibold text-sm text-start">{title}</h3>
+      <h3 className="text-[#547a91] font-semibold text-sm text-start">{title}</h3>
       <p className="text-grey-5 font-medium text-xs text-start">{text}</p>
     </button>
   );

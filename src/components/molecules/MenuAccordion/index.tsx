@@ -73,17 +73,18 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   pathname.includes(item.href);
 
   return (
-    <Accordion.Item className="flex flex-col gap-0.5" value={item.value}>
+    <Accordion.Item className="flex flex-col max-w-full gap-0.5" value={item.value}>
       <Accordion.Trigger
-        isHideChevron={isHideChevron}
+        isOpen={isActiveType}
+        isHideChevron={isHideChevron && !open}
         disabled={isHideChevron}
         onClick={() => {
            handleOpen()
            router.push(href)
         }}
         className={cn("p-2 rounded-sm group", {
-          "bg-[#547A91] ": isActiveType,
-        }, {"hover:text-[#473513] hover:bg-navy-5": !isActiveType})}
+          "bg-[#547A91] text-[#f3f9fd] stroke-[#f3f9fd]": isActiveType,
+        }, {"hover:text-[#f3f9fd] hover:stroke-[#f3f9fd] hover:bg-[#547A91]": !isActiveType})}
       >
         <div className={"flex justify-between w-full items-center"}>
           <Link
@@ -91,7 +92,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             onClick={onClick}
             className="flex gap-3 items-center"
           >
-            <span className={cn("w-6 h-6 flex justify-center group-hover:text-[#F3F9ED] items-center", isActiveType ? "text-[#F3F9ED] " : "")}>
+            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#F3F9ED]", isActiveType ? "text-[#F3F9ED] stroke-[#F3F9ED]" : "stroke-[#547A91] text-[#547A91]")}>
               <Icon />
             </span>
             <span className={cn("group-hover:text-[#F3F9ED] ", isActiveType ? "text-[#F3F9ED] " : "")}>{item.title}</span>
@@ -189,7 +190,7 @@ const MenuAccordion: FC = () => {
       value={value}
       type="single"
       collapsible
-      className="flex flex-col gap-0.5 max-w-[calc(100%)]"
+      className="flex flex-col gap-0.5 max-w-full"
     >
       {menuItems.map((item) => (
         <MenuAccordionItem

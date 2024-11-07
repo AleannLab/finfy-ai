@@ -112,7 +112,7 @@ const FinancialTab = () => {
       defaultValue="spending"
       className="border rounded-md p-5 bg-navy-15 border-navy-5"
     >
-      <Tab.List className="text-[#473513]">
+      <Tab.List className="text-[#547a91]">
         <Tab.Trigger
           value="spending"
           className="gap-1 items-center border-navy-15"
