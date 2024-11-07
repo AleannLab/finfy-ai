@@ -13,7 +13,7 @@ import {
 } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface AudioChatProps {
     isClosed: boolean
@@ -40,6 +40,19 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
 
+  const userId = useMemo(() => {
+    return user?.id;
+  },[user]);
+
+  const threadId = useMemo(() => {
+    const currentPath = window.location.href;
+    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+
+    return threadIdFromURL;
+  },[window.location.href]);
+
   useEffect(() => {
     const processMessages = () => {
       items.forEach((item) => {
@@ -62,14 +75,8 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
 
 const storeMessage = (content: string, role: string) => {
 
-    const userId = user?.id;
-    const currentPath = window.location.href;
-    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
-    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
-    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
-
     const dataForStore = {
-        chat_id: threadIdFromURL,
+        chat_id: threadId,
         user_id: userId,
         content,
         message_type: role,
