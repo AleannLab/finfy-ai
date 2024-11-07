@@ -36,9 +36,10 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage } = useChat();
+  const { createMessage, submitChatFromAudioChat } = useChat();
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
+  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ role: string, message: string }[]>([]);
 
   const userId = useMemo(() => {
     return user?.id;
@@ -69,9 +70,26 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
         }
       });
     };
+    const prepareMessagesToStore = () => {
+        items.forEach((item) => {
+            const { id, formatted } = item;
+            if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+              setProcessedIds((prevIds) => new Set(prevIds).add(id));
 
-    processMessages();
-  }, [items, processedIds]);
+              if (formatted.text && formatted.text.trim() !== "") {
+               setPreparedMessagesToStore((prev) => [...prev, { role: item.role as string, message: formatted.text as string }]);
+              } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
+                setPreparedMessagesToStore((prev) => [...prev, { role: item.role as string, message: formatted.transcript as string }]);
+              }
+            }
+          });
+    }
+    if (threadId) {
+        processMessages();
+    } else {
+        prepareMessagesToStore();
+    }
+  }, [items, processedIds, threadId]);
 
 const storeMessage = (content: string, role: string) => {
 
@@ -86,9 +104,16 @@ const storeMessage = (content: string, role: string) => {
     createMessage(dataForStore)
 };
 
+const handleDisconnectChat = async () => {
+    disconnectConversation();
+    if (!threadId && preparedMessagesToStore.length > 0) {
+        await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
+    }
+}
+
   useEffect(() => {
     if (isClosed) {
-        disconnectConversation();
+        handleDisconnectChat();
     }
   },[isClosed]);
 
@@ -217,9 +242,7 @@ const storeMessage = (content: string, role: string) => {
               size="xl"
               className="w-10 h-10 p-3 !rounded-full bg-red-500 hover:bg-red-400 disabled:opacity-30 disabled:pointer-events-none"
               disabled={!isConnected || isConnecting}
-              onClick={() => {
-                disconnectConversation();
-              }}
+              onClick={handleDisconnectChat}
             >
               {<Cross2Icon className="size-4 text-[#473513]" color="white" />}
             </Button>
