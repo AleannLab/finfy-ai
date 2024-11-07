@@ -267,17 +267,21 @@ export const useChat = () => {
         }
   
         if (threadId) {
-          messages.forEach(async (msg) => {
+          const createMessagePromises = messages.map((msg, index) => {
             if (msg.message.trim().length > 0) {
-              await fetchCreateMessage({
+              const createdAt = new Date();
+              createdAt.setMilliseconds(createdAt.getMilliseconds() + index);
+              return fetchCreateMessage({
                 chat_id: threadId,
                 user_id: userId,
                 content: msg.message,
                 message_type: msg.role,
                 is_processed: true,
+                created_at: createdAt.toISOString()
               });
             }
           });
+          await Promise.all(createMessagePromises);
   
           console.log("Message saved successfully");
         } else {
