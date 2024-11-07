@@ -208,7 +208,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} />
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
       </Modal>
     </form>
   );
