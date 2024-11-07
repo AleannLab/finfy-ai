@@ -193,6 +193,105 @@ export const useChat = () => {
     },
     [dispatch, router]
   );
+
+  const submitChatFromAudioChat = useCallback(
+    async ({
+      messages,
+      userId,
+      assistantId,
+      // threadIdFromURL,
+      handleClose,
+      handleResetChat,
+    }: {
+      messages: { role: string, message: string }[];
+      userId: string | undefined;
+      assistantId: string | null;
+      handleClose?: () => void;
+      handleResetChat?: () => void;
+    }) => {
+      setIsLoadingSendQuery(true);
+  
+      let threadId: string | null = null;
+  
+      if (!messages || !messages.length || !userId) {
+        console.error("Missing message or userId");
+        setIsLoadingSendQuery(false);
+        return;
+      }
+  
+      try {
+        if (handleClose) {
+          handleClose();
+        }
+
+        const dialogText = `Here is the context of your dialog with the client:\n${messages
+          .map(item => `${item.role}: ${item.message}`)
+          .join(",\n")}`;
+  
+        const response = await fetch("/api/openai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: dialogText,
+            assistantId,
+            chatId: null,
+          }),
+        });
+  
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder(); 
+        if (reader) {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+        
+            const chunk = decoder.decode(value, { stream: true });
+        
+            if (chunk.includes("threadId")) {
+              const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
+        
+              try {
+                const json = JSON.parse(cleanChunk);
+                const type = pathname.includes("tutor") ? "tutor" : "career-coach";
+        
+                if (json.threadId && !pathname.includes("thread")) {
+                  threadId = json.threadId;
+                  router.push(`${pathname}/chat/${threadId}`, undefined);
+                  createChatCallback(userId, messages[0].message.slice(0, 30) + "...", threadId, type);
+                }
+              } catch (error) {
+                console.error("Error parsing chunk:", error);
+              }
+            } 
+          }
+        }
+  
+        if (threadId) {
+          messages.forEach(async (msg) => {
+            if (msg.message.trim().length > 0) {
+              await fetchCreateMessage({
+                chat_id: threadId,
+                user_id: userId,
+                content: msg.message,
+                message_type: msg.role,
+                is_processed: true,
+              });
+            }
+          });
+  
+          console.log("Message saved successfully");
+        } else {
+          toast.error("Thread ID not received. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error in submitChat:", error);
+        toast.error("Something went wrong. Please try again.");
+      } finally {
+        setIsLoadingSendQuery(false);
+      }
+    },
+    [dispatch, router]
+  );
   
 
   // const submitChat = useCallback(
@@ -363,6 +462,7 @@ export const useChat = () => {
     createMessage: fetchCreateMessage,
     setIsLoadingSendQuery,
     handleResetChat,
-    submitChat
+    submitChat,
+    submitChatFromAudioChat
   };
 };
