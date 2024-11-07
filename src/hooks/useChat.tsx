@@ -282,6 +282,7 @@ export const useChat = () => {
             }
           });
           await Promise.all(createMessagePromises);
+          await fetchMessagesForChatCallback(threadId);
   
           console.log("Message saved successfully");
         } else {
