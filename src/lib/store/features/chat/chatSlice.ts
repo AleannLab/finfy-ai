@@ -75,6 +75,7 @@ export const createMessage = createAsyncThunk(
     message_type: "user" | "bot";
     is_processed?: boolean;
     response_time?: string | null;
+    created_at?: string;
   }) => {
     const { data, error } = await supabase
       .from("messages")
