@@ -45,13 +45,13 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
       items.forEach((item) => {
         const { id, formatted } = item;
 
-        if (!processedIds.has(id) && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+        if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
           setProcessedIds((prevIds) => new Set(prevIds).add(id));
 
           if (formatted.text && formatted.text.trim() !== "") {
-            createMessageTest(formatted.text);
+            storeMessage(formatted.text, item.role);
           } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
-            createMessageTest(formatted.transcript);
+            storeMessage(formatted.transcript, item.role);
           }
         }
       });
@@ -60,8 +60,23 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
     processMessages();
   }, [items, processedIds]);
 
-const createMessageTest = (content: string) => {
-    console.log("Storing message:", content);
+const storeMessage = (content: string, role: string) => {
+
+    const userId = user?.id;
+    const currentPath = window.location.href;
+    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+
+    const dataForStore = {
+        chat_id: threadIdFromURL,
+        user_id: userId,
+        content,
+        message_type: role,
+        is_processed: true,
+    }
+
+    createMessage(dataForStore)
 };
 
   useEffect(() => {
