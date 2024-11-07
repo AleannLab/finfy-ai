@@ -13,13 +13,14 @@ import {
 } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface AudioChatProps {
-    isClosed: boolean
+    isClosed: boolean;
+    chatContext: string;
 }
 
-const AudioChat = ({ isClosed }: AudioChatProps) => {
+const AudioChat = ({ isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -32,16 +33,104 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
     wavRecorderRef,
     wavStreamPlayerRef,
     items
-  } = useVoiceChat(suggest?.assistantId);
+  } = useVoiceChat(suggest?.instructions + chatContext);
+
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage } = useChat();
+  const { createMessage, submitChatFromAudioChat } = useChat();
   const { user } = useUser();
+  const [processedIds, setProcessedIds] = useState(new Set());
+  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ id: string, role: string, message: string }[]>([]);
+
+  const userId = useMemo(() => {
+    return user?.id;
+  },[user]);
+
+  const threadId = useMemo(() => {
+    const currentPath = window.location.href;
+    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+
+    return threadIdFromURL;
+  },[window.location.href]);
+
+  useEffect(() => {
+    const processMessages = () => {
+      items.forEach((item) => {
+        const { id, formatted } = item;
+
+        if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+          setProcessedIds((prevIds) => new Set(prevIds).add(id));
+
+          if (formatted.text && formatted.text.trim() !== "") {
+            storeMessage(formatted.text, item.role);
+          } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
+            storeMessage(formatted.transcript, item.role);
+          }
+        }
+      });
+    };
+    const prepareMessagesToStore = () => {
+        items.forEach((item) => {
+            const { id, formatted, status, role } = item;
+            if (role === 'user') {
+                const messageText = formatted.text || formatted.transcript || "";
+                if (!processedIds.has(id)) {
+                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
+                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
+                } else {
+                   if (status === 'completed') {
+                    const updatedPreparedMessages = preparedMessagesToStore.map((msg) => {
+                        if (msg.id === id) {
+                            return { id: id, role: role as string, message: messageText }
+                        }
+
+                        return msg;
+                    });
+                    setPreparedMessagesToStore(updatedPreparedMessages);
+                   } 
+                }
+            } else if (role === 'assistant') {
+                const messageText = formatted.text || formatted.transcript || "";
+                if (!processedIds.has(id) && status === 'completed') {
+                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
+                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
+                }
+            }
+          });
+    }
+    if (threadId) {
+        processMessages();
+    } else {
+        prepareMessagesToStore();
+    }
+  }, [items, processedIds, threadId]);
+
+const storeMessage = (content: string, role: string) => {
+
+    const dataForStore = {
+        chat_id: threadId,
+        user_id: userId,
+        content,
+        message_type: role,
+        is_processed: true,
+    }
+
+    createMessage(dataForStore)
+};
+
+const handleDisconnectChat = async () => {
+    disconnectConversation();
+    if (!threadId && preparedMessagesToStore.length > 0) {
+        await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
+    }
+}
 
   useEffect(() => {
     if (isClosed) {
-        disconnectConversation();
+        handleDisconnectChat();
     }
   },[isClosed]);
 
@@ -170,9 +259,7 @@ const AudioChat = ({ isClosed }: AudioChatProps) => {
               size="xl"
               className="w-10 h-10 p-3 !rounded-full bg-red-500 hover:bg-red-400 disabled:opacity-30 disabled:pointer-events-none"
               disabled={!isConnected || isConnecting}
-              onClick={() => {
-                disconnectConversation();
-              }}
+              onClick={handleDisconnectChat}
             >
               {<Cross2Icon className="size-4 text-[#547a91]" color="white" />}
             </Button>
