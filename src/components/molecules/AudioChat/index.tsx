@@ -16,11 +16,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 interface AudioChatProps {
+    onClose: () => void;
     isClosed: boolean;
     chatContext: string;
 }
 
-const AudioChat = ({ isClosed, chatContext = "" }: AudioChatProps) => {
+const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -42,6 +43,7 @@ const AudioChat = ({ isClosed, chatContext = "" }: AudioChatProps) => {
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
   const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ id: string, role: string, message: string }[]>([]);
+  const conversationStarted = useRef(false)
 
   const userId = useMemo(() => {
     return user?.id;
@@ -55,6 +57,13 @@ const AudioChat = ({ isClosed, chatContext = "" }: AudioChatProps) => {
 
     return threadIdFromURL;
   },[window.location.href]);
+
+  useEffect(() => {
+    if (!conversationStarted.current) {
+        conversationStarted.current = true
+        connectConversation();
+    }
+  },[conversationStarted]);
 
   useEffect(() => {
     const processMessages = () => {
@@ -126,6 +135,7 @@ const handleDisconnectChat = async () => {
     if (!threadId && preparedMessagesToStore.length > 0) {
         await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
     }
+    onClose();
 }
 
   useEffect(() => {
@@ -214,10 +224,10 @@ const handleDisconnectChat = async () => {
         />
       </div>
       <div className="h-20 flex flex-col items-center justify-center">
-        {!isConnected && (
+        {/* {!conversationStarted && (
           <Button
             size="xl"
-            className="w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
+            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none opacity-0"
             disabled={isConnecting}
             onClick={() => {
               connectConversation();
@@ -225,7 +235,7 @@ const handleDisconnectChat = async () => {
           >
             <PlusCircledIcon className="size-4" color="white" />
           </Button>
-        )}
+        )} */}
         {
           <div
             className={clsx(
