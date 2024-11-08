@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { cn } from "@/lib/utils";
+import { cn, detectPhoneAgents } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,13 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const dispatch = useDispatch();
   const [shouldFocus, setShouldFocus] = useState(true);
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
+  const [isUserUsingMobile, setIsUserUsingMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const detectMobile = detectPhoneAgents();
+    setIsUserUsingMobile(detectMobile);
+  },[])
+
 
   const openVoiceChatModal = () => {
     setShouldFocus(false);
@@ -197,10 +204,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
-      {isVoiceChatModalOpen && <div className="w-full py-6">
+      {!isUserUsingMobile && isVoiceChatModalOpen && <div className="w-full py-6">
         <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
         </div>}
-      {/* <Modal
+      {isUserUsingMobile && <Modal
         open={isVoiceChatModalOpen}
         onClose={() => {
           setCloseAudioChat(true);
@@ -214,8 +221,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
-      </Modal> */}
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} isMobile={isUserUsingMobile} />
+      </Modal>}
     </form>
   );
 };

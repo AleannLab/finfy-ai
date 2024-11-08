@@ -19,9 +19,10 @@ interface AudioChatProps {
     onClose: () => void;
     isClosed: boolean;
     chatContext: string;
+    isMobile?: boolean;
 }
 
-const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
+const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -212,14 +213,7 @@ const handleDisconnectChat = async () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-12 items-center justify-center
-        p-12
-        rounded-[24px] 
-        border border-[#E2EAFB] 
-        bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)]
-        shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)]
-        backdrop-blur-[7.5px]
-    ">
+    <div className={clsx("flex flex-col gap-12 items-center justify-center", {"p-12 rounded-[24px] border border-[#E2EAFB] bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)] shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)] backdrop-blur-[7.5px]": !isMobile })}>
       <div className="flex flex-col gap-2">
         <Image
           width={512}
