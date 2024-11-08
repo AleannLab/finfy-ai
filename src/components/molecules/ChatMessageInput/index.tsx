@@ -10,7 +10,7 @@ import { cn, detectPhoneAgents } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
-import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
+import { addMessage, fetchChatByTread, setMessages } from "@/lib/store/features/chat/chatSlice";
 import { SpeakerModerateIcon } from "@radix-ui/react-icons";
 import { AudioChat } from "../AudioChat";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
@@ -97,11 +97,20 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       return;
     }
 
-    const assistantId = suggest?.assistantId;
     const currentPath = window.location.href;
     const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
     const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
     const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+
+    const assistantId = suggest?.assistantId;
+    let assistantIdFromDB = assistantId;
+
+    if (threadIdFromURL) {
+     const tread: any = await fetchChatByTread(threadIdFromURL);
+     assistantIdFromDB = tread?.assistantId;
+    }
+
+
 
     if (handleClose) {
       handleClose();
@@ -112,7 +121,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     await submitChat({
       message: inValue,
       userId,
-      assistantId: assistantId || "",
+      assistantId: assistantId || assistantIdFromDB,
       threadIdFromURL,
     });
 

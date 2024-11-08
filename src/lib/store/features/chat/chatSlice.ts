@@ -91,12 +91,12 @@ export const createMessage = createAsyncThunk(
 
 export const createChat = createAsyncThunk(
   "chat/createChat",
-  async ({ userId, title, chatId, type }: { userId: string; title: string, chatId: any, type: string }, { dispatch }) => {
+  async ({ userId, title, chatId, type, assistantId }: { userId: string; title: string, chatId: any, type: string, assistantId: string }, { dispatch }) => {
     const index = randomNumber(1, emojis.length);
 
     const { data, error } = await supabase
       .from("chats")
-      .insert([{ title: `${title}`, id: userId, chatId, type }])
+      .insert([{ title: `${title}`, id: userId, chatId, type, assistantId }])
       .select();
 
     if (error) {
@@ -132,6 +132,18 @@ export const fetchChatsByUserId = createAsyncThunk(
     return data;
   }
 );
+
+export const fetchChatByTread = async (chatId: string) => {
+    const { data, error } = await supabase
+      .from("chats")
+      .select("*")
+      .eq("chatId", chatId)
+    if (error) {
+      Sentry.captureException(error);
+      throw error;
+    }
+    return data;
+  }
 
 export const updateChat = createAsyncThunk(
   "chat/updateChat",

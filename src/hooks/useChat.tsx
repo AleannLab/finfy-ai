@@ -76,17 +76,17 @@ export const useChat = () => {
     }: {
       message: string;
       userId: string;
-      assistantId: string | null;
+      assistantId: string;
       threadIdFromURL?: string | null;
       handleClose?: () => void;
       handleResetChat?: () => void;
     }) => {
       setIsLoadingSendQuery(true);
-  
+
       const savedInput = message;
       let accumulatedResponse = "";
       let threadId = threadIdFromURL || null;
-  
+
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
@@ -103,12 +103,12 @@ export const useChat = () => {
         });
         // setIsLoadingSendQuery(false);
       }
-  
+
       try {
         if (handleClose) {
           handleClose();
         }
-  
+
         const response = await fetch("/api/openai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -118,28 +118,28 @@ export const useChat = () => {
             chatId: threadId,
           }),
         });
-  
+
         const reader = response.body?.getReader();
-        const decoder = new TextDecoder(); 
+        const decoder = new TextDecoder();
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-        
+
             const chunk = decoder.decode(value, { stream: true });
-        
+
             if (chunk.includes("threadId")) {
               const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-        
+
               try {
                 const json = JSON.parse(cleanChunk);
                 const type = pathname.includes("tutor") ? "tutor" : "career-coach";
-        
+
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   router.push(`${pathname}/chat/${threadId}`, undefined);
-                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type);
-                }  
+                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId);
+                }
                 if (json.threadId) {
                   await fetchCreateMessage({
                     chat_id: json.threadId,
@@ -148,7 +148,7 @@ export const useChat = () => {
                     message_type: "user",
                     is_processed: true,
                   });
-                }     
+                }
                 if (json.message) {
                   accumulatedResponse += json.message;
                   dispatch(setStreamMessage(accumulatedResponse))
@@ -169,9 +169,9 @@ export const useChat = () => {
         dispatch(setStreamMessage(""))
         setIsLoadingSendQuery(false);
 
-  
+
         if (threadId) {
- 
+
           await fetchCreateMessage({
             chat_id: threadId,
             user_id: userId,
@@ -179,7 +179,7 @@ export const useChat = () => {
             message_type: "assistant",
             is_processed: true,
           });
-  
+
           console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
@@ -205,20 +205,20 @@ export const useChat = () => {
     }: {
       messages: { role: string, message: string }[];
       userId: string | undefined;
-      assistantId: string | null;
+      assistantId: string;
       handleClose?: () => void;
       handleResetChat?: () => void;
     }) => {
       setIsLoadingSendQuery(true);
-  
+
       let threadId: string | null = null;
-  
+
       if (!messages || !messages.length || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
         return;
       }
-  
+
       try {
         if (handleClose) {
           handleClose();
@@ -227,7 +227,7 @@ export const useChat = () => {
         const dialogText = `Here is the context of our audio dialog:\n${messages
           .map(item => `${item.role}: ${item.message}`)
           .join(",\n")}. Save it to history of this chat`;
-  
+
         const response = await fetch("/api/openai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -237,35 +237,35 @@ export const useChat = () => {
             chatId: null,
           }),
         });
-  
+
         const reader = response.body?.getReader();
-        const decoder = new TextDecoder(); 
+        const decoder = new TextDecoder();
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-        
+
             const chunk = decoder.decode(value, { stream: true });
-        
+
             if (chunk.includes("threadId")) {
               const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-        
+
               try {
                 const json = JSON.parse(cleanChunk);
                 const type = pathname.includes("tutor") ? "tutor" : "career-coach";
-        
+
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   router.push(`${pathname}/chat/${threadId}`, undefined);
-                  createChatCallback(userId, messages[0].message.slice(0, 30) + "...", threadId, type);
+                  createChatCallback(userId, messages[0].message.slice(0, 30) + "...", threadId, type, assistantId);
                 }
               } catch (error) {
                 console.error("Error parsing chunk:", error);
               }
-            } 
+            }
           }
         }
-  
+
         if (threadId) {
           const createMessagePromises = messages.map((msg, index) => {
             if (msg.message.trim().length > 0) {
@@ -283,7 +283,7 @@ export const useChat = () => {
           });
           await Promise.all(createMessagePromises);
           await fetchMessagesForChatCallback(threadId);
-  
+
           console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
@@ -312,7 +312,7 @@ export const useChat = () => {
         const dialogText = `Here is the context of our audio dialog:\n${messages
           .map(item => `${item.role}: ${item.message}`)
           .join(",\n")}. Save it to history of this chat`;
-        
+
         await fetch("/api/openai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -329,7 +329,7 @@ export const useChat = () => {
     },
     []
   );
- 
+
   // const submitChat = useCallback(
   //   async ({
   //     message,
@@ -457,9 +457,9 @@ export const useChat = () => {
   );
 
   const createChatCallback = useCallback(
-    async (userId: string, title: string, chatId: any, type: string ) => {
+    async (userId: string, title: string, chatId: any, type: string, assistantId: string) => {
 
-      const data = await dispatch(createChat({ userId, title, chatId, type }));
+      const data = await dispatch(createChat({ userId, title, chatId, type, assistantId }));
       return data;
     },
     [dispatch]
