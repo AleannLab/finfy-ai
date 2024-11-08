@@ -213,7 +213,8 @@ const handleDisconnectChat = async () => {
   }, []);
 
   return (
-    <div className={clsx("flex flex-col gap-12 items-center justify-center", {"p-12 rounded-[24px] border border-[#E2EAFB] bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)] shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)] backdrop-blur-[7.5px]": !isMobile })}>
+    <div className={clsx("relative flex flex-col gap-6 md:gap-12 items-center justify-center", {"p-12 rounded-[24px] border border-[#E2EAFB] bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)] shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)] backdrop-blur-[7.5px]": !isMobile })}>
+      {!isMobile && <div className="absolute top-4 right-2 md:top-6 md:right-6 cursor-pointer" onClick={handleDisconnectChat}><Cross2Icon className="size-4 text-[#547A91]" color="#547A91" /></div>}
       <div className="flex flex-col gap-2">
         <Image
           width={512}
