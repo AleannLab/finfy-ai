@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/atoms";
+import { Button, Icon } from "@/components/atoms";
 import { useChat, useUser } from "@/hooks";
 import useVoiceChat from "@/hooks/useVoiceChat";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -20,11 +20,7 @@ interface AudioChatProps {
   chatContext: string;
 }
 
-const AudioChat = ({
-  onClose,
-  isClosed,
-  chatContext = "",
-}: AudioChatProps) => {
+const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -292,7 +288,7 @@ const AudioChat = ({
         {
           <div
             className={clsx(
-              "w-full flex gap-2 items-center justify-center",
+              "w-full flex gap-10 items-center justify-center",
               { "opacity-100": isConnected },
               { "opacity-0": !isConnected }
             )}
@@ -308,7 +304,7 @@ const AudioChat = ({
               {isMuted && <SpeakerOffIcon className="size-4" color="white" />}
               {!isMuted && <SpeakerLoudIcon className="size-4" color="white" />}
             </Button>
-            {
+            {/* {
               <div className=" p-1 z-10 flex gap-0.5 rounded-lg visualization">
                 <div className="relative flex items-center h-10 w-24 gap-1 text-blue-500 visualization-entry client">
                   <canvas ref={clientCanvasRef} className="w-full h-full" />
@@ -316,6 +312,23 @@ const AudioChat = ({
                 <div className="relative flex items-center h-10 w-24 gap-1 text-green-600 visualization-entry server">
                   <canvas ref={serverCanvasRef} className="w-full h-full" />
                 </div>
+              </div>
+            } */}
+            {
+              <div className="flex gap-2 items-center">
+                <Icon
+                  width="24"
+                  height="24"
+                  className="w-6 h-6 text-[#547A91]"
+                  type="MicIcon"
+                  
+                />
+                <Icon 
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                    type="AudioLogo" 
+                />
               </div>
             }
             <Button
