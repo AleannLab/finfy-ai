@@ -137,17 +137,19 @@ export const useChat = () => {
 
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
-                  router.push(`${pathname}/chat/${threadId}`, undefined);
-                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId);
-                }
-                if (json.threadId) {
-                  await fetchCreateMessage({
-                    chat_id: json.threadId,
-                    user_id: userId,
-                    content: savedInput,
-                    message_type: "user",
-                    is_processed: true,
+                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId).then(async () => {
+                    await fetchCreateMessage({
+                      chat_id: threadId,
+                      user_id: userId,
+                      content: savedInput,
+                      message_type: "user",
+                      is_processed: true,
+                    }).then(() => {
+                      router.push(`${pathname}/chat/${threadId}`, undefined);
+                    });
                   });
+
+
                 }
                 if (json.message) {
                   accumulatedResponse += json.message;
