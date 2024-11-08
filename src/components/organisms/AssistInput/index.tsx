@@ -3,7 +3,7 @@
 import { ChatMessageInput } from "@/components/molecules";
 import { ActionButtonsGroup, SuggestedQuestions } from "@/components/organisms";
 import { cn } from "@/lib/utils";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface AssistInputProps {
   classes?: {
@@ -12,9 +12,13 @@ interface AssistInputProps {
   };
   handleClose?: () => void;
   isDark?: boolean;
+  isVoiceChatModalOpen: any;
+  setIsVoiceChatModalOpen: any
 }
 
-const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isDark = false }) => {
+const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatModalOpen, setIsVoiceChatModalOpen, isDark = false }) => {
+  const [] = useState<boolean>(false);
+
   return (
     <div
       className={cn(
@@ -24,13 +28,13 @@ const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isDark = fals
     >
       <div
         className={cn(
-          "w-full md:p-2 bottom-0 absolute bg-navy-15 lg:bg-transparent rounded-full lg:rounded-none",
+          "w-full md:p-2 top-[-112px] absolute bg-navy-15 lg:bg-transparent rounded-full lg:rounded-none",
           classes?.container
         )}
       >
         <SuggestedQuestions />
         <ActionButtonsGroup />
-        <ChatMessageInput isDark={isDark} handleClose={handleClose} />
+        <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={isDark} handleClose={handleClose} />
       </div>
     </div>
   );

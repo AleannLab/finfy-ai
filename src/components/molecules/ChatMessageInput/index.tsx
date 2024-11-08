@@ -19,9 +19,11 @@ import { AssistActions } from "@/components/organisms";
 interface ChatMessageInputProps {
   handleClose?: () => void;
   isDark?: boolean;
+  isVoiceChatModalOpen: boolean;
+  setIsVoiceChatModalOpen: any
 }
 
-const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false }) => {
+const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, isVoiceChatModalOpen, setIsVoiceChatModalOpen }) => {
   const { user } = useUser();
   const router = useRouter();
   const {
@@ -42,7 +44,6 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const textareaRef = useAutoResizeTextArea();
   const popoverRef = useRef<HTMLDivElement | null>(null)
   const suggest = useAppSelector((state) => state.suggest.suggest);
-  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [shouldFocus, setShouldFocus] = useState(true);
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
@@ -52,7 +53,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   useEffect(() => {
     const detectMobile = detectPhoneAgents();
     setIsUserUsingMobile(detectMobile);
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (isVoiceChatModalOpen && audioChatRef.current && !isUserUsingMobile) {
@@ -84,7 +85,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-      setIsPopupOpen(false);
+    setIsPopupOpen(false);
   };
 
   const onSubmit = async (formData: FormData) => {
@@ -106,8 +107,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     let assistantIdFromDB = assistantId;
 
     if (threadIdFromURL) {
-     const tread: any = await fetchChatByTread(threadIdFromURL);
-     assistantIdFromDB = tread?.[0].assistantId;
+      const tread: any = await fetchChatByTread(threadIdFromURL);
+      assistantIdFromDB = tread?.[0].assistantId;
     }
 
     if (handleClose) {
@@ -127,9 +128,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     setMessage("");
   };
 
-  
-  
-  
+
+
+
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
@@ -161,64 +162,66 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       const dialogText = `Here is the context of your dialog with the client:\n${messages
         .map(item => `${item.message_type}: ${item.content}`)
         .join(",\n")}`;
-  
+
       return dialogText;
     }
 
     return "";
-  },[messages]);
+  }, [messages]);
 
   return (
-    <form
-      action={onSubmit}
-      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
-    >
-      <div className="relative hidden">
-        <button
-          type="button"
-          className="w-10 h-10 pl-3 pt-2.5 pb-3 -mr-2 flex lg:hidden"
-          onClick={isPopupOpen ? handleClosePopup : handleOpenPopup}
-        >
-          <Icon type="PlusIcon" className={cn("w-5 h-5", isPopupOpen ? "stroke-purple-15" : " stroke-slate-400")} />
-        </button>
-
-        {isPopupOpen && (
-          <div
-            ref={popoverRef}
-            className="absolute lg:hidden w-max bg-[#272E48] rounded-md px-4 border-[#374061] border-[1px] py-2 bottom-16 left-0 z-50"
+    <>
+      <form
+        action={onSubmit}
+        className="rounded-[50px] md:max-h-16 mx-2  min-h-16  justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
+      >
+        <div className="relative hidden">
+          <button
+            type="button"
+            className="w-10 h-10 pl-3 pt-2.5 pb-3 -mr-2 flex lg:hidden"
+            onClick={isPopupOpen ? handleClosePopup : handleOpenPopup}
           >
-            <ActionButtonsGroupMobile />
-          </div>
-        )}
-      </div>
+            <Icon type="PlusIcon" className={cn("w-5 h-5", isPopupOpen ? "stroke-purple-15" : " stroke-slate-400")} />
+          </button>
 
-      <Textarea
-        ref={setTextareaRef}
-        value={message}
-        style={{
-          padding: "20px 16px"
-        }}
-        onChange={handleChange}
-        className={cn(
-          "lg:pl-4 min-h-16 md:max-h-16 rounded-[50px]  px-4 py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-24 lg:pr-48",
-          isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
-        )}
-        placeholder="Ask follow-up question..."
-        name="message"
-        onKeyDown={handleEnter}
-      />
-      <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
-          <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
-        </Button>
-        <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
-          {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <Icon type="ArrowRightIcon" className="size-4 text-[#272E48]" />
+          {isPopupOpen && (
+            <div
+              ref={popoverRef}
+              className="absolute lg:hidden w-max bg-[#272E48] rounded-md px-4 border-[#374061] border-[1px] py-2 bottom-16 left-0 z-50"
+            >
+              <ActionButtonsGroupMobile />
+            </div>
           )}
-        </Button>
-      </div>
+        </div>
+
+        <Textarea
+          ref={setTextareaRef}
+          value={message}
+          style={{
+            padding: "20px 16px"
+          }}
+          onChange={handleChange}
+          className={cn(
+            "lg:pl-4 min-h-16 md:max-h-16 rounded-[50px]  px-4 py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-24 lg:pr-48",
+            isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
+          )}
+          placeholder="Ask follow-up question..."
+          name="message"
+          onKeyDown={handleEnter}
+        />
+        <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
+          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
+            <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
+          </Button>
+          <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
+            {isLoading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <Icon type="ArrowRightIcon" className="size-4 text-[#272E48]" />
+            )}
+          </Button>
+        </div>
+      </form>
       {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
         <AssistActions
           onClose={() => {
@@ -228,9 +231,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             }, 200)
           }}
         >
-          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
         </AssistActions>
-        </div>}
+      </div>}
       {isUserUsingMobile && <Modal
         open={isVoiceChatModalOpen}
         onClose={() => {
@@ -247,7 +250,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       >
         <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
       </Modal>}
-    </form>
+    </>
   );
 };
 

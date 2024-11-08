@@ -16,6 +16,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
+  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
@@ -39,10 +40,12 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   };
 
   return (
-    <><div className={cn("bg-navy-25  w-full p-4 pt-16 lg:p-10 flex flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       {(messages.length || isLoading) ? (
-        <Conversation handleOpenModal={handleOpenModal} />
+        <div className={cn("flex h-full ", isVoiceChatModalOpen ? "max-h-[calc(100vh-550px)]" : "")}>
+          <Conversation handleOpenModal={handleOpenModal} />
+        </div>
       ) : (
         <>
           <HeaderText />
@@ -53,29 +56,15 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
             <HomeSuggestBoxes />
             <div className="mt-6">
-              <ChatMessageInput isDark={false} />
+              <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={false} />
             </div>
           </div>
         </>
       )}
       {!!messages.length && <div className="bg-[#1F263D]">
-        <AssistInput isDark={!!selectedChartId} />
+        <AssistInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen}  isDark={!!selectedChartId} />
       </div>}
     </div>
-      <div className={cn("flex", selectedChartId ? "w-full h-screen" : "")}>
-        <DesktopChartModal
-          isOpen={isModalOpen}
-          onClose={
-            selectedChartId ? () => handleCloseModal(selectedChartId) : () => { }}
-          component={<DynamicChart selectedChartId={selectedChartId} />}
-          title={selectedChartId ? makeTitle(selectedChartId) : ""} />
-        <MobileChartModal
-          isOpen={isModalOpen}
-          onClose={
-            selectedChartId ? () => handleCloseModal(selectedChartId) : () => { }}
-          component={<DynamicChart selectedChartId={selectedChartId} />}
-          title={selectedChartId ? makeTitle(selectedChartId) : ""} />
-      </div>
     </>
   );
 };
