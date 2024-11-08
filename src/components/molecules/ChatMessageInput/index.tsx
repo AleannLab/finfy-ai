@@ -46,11 +46,18 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const [shouldFocus, setShouldFocus] = useState(true);
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
   const [isUserUsingMobile, setIsUserUsingMobile] = useState<boolean>(false);
+  const audioChatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const detectMobile = detectPhoneAgents();
     setIsUserUsingMobile(detectMobile);
-  },[])
+  },[]);
+
+  useEffect(() => {
+    if (isVoiceChatModalOpen && audioChatRef.current && !isUserUsingMobile) {
+      audioChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [isVoiceChatModalOpen]);
 
 
   const openVoiceChatModal = () => {
@@ -193,10 +200,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2" onClick={openVoiceChatModal}>
+        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
           <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
         </Button>
-        <Button size="xl" type="submit" className="w-10 h-10 p-3">
+        <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
@@ -204,7 +211,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
-      {!isUserUsingMobile && isVoiceChatModalOpen && <div className="w-full py-6">
+      {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
         <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
         </div>}
       {isUserUsingMobile && <Modal
