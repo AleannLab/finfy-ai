@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/atoms";
+import { Button, Icon } from "@/components/atoms";
 import { useChat, useUser } from "@/hooks";
 import useVoiceChat from "@/hooks/useVoiceChat";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -9,20 +9,18 @@ import {
   Cross2Icon,
   SpeakerLoudIcon,
   SpeakerOffIcon,
-  PlusCircledIcon
 } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 interface AudioChatProps {
-    onClose: () => void;
-    isClosed: boolean;
-    chatContext: string;
-    isMobile?: boolean;
+  onClose: () => void;
+  isClosed: boolean;
+  chatContext: string;
 }
 
-const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatProps) => {
+const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -34,121 +32,162 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatP
     isListening,
     wavRecorderRef,
     wavStreamPlayerRef,
-    items
+    items,
   } = useVoiceChat(suggest?.instructions + chatContext);
 
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage, submitChatFromAudioChat, sendAudioChatContext } = useChat();
+  const { createMessage, submitChatFromAudioChat, sendAudioChatContext } =
+    useChat();
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
-  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ id: string, role: string, message: string }[]>([]);
-  const conversationStarted = useRef(false)
+  const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<
+    { id: string; role: string; message: string }[]
+  >([]);
+  const conversationStarted = useRef(false);
 
   const userId = useMemo(() => {
     return user?.id;
-  },[user]);
+  }, [user]);
 
   const threadId = useMemo(() => {
     const currentPath = window.location.href;
-    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
-    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
-    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+    const match = currentPath.match(
+      /\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/
+    );
+    const matchCareerCoach = currentPath.match(
+      /\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/
+    );
+    const threadIdFromURL = match
+      ? match[1]
+      : matchCareerCoach
+      ? matchCareerCoach[1]
+      : null;
 
     return threadIdFromURL;
-  },[window.location.href]);
+  }, [window.location.href]);
 
   useEffect(() => {
     if (!conversationStarted.current) {
-        conversationStarted.current = true
-        connectConversation();
+      conversationStarted.current = true;
+      connectConversation();
     }
-  },[conversationStarted]);
+  }, [conversationStarted]);
 
   useEffect(() => {
     const processMessages = () => {
       items.forEach((item) => {
         const { id, formatted } = item;
 
-        if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+        if (
+          !processedIds.has(id) &&
+          item.role &&
+          item.status === "completed" &&
+          (formatted.text || formatted.transcript)
+        ) {
           const messageText = formatted.text || formatted.transcript || "";
           setProcessedIds((prevIds) => new Set(prevIds).add(id));
-          setPreparedMessagesToStore((prev) => [...prev, { id: id, role: item.role as string, message: messageText }]);
+          setPreparedMessagesToStore((prev) => [
+            ...prev,
+            { id: id, role: item.role as string, message: messageText },
+          ]);
           if (formatted.text && formatted.text.trim() !== "") {
             storeMessage(formatted.text, item.role);
-          } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
+          } else if (
+            formatted.transcript &&
+            formatted.transcript.trim().length > 0
+          ) {
             storeMessage(formatted.transcript, item.role);
           }
         }
       });
     };
     const prepareMessagesToStore = () => {
-        items.forEach((item) => {
-            const { id, formatted, status, role } = item;
-            if (role === 'user') {
-                const messageText = formatted.text || formatted.transcript || "";
-                if (!processedIds.has(id)) {
-                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
-                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
-                } else {
-                   if (status === 'completed') {
-                    const updatedPreparedMessages = preparedMessagesToStore.map((msg) => {
-                        if (msg.id === id) {
-                            return { id: id, role: role as string, message: messageText }
-                        }
+      items.forEach((item) => {
+        const { id, formatted, status, role } = item;
+        if (role === "user") {
+          const messageText = formatted.text || formatted.transcript || "";
+          if (!processedIds.has(id)) {
+            setProcessedIds((prevIds) => new Set(prevIds).add(id));
+            setPreparedMessagesToStore((prev) => [
+              ...prev,
+              { id: id, role: role as string, message: messageText },
+            ]);
+          } else {
+            if (status === "completed") {
+              const updatedPreparedMessages = preparedMessagesToStore.map(
+                (msg) => {
+                  if (msg.id === id) {
+                    return {
+                      id: id,
+                      role: role as string,
+                      message: messageText,
+                    };
+                  }
 
-                        return msg;
-                    });
-                    setPreparedMessagesToStore(updatedPreparedMessages);
-                   } 
+                  return msg;
                 }
-            } else if (role === 'assistant') {
-                const messageText = formatted.text || formatted.transcript || "";
-                if (!processedIds.has(id) && status === 'completed') {
-                    setProcessedIds((prevIds) => new Set(prevIds).add(id));
-                    setPreparedMessagesToStore((prev) => [...prev, { id: id, role: role as string, message: messageText }]);
-                }
+              );
+              setPreparedMessagesToStore(updatedPreparedMessages);
             }
-          });
-    }
+          }
+        } else if (role === "assistant") {
+          const messageText = formatted.text || formatted.transcript || "";
+          if (!processedIds.has(id) && status === "completed") {
+            setProcessedIds((prevIds) => new Set(prevIds).add(id));
+            setPreparedMessagesToStore((prev) => [
+              ...prev,
+              { id: id, role: role as string, message: messageText },
+            ]);
+          }
+        }
+      });
+    };
     if (threadId) {
-        processMessages();
+      processMessages();
     } else {
-        prepareMessagesToStore();
+      prepareMessagesToStore();
     }
   }, [items, processedIds, threadId]);
 
-const storeMessage = (content: string, role: string) => {
-
+  const storeMessage = (content: string, role: string) => {
     const dataForStore = {
-        chat_id: threadId,
-        user_id: userId,
-        content,
-        message_type: role,
-        is_processed: true,
-    }
+      chat_id: threadId,
+      user_id: userId,
+      content,
+      message_type: role,
+      is_processed: true,
+    };
 
-    createMessage(dataForStore)
-};
+    createMessage(dataForStore);
+  };
 
-const handleDisconnectChat = async () => {
+  const handleDisconnectChat = async () => {
     disconnectConversation();
     onClose();
     if (preparedMessagesToStore.length > 0) {
-        if (!threadId) {
-            await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
-        } else {
-            await sendAudioChatContext({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", threadId })
-        }
+      if (!threadId) {
+        await submitChatFromAudioChat({
+          messages: preparedMessagesToStore,
+          assistantId: suggest?.assistantId || "",
+          userId: userId,
+        });
+      } else {
+        await sendAudioChatContext({
+          messages: preparedMessagesToStore,
+          assistantId: suggest?.assistantId || "",
+          threadId,
+        });
+      }
     }
-}
+  };
 
   useEffect(() => {
     if (isClosed) {
-        handleDisconnectChat();
+      handleDisconnectChat();
     }
-  },[isClosed]);
+  }, [isClosed]);
 
   useEffect(() => {
     let isLoaded = true;
@@ -218,8 +257,11 @@ const handleDisconnectChat = async () => {
   }, []);
 
   return (
-    <div className={clsx("relative flex flex-col gap-6 md:gap-12 items-center justify-center", {"p-12 rounded-[24px] border border-[#E2EAFB] bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)] shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)] backdrop-blur-[7.5px]": !isMobile })}>
-      {!isMobile && <div className="absolute top-4 right-2 md:top-6 md:right-6 cursor-pointer" onClick={handleDisconnectChat}><Cross2Icon className="size-4 text-[#547A91]" color="#547A91" /></div>}
+    <div
+      className={clsx(
+        "flex flex-col gap-6 md:gap-12 items-center justify-center"
+      )}
+    >
       <div className="flex flex-col gap-2">
         <Image
           width={512}
@@ -232,21 +274,21 @@ const handleDisconnectChat = async () => {
       </div>
       <div className="h-20 flex flex-col items-center justify-center">
         {/* {!conversationStarted && (
-          <Button
-            size="xl"
-            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
-            disabled={isConnecting}
-            onClick={() => {
-              connectConversation();
-            }}
-          >
-            <PlusCircledIcon className="size-4" color="white" />
-          </Button>
-        )} */}
+            <Button
+                size="xl"
+                className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
+                disabled={isConnecting}
+                onClick={() => {
+                connectConversation();
+                }}
+            >
+                <PlusCircledIcon className="size-4" color="white" />
+            </Button>
+            )} */}
         {
           <div
             className={clsx(
-              "w-full flex gap-2 items-center justify-center",
+              "w-full flex gap-10 items-center justify-center",
               { "opacity-100": isConnected },
               { "opacity-0": !isConnected }
             )}
@@ -256,13 +298,13 @@ const handleDisconnectChat = async () => {
               className="w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
               disabled={isConnecting}
               onClick={() => {
-                toggleMute()
+                toggleMute();
               }}
             >
               {isMuted && <SpeakerOffIcon className="size-4" color="white" />}
               {!isMuted && <SpeakerLoudIcon className="size-4" color="white" />}
             </Button>
-            {
+            {/* {
               <div className=" p-1 z-10 flex gap-0.5 rounded-lg visualization">
                 <div className="relative flex items-center h-10 w-24 gap-1 text-blue-500 visualization-entry client">
                   <canvas ref={clientCanvasRef} className="w-full h-full" />
@@ -270,6 +312,23 @@ const handleDisconnectChat = async () => {
                 <div className="relative flex items-center h-10 w-24 gap-1 text-green-600 visualization-entry server">
                   <canvas ref={serverCanvasRef} className="w-full h-full" />
                 </div>
+              </div>
+            } */}
+            {
+              <div className="flex gap-2 items-center">
+                <Icon
+                  width="24"
+                  height="24"
+                  className="w-6 h-6 text-[#547A91]"
+                  type="MicIcon"
+                  
+                />
+                <Icon 
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                    type="AudioLogo" 
+                />
               </div>
             }
             <Button
