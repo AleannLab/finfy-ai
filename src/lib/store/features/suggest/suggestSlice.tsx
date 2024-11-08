@@ -289,7 +289,7 @@ export const tutorSuggestionData = [
       `
   },
   {
-    label: "Physical Sciences",
+    label: "🔬 Physical Sciences",
     isDefault: "true",
     suggest: [
       {
@@ -701,59 +701,44 @@ export const careerCoachAssistantSuggestionData = [
     label: "PersonalityQuiz",
     isDefault: "true",
     content: "What online courses can I take for free?",
-    icon: "📖",
+    icon: "📚",
     category: "courses",
     assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
     suggest: [
       {
-        label: "📖 Choosing Grade 9 Subjects",
-        content: "What subjects should I choose in Grade 9?"
+        label: "📚 Discover My Personality",
+        content: "Can you help me discover my personality type before we dive into career suggestions?"
       },
       {
-        label: "📖 Aligning Subjects with Careers",
-        content: "How do I align my subject choices with future career goals?"
+        label: "📚 Start My Personality Assessment",
+        content: "I’d like to start the personality assessment to learn more about myself. How do I begin?"
       },
       {
-        label: "📖 Preparing for FET Phase",
-        content: "How do I prepare for the transition from Grade 9 to FET?"
+        label: "📚 What’s My Personality Type?",
+        content: "Can you help me find out my personality type first? I want to see how it affects my study habits."
       },
       {
-        label: "📖 Creating a Study Plan",
-        content: "How can I create an effective study plan for Grade 12?"
+        label: "📚 Take the Quiz for Personal Insights",
+        content: "Could you guide me through the personality quiz? I’m curious about my strengths and weaknesses."
       },
       {
-        label: "📖 Exploring University Pathways",
-        content: "Which university courses align with my subjects?"
+        label: "📚 Identify My Core Traits",
+        content: "I want to know my core personality traits. Can I start with an assessment?"
       },
       {
-        label: "📖 Preparing for Bursary Applications",
-        content: "How do I get ready to apply for bursaries?"
+        label: "📚 Discover Career Paths for My Personality",
+        content: "Can you help me identify my personality type first, so I can see which careers might fit me?"
       },
       {
-        label: "📖 Setting Career Goals",
-        content: "How do I set career goals while still in school?"
+        label: "📚 Find Subjects that Match My Personality",
+        content: "Can I take the personality assessment to see which school subjects might be a good match for me?"
       },
       {
-        label: "📖 Exploring Vocational Training",
-        content: "What are the best vocational training options in South Africa?"
-      },
-      {
-        label: "📖 Understanding TVET Colleges",
-        content: "What are TVET colleges, and should I apply?"
-      },
-      {
-        label: "📖 Planning for High-Demand Careers",
-        content: "Which high-demand careers should I consider?"
-      },
-      {
-        label: "📖 Finding Mentorship Opportunities",
-        content: "How can I find a mentor in my field of interest?"
-      },
-      {
-        label: "📖 Balancing Studies and Extracurriculars",
-        content: "How do I balance my studies with sports and hobbies?"
+        label: "📚 Get Started with Self-Discovery",
+        content: "I’m ready to explore my personality type and see how it can help with my career goals. Can we start the quiz?"
       }
     ],
+    
     instructions: `System settings:
       Tool use: enabled.
 
@@ -1158,12 +1143,6 @@ export const tutor = [
         category: "maths-literacy",
       },
       {
-        label: "Exam Prep Plan",
-        content: "Help me create a study plan for Mathematical Literacy.",
-        icon: "📐",
-        category: "maths-literacy",
-      },
-      {
         label: "Review Marking Scheme",
         content: "How does my math answer compare to the marking guidelines?",
         icon: "📐",
@@ -1178,6 +1157,12 @@ export const tutor = [
       {
         label: "Retake Practice Questions",
         content: "Can I try another math problem and get feedback?",
+        icon: "📐",
+        category: "maths-literacy",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for Mathematical Literacy.",
         icon: "📐",
         category: "maths-literacy",
       },

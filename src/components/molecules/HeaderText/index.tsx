@@ -8,6 +8,7 @@ import { ActionButton } from "../ActionButton";
 import { useEffect, useState } from "react";
 import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 import { cn } from "@/lib/utils";
+import { UserAvatar } from "../UserAvatar";
 
 const HeaderText = () => {
   const { user } = useUser();
@@ -117,22 +118,23 @@ const HeaderText = () => {
   }, [pathname])
 
   const cutIcon = (title: any) => {
-   return title?.split(" ")?.[1]
+    const arr = title?.split(" ")
+    return arr?.slice(1, arr?.length)?.join(" ")
   }
 
   return (
     <div>
-      {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white"/>}
-      <div style={{
+      {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white" />}
+      <div className="w-full flex items-center z-[500] pr-2.5 mb-[134px] justify-between" style={{
         zIndex: 500
-      }} className="flex z-[500] w-full">
+      }}>
         {isHome &&
           (<>
             <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
               <ActionButton
-                onClick={() => {}}
+                onClick={() => { }}
                 className={cn("h-10 p-2 !z-[500]  hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
-                open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
+                  open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
                 )}
                 Icon={
                   <Icon
@@ -149,6 +151,12 @@ const HeaderText = () => {
             </FocusAssistantPopover>
           </>)
         }
+        <UserAvatar src={user?.avatar_url}
+          className={cn(
+            " lg:flex justify-center items-center !border-none w-[42px] h-[42px] rounded-full !ml-0 "
+
+          )}
+        />
       </div>
       <div className="lg:flex hidden flex-col w-full items-center justify-center pb-5 lg:pb-10">
         {content && (
