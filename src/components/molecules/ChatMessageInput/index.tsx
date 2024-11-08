@@ -7,7 +7,7 @@ import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } fr
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn, detectPhoneAgents } from "@/lib/utils";
-import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
+import { ActionButton, ConnectBankAction, FileUploader, FocusAssistantPopover, QuestionScanner } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
 import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
@@ -42,7 +42,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const textareaRef = useAutoResizeTextArea();
   const popoverRef = useRef<HTMLDivElement | null>(null)
   const suggest = useAppSelector((state) => state.suggest.suggest);
+  const [isAssistActionOpen, setIsAssistActionOpen] = useState<boolean>(false);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState<boolean>(false);
+  const [isQuestionScannerModalOpen, setIsQuestionScannerModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [shouldFocus, setShouldFocus] = useState(true);
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
@@ -62,9 +65,12 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
 
   const openVoiceChatModal = () => {
+    setIsAssistActionOpen(true);
     setShouldFocus(false);
     setCloseAudioChat(false);
     setIsVoiceChatModalOpen(true);
+    setIsFileUploadModalOpen(false);
+    setIsQuestionScannerModalOpen(false);
   };
 
   useEffect(() => {
@@ -166,6 +172,20 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       action={onSubmit}
       className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
     >
+      {<div className="flex items-center py-3 absolute left-4 top-1/2 -translate-y-1/2">
+        <Icon width="24" height="24" className="w-6 h-6 cursor-pointer" type="Photograph" onClick={() => {
+          setIsAssistActionOpen(true);
+          setIsFileUploadModalOpen(true);
+          setIsQuestionScannerModalOpen(false);
+          setIsVoiceChatModalOpen(false);
+        }}/>
+        <Icon width="24" height="24" className="w-6 h-6 cursor-pointer" type="Camera" onClick={() => {
+           setIsAssistActionOpen(true);
+           setIsQuestionScannerModalOpen(true);
+           setIsVoiceChatModalOpen(false);
+           setIsFileUploadModalOpen(false);
+        }}/>
+      </div>}
       <div className="relative hidden">
         <button
           type="button"
@@ -188,19 +208,19 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       <Textarea
         ref={setTextareaRef}
         value={message}
-        style={{
-          padding: "20px 16px"
-        }}
+        // style={{
+        //   padding: "20px 16px"
+        // }}
         onChange={handleChange}
         className={cn(
-          "lg:pl-4 min-h-16 md:max-h-16 rounded-[50px]  px-4 py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-24 lg:pr-48",
+          "pl-16 min-h-16 md:max-h-16 rounded-[50px]  py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-12 lg:pr-48",
           isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
         )}
         placeholder="Ask follow-up question..."
         name="message"
         onKeyDown={handleEnter}
       />
-      <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
+      <div className="flex items-center py-3 absolute right-4 top-1/2 -translate-y-1/2">
         <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
           <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
         </Button>
@@ -212,25 +232,39 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
-      {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
+      {!isUserUsingMobile && isAssistActionOpen && <div ref={audioChatRef} className="w-full py-6">
         <AssistActions
           onClose={() => {
-            setCloseAudioChat(true);
-            setTimeout(() => {
-              setIsVoiceChatModalOpen(false)
-            }, 200)
+            if (isVoiceChatModalOpen) {
+              setCloseAudioChat(true);
+              setTimeout(() => {
+                setIsAssistActionOpen(false)
+              },200)
+            } else {
+              setIsAssistActionOpen(false)
+            }
           }}
         >
-          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+          {isVoiceChatModalOpen && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => {
+            setCloseAudioChat(true);
+            setIsAssistActionOpen(false)
+            setIsVoiceChatModalOpen(false)
+          }}/>}
+          {isFileUploadModalOpen && <FileUploader />}
+          {isQuestionScannerModalOpen && <QuestionScanner />}
         </AssistActions>
         </div>}
       {isUserUsingMobile && <Modal
-        open={isVoiceChatModalOpen}
+        open={isAssistActionOpen}
         onClose={() => {
-          setCloseAudioChat(true);
-          setTimeout(() => {
-            setIsVoiceChatModalOpen(false)
-          }, 200)
+          if (isVoiceChatModalOpen) {
+            setCloseAudioChat(true);
+            setTimeout(() => {
+              setIsAssistActionOpen(false)
+            },200)
+          } else {
+            setIsAssistActionOpen(false)
+          }
         }}
         classes={{
           container: "!p-2 !w-[90%] md:w-[50%] flex items-center justify-center",
@@ -238,7 +272,13 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
+        {isVoiceChatModalOpen && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => {
+          setCloseAudioChat(true);
+          setIsAssistActionOpen(false)
+          setIsVoiceChatModalOpen(false)
+        }} />}
+       {isFileUploadModalOpen && <FileUploader />}
+       {isQuestionScannerModalOpen && <QuestionScanner />}
       </Modal>}
     </form>
   );
