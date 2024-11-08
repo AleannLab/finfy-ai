@@ -40,7 +40,7 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatP
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage, submitChatFromAudioChat } = useChat();
+  const { createMessage, submitChatFromAudioChat, sendAudioChatContext } = useChat();
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
   const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<{ id: string, role: string, message: string }[]>([]);
@@ -72,8 +72,9 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatP
         const { id, formatted } = item;
 
         if (!processedIds.has(id) && item.role && item.status === 'completed' && (formatted.text || formatted.transcript)) {
+          const messageText = formatted.text || formatted.transcript || "";
           setProcessedIds((prevIds) => new Set(prevIds).add(id));
-
+          setPreparedMessagesToStore((prev) => [...prev, { id: id, role: item.role as string, message: messageText }]);
           if (formatted.text && formatted.text.trim() !== "") {
             storeMessage(formatted.text, item.role);
           } else if (formatted.transcript && formatted.transcript.trim().length > 0) {
@@ -134,8 +135,12 @@ const storeMessage = (content: string, role: string) => {
 const handleDisconnectChat = async () => {
     disconnectConversation();
     onClose();
-    if (!threadId && preparedMessagesToStore.length > 0) {
-        await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
+    if (preparedMessagesToStore.length > 0) {
+        if (!threadId) {
+            await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
+        } else {
+            await sendAudioChatContext({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", threadId })
+        }
     }
 }
 
