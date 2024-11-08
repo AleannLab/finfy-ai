@@ -17,7 +17,7 @@ const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
   const isTutor = pathname.includes("tutor")
   return (
     <Popover onOpenChange={onOpenChange}>
-      <Popover.Trigger className="!z-[500]">{children}</Popover.Trigger>
+      <Popover.Trigger className="!z-[80]">{children}</Popover.Trigger>
       <Popover.Content side="top" align="start" className="mb-4 mt-2 max-w-3xl">
         <Popover.Header className="mb-6">
           <span>Focus {isTutor ? "Tutors" : "Assistant"}</span>
