@@ -50,6 +50,7 @@ import ToggleSidebarIcon from "./toggle-sidebar.svg";
 import LightningIcon from "./lightning.svg";
 import InfinityIcon from "./infinity.svg";
 import SmallLogo from "./small-logo.svg";
+import AudioLogo from "./audio-logo.svg";
 
 export default {
   SmallLogo,
@@ -103,5 +104,6 @@ export default {
   PlusCircle,
   ToggleSidebarIcon,
   MicIcon,
-  ChIcon
+  ChIcon,
+  AudioLogo
 };

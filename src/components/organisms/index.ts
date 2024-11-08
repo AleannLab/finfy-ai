@@ -1,6 +1,7 @@
 export * from "./Cards";
 export { Sidebar } from "./Sidebar";
 export { AssistInput } from "./AssistInput";
+export { AssistActions } from "./AssistActions";
 export * from "./Tabs";
 export { UserAvatarWithUpload } from "./UserAvatarWithUpload";
 export { ActionButtonsGroup } from "./ActionButtonsGroup";
