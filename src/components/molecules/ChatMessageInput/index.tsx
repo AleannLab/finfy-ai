@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { cn } from "@/lib/utils";
+import { cn, detectPhoneAgents } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,20 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const dispatch = useDispatch();
   const [shouldFocus, setShouldFocus] = useState(true);
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
+  const [isUserUsingMobile, setIsUserUsingMobile] = useState<boolean>(false);
+  const audioChatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const detectMobile = detectPhoneAgents();
+    setIsUserUsingMobile(detectMobile);
+  },[]);
+
+  useEffect(() => {
+    if (isVoiceChatModalOpen && audioChatRef.current && !isUserUsingMobile) {
+      audioChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [isVoiceChatModalOpen]);
+
 
   const openVoiceChatModal = () => {
     setShouldFocus(false);
@@ -149,7 +163,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   return (
     <form
       action={onSubmit}
-      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none"
+      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
     >
       <div className="relative hidden">
         <button
@@ -186,10 +200,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2" onClick={openVoiceChatModal}>
+        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
           <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
         </Button>
-        <Button size="xl" type="submit" className="w-10 h-10 p-3">
+        <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
@@ -197,7 +211,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
-      <Modal
+      {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+        </div>}
+      {isUserUsingMobile && <Modal
         open={isVoiceChatModalOpen}
         onClose={() => {
           setCloseAudioChat(true);
@@ -206,13 +223,13 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           }, 200)
         }}
         classes={{
-          container: "!w-[90%] md:w-[50%] flex items-center justify-center",
+          container: "!p-2 !w-[90%] md:w-[50%] flex items-center justify-center",
           background: "backdrop-blur-none",
-          wrapper: "!p-2 !w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
+          wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
-      </Modal>
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} isMobile={isUserUsingMobile} />
+      </Modal>}
     </form>
   );
 };
