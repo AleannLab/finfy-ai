@@ -222,7 +222,7 @@ const handleDisconnectChat = async () => {
           src={"/images/f0f1946b-d4c4-4409-a22a-1d9ae2d34108-Photoroom 2.png"}
           alt=""
           objectFit="cover"
-          className={"w-60 aspect-square"}
+          className={"w-60 aspect-square opacity-80"}
         />
       </div>
       <div className="h-20 flex flex-col items-center justify-center">
