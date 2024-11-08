@@ -6,6 +6,9 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/hooks";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { usePathname } from "next/navigation";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
 const AccordionComponent = AccordionPrimitive.Root;
 
@@ -25,8 +28,27 @@ const AccordionTrigger = React.forwardRef<
   }
 >(({ className, children, isHideChevron, ...props }, ref) => {
   const { open } = useSidebar();
+  const dispatch = useAppDispatch();
+  const pathname = usePathname();
+
+
+  const onClick = () => {
+
+    if (pathname.includes('tutor')) {
+      dispatch(setFocusSuggests(tutor))
+      dispatch(setSuggest(defaultTutor))
+      dispatch(setSuggests(tutorSuggestionData))
+    }
+    if (pathname.includes('career-coach')) {
+      dispatch(setFocusSuggests(careerCoach))
+      dispatch(setSuggest(defaultCareerCoachAssistant))
+      dispatch(setSuggests(careerCoachAssistantSuggestionData))
+
+    }
+  }
+  //TODO
   return (
-  <AccordionPrimitive.Header className="flex items-center max-w-full ">
+  <AccordionPrimitive.Header onClick={onClick} className="flex items-center max-w-full ">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(

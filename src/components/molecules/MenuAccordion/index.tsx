@@ -24,6 +24,7 @@ interface MenuAccordionItemProps {
   isHideChevron?: boolean;
   href: string;
   onClick: () => void;
+  OnChangeState: () => void;
 }
 
 const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
@@ -33,6 +34,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   handleOpen,
   href,
   onClick,
+  OnChangeState,
 }) => {
   const { open, handleToggle } = useSidebar();
   const router = useRouter();
@@ -81,6 +83,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
         onClick={() => {
            handleOpen()
            router.push(href)
+           OnChangeState()
         }}
         className={cn("p-2 rounded-sm group", {
           "bg-[#547A91] text-[#f3f9fd] stroke-[#f3f9fd]": isActiveType,
@@ -185,6 +188,18 @@ const MenuAccordion: FC = () => {
     }
   }, [pathname])
 
+  const handleAccordionToggle = (itemValue: string) => {
+    // Toggle logic based on the current value and pathname
+    setValue((prevValue) => {
+      if (pathname.includes(itemValue)) {
+        // If the current path matches and the accordion is open, toggle it closed
+        return prevValue === itemValue ? '' : itemValue;
+      }
+      // Otherwise, set it to the given value
+      return itemValue;
+    });
+  };
+
   return (
     <Accordion
       value={value}
@@ -199,7 +214,12 @@ const MenuAccordion: FC = () => {
           contents={item.value === "career-coach" || item.value === "tutor" ? chats : item.contents}
           handleOpen={handleOpen}
           isHideChevron={item.isHideChevron}
-          onClick={handleResetChat}
+          onClick={() => { 
+            handleResetChat() 
+          }}
+          OnChangeState={() => { 
+            handleAccordionToggle(item.value);
+          }}
           href={item.href}
         />
       ))}
