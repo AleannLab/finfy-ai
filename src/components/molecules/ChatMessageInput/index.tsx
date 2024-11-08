@@ -149,7 +149,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   return (
     <form
       action={onSubmit}
-      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none"
+      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
     >
       <div className="relative hidden">
         <button
@@ -197,7 +197,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </Button>
       </div>
-      <Modal
+      {isVoiceChatModalOpen && <div className="w-full py-6">
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+        </div>}
+      {/* <Modal
         open={isVoiceChatModalOpen}
         onClose={() => {
           setCloseAudioChat(true);
@@ -212,7 +215,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         }}
       >
         <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
-      </Modal>
+      </Modal> */}
     </form>
   );
 };

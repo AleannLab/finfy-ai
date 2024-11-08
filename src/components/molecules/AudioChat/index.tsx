@@ -132,10 +132,10 @@ const storeMessage = (content: string, role: string) => {
 
 const handleDisconnectChat = async () => {
     disconnectConversation();
+    onClose();
     if (!threadId && preparedMessagesToStore.length > 0) {
         await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
     }
-    onClose();
 }
 
   useEffect(() => {
@@ -212,7 +212,14 @@ const handleDisconnectChat = async () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-4 items-center justify-center">
+    <div className="flex flex-col gap-12 items-center justify-center
+        p-12
+        rounded-[24px] 
+        border border-[#E2EAFB] 
+        bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)]
+        shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)]
+        backdrop-blur-[7.5px]
+    ">
       <div className="flex flex-col gap-2">
         <Image
           width={512}
@@ -227,7 +234,7 @@ const handleDisconnectChat = async () => {
         {/* {!conversationStarted && (
           <Button
             size="xl"
-            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none opacity-0"
+            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
             disabled={isConnecting}
             onClick={() => {
               connectConversation();
