@@ -38,8 +38,8 @@ const UserSettings = () => {
       >
         <Accordion.Item value="item-1">
           <Accordion.Trigger className="text-nowrap">
-            <UserAvatar src={user?.avatar_url} className="!border-none !ml-0 !w-auto !h-auto" />
-            {user?.name}
+            <UserAvatar src={user?.avatar_url} className="!border-none w-9 h-9 rounded-md !ml-0  " />
+            <span className="text-[#547a91]">{user?.name}</span>
           </Accordion.Trigger>
           <Accordion.Content className="mt-5 justify-start">
             <p className="text-grey-15 text-xs mb-2">Appearance</p>
