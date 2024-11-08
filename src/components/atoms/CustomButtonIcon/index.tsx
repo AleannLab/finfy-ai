@@ -22,7 +22,7 @@ const CustomButtonIcon = ({
       className="flex h-auto md:min-h-[172px]  w-full md:w-[157px] flex-col items-center justify-center rounded-xl border border-navy-5 py-3 md:py-1 px-[5px] shadow-lg hover:bg-navy-15"
     >
       {icon}
-      <p className="mt-3 text-sm font-semibold text-[#547a91]">{title}</p>
+      <p className="mt-3 text-sm font-semibold text-[#272E48]">{title}</p>
       <p className="mt-1 text-center text-[11px] font-medium text-grey-15">
         {description}
       </p>

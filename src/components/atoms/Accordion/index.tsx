@@ -38,7 +38,7 @@ const AccordionTrigger = React.forwardRef<
       {children}
       {!isHideChevron && open && (
         <ChevronDownIcon
-          // color={props?.isOpen ? "#f3f9fd" : "#547a91"}
+          // color={props?.isOpen ? "#f3f9fd" : "#272E48"}
           className={cn("h-4 w-4 shrink-0 transition-transform duration-200")}
           aria-hidden
         />

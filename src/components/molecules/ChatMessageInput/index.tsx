@@ -149,9 +149,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   return (
     <form
       action={onSubmit}
-      className="md:rounded-md mx-2 flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none"
+      className="rounded-[50px] md:max-h-16 mx-2  min-h-16  flex justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none"
     >
-      <div className="relative">
+      <div className="relative hidden">
         <button
           type="button"
           className="w-10 h-10 pl-3 pt-2.5 pb-3 -mr-2 flex lg:hidden"
@@ -173,24 +173,27 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       <Textarea
         ref={setTextareaRef}
         value={message}
+        style={{
+          padding: "20px 16px"
+        }}
         onChange={handleChange}
         className={cn(
-          "lg:pl-4 h-16 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#547a91] py-5 pr-24 lg:pr-48",
+          "lg:pl-4 min-h-16 md:max-h-16 rounded-[50px]  px-4 py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-24 lg:pr-48",
           isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
         )}
-        placeholder="Ask anything..."
+        placeholder="Ask follow-up question..."
         name="message"
         onKeyDown={handleEnter}
       />
       <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-        <Button size="xl" type="submit" className="w-10 h-10 p-3" onClick={openVoiceChatModal}>
-          <SpeakerModerateIcon className="size-4" color='white'/>
+        <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2" onClick={openVoiceChatModal}>
+          <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
         </Button>
         <Button size="xl" type="submit" className="w-10 h-10 p-3">
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
-            <Icon type="ArrowRightIcon" className="size-4 text-[#547a91]" />
+            <Icon type="ArrowRightIcon" className="size-4 text-[#272E48]" />
           )}
         </Button>
       </div>

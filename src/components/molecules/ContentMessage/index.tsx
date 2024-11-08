@@ -132,7 +132,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
           <span className="w-4 h-4">
             <Icon height="16px" width="16px" type="SmallLogo" />
           </span>
-          <span className="text-[#547a91] text-2xl leading-3 font-medium">
+          <span className="text-[#272E48] text-2xl leading-3 font-medium">
             {isLastMessage ? "Answer" : "Career Buddy"}
           </span>
         </div>
@@ -140,7 +140,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
       <p
         className={cn(
-          "whitespace-pre-line text-[#547a91] font-normal leading-[14px] md:leading-8",
+          "whitespace-pre-line text-[#272E48] font-normal leading-[14px] md:leading-8",
           isUser
             ? "text-2xl md:text-4xl font-bold flex gap-2.5 items-center"
             : "text-sm md:text-base"

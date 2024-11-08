@@ -37,5 +37,6 @@ export type Color =
   | "destructive"
   | "secondary"
   | "ghost"
-  | "link";
+  | "link"
+  | "transparent";
 export type Size = "xs" | "sm" | "base" | "lg" | "xl";

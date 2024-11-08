@@ -58,13 +58,13 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
     });
   };
   return (
-    <button onClick={handleClick} className={cn("suggest-box flex-grow !border-opacity-15 bg-[#F3F9ED] flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "")}>
-      <p className="text-[#547a91] mb-1 text-start">
+    <button onClick={handleClick} className={cn("suggest-box flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "")}>
+      <p className="mb-1 text-start  !text-[#272e48] text-sm font-semibold leading-tight">
         {icon} {label}
       </p>
-      <div className="relative text-grey-15">
-        <p className="pr-6 text-start">
-          {content}
+      <div className="relative !text-[#547a91]">
+        <p className="pr-6 text-start !text-[#547a91]">
+          &quot;{content}&quot; ↗
         </p>
         {/* <Icon
           type={"UpArrowIcon"}

@@ -5,14 +5,17 @@ import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
 import { FocusAssistantPopover } from "../Popovers";
 import { ActionButton } from "../ActionButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
+import { cn } from "@/lib/utils";
 
 const HeaderText = () => {
   const { user } = useUser();
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const pathname = usePathname();
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
+
   const firstName = "Nieve";
   let isHome = false;
 
@@ -20,8 +23,7 @@ const HeaderText = () => {
     home: {
       title: (
         <>
-          <span className="text-[#74BBC9]">Hey {user?.name}!</span> I&apos;m
-          your {suggest?.category} assistant.
+          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category}.
         </>
       ),
       cta: <></>,
@@ -114,20 +116,32 @@ const HeaderText = () => {
     }
   }, [pathname])
 
+  const cutIcon = (title: any) => {
+   return title?.split(" ")?.[1]
+  }
+
   return (
     <div>
       <div className="flex w-full">
         {isHome &&
           (<>
-            <FocusAssistantPopover>
+            <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
               <ActionButton
+                onClick={() => {}}
+                className={cn("h-10 p-2 hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
+                open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
+                )}
                 Icon={
                   <Icon
                     type="SearchIcon"
-                    className="fill-purple-15 group-hover:fill-white h-3.5 w-5"
+                    className={cn("group-hover:fill-white h-3.5 w-5", open ? "fill-[#f3f9ed]" : "fill-purple-15")}
                   />
                 }
-                text={"Focus"}
+                text={suggest?.title ? cutIcon(suggest?.title) : "Focus"}
+                IconAfter={<Icon
+                  type="ChIcon"
+                  className={cn("group-hover:stroke-[#f3f9ed] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#f3f9ed] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
+                />}
               />
             </FocusAssistantPopover>
           </>)

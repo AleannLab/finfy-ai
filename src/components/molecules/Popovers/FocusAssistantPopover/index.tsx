@@ -4,21 +4,25 @@ import { Popover } from "@/components/atoms";
 import { FC, PropsWithChildren } from "react";
 import { FocusAssistantOption } from "@/components/molecules";
 import { useAppSelector } from "@/lib/store/hooks";
+import { usePathname } from "next/navigation";
 
-interface FocusAssistantPopoverProps extends PropsWithChildren {}
+interface FocusAssistantPopoverProps extends PropsWithChildren { onOpenChange?: any }
 
 const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
   children,
+  onOpenChange = () => {}
 }) => {
   const focusData = useAppSelector((state) => state.suggest.focusSuggests);
+  const pathname = usePathname();
+  const isTutor = pathname.includes("tutor")
   return (
-    <Popover>
+    <Popover onOpenChange={onOpenChange}>
       <Popover.Trigger>{children}</Popover.Trigger>
-      <Popover.Content side="top" align="start" className="mb-4 max-w-3xl">
+      <Popover.Content side="top" align="start" className="mb-4 mt-2 max-w-3xl">
         <Popover.Header className="mb-6">
-          <span>Focus Assistant</span>
+          <span>Focus {isTutor ? "Tutors" : "Assistant"}</span>
         </Popover.Header>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-3 lg:grid-cols-3 gap-3">
           {focusData.map((item: any, index: number) => {
             return (
               <FocusAssistantOption

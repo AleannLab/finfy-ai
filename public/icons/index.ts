@@ -21,6 +21,8 @@ import SparkleIcon from "./sparkles.svg";
 import BsStarsIcon from "./bs-stars.svg";
 import ArrowRightIcon from "./arrow-right.svg";
 import LightningBolt from "./lightning-bolt.svg";
+import MicIcon from "./mic.svg";
+import ChIcon from "./ch-icon.svg";
 import SearchIcon from "./search.svg";
 import UserSolidIcon from "./user-solid.svg";
 import PaperClipIcon from "./paper-clip.svg";
@@ -100,4 +102,6 @@ export default {
   QuestionMarkCircle,
   PlusCircle,
   ToggleSidebarIcon,
+  MicIcon,
+  ChIcon
 };
