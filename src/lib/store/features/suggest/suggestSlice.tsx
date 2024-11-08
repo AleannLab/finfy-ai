@@ -51,6 +51,69 @@ export const defaultTutor = {
 export const tutorSuggestionData = [
   {
     label: "Mathematics",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "Practice Algebra Questions",
+        content: "Can you provide algebra questions from past exams?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Geometry Focus",
+        content: "Help me practice geometry problems from past papers.",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Grade My Calculations",
+        content: "Can you grade my solutions to these math problems?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Improve Problem Solving",
+        content: "How can I improve my approach to solving math problems?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Detailed Feedback",
+        content: "Can you review my math solutions and give feedback?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for my math exam.",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Review Marking Scheme",
+        content: "How does my solution compare to the marking guidelines?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Targeted Tutoring",
+        content: "Which math topics should I focus on to boost my score?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Retake Practice Problems",
+        content: "Can I try another set of math problems and get feedback?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+      {
+        label: "Understanding Formulas",
+        content: "Can you explain key math formulas like the quadratic equation?",
+        icon: "🔢",
+        category: "mathematics",
+      },
+    ],
     content: "Master math concepts and ace your exams.",
     icon: "🔢",
     category: "mathematics",
@@ -227,6 +290,69 @@ export const tutorSuggestionData = [
   },
   {
     label: "Physical Sciences",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "Practice Physics Questions",
+        content: "Can you provide physics questions from past exams?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Chemistry Focus",
+        content: "Help me practice chemistry problems from past papers.",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Grade My Responses",
+        content: "Can you grade my answers to these science questions?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Improve Scientific Explanations",
+        content: "How can I improve my explanations in science answers?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Detailed Feedback",
+        content: "Can you review my science answers and provide feedback?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for Physical Sciences.",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Review Marking Scheme",
+        content: "How does my answer compare to the marking guidelines?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Understanding Scientific Concepts",
+        content: "Can you explain key concepts like Newton's laws?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Targeted Tutoring",
+        content: "Which science topics should I focus on to boost my grade?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+      {
+        label: "Retake Practice Questions",
+        content: "Can I try another set of science questions and get feedback?",
+        icon: "🔬",
+        category: "physical-sciences",
+      },
+    ],
     content: "Conquer science topics and excel in exams.",
     icon: "🔬",
     category: "physical-sciences",
@@ -250,6 +376,69 @@ export const tutorSuggestionData = [
   },
   {
     label: "English",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "Practice Essay Writing",
+        content: "Can you provide essay prompts from past English exams?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Comprehension Focus",
+        content: "Help me practice comprehension questions from past papers.",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Grade My Essay",
+        content: "Can you grade my essay and give feedback?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Improve Writing Skills",
+        content: "How can I improve my essay writing for exams?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for my English exam.",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Review Marking Criteria",
+        content: "How does my essay compare to the marking criteria?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Targeted Tutoring",
+        content: "Which English topics should I focus on to improve my score?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Retake Practice Essays",
+        content: "Can I try another essay prompt and get feedback?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Detailed Feedback",
+        content: "Can you review my English answers and provide suggestions?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Understanding Literary Devices",
+        content: "Can you explain literary devices like metaphors and symbolism?",
+        icon: "📖",
+        category: "english",
+      },
+    ],
     content: "Enhance your English skills and boost your grades.",
     icon: "📖",
     category: "english",
@@ -273,6 +462,69 @@ export const tutorSuggestionData = [
   },
   {
     label: "Accounting",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "Practice Accounting Problems",
+        content: "Can you provide accounting exercises on balance sheets?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Financial Statement Analysis",
+        content: "Help me analyze financial statements for exams.",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Grade My Accounting Solution",
+        content: "Can you grade my accounting answers?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Improve Accounting Skills",
+        content: "How can I improve my accounting problem-solving?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Detailed Feedback",
+        content: "Can you review my accounting answers and provide feedback?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for Accounting.",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Review Marking Scheme",
+        content: "How does my answer compare to the accounting guidelines?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Understanding Financial Ratios",
+        content: "Can you explain key financial ratios for analysis?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Targeted Tutoring",
+        content: "Which accounting topics should I focus on to boost my score?",
+        icon: "💼",
+        category: "accounting",
+      },
+      {
+        label: "Retake Practice Problems",
+        content: "Can I try another accounting problem and get feedback?",
+        icon: "💼",
+        category: "accounting",
+      },
+    ],
     content: "Ace accounting principles and top your tests.",
     icon: "💼",
     category: "accounting",
@@ -297,9 +549,60 @@ export const tutorSuggestionData = [
 ];
 
 export const careerCoachAssistantSuggestionData = [
-  { 
+  {
     label: "CoachXpert",
-    content: "What are top skills needed in South Africa?",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "🧭 Choosing Grade 9 Subjects",
+        content: "What subjects should I choose in Grade 9?"
+      },
+      {
+        label: "🧭 Aligning Subjects with Careers",
+        content: "How do I align my subject choices with future career goals?"
+      },
+      {
+        label: "🧭 Preparing for FET Phase",
+        content: "How do I prepare for the transition from Grade 9 to FET?"
+      },
+      {
+        label: "🧭 Creating a Study Plan",
+        content: "How can I create an effective study plan for Grade 12?"
+      },
+      {
+        label: "🧭 Exploring University Pathways",
+        content: "Which university courses align with my subjects?"
+      },
+      {
+        label: "🧭 Preparing for Bursary Applications",
+        content: "How do I get ready to apply for bursaries?"
+      },
+      {
+        label: "🧭 Setting Career Goals",
+        content: "How do I set career goals while still in school?"
+      },
+      {
+        label: "🧭 Exploring Vocational Training",
+        content: "What are the best vocational training options in South Africa?"
+      },
+      {
+        label: "🧭 Understanding TVET Colleges",
+        content: "What are TVET colleges, and should I apply?"
+      },
+      {
+        label: "🧭 Planning for High-Demand Careers",
+        content: "Which high-demand careers should I consider?"
+      },
+      {
+        label: "🧭 Finding Mentorship Opportunities",
+        content: "How can I find a mentor in my field of interest?"
+      },
+      {
+        label: "🧭 Balancing Studies and Extracurriculars",
+        content: "How do I balance my studies with sports and hobbies?"
+      }
+    ],
+    content: "Your Personalized South African Career Guide.",
     icon: "🧭",
     category: "I’m your personal Career Coach",
     assistantId: "asst_yKj9zsjFZtcm4yZFhNzfzatn",
@@ -322,7 +625,58 @@ export const careerCoachAssistantSuggestionData = [
   },
   {
     label: "CampusNavigator",
-    content: "Which universities offer computer science?",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "Top TVET Colleges",
+        content: "How do I find a top TVET college?"
+      },
+      {
+        label: "Best Technical Universities",
+        content: "What's the best technical university in SA?"
+      },
+      {
+        label: "Private Engineering Colleges",
+        content: "Which private colleges offer engineering courses?"
+      },
+      {
+        label: "TVET College Application",
+        content: "How do I apply to a TVET college?"
+      },
+      {
+        label: "University vs TVET",
+        content: "What's the difference between universities and TVET colleges?"
+      },
+      {
+        label: "Study Graphic Design",
+        content: "Where can I study graphic design in SA?"
+      },
+      {
+        label: "Public vs Private Colleges",
+        content: "How do I choose between public and private colleges?"
+      },
+      {
+        label: "Online Degree Programs",
+        content: "Which universities offer online degree programs?"
+      },
+      {
+        label: "Find Right Campus",
+        content: "How do I find the right campus for me?"
+      },
+      {
+        label: "Top Business Schools",
+        content: "What are the top-rated business schools in South Africa?"
+      },
+      {
+        label: "Evening Classes",
+        content: "Which universities offer evening classes?"
+      },
+      {
+        label: "Local University Scholarships",
+        content: "How do I find scholarships for local universities?"
+      }
+    ],
+    content: "Discover Your Future Career Path",
     icon: "🏫",
     category: "I’m here to help you find bursaries",
     assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
@@ -344,11 +698,62 @@ export const careerCoachAssistantSuggestionData = [
       `
   },
   {
-    label: "CourseQuest",
+    label: "PersonalityQuiz",
+    isDefault: "true",
     content: "What online courses can I take for free?",
-    icon: "📚",
+    icon: "📖",
     category: "courses",
-    assistantId: "",
+    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
+    suggest: [
+      {
+        label: "📖 Choosing Grade 9 Subjects",
+        content: "What subjects should I choose in Grade 9?"
+      },
+      {
+        label: "📖 Aligning Subjects with Careers",
+        content: "How do I align my subject choices with future career goals?"
+      },
+      {
+        label: "📖 Preparing for FET Phase",
+        content: "How do I prepare for the transition from Grade 9 to FET?"
+      },
+      {
+        label: "📖 Creating a Study Plan",
+        content: "How can I create an effective study plan for Grade 12?"
+      },
+      {
+        label: "📖 Exploring University Pathways",
+        content: "Which university courses align with my subjects?"
+      },
+      {
+        label: "📖 Preparing for Bursary Applications",
+        content: "How do I get ready to apply for bursaries?"
+      },
+      {
+        label: "📖 Setting Career Goals",
+        content: "How do I set career goals while still in school?"
+      },
+      {
+        label: "📖 Exploring Vocational Training",
+        content: "What are the best vocational training options in South Africa?"
+      },
+      {
+        label: "📖 Understanding TVET Colleges",
+        content: "What are TVET colleges, and should I apply?"
+      },
+      {
+        label: "📖 Planning for High-Demand Careers",
+        content: "Which high-demand careers should I consider?"
+      },
+      {
+        label: "📖 Finding Mentorship Opportunities",
+        content: "How can I find a mentor in my field of interest?"
+      },
+      {
+        label: "📖 Balancing Studies and Extracurriculars",
+        content: "How do I balance my studies with sports and hobbies?"
+      }
+    ],
     instructions: `System settings:
       Tool use: enabled.
 
@@ -368,6 +773,57 @@ export const careerCoachAssistantSuggestionData = [
   },
   {
     label: "BursaryFinder",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "2024 Bursaries",
+        content: "Where can I find bursaries for 2024?"
+      },
+      {
+        label: "SA Bursaries",
+        content: "Which companies offer bursaries in South Africa?"
+      },
+      {
+        label: "Bursary Application",
+        content: "How do I apply for a bursary?"
+      },
+      {
+        label: "First-Year Bursaries",
+        content: "Are there bursaries for first-year students?"
+      },
+      {
+        label: "Study Abroad Bursaries",
+        content: "Can I get a bursary for studying abroad?"
+      },
+      {
+        label: "Engineering Bursaries",
+        content: "What bursaries are available for engineering?"
+      },
+      {
+        label: "Bursary Motivation Letter",
+        content: "How do I write a bursary motivation letter?"
+      },
+      {
+        label: "Postgrad Bursaries",
+        content: "Are there bursaries for postgraduate studies?"
+      },
+      {
+        label: "Field-Specific Bursaries",
+        content: "How can I get a bursary for my field?"
+      },
+      {
+        label: "Bursary Deadlines",
+        content: "When is the deadline for bursary applications?"
+      },
+      {
+        label: "Rural Bursaries",
+        content: "Are there bursaries for rural students?"
+      },
+      {
+        label: "Women in STEM",
+        content: "What bursaries are available for women in STEM?"
+      }
+    ],
     content: "Where can I find bursaries for 2024?",
     icon: "🎓",
     category: "BursaryFinder Assistant",
@@ -391,8 +847,9 @@ export const careerCoachAssistantSuggestionData = [
   }
 ];
 
+
 export const tutor = [
-  {  
+  {
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
@@ -460,7 +917,7 @@ export const tutor = [
       },
     ],
   },
-  { 
+  {
     title: "🔬 Physical Sciences",
     text: "Conquer science topics and excel in exams.",
     category: "I’m your personal Physical Science tutor",
@@ -596,7 +1053,7 @@ export const tutor = [
       },
     ],
   },
-  { 
+  {
     title: "📈 Economics",
     category: "I’m your personal Economics tutor ",
     text: "Understand economics deeply and score high marks.",
@@ -1111,7 +1568,7 @@ export const careerCoach = [
       }
     ]
   },
-  { 
+  {
     title: "🏫 CampusNavigator",
     text: "Discover your perfect school.",
     category: "I’m here to help you find a place to study",
@@ -1224,11 +1681,48 @@ export const careerCoach = [
     ]
   },
   {
-    title: "📖 CourseQuest",
+    title: "📖 PersonalityQuiz",
     text: "Pursue the ideal courses.",
     category: "courses",
-    assistantId: "",
-    suggest: []
+    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
+    suggest: [
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+      {
+        label: "PersonalityQuiz",
+        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
+        icon: "📖",
+        category: "PersonalityQuiz",
+      },
+    ],
   },
   {
     title: "🏛 EduPathfinder",

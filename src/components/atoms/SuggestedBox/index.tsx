@@ -1,5 +1,5 @@
 import { useChat, useUser } from "@/hooks";
-import { setSuggest } from "@/lib/store/features/suggest/suggestSlice";
+import { setSuggest, setSuggests } from "@/lib/store/features/suggest/suggestSlice";
 import { useAppSelector } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,12 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   } = useChat();
 
   const handleClick = async () => {
-    // Set the selected suggestion in the state
+
+    if (item?.isDefault) {
+      dispatch(setSuggests(item?.suggest))
+      return null;
+    }
+    // Set the selected suggestion in the state ...
     dispatch(setSuggest(item));
 
     // Get user ID and validate it

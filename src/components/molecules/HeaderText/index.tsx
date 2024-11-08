@@ -122,13 +122,16 @@ const HeaderText = () => {
 
   return (
     <div>
-      <div className="flex w-full">
+      {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white"/>}
+      <div style={{
+        zIndex: 500
+      }} className="flex z-[500] w-full">
         {isHome &&
           (<>
             <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
               <ActionButton
                 onClick={() => {}}
-                className={cn("h-10 p-2 hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
+                className={cn("h-10 p-2 !z-[500]  hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
                 open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
                 )}
                 Icon={
