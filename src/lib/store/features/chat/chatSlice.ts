@@ -171,13 +171,15 @@ export const updateChat = createAsyncThunk(
 
 export const deleteChat = createAsyncThunk(
   "chat/deleteChat",
-  async (chatId: string, { rejectWithValue }) => {
+  async (chatId: string, { rejectWithValue, dispatch, getState }) => {
     try {
+      const data: any = getState();
       const { error } = await supabase.from("chats").delete().eq("chatId", chatId);
       if (error) {
         Sentry.captureException(error);
         throw error;
       }
+      dispatch(fetchChatsByUserId(data.user.user.id))
       return chatId;
     } catch (error: any) {
       return rejectWithValue(error.message);

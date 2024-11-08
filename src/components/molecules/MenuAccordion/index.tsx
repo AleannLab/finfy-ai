@@ -114,7 +114,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                 {contents.filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => (
                   <div
                     key={index}
-                    className="flex justify-between max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm"
+                    className="flex justify-between !z-[200] max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm"
                   >
                     <button
                       onClick={() =>
@@ -130,9 +130,9 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                       </p>
                     </button>
                     {content.id && (
-                      <DropDownModal chatId={content.id} title={content.title}>
+                      <DropDownModal chatId={content.chatId} title={content.title}>
                         <Button
-                          className="!px-2 !py-0 !rounded-sm"
+                          className="!px-2 !z-[200] !py-0 !rounded-sm"
                           variant="ghost"
                         >
                           <IconComponent

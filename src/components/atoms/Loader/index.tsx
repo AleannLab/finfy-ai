@@ -6,7 +6,7 @@ interface LoaderProps {
 }
 
 const Loader: FC<LoaderProps> = ({ className }) => {
-  return <div className={cn("loader", className)}></div>;
+  return <div className={cn("loader !z-[400]", className)}></div>;
 };
 
 export { Loader };

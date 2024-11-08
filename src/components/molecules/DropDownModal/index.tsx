@@ -17,11 +17,12 @@ const DropDownModal: FC<DropDownModalProps> = ({ children, chatId, title }) => {
     setOpen(false);
   };
   return (
+  <div className="!z-[300]">
     <DropdownMenu onOpenChange={handleOpenChange} open={open}>
       <DropdownMenu.Trigger asChild>
         <div>{children}</div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="bg-navy-25 border-navy-5 text-[#547a91]">
+      <DropdownMenu.Content className="bg-navy-25 border-navy-5 !z-[300] text-[#547a91]">
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
           <DropdownMenu.Item className="flex cursor-pointer hover:bg-navy-5 items-center w-full gap-4">
@@ -54,6 +55,7 @@ const DropDownModal: FC<DropDownModalProps> = ({ children, chatId, title }) => {
         <DropdownMenu.Separator />
       </DropdownMenu.Content>
     </DropdownMenu>
+  </div>
   );
 };
 

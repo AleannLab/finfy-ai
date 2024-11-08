@@ -21,6 +21,7 @@ const ConfirmDeletePop: FC<ConfirmDeletePopProps> = ({
   const [open, setOpen] = useState(false);
   const { deleteChat } = useChat();
   const handleClickDelete = async () => {
+    console.log(chatId)
     try {
       setIsLoading(true);
       await deleteChat(chatId);

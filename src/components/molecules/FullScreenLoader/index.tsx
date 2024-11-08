@@ -14,7 +14,7 @@ const FullScreenLoader: FC<FullScreenLoaderProps> = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-center items-center bg-black bg-opacity-10 backdrop-blur-lg">
+    <div className="fixed inset-0 !z-[1000] flex justify-center items-center bg-black bg-opacity-10 backdrop-blur-lg">
       <Loader />
     </div>
   );
