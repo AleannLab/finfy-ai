@@ -224,9 +224,9 @@ export const useChat = () => {
           handleClose();
         }
 
-        const dialogText = `Here is the context of your dialog with the client:\n${messages
+        const dialogText = `Here is the context of our audio dialog:\n${messages
           .map(item => `${item.role}: ${item.message}`)
-          .join(",\n")}`;
+          .join(",\n")}. Save it to history of this chat`;
   
         const response = await fetch("/api/openai", {
           method: "POST",
@@ -297,8 +297,39 @@ export const useChat = () => {
     },
     [dispatch, router]
   );
-  
 
+  const sendAudioChatContext = useCallback(
+    async ({
+      messages,
+      assistantId,
+      threadId,
+    }: {
+      messages: { role: string, message: string }[];
+      assistantId: string;
+      threadId: string;
+    }) => {
+      try {
+        const dialogText = `Here is the context of our audio dialog:\n${messages
+          .map(item => `${item.role}: ${item.message}`)
+          .join(",\n")}. Save it to history of this chat`;
+        
+        await fetch("/api/openai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: dialogText,
+            assistantId,
+            chatId: threadId,
+          }),
+        });
+      } catch (error) {
+        console.error("Error in sendAudioChatContext:", error);
+        toast.error("Something went wrong. Please try again.");
+      }
+    },
+    []
+  );
+ 
   // const submitChat = useCallback(
   //   async ({
   //     message,
@@ -468,6 +499,7 @@ export const useChat = () => {
     setIsLoadingSendQuery,
     handleResetChat,
     submitChat,
-    submitChatFromAudioChat
+    submitChatFromAudioChat,
+    sendAudioChatContext
   };
 };
