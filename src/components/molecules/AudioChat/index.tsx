@@ -19,9 +19,10 @@ interface AudioChatProps {
     onClose: () => void;
     isClosed: boolean;
     chatContext: string;
+    isMobile?: boolean;
 }
 
-const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
+const AudioChat = ({ onClose, isClosed, chatContext = "", isMobile }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const {
     connectConversation,
@@ -132,10 +133,10 @@ const storeMessage = (content: string, role: string) => {
 
 const handleDisconnectChat = async () => {
     disconnectConversation();
+    onClose();
     if (!threadId && preparedMessagesToStore.length > 0) {
         await submitChatFromAudioChat({ messages: preparedMessagesToStore, assistantId: suggest?.assistantId || "", userId: userId })
     }
-    onClose();
 }
 
   useEffect(() => {
@@ -212,7 +213,8 @@ const handleDisconnectChat = async () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-4 items-center justify-center">
+    <div className={clsx("relative flex flex-col gap-6 md:gap-12 items-center justify-center", {"p-12 rounded-[24px] border border-[#E2EAFB] bg-gradient-to-r from-[rgba(255,255,255,0.3)] via-[rgba(255,255,255,0.3)] to-[rgba(247,248,252,0.3)] shadow-[inset_4px_4px_40px_0px_#FFF,0px_4px_30px_0px_rgba(54,80,127,0.1)] backdrop-blur-[7.5px]": !isMobile })}>
+      {!isMobile && <div className="absolute top-4 right-2 md:top-6 md:right-6 cursor-pointer" onClick={handleDisconnectChat}><Cross2Icon className="size-4 text-[#547A91]" color="#547A91" /></div>}
       <div className="flex flex-col gap-2">
         <Image
           width={512}
@@ -220,14 +222,14 @@ const handleDisconnectChat = async () => {
           src={"/images/f0f1946b-d4c4-4409-a22a-1d9ae2d34108-Photoroom 2.png"}
           alt=""
           objectFit="cover"
-          className={"w-60 aspect-square"}
+          className={"w-60 aspect-square opacity-80"}
         />
       </div>
       <div className="h-20 flex flex-col items-center justify-center">
         {/* {!conversationStarted && (
           <Button
             size="xl"
-            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none opacity-0"
+            className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
             disabled={isConnecting}
             onClick={() => {
               connectConversation();
