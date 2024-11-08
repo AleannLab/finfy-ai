@@ -12,13 +12,13 @@ const SettingsTab = () => {
     <Tab defaultValue="manage" className="px-4">
       <Tab.List className="mb-12 flex-wrap">
         <Tab.Trigger value="manage" className="gap-1 items-center group">
-          <Icon
+          {/* <Icon
             type="UserIcon"
             className="w-6 h-6 stroke-inherit group-hover:stroke-white"
-          />
+          /> */}
           Manage Profile
         </Tab.Trigger>
-        <Tab.Trigger value="subscriptions" className="gap-1 items-center group">
+        {/* <Tab.Trigger value="subscriptions" className="gap-1 items-center group">
           <Icon type="DollarIcon" className="w-6 h-6 stroke-transparent fill-inherit group-hover:fill-white" />
           Subscriptions
         </Tab.Trigger>
@@ -33,12 +33,12 @@ const SettingsTab = () => {
         <Tab.Trigger value="upload" className="gap-1 items-center group">
           <Icon type="DocumentIcon" className="w-6 h-6 stroke-inherit group-hover:stroke-white" />
           Document Upload
-        </Tab.Trigger>
+        </Tab.Trigger> */}
       </Tab.List>
       <Tab.Content value="manage">
         <ManageProfileTab />
       </Tab.Content>
-      <Tab.Content value="subscriptions">
+      {/* <Tab.Content value="subscriptions">
         <SubscriptionTab />
       </Tab.Content>
       <Tab.Content value="support">
@@ -49,7 +49,7 @@ const SettingsTab = () => {
       </Tab.Content>
       <Tab.Content value="upload">
         <DocUploadTab />
-      </Tab.Content>
+      </Tab.Content> */}
     </Tab>
   );
 };

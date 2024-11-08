@@ -29,6 +29,7 @@ export interface User {
   plaid_access_token: string;
   plaid_user_token: string;
   customer_id: string;
+  avatar_url: string | any;
   is_connected_bank: boolean;
 }
 

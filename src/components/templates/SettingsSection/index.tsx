@@ -11,17 +11,17 @@ const SettingsSection = () => {
         <SeparatorLine />
       </div>
       <div className="flex items-start justify-center w-full h-full text-grey-15 text-sm">
-        <div className=" flex flex-col">
+        <div className=" flex w-full max-w-[480px] flex-col">
           <SettingsTab />
         </div>
       </div>
-      <footer className="flex gap-5 items-center justify-center text-sm text-grey-15 py-4">
+      {/* <footer className="flex gap-5 items-center justify-center text-sm text-grey-15 py-4">
         <p className="hover:text-[#547a91] cursor-pointer">Pro</p>
         <p className="hover:text-[#547a91] cursor-pointer">Enterprise</p>
         <p className="hover:text-[#547a91] cursor-pointer">Playground</p>
         <p className="hover:text-[#547a91] cursor-pointer">Blog</p>
         <p className="hover:text-[#547a91] cursor-pointer">Careers</p>
-      </footer>
+      </footer> */}
     </div>
   );
 };
