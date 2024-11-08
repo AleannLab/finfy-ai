@@ -14,6 +14,7 @@ import { addMessage, setMessages } from "@/lib/store/features/chat/chatSlice";
 import { SpeakerModerateIcon } from "@radix-ui/react-icons";
 import { AudioChat } from "../AudioChat";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { AssistActions } from "@/components/organisms";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -212,7 +213,16 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         </Button>
       </div>
       {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+        <AssistActions
+          onClose={() => {
+            setCloseAudioChat(true);
+            setTimeout(() => {
+              setIsVoiceChatModalOpen(false)
+            }, 200)
+          }}
+        >
+          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)}/>
+        </AssistActions>
         </div>}
       {isUserUsingMobile && <Modal
         open={isVoiceChatModalOpen}
@@ -228,7 +238,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} isMobile={isUserUsingMobile} />
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
       </Modal>}
     </form>
   );
