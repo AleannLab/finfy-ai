@@ -15,6 +15,8 @@ import {
   setIsLoadingSendMessage,
   setSuggestQuestions,
   setStreamMessage,
+  setMessages,
+  createMessageInDB,
 } from "@/lib/store/features/chat/chatSlice";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -60,7 +62,11 @@ export const useChat = () => {
 
   const fetchCreateMessage = useCallback(
     async (data: any) => {
-      await dispatch(createMessage(data));
+      // if (data.message_type === "bot") {
+        createMessageInDB(data)
+      // } else {
+      //   await dispatch(createMessage(data));
+      // }
     },
     [dispatch]
   );
@@ -82,33 +88,41 @@ export const useChat = () => {
       handleResetChat?: () => void;
     }) => {
       setIsLoadingSendQuery(true);
-
-      const savedInput = message;
       let accumulatedResponse = "";
       let threadId = threadIdFromURL || null;
-
+      let isFirstStream = true;
+      let currentMessages = [...chatState.messages]; // Use a local copy of messages
+  
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
         return;
       }
-
+  
+      // Add user message to local state immediately
+      const newUserMessage = {
+        content: message,
+        date: `${Date.now()}`,
+        message_type: "user",
+      };
+      currentMessages = [...currentMessages, newUserMessage];
+      dispatch(setMessages(currentMessages));
+  
       if (threadId) {
         await fetchCreateMessage({
           chat_id: threadId,
           user_id: userId,
-          content: savedInput,
+          content: message,
           message_type: "user",
           is_processed: true,
         });
-        // setIsLoadingSendQuery(false);
       }
-
+  
       try {
         if (handleClose) {
           handleClose();
         }
-
+  
         const response = await fetch("/api/openai", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -118,70 +132,124 @@ export const useChat = () => {
             chatId: threadId,
           }),
         });
-
+  
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-
+  
             const chunk = decoder.decode(value, { stream: true });
-
+  
+            // Check for threadId and handle thread creation logic
             if (chunk.includes("threadId")) {
               const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-
+  
               try {
                 const json = JSON.parse(cleanChunk);
                 const type = pathname.includes("tutor") ? "tutor" : "career-coach";
-
+  
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId).then(async () => {
                     await fetchCreateMessage({
                       chat_id: threadId,
                       user_id: userId,
-                      content: savedInput,
+                      content: message,
                       message_type: "user",
                       is_processed: true,
                     }).then(() => {
                       router.push(`${pathname}/chat/${threadId}`, undefined);
                     });
                   });
-
-
                 }
+  
                 if (json.message) {
                   accumulatedResponse += json.message;
-                  dispatch(setStreamMessage(accumulatedResponse))
-                  setIsLoadingSendQuery(false);
-                  console.log(`json.message .${json.message}.`);
+                  // Incrementally update the assistant's message
+                  if (isFirstStream) {
+                    isFirstStream = false;
+                    currentMessages = [
+                      ...currentMessages,
+                      {
+                        content: accumulatedResponse,
+                        date: `${Date.now()}`,
+                        message_type: "bot",
+                      },
+                    ];
+                  } else {
+                    // Replace the last message with the updated content
+                    currentMessages = [
+                      ...currentMessages.slice(0, -1),
+                      {
+                        content: accumulatedResponse,
+                        date: `${Date.now()}`,
+                        message_type: "bot",
+                      },
+                    ];
+                  }
+  
+                  dispatch(setMessages(currentMessages)); // Update state with new messages
+                  dispatch(setStreamMessage(accumulatedResponse));
                 }
               } catch (error) {
                 console.error("Error parsing chunk:", error);
               }
             } else {
               accumulatedResponse += chunk;
-              setIsLoadingSendQuery(false);
-              dispatch(setStreamMessage(accumulatedResponse))
+              // Incrementally update the assistant's response message
+              if (isFirstStream) {
+                isFirstStream = false;
+                currentMessages = [
+                  ...currentMessages,
+                  {
+                    content: accumulatedResponse,
+                    date: `${Date.now()}`,
+                    message_type: "bot",
+                  },
+                ];
+              } else {
+                // Replace the last message with the updated content
+                currentMessages = [
+                  ...currentMessages.slice(0, -1),
+                  {
+                    content: accumulatedResponse,
+                    date: `${Date.now()}`,
+                    message_type: "bot",
+                  },
+                ];
+              }
+  
+              dispatch(setMessages(currentMessages)); // Update state with new messages
+              dispatch(setStreamMessage(accumulatedResponse));
             }
           }
         }
+  
         accumulatedResponse = accumulatedResponse.trim();
-        dispatch(setStreamMessage(""))
-        setIsLoadingSendQuery(false);
-
-
+  
+        // Finalize the assistant's message
+        currentMessages = [
+          ...currentMessages.slice(0, -1),
+          {
+            content: accumulatedResponse,
+            date: `${Date.now()}`,
+            message_type: "bot",
+          },
+        ];
+        dispatch(setMessages(currentMessages));
+        dispatch(setStreamMessage(""));
+  
         if (threadId) {
-
           await fetchCreateMessage({
             chat_id: threadId,
             user_id: userId,
             content: accumulatedResponse,
-            message_type: "assistant",
+            message_type: "bot",
             is_processed: true,
           });
-
+  
           console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
@@ -193,7 +261,7 @@ export const useChat = () => {
         setIsLoadingSendQuery(false);
       }
     },
-    [dispatch, router]
+    [dispatch, router, chatState.messages]
   );
 
   const submitChatFromAudioChat = useCallback(

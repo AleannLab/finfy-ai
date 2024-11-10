@@ -85,9 +85,35 @@ export const createMessage = createAsyncThunk(
       Sentry.captureException(error);
       throw error;
     }
+
+    if (dataMessage?.message_type === "bot") {
+      return null;
+    }
     return data[0];
   }
 );
+export const createMessageInDB = async (dataMessage: {
+    chat_id: string;
+    user_id: number;
+    content: string;
+    message_type: "user" | "bot";
+    is_processed?: boolean;
+    response_time?: string | null;
+    created_at?: string;
+  }) => {
+    const { data, error } = await supabase
+      .from("messages")
+      .insert([dataMessage])
+      .select();
+    if (error) {
+      Sentry.captureException(error);
+      throw error;
+    }
+
+    if (dataMessage?.message_type === "bot") {
+      return null;
+    }
+  }
 
 export const createChat = createAsyncThunk(
   "chat/createChat",

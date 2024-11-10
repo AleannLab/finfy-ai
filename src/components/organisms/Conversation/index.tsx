@@ -60,14 +60,14 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                   </Fragment>
                 );
               })}
-              {!!streamMessage?.length && (
+              {/* {!!streamMessage?.length && (
                 <Message
                   text={streamMessage}
                   date={""}
                   isUser={false}
                   isLastMessage={true}
                 />
-              )}
+              )} */}
               {isLoading && !streamMessage?.length && (
                 <Message
                   text={
