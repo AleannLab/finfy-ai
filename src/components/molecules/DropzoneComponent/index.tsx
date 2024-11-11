@@ -11,10 +11,11 @@ interface DropzoneProps {
   name: string;
   onSubmit: (files: { [key: string]: (Blob | MediaSource)[] }) => void;
   classes?: Classes;
+  content?: string;
 }
 
 const DropzoneComponent = (props: DropzoneProps) => {
-  const { maxFiles = 1, name, onSubmit, classes } = props;
+  const { maxFiles = 1, name, onSubmit, classes, content = 'Drop files to begin upload' } = props;
   const [files, setFiles] = useState<any>([]);
 
   const onDrop = useCallback((acceptedFiles: (Blob | MediaSource)[]) => {
@@ -34,22 +35,24 @@ const DropzoneComponent = (props: DropzoneProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles,
-    accept: { "image/*": [] },
+    accept: { "image/*": [], 'application/pdf': [] },
   });
 
   return (
     <div
       {...getRootProps()}
       className={cn(
-        "drop-zone-border rounded-md w-full justify-center items-center flex py-6",
+        "rounded-md w-full justify-center items-center flex py-6 cursor-pointer",
         classes?.wrapper
       )}
     >
       <input {...getInputProps()} />
-      <span className="text-2xl font-semibold text-[#547a91] flex items-center gap-2">
+      <p className="text-2xl font-semibold flex flex-col items-center gap-2">
         <Icon type="DocumentIcon" className="w-6 h-6 stroke-white" />
-        Drop files to begin upload, or <span className="text-purple-15">browse</span>.
-      </span>
+        {content}
+        <p className="text-2xl font-semibold ">or</p>
+        <p className="text-purple-15">browse</p>
+      </p>
     </div>
   );
 };
