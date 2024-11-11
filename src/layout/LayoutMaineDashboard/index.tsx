@@ -10,6 +10,7 @@ import { MobileChartModal } from "@/components/molecules/MobileChartModal/Mobile
 import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
+import { AssistAction } from "../LayoutDashboard";
 
 interface LayoutDashboardProps extends PropsWithChildren { }
 
@@ -20,6 +21,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
+
 
   useEffect(()=> {
     dispatch(setMessages([]));
@@ -63,7 +66,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
             <HomeSuggestBoxes />
             <div className="mt-6">
-              <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={false} />
+              <ChatMessageInput  isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
             </div>
           </div>
         </>
