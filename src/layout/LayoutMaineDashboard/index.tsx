@@ -1,27 +1,29 @@
 "use client";
 
 import { AssistInput, Conversation } from "@/components/organisms";
-import { Button, Icon } from "@/components/atoms";
+import { Button, Icon, Loader } from "@/components/atoms";
 import { ChatMessageInput, DynamicChart, Header, HeaderText, HomeSuggestBoxes } from "@/components/molecules";
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useChat, useDynamicChart, useUser } from "@/hooks";
 import { DesktopChartModal } from "@/components/molecules/DesktopChartModal/DesktopChartModal";
 import { MobileChartModal } from "@/components/molecules/MobileChartModal/MobileChartModal";
 import { cn } from "@/lib/utils";
-import { HeaderFocus } from "@/components/molecules/HeaderText";
-import { useAppSelector } from "@/lib/store/hooks";
+import { useDispatch } from "react-redux";
+import { setMessages } from "@/lib/store/features/chat/chatSlice";
 
 interface LayoutDashboardProps extends PropsWithChildren { }
 
-const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
-  const { messages, isLoading } = useChat();
+const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
+  const { messages, isLoading, streamMessage } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useUser();
-  const [open, setOpen] = useState(false);
-  const suggest = useAppSelector((state) => state.suggest.suggest);
+  const dispatch = useDispatch();
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+
+  useEffect(()=> {
+    dispatch(setMessages([]));
+  }, [streamMessage, isLoading])
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
@@ -42,17 +44,16 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     const firstLetter = titleReplaced.slice(0, 1)?.toLocaleUpperCase();
     const restLetters = titleReplaced.slice(1);
     return firstLetter + restLetters;
+
   };
+
+  if (isLoading || streamMessage?.length) {
+    return <div className="w-screen h-screen top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
+  }
 
   return (
     <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
-      <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
-      {(messages.length || isLoading) ? (
-        <div className={cn("flex lg:mt-[134px] h-full ", isVoiceChatModalOpen ? "max-h-[calc(100vh-550px)]" : "")}>
-          <Conversation handleOpenModal={handleOpenModal} />
-        </div>
-      ) : (
         <>
           <HeaderText />
           <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
@@ -66,14 +67,10 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
           </div>
         </>
-      )}
-      {!!messages.length && <div className="bg-[#1F263D]">
-        <AssistInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen}  isDark={!!selectedChartId} />
-      </div>}
     </div>
     </>
   );
 };
 
 
-export { LayoutDashboard };
+export { LayoutMaineDashboard };

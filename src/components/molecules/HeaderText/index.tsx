@@ -1,5 +1,5 @@
 "use client";
-import { Icon } from "@/components/atoms";
+import { Icon, Loader } from "@/components/atoms";
 import { useUser } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
@@ -9,6 +9,61 @@ import { useEffect, useState } from "react";
 import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../UserAvatar";
+
+export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: any, setOpen: any, open: any, suggest: any, user: any }) => {
+  const [shouldRender, setShouldRender] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldRender(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  if (!shouldRender) {
+    return <div className="w-screen h-screen top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
+  }
+
+  const cutIcon = (title: any) => {
+    const arr = title?.split(" ")
+    return arr?.slice(1, arr?.length)?.join(" ")
+  }
+  return (<div className="w-full flex items-center z-[500] pr-2.5 justify-between" style={{
+    zIndex: 200
+  }}>
+    {isHome &&
+      (<>
+        <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
+          <ActionButton
+            onClick={() => { }}
+            className={cn("h-10 p-2 !z-[500]  hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
+              open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
+            )}
+            Icon={
+              <Icon
+                type="SearchIcon"
+                className={cn("group-hover:fill-white h-3.5 w-5", open ? "fill-[#f3f9ed]" : "fill-purple-15")}
+              />
+            }
+            text={suggest?.title ? cutIcon(suggest?.title) : "Focus"}
+            IconAfter={<Icon
+              type="ChIcon"
+              className={cn("group-hover:stroke-[#f3f9ed] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#f3f9ed] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
+            />}
+          />
+        </FocusAssistantPopover>
+      </>)
+    }
+    <UserAvatar src={user?.avatar_url}
+      className={cn(
+        " lg:flex justify-center items-center !border-none !z-50 w-[42px] h-[42px] rounded-full !ml-0 "
+
+      )}
+    />
+  </div>)
+}
 
 const HeaderText = () => {
   const { user } = useUser();
@@ -24,7 +79,7 @@ const HeaderText = () => {
     home: {
       title: (
         <>
-          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category}.
+          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category || " I’m your Career Buddy"}.
         </>
       ),
       cta: <></>,
@@ -117,48 +172,11 @@ const HeaderText = () => {
     }
   }, [pathname])
 
-  const cutIcon = (title: any) => {
-    const arr = title?.split(" ")
-    return arr?.slice(1, arr?.length)?.join(" ")
-  }
-
   return (
     <div>
       {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white" />}
-      <div className="w-full flex items-center z-[500] pr-2.5 mb-[134px] justify-between" style={{
-        zIndex: 500
-      }}>
-        {isHome &&
-          (<>
-            <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
-              <ActionButton
-                onClick={() => { }}
-                className={cn("h-10 p-2 !z-[500]  hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
-                  open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
-                )}
-                Icon={
-                  <Icon
-                    type="SearchIcon"
-                    className={cn("group-hover:fill-white h-3.5 w-5", open ? "fill-[#f3f9ed]" : "fill-purple-15")}
-                  />
-                }
-                text={suggest?.title ? cutIcon(suggest?.title) : "Focus"}
-                IconAfter={<Icon
-                  type="ChIcon"
-                  className={cn("group-hover:stroke-[#f3f9ed] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#f3f9ed] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
-                />}
-              />
-            </FocusAssistantPopover>
-          </>)
-        }
-        <UserAvatar src={user?.avatar_url}
-          className={cn(
-            " lg:flex justify-center items-center !border-none w-[42px] h-[42px] rounded-full !ml-0 "
-
-          )}
-        />
-      </div>
-      <div className="lg:flex hidden flex-col w-full items-center justify-center pb-5 lg:pb-10">
+      <HeaderFocus user={user} isHome={isHome} open={open} setOpen={setOpen} suggest={suggest} />
+      <div className="lg:flex hidden mt-[134px] flex-col w-full items-center justify-center pb-5 lg:pb-10">
         {content && (
           <>
             <h1 className="header text-center">{content.title}</h1>

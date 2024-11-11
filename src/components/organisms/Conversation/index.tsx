@@ -16,7 +16,7 @@ interface ConversationProps {
 
 const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const isAutoScrollEnabledRef = useRef(true); // Контроль автопрокрутки
+  const isAutoScrollEnabledRef = useRef(true);
   const { messages, isLoading, streamMessage } = useChat();
   
   useEffect(() => {
@@ -27,7 +27,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
   
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const element = event.currentTarget;
-    const isAtBottom = element.scrollHeight - element.scrollTop - element.clientHeight <= 20; // Поріг 20px від низу
+    const isAtBottom = element.scrollHeight - element.scrollTop - element.clientHeight <= 20;
   
     if (!isAtBottom) {
       isAutoScrollEnabledRef.current = false;

@@ -72,7 +72,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   const isActive =
     pathname === item.link || pathname.startsWith(`${item.link}/`);
   const isActiveType =
-  pathname.includes(item.href);
+    pathname.includes(item.href);
 
   return (
     <Accordion.Item className="flex flex-col max-w-full gap-0.5" value={item.value}>
@@ -81,13 +81,13 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
         isHideChevron={isHideChevron && !open}
         disabled={isHideChevron}
         onClick={() => {
-           handleOpen()
-           router.push(href)
-           OnChangeState()
+          handleOpen()
+          router.push(href)
+          OnChangeState()
         }}
         className={cn("p-2 rounded-sm group", {
           "bg-[#547A91] text-[#f3f9fd] stroke-[#f3f9fd]": isActiveType,
-        }, {"hover:text-[#f3f9fd] hover:stroke-[#f3f9fd] hover:bg-[#547A91]": !isActiveType})}
+        }, { "hover:text-[#f3f9fd] hover:stroke-[#f3f9fd] hover:bg-[#547A91]": !isActiveType })}
       >
         <div className={"flex justify-between w-full items-center"}>
           <Link
@@ -111,39 +111,42 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             Object.entries(groupedContents).map(([group, contents]: any) => (
               <Accordion.Content key={group}>
                 <p className="text-sm lg:text-xs my-1">{group}</p>
-                {contents.filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => (
-                  <div
-                    key={index}
-                    className="flex justify-between !z-[200] max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm"
-                  >
-                    <button
-                      onClick={() =>
-                        handleClick(
-                          content.chatId ? `${item.link}/${content.chatId}` : content.id ? `${item.link}/${content.id}` : item.link,
-                          content.chatId
-                        )
-                      }
-                      className="flex flex-col w-[90%] lg:w-[180px]"
+                {contents.reverse().filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => {
+                  console.log("item456", content)
+                  return (
+                    <div
+                      key={index}
+                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#F3F9ED]" : "")}
                     >
-                      <p className="menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white text-[#547A91]">
-                        {content.title}
-                      </p>
-                    </button>
-                    {content.id && (
-                      <DropDownModal chatId={content.chatId} title={content.title}>
-                        <Button
-                          className="!px-2 !z-[200] !py-0 !rounded-sm"
-                          variant="ghost"
-                        >
-                          <IconComponent
-                            type="DotsIcon"
-                            className="stroke-grey-15 w-4 h-4"
-                          />
-                        </Button>
-                      </DropDownModal>
-                    )}
-                  </div>
-                ))}
+                      <button
+                        onClick={() =>
+                          handleClick(
+                            content.chatId ? `${item.link}/${content.chatId}` : content.id ? `${item.link}/${content.id}` : item.link,
+                            content.chatId
+                          )
+                        }
+                        className="flex flex-col w-[90%] lg:w-[180px]"
+                      >
+                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white", pathname.includes(content?.chatId) ? " !text-[#F3F9ED]" : "text-[#547A91]")}>
+                          {content.title}
+                        </p>
+                      </button>
+                      {content.id && (
+                        <DropDownModal chatId={content.chatId} title={content.title}>
+                          <Button
+                            className="!px-2 !z-[200] !py-0 !rounded-sm"
+                            variant="ghost"
+                          >
+                            <IconComponent
+                              type="DotsIcon"
+                              className="stroke-grey-15 w-4 h-4"
+                            />
+                          </Button>
+                        </DropDownModal>
+                      )}
+                    </div>
+                  )
+                })}
               </Accordion.Content>
             ))
           ) : (
@@ -178,11 +181,11 @@ const MenuAccordion: FC = () => {
   const [value, setValue] = useState('')
   const pathname = usePathname();
 
-  useEffect(()=> {
-    
+  useEffect(() => {
+
     if (pathname.includes('tutor')) {
       setValue('tutor')
-    } 
+    }
     if (pathname.includes('career-coach')) {
       setValue('career-coach')
     }
@@ -214,10 +217,10 @@ const MenuAccordion: FC = () => {
           contents={item.value === "career-coach" || item.value === "tutor" ? chats : item.contents}
           handleOpen={handleOpen}
           isHideChevron={item.isHideChevron}
-          onClick={() => { 
-            handleResetChat() 
+          onClick={() => {
+            handleResetChat()
           }}
-          OnChangeState={() => { 
+          OnChangeState={() => {
             handleAccordionToggle(item.value);
           }}
           href={item.href}
