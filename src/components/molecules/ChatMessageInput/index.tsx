@@ -37,7 +37,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     isLoading,
     setIsLoadingSendQuery,
     messages,
-    submitChat
+    submitChat,
+    fetchMessagesForChat
   } = useChat();
 
   const [message, setMessage] = useState("");
@@ -70,14 +71,21 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     }
   }
 
-  const closeAssistAction = () => {
-    if (assistActionOpenState === AssistAction.AUDIO_CHAT && isUserUsingMobile) {
+  const closeAssistAction = async () => {
+    const currentPath = window.location.href;
+    const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+    const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+    if (assistActionOpenState === AssistAction.AUDIO_CHAT) {
       setCloseAudioChat(true);
         setTimeout(() => {
           setAssistActionOpenState(null);
         }, 200)
     } else {
       setAssistActionOpenState(null);
+      if (threadIdFromURL) {
+        fetchMessagesForChat(threadIdFromURL)
+      }
     }
   }
 
