@@ -71,7 +71,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   }
 
   const closeAssistAction = () => {
-    if (assistActionOpenState === AssistAction.AUDIO_CHAT) {
+    if (assistActionOpenState === AssistAction.AUDIO_CHAT && isUserUsingMobile) {
       setCloseAudioChat(true);
         setTimeout(() => {
           setAssistActionOpenState(null);
