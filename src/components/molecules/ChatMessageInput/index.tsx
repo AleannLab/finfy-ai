@@ -193,23 +193,27 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             </div>
           )}
         </div>
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
+          <Icon type='Photogragph'className="w-6 h-6" />
+          <Icon type='Camera' className="w-6 h-6" />
+        </div>
 
         <Textarea
           ref={setTextareaRef}
           value={message}
-          style={{
-            padding: "20px 16px"
-          }}
+          // style={{
+          //   padding: "20px 16px"
+          // }}
           onChange={handleChange}
           className={cn(
-            "lg:pl-4 min-h-16 md:max-h-16 rounded-[50px]  px-4 py-5 focus:outline-none text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-24 lg:pr-48",
+            "pl-20 min-h-16 md:max-h-16 rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
             isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
           )}
           placeholder="Ask follow-up question..."
           name="message"
           onKeyDown={handleEnter}
         />
-        <div className="flex items-center gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
+        <div className="flex items-center md:gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
           <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
             <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
           </Button>
