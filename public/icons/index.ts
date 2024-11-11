@@ -44,6 +44,7 @@ import SupportIcon from "./support.svg";
 import LogoIcon from "./logo.svg";
 import PlusIcon from "./plus.svg";
 import FullLogoIcon from "./full-logo.svg";
+import LogoChatIcon from "./logo-chat.svg";
 import FullLogoWhiteIcon from "./full-logo-white.svg";
 import PlusCircle from "./plus-circle.svg";
 import ToggleSidebarIcon from "./toggle-sidebar.svg";
@@ -105,5 +106,6 @@ export default {
   ToggleSidebarIcon,
   MicIcon,
   ChIcon,
-  AudioLogo
+  AudioLogo,
+  LogoChatIcon
 };

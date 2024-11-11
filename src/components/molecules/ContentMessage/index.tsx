@@ -113,24 +113,32 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   function adaptMarkdownForMath(text: string): string {
     text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
-    
+
     text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
-    
+
     text = text.replace(/\*\*(\s*\$\$.*?\$\$\s*)\*\*/g, (_, formula: string) => `**${formula.trim()}**`);
-  
+
     text = text.replace(/\$\$\s+/g, '$$').replace(/\s+\$\$/g, '$$');
-  
+
     return text;
   }
-  
-  
-  
+
+  if (isUser) {
+    return (
+      <div className="h-[88px] p-8 bg-[#daede6] rounded-xl border border-[#f3f9ed] justify-center items-center gap-2.5 inline-flex">
+        <div className="text-[#272e48] text-base font-normal leading-normal">{text}</div>
+      </div>
+    )
+  }
+
+
+
   return (
     <div className="flex flex-col h-full">
       {!isUser && !isLoading && (
-        <div className="flex items-end gap-4 mb-4">
-          <span className="w-4 h-4">
-            <Icon height="16px" width="16px" type="SmallLogo" />
+        <div className="flex items-center gap-4 mb-4">
+          <span className="w-8 h-8">
+            <Icon height="32px" width="32px" type="LogoChatIcon" />
           </span>
           <span className="text-[#272E48] text-2xl leading-3 font-medium">
             {isLastMessage ? "Answer" : "Career Buddy"}
