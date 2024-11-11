@@ -194,10 +194,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </div>
         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-          <Icon type='Photogragph'className="w-6 h-6" />
-          <Icon type='Camera' className="w-6 h-6" />
+          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" />
+          <Icon type='Camera' className="w-6 h-6 cursor-pointer" />
         </div>
-
         <Textarea
           ref={setTextareaRef}
           value={message}
