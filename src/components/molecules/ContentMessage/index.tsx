@@ -111,21 +111,24 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
   };
 
+  function removeSpaceBeforePunctuation(text: string): string {
+    return text.replace(/ (\.|\:)/g, '$1');
+  }
+  
+
   function adaptMarkdownForMath(text: string): string {
     const newlinePlaceholder = '__NEWLINE__';
-    
     text = text.replace(/\n/g, newlinePlaceholder);
-  
-    text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$${formula.trim()}$$ `);
-  
-    text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$${formula.trim()}$$ `);
-  
-    text = text.replace(/\$\$\s+/g, '$$').replace(/\s+\$\$/g, '$$');
-  
+    text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+    text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+    text = text.replace(/\$\$\s+/g, '$$ ').replace(/\s+\$\$/g, ' $$');
+    text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
+    text = text.replace(/([.:])\s+(\$\$)/g, '$1$2');
     text = text.replace(new RegExp(newlinePlaceholder, 'g'), '\n');
   
-    return text;
-  } 
+    return removeSpaceBeforePunctuation(text);
+  }
+  
 
   if (isUser) {
     return (
