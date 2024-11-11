@@ -42,8 +42,8 @@ const UserSettings = () => {
             <span className="text-[#547a91]">{user?.name}</span>
           </Accordion.Trigger>
           <Accordion.Content className="mt-5 justify-start">
-            <p className="text-grey-15 text-xs mb-2">Appearance</p>
-            <ThemeButtons />
+            {/* <p className="text-grey-15 text-xs mb-2">Appearance</p> */}
+            {/* <ThemeButtons /> */}
             <p className="text-grey-15 text-xs my-2">Quick settings</p>
             <div className="flex items-center cursor-pointer group hover:text-grey-5 mb-1">
               <Icon
@@ -85,7 +85,11 @@ const UserSettings = () => {
         )}
       />
       {!open && openSidebar && (
-        <Icon type="GearIcon" className="min-w-4 h-4 !ml-3 fill-[#547a91]" />
+        <Link
+          href="/dashboard/settings">
+          <Icon type="GearIcon" className="min-w-4 h-4 !ml-3 fill-[#547a91]" />
+
+        </Link>
       )}
     </div>
   );
