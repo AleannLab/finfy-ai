@@ -121,7 +121,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
     if (threadIdFromURL) {
       const tread: any = await fetchChatByTread(threadIdFromURL);
-      assistantIdFromDB = tread?.[0].assistantId;
+      assistantIdFromDB = tread?.[0]?.assistantId;
     }
 
     if (handleClose) {
