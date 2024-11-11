@@ -16,11 +16,32 @@ interface ConversationProps {
 
 const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isAutoScrollEnabledRef = useRef(true); // Контроль автопрокрутки
   const { messages, isLoading, streamMessage } = useChat();
-
+  
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollIntoView();
-  }, [messages]);
+    if (isAutoScrollEnabledRef.current && scrollRef.current && streamMessage.length > 0) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, streamMessage]);
+  
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const element = event.currentTarget;
+    const isAtBottom = element.scrollHeight - element.scrollTop - element.clientHeight <= 20; // Поріг 20px від низу
+  
+    if (!isAtBottom) {
+      isAutoScrollEnabledRef.current = false;
+    } else {
+      isAutoScrollEnabledRef.current = true;
+    }
+  };
+
+  useEffect(()=> {
+    if ( scrollRef.current && streamMessage.length === 0) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isLoading, streamMessage])
+
 
   return (
     <div className="flex-1 overflow-hidden relative flex flex-row gap-8">
@@ -31,7 +52,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
             "pb-24 md:pb-28"
           )}
         >
-          <div className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center gap-2.5 md:gap-5 overflow-x-hidden pr-2">
+          <div onScroll={handleScroll} className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center gap-2.5 md:gap-5 overflow-x-hidden pr-2">
             <PaginationScroll
               elements={undefined}
               fetchPagination={undefined}
@@ -60,6 +81,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                   </Fragment>
                 );
               })}
+              <div ref={scrollRef} />
               {/* {!!streamMessage?.length && (
                 <Message
                   text={streamMessage}

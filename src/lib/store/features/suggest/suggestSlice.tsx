@@ -117,7 +117,7 @@ export const tutorSuggestionData = [
     content: "Master math concepts and ace your exams.",
     icon: "🔢",
     category: "mathematics",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -289,7 +289,7 @@ export const tutorSuggestionData = [
       `
   },
   {
-    label: "🔬 Physical Sciences",
+    label: "Physical Sciences",
     isDefault: "true",
     suggest: [
       {
@@ -838,7 +838,7 @@ export const tutor = [
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
     suggest: [
       {
         label: "Practice Algebra Questions",
@@ -1110,7 +1110,7 @@ export const tutor = [
     title: "📐 Mathematical Literacy",
     text: "Grasp math concepts and excel in exams.",
     category: "I’m your personal Math Literacy tutor",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
     suggest: [
       {
         label: "Practice Statistics Questions",
