@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
+import { usePathname } from "next/navigation";
 
 interface LayoutDashboardProps extends PropsWithChildren { }
 
@@ -18,6 +19,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const { messages, isLoading, streamMessage } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const pathname = usePathname();
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
@@ -49,6 +51,9 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
   };
 
+  const isMessages = pathname.includes("thread")
+
+
   if (isLoading || streamMessage?.length) {
     return <div className="w-screen h-screen top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
   }
@@ -57,7 +62,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
         <>
-          <HeaderText />
+          {!isMessages && <HeaderText />}
           <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
             <div className="flex items-center h-fit text-[#547a91]">
               <Icon type="LightningBolt" className="text-[#547a91]" />

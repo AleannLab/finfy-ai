@@ -10,6 +10,7 @@ import { MobileChartModal } from "@/components/molecules/MobileChartModal/Mobile
 import { cn } from "@/lib/utils";
 import { HeaderFocus } from "@/components/molecules/HeaderText";
 import { useAppSelector } from "@/lib/store/hooks";
+import { usePathname } from "next/navigation";
 
 export enum AssistAction {
   AUDIO_CHAT = 'audio-chat',
@@ -25,6 +26,9 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
   const suggest = useAppSelector((state) => state.suggest.suggest);
+  const pathname = usePathname();
+  const isMessages = pathname.includes("thread")
+
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
@@ -60,7 +64,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
         </div>
       ) : (
         <>
-          <HeaderText />
+          {isMessages && <HeaderText />}
           <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
             <div className="flex items-center h-fit text-[#547a91]">
               <Icon type="LightningBolt" className="text-[#547a91]" />
