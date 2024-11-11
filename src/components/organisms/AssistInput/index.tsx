@@ -13,13 +13,11 @@ interface AssistInputProps {
   };
   handleClose?: () => void;
   isDark?: boolean;
-  isVoiceChatModalOpen: any;
-  setIsVoiceChatModalOpen: any;
   assistActionOpenState: AssistAction | null;
   setAssistActionOpenState: (value: AssistAction | null) => void;
 }
 
-const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatModalOpen, setIsVoiceChatModalOpen, isDark = false, assistActionOpenState, setAssistActionOpenState }) => {
+const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isDark = false, assistActionOpenState, setAssistActionOpenState }) => {
   const [] = useState<boolean>(false);
 
   return (
@@ -37,7 +35,7 @@ const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatMo
       >
         <SuggestedQuestions />
         <ActionButtonsGroup />
-        <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={isDark} handleClose={handleClose} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssistActionOpenState}/>
+        <ChatMessageInput isDark={isDark} handleClose={handleClose} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssistActionOpenState}/>
       </div>
     </div>
   );

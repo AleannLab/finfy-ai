@@ -20,13 +20,11 @@ import { AssistAction } from "@/layout/LayoutDashboard";
 interface ChatMessageInputProps {
   handleClose?: () => void;
   isDark?: boolean;
-  isVoiceChatModalOpen: boolean;
-  setIsVoiceChatModalOpen: any;
   assistActionOpenState: AssistAction | null;
   setAssistActionOpenState: (value: AssistAction | null) => void;
 }
 
-const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, isVoiceChatModalOpen, setIsVoiceChatModalOpen, assistActionOpenState, setAssistActionOpenState }) => {
+const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, assistActionOpenState, setAssistActionOpenState }) => {
   const { user } = useUser();
   const router = useRouter();
   const {
@@ -63,13 +61,6 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       audioChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [assistActionOpenState]);
-
-
-  // const openVoiceChatModal = () => {
-  //   setShouldFocus(false);
-  //   setCloseAudioChat(false);
-  //   setIsVoiceChatModalOpen(true);
-  // };
 
   const openAssistAction = (actionType: AssistAction) => {
     setShouldFocus(false);
