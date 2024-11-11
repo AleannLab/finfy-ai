@@ -40,3 +40,5 @@ export { TermsOfServicePolicy } from "./TermsOfServicePolicy";
 export { PrivacyPolicy } from "./PrivacyPolicy";
 export { PaginationScroll } from "./PaginationScroll";
 export { FieldForm } from "./FieldForm";
+export { FileUploader } from "./FileUploader";
+export { QuestionScanner } from "./QuestionScanner";
