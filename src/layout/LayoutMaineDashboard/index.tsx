@@ -20,7 +20,6 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const dispatch = useDispatch();
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
-  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
 
 
