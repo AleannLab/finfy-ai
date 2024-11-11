@@ -266,14 +266,14 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
         "flex flex-col gap-6 md:gap-12 items-center justify-center"
       )}
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <Image
           width={512}
           height={512}
           src={"/images/f0f1946b-d4c4-4409-a22a-1d9ae2d34108-Photoroom 2.png"}
           alt=""
           objectFit="cover"
-          className={"w-60 aspect-square opacity-80"}
+          className={"w-36 aspect-square opacity-80"}
         />
       </div>
       <div className="h-20 flex flex-col items-center justify-center">

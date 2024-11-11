@@ -55,7 +55,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       <Header />
       <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
       {(messages.length || isLoading) ? (
-        <div className={cn("flex lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-622px)]" : "")}>
+        <div className={cn("flex lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
           <Conversation handleOpenModal={handleOpenModal} />
         </div>
       ) : (
