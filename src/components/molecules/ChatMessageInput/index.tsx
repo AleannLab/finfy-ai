@@ -207,8 +207,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </div>
         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" onClick={() => setAssistActionOpenState(AssistAction.UPLOAD_FILE)} />
-          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => setAssistActionOpenState(AssistAction.QUESTION_SCANNER)}/>
+          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.UPLOAD_FILE)} />
+          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.QUESTION_SCANNER)}/>
         </div>
         <Textarea
           ref={setTextareaRef}
