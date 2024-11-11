@@ -51,6 +51,8 @@ import LightningIcon from "./lightning.svg";
 import InfinityIcon from "./infinity.svg";
 import SmallLogo from "./small-logo.svg";
 import AudioLogo from "./audio-logo.svg";
+import Photogragph from "./photograph.svg";
+import Camera from "./camera.svg";
 
 export default {
   SmallLogo,
@@ -105,5 +107,7 @@ export default {
   ToggleSidebarIcon,
   MicIcon,
   ChIcon,
-  AudioLogo
+  AudioLogo,
+  Photogragph,
+  Camera
 };
