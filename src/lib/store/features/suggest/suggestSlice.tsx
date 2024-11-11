@@ -50,6 +50,10 @@ export const defaultTutor = {
 
 export const tutorSuggestionData = [
   {
+    title: "🔢 Mathematics",
+    text: "Master math concepts and ace your exams.",
+    category: "I’m your personal Mathematics tutor ",
+    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
     label: "Mathematics",
     isDefault: "true",
     suggest: [
@@ -116,8 +120,6 @@ export const tutorSuggestionData = [
     ],
     content: "Master math concepts and ace your exams.",
     icon: "🔢",
-    category: "mathematics",
-    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -289,6 +291,9 @@ export const tutorSuggestionData = [
       `
   },
   {
+    title: "🔬 Physical Sciences",
+    text: "Conquer science topics and excel in exams.",
+    category: "I’m your personal Physical Science tutor",
     label: "Physical Sciences",
     isDefault: "true",
     suggest: [
@@ -355,7 +360,6 @@ export const tutorSuggestionData = [
     ],
     content: "Conquer science topics and excel in exams.",
     icon: "🔬",
-    category: "physical-sciences",
     assistantId: "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
     instructions: `System settings:
       Tool use: enabled.
@@ -375,6 +379,10 @@ export const tutorSuggestionData = [
       `
   },
   {
+    title: "📖 English",
+    text: "Enhance your English skills and boost your grades.",
+    category: "I’m your personal English tutor",
+    assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
     label: "English",
     isDefault: "true",
     suggest: [
@@ -441,8 +449,6 @@ export const tutorSuggestionData = [
     ],
     content: "Enhance your English skills and boost your grades.",
     icon: "📖",
-    category: "english",
-    assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -461,6 +467,8 @@ export const tutorSuggestionData = [
       `
   },
   {
+    title: "💼 Accounting",
+    text: "Ace accounting principles and top your tests.",
     label: "Accounting",
     isDefault: "true",
     suggest: [
@@ -528,7 +536,7 @@ export const tutorSuggestionData = [
     content: "Ace accounting principles and top your tests.",
     icon: "💼",
     category: "accounting",
-    assistantId: "asst_accounting_id",
+    assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -550,6 +558,10 @@ export const tutorSuggestionData = [
 
 export const careerCoachAssistantSuggestionData = [
   {
+    title: "🧭 CoachXpert",
+    text: "Guiding your career growth.",
+    category: "I’m your personal Career Coach",
+    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn",
     label: "CoachXpert",
     isDefault: "true",
     suggest: [
@@ -604,8 +616,6 @@ export const careerCoachAssistantSuggestionData = [
     ],
     content: "Your Personalized South African Career Guide.",
     icon: "🧭",
-    category: "I’m your personal Career Coach",
-    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfzatn",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -624,7 +634,11 @@ export const careerCoachAssistantSuggestionData = [
       `
   },
   {
+    title: "🏫 CampusNavigator",
     label: "CampusNavigator",
+    text: "Discover your perfect school.",
+    category: "I’m here to help you find a place to study",
+    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
     isDefault: "true",
     suggest: [
       {
@@ -678,8 +692,6 @@ export const careerCoachAssistantSuggestionData = [
     ],
     content: "Discover Your Future Career Path",
     icon: "🏫",
-    category: "I’m here to help you find bursaries",
-    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
     instructions: `System settings:
       Tool use: enabled.
 
@@ -698,12 +710,14 @@ export const careerCoachAssistantSuggestionData = [
       `
   },
   {
+    title: "📖 PersonalityQuiz",
+    text: "Pursue the ideal courses.",
+    category: "courses",
+    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
     label: "PersonalityQuiz",
     isDefault: "true",
     content: "What online courses can I take for free?",
     icon: "📚",
-    category: "courses",
-    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
     suggest: [
       {
         label: "📚 Discover My Personality",
@@ -758,6 +772,10 @@ export const careerCoachAssistantSuggestionData = [
   },
   {
     label: "BursaryFinder",
+    title: "💰 BursaryFinder",
+    text: "Unlock scholarships for you.",
+    category: "I’m here to help you find bursaries             ",
+    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
     isDefault: "true",
     suggest: [
       {
@@ -811,8 +829,6 @@ export const careerCoachAssistantSuggestionData = [
     ],
     content: "Where can I find bursaries for 2024?",
     icon: "🎓",
-    category: "BursaryFinder Assistant",
-    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
     instructions: `System settings:
       Tool use: enabled.
 

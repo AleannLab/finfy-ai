@@ -35,6 +35,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
 
     if (item?.isDefault) {
       dispatch(setSuggests(item?.suggest))
+      dispatch(setSuggest(item))
       return null;
     }
     // Set the selected suggestion in the state ...
