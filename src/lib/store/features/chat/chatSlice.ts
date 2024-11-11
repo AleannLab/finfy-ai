@@ -122,7 +122,7 @@ export const createChat = createAsyncThunk(
 
     const { data, error } = await supabase
       .from("chats")
-      .insert([{ title: `${title}`, id: userId, chatId, type, assistantId }])
+      .insert([{ title: `${emojis[index]} ${title}`, id: userId, chatId, type, assistantId }])
       .select();
 
     if (error) {
