@@ -38,7 +38,7 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
   const clientCanvasRef = useRef<HTMLCanvasElement>(null);
   const serverCanvasRef = useRef<HTMLCanvasElement>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage, submitChatFromAudioChat, sendAudioChatContext } =
+  const { createMessage, submitChatFromAudioChat, sendAudioChatContext, fetchMessagesForChat } =
     useChat();
   const { user } = useUser();
   const [processedIds, setProcessedIds] = useState(new Set());
@@ -160,7 +160,11 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
       is_processed: true,
     };
 
-    createMessage(dataForStore);
+    createMessage(dataForStore).then(() => {
+        if (threadId) {
+            fetchMessagesForChat(threadId)
+        }
+    });
   };
 
   const handleDisconnectChat = async () => {
