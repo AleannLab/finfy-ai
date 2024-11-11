@@ -108,7 +108,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
       {open && (
         <>
           {Object.keys(groupedContents).length ? (
-            Object.entries(groupedContents).map(([group, contents]: any) => (
+            Object.entries(groupedContents).reverse().map(([group, contents]: any) => (
               <Accordion.Content key={group}>
                 <p className="text-sm lg:text-xs my-1">{group}</p>
                 {contents.reverse().filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => {

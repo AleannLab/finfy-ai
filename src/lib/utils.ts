@@ -16,6 +16,7 @@ export function cn(...inputs: ClassValue[]) {
 // Helper function to categorize dates
 export const categorizeDate = (dateStr: string): string => {
   const date = new Date(dateStr);
+  console.log(dateStr, "dateStr")
 
   if (isNaN(date.getTime())) {
     return "Last 2 weeks";
