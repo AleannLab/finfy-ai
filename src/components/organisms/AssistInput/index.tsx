@@ -2,6 +2,7 @@
 
 import { ChatMessageInput } from "@/components/molecules";
 import { ActionButtonsGroup, SuggestedQuestions } from "@/components/organisms";
+import { AssistAction } from "@/layout/LayoutDashboard";
 import { cn } from "@/lib/utils";
 import { FC, useState } from "react";
 
@@ -13,10 +14,12 @@ interface AssistInputProps {
   handleClose?: () => void;
   isDark?: boolean;
   isVoiceChatModalOpen: any;
-  setIsVoiceChatModalOpen: any
+  setIsVoiceChatModalOpen: any;
+  assistActionOpenState: AssistAction | null;
+  setAssistActionOpenState: (value: AssistAction | null) => void;
 }
 
-const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatModalOpen, setIsVoiceChatModalOpen, isDark = false }) => {
+const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatModalOpen, setIsVoiceChatModalOpen, isDark = false, assistActionOpenState, setAssistActionOpenState }) => {
   const [] = useState<boolean>(false);
 
   return (
@@ -34,7 +37,7 @@ const AssistInput: FC<AssistInputProps> = ({ classes, handleClose, isVoiceChatMo
       >
         <SuggestedQuestions />
         <ActionButtonsGroup />
-        <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={isDark} handleClose={handleClose} />
+        <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={isDark} handleClose={handleClose} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssistActionOpenState}/>
       </div>
     </div>
   );

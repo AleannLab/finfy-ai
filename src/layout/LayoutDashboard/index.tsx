@@ -9,6 +9,12 @@ import { DesktopChartModal } from "@/components/molecules/DesktopChartModal/Desk
 import { MobileChartModal } from "@/components/molecules/MobileChartModal/MobileChartModal";
 import { cn } from "@/lib/utils";
 
+export enum AssistAction {
+  AUDIO_CHAT = 'audio-chat',
+  UPLOAD_FILE = 'upload-file',
+  QUESTION_SCANNER = 'question-scanner'
+}
+
 interface LayoutDashboardProps extends PropsWithChildren { }
 
 const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
@@ -17,6 +23,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
@@ -56,13 +63,13 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
             <HomeSuggestBoxes />
             <div className="mt-6">
-              <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={false} />
+              <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
             </div>
           </div>
         </>
       )}
       {!!messages.length && <div className="bg-[#1F263D]">
-        <AssistInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen}  isDark={!!selectedChartId} />
+        <AssistInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen}  isDark={!!selectedChartId} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
       </div>}
     </div>
     </>

@@ -15,15 +15,18 @@ import { SpeakerModerateIcon } from "@radix-ui/react-icons";
 import { AudioChat } from "../AudioChat";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { AssistActions } from "@/components/organisms";
+import { AssistAction } from "@/layout/LayoutDashboard";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
   isDark?: boolean;
   isVoiceChatModalOpen: boolean;
-  setIsVoiceChatModalOpen: any
+  setIsVoiceChatModalOpen: any;
+  assistActionOpenState: AssistAction | null;
+  setAssistActionOpenState: (value: AssistAction | null) => void;
 }
 
-const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, isVoiceChatModalOpen, setIsVoiceChatModalOpen }) => {
+const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, isVoiceChatModalOpen, setIsVoiceChatModalOpen, assistActionOpenState, setAssistActionOpenState }) => {
   const { user } = useUser();
   const router = useRouter();
   const {
@@ -62,11 +65,30 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   }, [isVoiceChatModalOpen]);
 
 
-  const openVoiceChatModal = () => {
-    setShouldFocus(false);
-    setCloseAudioChat(false);
-    setIsVoiceChatModalOpen(true);
-  };
+  // const openVoiceChatModal = () => {
+  //   setShouldFocus(false);
+  //   setCloseAudioChat(false);
+  //   setIsVoiceChatModalOpen(true);
+  // };
+
+  const openAssistAction = (actionType: AssistAction) => {
+    if (actionType === AssistAction.AUDIO_CHAT) {
+      setShouldFocus(false);
+      setCloseAudioChat(false);
+      setIsVoiceChatModalOpen(true);
+      setAssistActionOpenState(AssistAction.AUDIO_CHAT);
+    }
+  }
+
+  const closeAssistAction = () => {
+    if (assistActionOpenState === AssistAction.AUDIO_CHAT) {
+      setCloseAudioChat(true);
+        setTimeout(() => {
+          setIsVoiceChatModalOpen(false)
+        }, 200)
+    }
+    setAssistActionOpenState(null);
+  }
 
   useEffect(() => {
     if (!isVoiceChatModalOpen) {
@@ -213,7 +235,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           onKeyDown={handleEnter}
         />
         <div className="flex items-center md:gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={openVoiceChatModal} disabled={isVoiceChatModalOpen}>
+          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)} disabled={isVoiceChatModalOpen}>
             <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
           </Button>
           <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
@@ -225,33 +247,23 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           </Button>
         </div>
       </form>
-      {!isUserUsingMobile && isVoiceChatModalOpen && <div ref={audioChatRef} className="w-full py-6">
+      {!isUserUsingMobile && assistActionOpenState && <div ref={audioChatRef} className="w-full py-6">
         <AssistActions
-          onClose={() => {
-            setCloseAudioChat(true);
-            setTimeout(() => {
-              setIsVoiceChatModalOpen(false)
-            }, 200)
-          }}
+          onClose={closeAssistAction}
         >
-          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
+          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />
         </AssistActions>
       </div>}
       {isUserUsingMobile && <Modal
-        open={isVoiceChatModalOpen}
-        onClose={() => {
-          setCloseAudioChat(true);
-          setTimeout(() => {
-            setIsVoiceChatModalOpen(false)
-          }, 200)
-        }}
+        open={assistActionOpenState !== null}
+        onClose={closeAssistAction}
         classes={{
           container: "!p-2 !w-[90%] md:w-[50%] flex items-center justify-center",
           background: "backdrop-blur-none",
           wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={() => setIsVoiceChatModalOpen(false)} />
+        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />
       </Modal>}
     </>
   );
