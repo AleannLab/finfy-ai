@@ -7,7 +7,7 @@ import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } fr
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn, detectPhoneAgents } from "@/lib/utils";
-import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/components/molecules";
+import { ActionButton, ConnectBankAction, FileUploader, FocusAssistantPopover, QuestionScanner } from "@/components/molecules";
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { useDispatch } from "react-redux";
 import { addMessage, fetchChatByTread, setMessages } from "@/lib/store/features/chat/chatSlice";
@@ -59,10 +59,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   }, []);
 
   useEffect(() => {
-    if (isVoiceChatModalOpen && audioChatRef.current && !isUserUsingMobile) {
+    if (assistActionOpenState !== null && audioChatRef.current && !isUserUsingMobile) {
       audioChatRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [isVoiceChatModalOpen]);
+  }, [assistActionOpenState]);
 
 
   // const openVoiceChatModal = () => {
@@ -72,11 +72,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   // };
 
   const openAssistAction = (actionType: AssistAction) => {
+    setShouldFocus(false);
+    setAssistActionOpenState(actionType);
     if (actionType === AssistAction.AUDIO_CHAT) {
-      setShouldFocus(false);
       setCloseAudioChat(false);
-      setIsVoiceChatModalOpen(true);
-      setAssistActionOpenState(AssistAction.AUDIO_CHAT);
     }
   }
 
@@ -84,17 +83,18 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     if (assistActionOpenState === AssistAction.AUDIO_CHAT) {
       setCloseAudioChat(true);
         setTimeout(() => {
-          setIsVoiceChatModalOpen(false)
+          setAssistActionOpenState(null);
         }, 200)
+    } else {
+      setAssistActionOpenState(null);
     }
-    setAssistActionOpenState(null);
   }
 
   useEffect(() => {
-    if (!isVoiceChatModalOpen) {
+    if (!assistActionOpenState) {
       setShouldFocus(true);
     }
-  }, [isVoiceChatModalOpen]);
+  }, [assistActionOpenState]);
 
   const handleOpenPopup = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -216,8 +216,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </div>
         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" />
-          <Icon type='Camera' className="w-6 h-6 cursor-pointer" />
+          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" onClick={() => setAssistActionOpenState(AssistAction.UPLOAD_FILE)} />
+          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => setAssistActionOpenState(AssistAction.QUESTION_SCANNER)}/>
         </div>
         <Textarea
           ref={setTextareaRef}
@@ -235,10 +235,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           onKeyDown={handleEnter}
         />
         <div className="flex items-center md:gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)} disabled={isVoiceChatModalOpen}>
+          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)} disabled={assistActionOpenState === AssistAction.AUDIO_CHAT}>
             <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
           </Button>
-          <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={isVoiceChatModalOpen}>
+          <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={assistActionOpenState === AssistAction.AUDIO_CHAT}>
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
@@ -251,7 +251,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         <AssistActions
           onClose={closeAssistAction}
         >
-          <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />
+          {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
+          {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader />}
+          {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
         </AssistActions>
       </div>}
       {isUserUsingMobile && <Modal
@@ -263,7 +265,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
         }}
       >
-        <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />
+        {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
+        {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader />}
+        {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
       </Modal>}
     </>
   );
