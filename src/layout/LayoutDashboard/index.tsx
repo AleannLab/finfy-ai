@@ -11,6 +11,12 @@ import { cn } from "@/lib/utils";
 import { HeaderFocus } from "@/components/molecules/HeaderText";
 import { useAppSelector } from "@/lib/store/hooks";
 
+export enum AssistAction {
+  AUDIO_CHAT = 'audio-chat',
+  UPLOAD_FILE = 'upload-file',
+  QUESTION_SCANNER = 'question-scanner'
+}
+
 interface LayoutDashboardProps extends PropsWithChildren { }
 
 const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
@@ -21,7 +27,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
-  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
@@ -49,7 +55,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       <Header />
       <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
       {(messages.length || isLoading) ? (
-        <div className={cn("flex lg:mt-[134px] h-full ", isVoiceChatModalOpen ? "max-h-[calc(100vh-550px)]" : "")}>
+        <div className={cn("flex lg:mt-[134px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-550px)]" : "")}>
           <Conversation handleOpenModal={handleOpenModal} />
         </div>
       ) : (
@@ -62,13 +68,13 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
             <HomeSuggestBoxes />
             <div className="mt-6">
-              <ChatMessageInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} isDark={false} />
+              <ChatMessageInput isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
             </div>
           </div>
         </>
       )}
       {!!messages.length && <div className="bg-[#1F263D]">
-        <AssistInput isVoiceChatModalOpen={isVoiceChatModalOpen} setIsVoiceChatModalOpen={setIsVoiceChatModalOpen}  isDark={!!selectedChartId} />
+        <AssistInput isDark={!!selectedChartId} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
       </div>}
     </div>
     </>

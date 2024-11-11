@@ -5,12 +5,13 @@ import { FC, PropsWithChildren, useState } from "react";
 import { AssistInput } from "@/components/organisms";
 import { useSidebar } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { AssistAction } from "@/layout/LayoutDashboard";
 
 interface CreateNewChatPopProps extends PropsWithChildren {}
 
 const CreateNewChatPop: FC<CreateNewChatPopProps> = ({ children }) => {
   const { handleClose: handleCloseSidebar } = useSidebar();
-  const [isVoiceChatModalOpen, setIsVoiceChatModalOpen] = useState<boolean>(false);
+  const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
   const [open, setOpen] = useState(false);
   const handleOpenChange = (value: boolean) => {
     setOpen(value);
@@ -35,8 +36,8 @@ const CreateNewChatPop: FC<CreateNewChatPopProps> = ({ children }) => {
         </Dialog.Close>
         <AssistInput
           handleClose={handleClose}
-          isVoiceChatModalOpen={isVoiceChatModalOpen}
-          setIsVoiceChatModalOpen={setIsVoiceChatModalOpen} 
+          assistActionOpenState={assistActionOpenState}
+          setAssistActionOpenState={setAssisitActionOpenState}
           classes={{
             container: "top-1/2 -translate-y-1/2 bottom-auto",
             wrapper: "!absolute !top-1/2 -translate-y-1/2 w-full !right-auto !left-1/2 -translate-x-1/2 z-50",
