@@ -7,7 +7,7 @@ interface FileUploaderProps {}
 
 const FileUploader: FC<FileUploaderProps> = ({}) => {
   return (
-    <div>
+    <div className="w-full flex items-center justify-center">
       <DropzoneComponent
         name="Dropzone"
         onSubmit={() => console.log("FILES UPLOADED")}
