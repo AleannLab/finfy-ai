@@ -1672,41 +1672,37 @@ export const careerCoach = [
     assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
     suggest: [
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 Discover My Personality",
+        content: "Can you help me discover my personality type before we dive into career suggestions?"
       },
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 Start My Personality Assessment",
+        content: "I’d like to start the personality assessment to learn more about myself. How do I begin?"
       },
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 What’s My Personality Type?",
+        content: "Can you help me find out my personality type first? I want to see how it affects my study habits."
       },
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 Take the Quiz for Personal Insights",
+        content: "Could you guide me through the personality quiz? I’m curious about my strengths and weaknesses."
       },
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 Identify My Core Traits",
+        content: "I want to know my core personality traits. Can I start with an assessment?"
       },
       {
-        label: "PersonalityQuiz",
-        content: "PersonalityQuiz PersonalityQuiz PersonalityQuiz?",
-        icon: "📖",
-        category: "PersonalityQuiz",
+        label: "📚 Discover Career Paths for My Personality",
+        content: "Can you help me identify my personality type first, so I can see which careers might fit me?"
       },
+      {
+        label: "📚 Find Subjects that Match My Personality",
+        content: "Can I take the personality assessment to see which school subjects might be a good match for me?"
+      },
+      {
+        label: "📚 Get Started with Self-Discovery",
+        content: "I’m ready to explore my personality type and see how it can help with my career goals. Can we start the quiz?"
+      }
     ],
   },
   {
