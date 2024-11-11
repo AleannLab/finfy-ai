@@ -109,6 +109,15 @@ const ContentMessage: FC<ContentMessageProps> = ({
         </table>
       </div>
     ),
+    a: ({ children, node }: any) => {
+      const href = node?.properties?.href || '#';
+    
+      return (
+        <a target="_blank" href={href} className="underline text-blue-700">
+          {children}
+        </a>
+      );
+    },
   };
 
   function removeSpaceBeforePunctuation(text: string): string {
