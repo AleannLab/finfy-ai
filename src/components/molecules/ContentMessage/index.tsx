@@ -10,6 +10,7 @@ import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
+import { useChat } from "@/hooks";
 
 interface ContentMessageProps {
   text: ReactNode;
@@ -25,6 +26,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
   isLastMessage,
 }) => {
   const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
+  const { streamMessage } = useChat();
 
   const toggleDropdown = (index: number) => {
     setOpenDropdowns((prev) => ({
@@ -158,6 +160,9 @@ const ContentMessage: FC<ContentMessageProps> = ({
           </span>
           <span className="text-[#272E48] text-2xl leading-3 font-medium">
             {isLastMessage ? "Answer" : "Career Buddy"}
+          </span>
+          <span className="text-[rgb(97,103,125)] mt-2 text-sm">
+            {(isLastMessage && !!streamMessage?.length) && ("(typing...)")}
           </span>
         </div>
       )}
