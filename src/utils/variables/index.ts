@@ -12,7 +12,7 @@ export const cookiesKeys = {
 };
 
 
-export const emojis = ['🗂','🧑', '🛒', '💸', '🛍️', '💰', '📈', '🏠', '🌤️', '💳'];
+export const emojis = ['🗂','🧑', '🛒', '💸', '🛍️', '🎓', '📈', '🏠', '🌤️', '💳'];
 
 export const routesOnboarding = {
   // verifyPhoneNumber: "verify-phone-number",

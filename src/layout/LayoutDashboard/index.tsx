@@ -58,25 +58,9 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
-      {(messages.length || isLoading) ? (
         <div className={cn("flex lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
           <Conversation handleOpenModal={handleOpenModal} />
         </div>
-      ) : (
-        <>
-          {isMessages && <HeaderText />}
-          <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
-            <div className="flex items-center h-fit text-[#547a91]">
-              <Icon type="LightningBolt" className="text-[#547a91]" />
-              <p className="text-base">Suggestions</p>
-            </div>
-            <HomeSuggestBoxes />
-            <div className="mt-6">
-              <ChatMessageInput isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
-            </div>
-          </div>
-        </>
-      )}
       {!!messages.length && <div className="bg-[#1F263D]">
         <AssistInput isDark={!!selectedChartId} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
       </div>}

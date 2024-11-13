@@ -4,7 +4,7 @@ import { Button, Icon, Modal, Textarea } from "@/components/atoms";
 import { useAutoResizeTextArea, useChat, useUser } from "@/hooks";
 import { Loader2 } from "lucide-react";
 import { ChangeEvent, FC, useRef, useState, useEffect, useCallback, useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn, detectPhoneAgents } from "@/lib/utils";
 import { ActionButton, ConnectBankAction, FileUploader, FocusAssistantPopover, QuestionScanner } from "@/components/molecules";
@@ -51,6 +51,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const [closeAudioChat, setCloseAudioChat] = useState<boolean>(false);
   const [isUserUsingMobile, setIsUserUsingMobile] = useState<boolean>(false);
   const audioChatRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isTutor = pathname.includes('/tutor')
+  const isCareerCoach = pathname.includes('/career-coach')
 
   useEffect(() => {
     const detectMobile = detectPhoneAgents();
@@ -78,9 +81,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
     if (assistActionOpenState === AssistAction.AUDIO_CHAT) {
       setCloseAudioChat(true);
-        setTimeout(() => {
-          setAssistActionOpenState(null);
-        }, 200)
+      setTimeout(() => {
+        setAssistActionOpenState(null);
+      }, 200)
     } else {
       setAssistActionOpenState(null);
       if (threadIdFromURL) {
@@ -215,8 +218,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           )}
         </div>
         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-          <Icon type='Photogragph'className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.UPLOAD_FILE)} />
-          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.QUESTION_SCANNER)}/>
+          <Icon type='Photogragph' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.UPLOAD_FILE)} />
+          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.QUESTION_SCANNER)} />
         </div>
         <Textarea
           ref={setTextareaRef}
@@ -229,7 +232,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             "pl-20 min-h-16 md:max-h-16 rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
             isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
           )}
-          placeholder="Ask follow-up question..."
+          placeholder={isTutor ? "Ask any subject question..." : isCareerCoach ? "Ask any subject question..." : "Ask follow-up question..."}
           name="message"
           onKeyDown={handleEnter}
         />

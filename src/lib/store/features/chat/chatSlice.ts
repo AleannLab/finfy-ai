@@ -115,16 +115,35 @@ export const createMessageInDB = async (dataMessage: {
     }
   }
 
+  const emojiMapping: any = {
+    "asst_XizmVhjCdwImRlerh0Z5bh9e": "🔢", // Career Coach Assistant
+    "asst_kosUuOZshZP2ULAD6zBOob4f": "💼", // Tutor
+    "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "🔬", // Mathematics Tutor
+    "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "🌱", // Physical Sciences Tutor
+    "asst_vaBKqqnSfyus1suFdb8BGqvK": "📖", // English Tutor
+    "asst_yKj9zsjFZtcm4yZFhNzfztn": "🧭", // Career Coach
+    "asst_e9SCWWWVAqsFGhIFB0f8RstS": "🎓", // BursaryFinder
+    "asst_p5JE3MZY94FUgL9Ow5CAJqbc": "🏫", // CampusNavigator
+    "asst_c6ZOXBtcSSw7Jy3F7zkzeryA": "🔍", // CareerExplorer
+    "asst_YaKOJNycgzRZ62P271Od6hCP": "📚", // PersonalityQuiz
+    "asst_stEGiVDTlMIeDM7XGiezPI28": "📈", // Economics Tutor
+  };
+  
+  const getEmojis = (assistantId: string) => {
+    return emojiMapping[assistantId] || "🌤️"; // Return a default emoji if no match is found
+  };
+
 export const createChat = createAsyncThunk(
   "chat/createChat",
   async ({ userId, title, chatId, type, assistantId }: { userId: string; title: string, chatId: any, type: string, assistantId: string }, { dispatch }) => {
     const index = randomNumber(1, emojis.length);
     const currentData = new Date().toISOString();
+    const emoji = getEmojis(assistantId)
 
 
     const { data, error } = await supabase
       .from("chats")
-      .insert([{ title: `${emojis[index] || '🌤️'} ${title}`, id: userId, chatId, type, assistantId, created_at: currentData }])
+      .insert([{ title: `${emoji} ${title}`, id: userId, chatId, type, assistantId, created_at: currentData }])
       .select();
 
     if (error) {

@@ -772,7 +772,7 @@ export const careerCoachAssistantSuggestionData = [
   },
   {
     label: "BursaryFinder",
-    title: "💰 BursaryFinder",
+    title: "🎓 BursaryFinder",
     text: "Unlock scholarships for you.",
     category: "I’m here to help you find bursaries             ",
     assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
@@ -1514,7 +1514,7 @@ export const careerCoach = [
     ]
   },
   {
-    title: "💰 BursaryFinder",
+    title: "🎓 BursaryFinder",
     text: "Unlock scholarships for you.",
     category: "I’m here to help you find bursaries             ",
     assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",

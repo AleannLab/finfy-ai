@@ -17,7 +17,7 @@ export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShouldRender(true);
-    }, 500);
+    }, 20);
 
     return () => clearTimeout(timer);
   }, [pathname]);
