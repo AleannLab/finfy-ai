@@ -1,6 +1,6 @@
 {
     "functions": {
-        "pages/api/openai/**/*.ts": {
+        "src/app/api/openai/**/*.ts": {
             "maxDuration": 300,
             "memory": 1024
         }
