@@ -1,6 +1,6 @@
 {
     "functions": {
-        "api/**/*.js": {
+        "api/openai": {
             "maxDuration": 300,
             "memory": 1024
         }
