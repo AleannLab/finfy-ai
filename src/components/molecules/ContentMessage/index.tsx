@@ -120,6 +120,22 @@ const ContentMessage: FC<ContentMessageProps> = ({
         </a>
       );
     },
+    grapth: ({ children, node }: any) => {
+      // Extract data from the node if needed
+      const graphData = node?.children?.[0]?.value ? JSON.parse(node.children[0].value) : null;
+  
+      // Render the graph data or a placeholder if data is missing
+      return (
+        <div className="graph-container">
+          {graphData ? (
+            // Replace this with any graph rendering logic you prefer
+            <pre>{JSON.stringify(graphData, null, 2)}</pre>
+          ) : (
+            <div>No graph data provided.</div>
+          )}
+        </div>
+      );
+    },
   };
 
   function removeSpaceBeforePunctuation(text: string): string {
