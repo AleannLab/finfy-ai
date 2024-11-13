@@ -1,6 +1,6 @@
 {
     "functions": {
-        "api/openai": {
+        "./src/app/api/openai/route.ts": {
             "maxDuration": 300,
             "memory": 1024
         }
