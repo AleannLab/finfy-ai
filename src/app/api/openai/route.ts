@@ -15,11 +15,10 @@ async function createThread(): Promise<string> {
 
 function extractMessageContent(event: any): string | null {
   const content = event.data?.delta?.content;
-  if (Array.isArray(content)) {
-    return content.map((c: any) => c?.text?.value || "").join("");
+  if (content) {
+    return content.map((c: any) => c?.text?.value).join("");
   }
-  
-  return null;
+  return "";
 }
 
 export async function POST(req: NextRequest) {
