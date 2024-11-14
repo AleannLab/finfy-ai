@@ -925,7 +925,7 @@ export const teacherSuggestionData = [
     title: "🧩📊 AssessGenie",
     text: "Flexible Assessment and CAPS-Consistent Grading Tool",
     category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: "asst_xxxAssessGenieId", // Replace with the actual assistant ID
+    assistantId: "asst_Vj1B8r7Coh1M2waAnahdbv27", // Replace with the actual assistant ID
     label: "AssessGenie",
     isDefault: "true",
     suggest: [
@@ -974,7 +974,7 @@ export const teacherSuggestionData = [
     title: "🌐🔍 ClarityBot",
     text: "Multi-Language Explanation and Example Generator",
     category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: "asst_xxxClarityBotId", // Replace with the actual assistant ID
+    assistantId: "asst_h9xwAFmreZXrWVbjIDujBTrE", // Replace with the actual assistant ID
     label: "ClarityBot",
     isDefault: "true",
     suggest: [
@@ -1023,7 +1023,7 @@ export const teacherSuggestionData = [
     title: "📈🧭 InsightMax",
     text: "Student Progress Tracker with Tailored Support",
     category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: "asst_xxxInsightMaxId", // Replace with the actual assistant ID
+    assistantId: "asst_BvSZyrPkHJUu27VBJgixMgK", // Replace with the actual assistant ID
     label: "InsightMax",
     isDefault: "true",
     suggest: [
@@ -1988,7 +1988,7 @@ export const teacher = [
     title: "🧩📊 AssessGenie",
     text: "Flexible Assessment and CAPS-Consistent Grading Tool",
     category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: "asst_xxxAssessGenieId", // Replace with the actual assistant ID
+    assistantId: "asst_Vj1B8r7Coh1M2waAnahdbv27", // Replace with the actual assistant ID
     suggest: [
       {
         label: "🧩📊 Create CAPS-Aligned Assessments",
@@ -2020,7 +2020,7 @@ export const teacher = [
     title: "🌐🔍 ClarityBot",
     text: "Multi-Language Explanation and Example Generator",
     category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: "asst_xxxClarityBotId", // Replace with the actual assistant ID
+    assistantId: "asst_h9xwAFmreZXrWVbjIDujBTrE", // Replace with the actual assistant ID
     suggest: [
       {
         label: "🌐🔍 Translate Complex Concepts Across Languages",
@@ -2052,7 +2052,7 @@ export const teacher = [
     title: "📈🧭 InsightMax",
     text: "Student Progress Tracker with Tailored Support",
     category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: "asst_xxxInsightMaxId", // Replace with the actual assistant ID
+    assistantId: "asst_BvSZyrPkHJUu27VBJgixMgK", // Replace with the actual assistant ID
     suggest: [
       {
         label: "📈🧭 Monitor Individual and Class-Wide Progress",
@@ -2084,7 +2084,7 @@ export const teacher = [
     title: "💡🤝 EngageAI",
     text: "Interactive Learning and Critical Thinking Enhancer",
     category: " I’m a Interactive Learning and Critical Thinking Enhancer",
-    assistantId: "asst_xxxEngageAIId", // Replace with the actual assistant ID
+    assistantId: "asst_UEl50keGMUzrmR1R2Hdjlyfx", // Replace with the actual assistant ID
     suggest: [
       {
         label: "💡🤝 Generate Group Activity Ideas",
@@ -2116,7 +2116,7 @@ export const teacher = [
     title: "💙🕊️ WellnessWatch",
     text: "Mental Health and Classroom Wellbeing Monitor",
     category: "I’m your Mental Health and Classroom Wellbeing Monitor",
-    assistantId: "asst_xxxWellnessWatchId", // Replace with the actual assistant ID
+    assistantId: "asst_RDT2IiplUg4wCmvJL3Sedes8", // Replace with the actual assistant ID
     suggest: [
       {
         label: "💙🕊️ Identify Signs of Student Stress and Burnout",
