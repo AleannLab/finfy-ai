@@ -125,7 +125,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     const currentPath = window.location.href;
     const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
     const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
-    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : null;
+    const matchTeacher = currentPath.match(/\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/);
+    const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : matchTeacher ? matchTeacher[1] : null;
 
     const assistantId = suggest?.assistantId;
     let assistantIdFromDB = assistantId;
@@ -232,7 +233,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             "pl-20 min-h-16 md:max-h-16 rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
             isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
           )}
-          placeholder={isTutor ? "Ask any subject question..." : isCareerCoach ? "Ask any subject question..." : "Ask follow-up question..."}
+          placeholder={isTutor ? "Ask any subject question..." : isCareerCoach ? "Ask any subject question..." : "Ask any subject question..."}
           name="message"
           onKeyDown={handleEnter}
         />

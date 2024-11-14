@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { FocusAssistantPopover } from "../Popovers";
 import { ActionButton } from "../ActionButton";
 import { useEffect, useState } from "react";
-import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, defaultTutor, setFocusSuggests, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../UserAvatar";
 
@@ -168,7 +168,11 @@ const HeaderText = () => {
       dispatch(setFocusSuggests(careerCoach))
       dispatch(setSuggest(defaultCareerCoachAssistant))
       dispatch(setSuggests(careerCoachAssistantSuggestionData))
-
+    }
+    if (pathname.includes('teacher')) {
+      dispatch(setFocusSuggests(teacher))
+      dispatch(setSuggest(defaultTeacher))
+      dispatch(setSuggests(teacherSuggestionData))
     }
   }, [pathname])
 

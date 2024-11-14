@@ -59,10 +59,15 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
     const matchCareerCoach = currentPath.match(
       /\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/
     );
+    const matchCareerTeacher = currentPath.match(
+      /\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/
+    );
     const threadIdFromURL = match
       ? match[1]
       : matchCareerCoach
       ? matchCareerCoach[1]
+      : matchCareerTeacher
+      ? matchCareerTeacher[1]
       : null;
 
     return threadIdFromURL;

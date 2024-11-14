@@ -54,8 +54,10 @@ import SmallLogo from "./small-logo.svg";
 import AudioLogo from "./audio-logo.svg";
 import Photogragph from "./photograph.svg";
 import Camera from "./camera.svg";
+import TeacherIcon from "./teacher-icon.svg";
 
 export default {
+  TeacherIcon,
   SmallLogo,
   LightningIcon,
   InfinityIcon,

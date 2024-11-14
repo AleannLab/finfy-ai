@@ -48,6 +48,28 @@ export const defaultTutor = {
       `
 };
 
+export const defaultTeacher = {
+  label: "LessonCraft",
+  content: "CAPS-Aligned Lesson and Activity Designer",
+  icon: "📚",
+  category: "I'm your Teacher Assistant",
+  assistantId: "asst_nxJVZh17j23ovTc4923NOdc4",
+  instructions: `
+      System settings:
+      Tool use: enabled.
+
+      Instructions:
+      - You are a teaching assistant focused on helping with CAPS-aligned lesson planning and engaging activities.
+      - Be supportive, creative, and offer dynamic solutions to help teachers.
+      - Provide assistance in structuring lesson plans, creating activities, and offering strategies for classroom management.
+      - Be informative and tailored to the needs of educators.
+
+      Personality:
+      - Professional and knowledgeable.
+      - Friendly and engaging when interacting with teachers.
+  `
+};
+
 export const tutorSuggestionData = [
   {
     title: "🔢 Mathematics",
@@ -848,6 +870,205 @@ export const careerCoachAssistantSuggestionData = [
   }
 ];
 
+export const teacherSuggestionData = [
+  {
+    title: "📝📚 LessonCraft",
+    text: "CAPS-Aligned Lesson and Activity Designer",
+    category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
+    assistantId: "asst_nxJVZh17j23ovTc4923NOdc4",
+    label: "LessonCraft",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "📝📚 Generate CAPS-Compliant Lesson Plans",
+        content: "Provides structured lesson outlines aligned with CAPS requirements, ensuring curriculum consistency across subjects."
+      },
+      {
+        label: "📝📚 Create Engaging Activities and Resources",
+        content: "Suggests interactive and hands-on activities tailored to specific topics, making lessons dynamic and engaging for students."
+      },
+      {
+        label: "📝📚 Localize Content for Cultural Relevance",
+        content: "Customizes content with examples and references from South African contexts, making learning more relatable for students."
+      },
+      {
+        label: "📝📚 Suggest Cross-Curricular Links",
+        content: "Offers ideas for integrating concepts across subjects, such as connecting environmental studies in Geography with Physical Sciences."
+      },
+      {
+        label: "📝📚 Differentiate for Diverse Learning Levels",
+        content: "Designs activities and resources suitable for various proficiency levels, helping teachers support mixed-ability classes."
+      },
+      {
+        label: "📝📚 Provide Multimedia and Technology Integration Tips",
+        content: "Recommends digital tools and multimedia elements (like videos or slides) to enhance lesson delivery and student engagement."
+      }
+    ],
+    content: "CAPS-Aligned Lesson and Activity Designer.",
+    icon: "📝📚",
+    instructions: `
+      System settings:
+      Tool use: enabled.
+
+      Instructions:
+      - You are a teaching assistant focused on helping with CAPS-aligned lesson planning and engaging activities.
+      - Be supportive, creative, and offer dynamic solutions to help teachers.
+      - Provide assistance in structuring lesson plans, creating activities, and offering strategies for classroom management.
+      - Be informative and tailored to the needs of educators.
+
+      Personality:
+      - Professional and knowledgeable.
+      - Friendly and engaging when interacting with teachers.
+    `
+  },
+  {
+    title: "🧩📊 AssessGenie",
+    text: "Flexible Assessment and CAPS-Consistent Grading Tool",
+    category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
+    assistantId: "asst_xxxAssessGenieId", // Replace with the actual assistant ID
+    label: "AssessGenie",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "🧩📊 Create CAPS-Aligned Assessments",
+        content: "Generates quizzes, tests, and exams tailored to CAPS standards, saving teachers time and ensuring curriculum alignment."
+      },
+      {
+        label: "🧩📊 Design Rubrics for Fair Grading",
+        content: "Produces clear rubrics that outline grading criteria, promoting transparency and helping students understand expectations."
+      },
+      {
+        label: "🧩📊 Generate Diverse Question Types",
+        content: "Provides a range of question formats (e.g., multiple-choice, essays) to assess different skills, from factual recall to critical thinking."
+      },
+      {
+        label: "🧩📊 Create Differentiated Assessments",
+        content: "Adapts assessments to cater to various skill levels, ensuring every student can demonstrate their understanding effectively."
+      },
+      {
+        label: "🧩📊 Offer Feedback Tips for Improvement",
+        content: "Suggests feedback strategies that encourage growth, allowing students to understand strengths and areas for improvement."
+      },
+      {
+        label: "🧩📊 Assist with Self and Peer Assessment Tools",
+        content: "Provides tools for student self-assessment and peer evaluation, promoting reflective learning and collaboration."
+      }
+    ],
+    content: "Flexible Assessment and CAPS-Consistent Grading Tool.",
+    icon: "🧩📊",
+    instructions: `
+      System settings:
+      Tool use: enabled.
+
+      Instructions:
+      - You are a flexible assessment tool, providing CAPS-compliant grading solutions and customizable assessments.
+      - Offer diverse question types, grading rubrics, and feedback mechanisms for teachers.
+      - Ensure fair assessment practices while promoting student understanding.
+
+      Personality:
+      - Accurate and detailed in grading and feedback.
+      - Helpful and thorough in assessment customization.
+    `
+  },
+  {
+    title: "🌐🔍 ClarityBot",
+    text: "Multi-Language Explanation and Example Generator",
+    category: "I’m your Multi-Language Explanation and Example Generator",
+    assistantId: "asst_xxxClarityBotId", // Replace with the actual assistant ID
+    label: "ClarityBot",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "🌐🔍 Translate Complex Concepts Across Languages",
+        content: "Provides simplified explanations in multiple South African languages, improving comprehension in multilingual classrooms."
+      },
+      {
+        label: "🌐🔍 Provide Definitions and Contextualized Vocabulary",
+        content: "Supplies accessible definitions and vocabulary explanations, helping students grasp technical terms and academic language."
+      },
+      {
+        label: "🌐🔍 Offer Step-by-Step Explanations",
+        content: "Breaks down difficult concepts into manageable steps, ensuring clarity and reducing cognitive load for students."
+      },
+      {
+        label: "🌐🔍 Adapt Explanations for Different Proficiency Levels",
+        content: "Tailors explanations based on students’ language proficiency and comprehension level, ensuring accessibility for all learners."
+      },
+      {
+        label: "🌐🔍 Generate Analogies and Real-World Examples",
+        content: "Uses familiar, culturally relevant analogies to make abstract concepts easier to understand for diverse learners."
+      },
+      {
+        label: "🌐🔍 Suggest Visual Aids and Diagrams",
+        content: "Recommends visual aids and diagrams that complement verbal explanations, supporting varied learning styles and enhancing retention."
+      }
+    ],
+    content: "Multi-Language Explanation and Example Generator.",
+    icon: "🌐🔍",
+    instructions: `
+      System settings:
+      Tool use: enabled.
+
+      Instructions:
+      - Provide translations, cultural examples, and simplified explanations for complex topics.
+      - Support teachers in bridging language gaps and improving student comprehension.
+      - Be adaptive and culturally sensitive.
+
+      Personality:
+      - Clear, concise, and inclusive.
+      - Focused on breaking barriers to understanding.
+    `
+  },
+  { 
+    title: "📈🧭 InsightMax",
+    text: "Student Progress Tracker with Tailored Support",
+    category: "I’m your Student Progress Tracker with Tailored Support",
+    assistantId: "asst_xxxInsightMaxId", // Replace with the actual assistant ID
+    label: "InsightMax",
+    isDefault: "true",
+    suggest: [
+      {
+        label: "📈🧭 Monitor Individual and Class-Wide Progress",
+        content: "Tracks individual and overall class performance, providing teachers with insights into each student’s progress on specific topics."
+      },
+      {
+        label: "📈🧭 Offer Data-Driven Insights for Lesson Adjustment",
+        content: "Provides feedback on lesson effectiveness, helping teachers adjust teaching methods based on student performance data."
+      },
+      {
+        label: "📈🧭 Identify Learning Gaps and Intervention Needs",
+        content: "Highlights areas where students may need extra help, enabling timely intervention and targeted support for at-risk students."
+      },
+      {
+        label: "📈🧭 Track Improvements Over Time",
+        content: "Monitors progress over weeks or terms, allowing teachers to see improvements and make data-driven decisions on pacing."
+      },
+      {
+        label: "📈🧭 Suggest Remediation Activities for Struggling Students",
+        content: "Recommends targeted activities and resources to help struggling students catch up and close knowledge gaps."
+      },
+      {
+        label: "📈🧭 Identify Common Misconceptions",
+        content: "Recognizes patterns in student errors, enabling teachers to address common misconceptions early and improve concept clarity."
+      }
+    ],
+    content: "Student Progress Tracker with Tailored Support.",
+    icon: "📈🧭",
+    instructions: `
+      System settings:
+      Tool use: enabled.
+
+      Instructions:
+      - Provide tools and insights to track student progress and identify gaps in understanding.
+      - Offer strategies for intervention, remediation, and improving overall class performance.
+      - Be data-driven and supportive in providing actionable insights.
+
+      Personality:
+      - Analytical, supportive, and precise.
+      - Focused on helping students and teachers succeed together.
+    `
+  }
+];
 
 export const tutor = [
   {
@@ -1730,7 +1951,200 @@ export const careerCoach = [
   }
 ];
 
-
+export const teacher = [
+  {
+    title: "📝📚 LessonCraft",
+    text: "CAPS-Aligned Lesson and Activity Designer",
+    category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
+    assistantId: "asst_nxJVZh17j23ovTc4923NOdc4",
+    suggest: [
+      {
+        label: "📝📚 Generate CAPS-Compliant Lesson Plans",
+        content: "Provides structured lesson outlines aligned with CAPS requirements, ensuring curriculum consistency across subjects."
+      },
+      {
+        label: "📝📚 Create Engaging Activities and Resources",
+        content: "Suggests interactive and hands-on activities tailored to specific topics, making lessons dynamic and engaging for students."
+      },
+      {
+        label: "📝📚 Localize Content for Cultural Relevance",
+        content: "Customizes content with examples and references from South African contexts, making learning more relatable for students."
+      },
+      {
+        label: "📝📚 Suggest Cross-Curricular Links",
+        content: "Offers ideas for integrating concepts across subjects, such as connecting environmental studies in Geography with Physical Sciences."
+      },
+      {
+        label: "📝📚 Differentiate for Diverse Learning Levels",
+        content: "Designs activities and resources suitable for various proficiency levels, helping teachers support mixed-ability classes."
+      },
+      {
+        label: "📝📚 Provide Multimedia and Technology Integration Tips",
+        content: "Recommends digital tools and multimedia elements (like videos or slides) to enhance lesson delivery and student engagement."
+      }
+    ]
+  },
+  {
+    title: "🧩📊 AssessGenie",
+    text: "Flexible Assessment and CAPS-Consistent Grading Tool",
+    category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
+    assistantId: "asst_xxxAssessGenieId", // Replace with the actual assistant ID
+    suggest: [
+      {
+        label: "🧩📊 Create CAPS-Aligned Assessments",
+        content: "Generates quizzes, tests, and exams tailored to CAPS standards, saving teachers time and ensuring curriculum alignment."
+      },
+      {
+        label: "🧩📊 Design Rubrics for Fair Grading",
+        content: "Produces clear rubrics that outline grading criteria, promoting transparency and helping students understand expectations."
+      },
+      {
+        label: "🧩📊 Generate Diverse Question Types",
+        content: "Provides a range of question formats (e.g., multiple-choice, essays) to assess different skills, from factual recall to critical thinking."
+      },
+      {
+        label: "🧩📊 Create Differentiated Assessments",
+        content: "Adapts assessments to cater to various skill levels, ensuring every student can demonstrate their understanding effectively."
+      },
+      {
+        label: "🧩📊 Offer Feedback Tips for Improvement",
+        content: "Suggests feedback strategies that encourage growth, allowing students to understand strengths and areas for improvement."
+      },
+      {
+        label: "🧩📊 Assist with Self and Peer Assessment Tools",
+        content: "Provides tools for student self-assessment and peer evaluation, promoting reflective learning and collaboration."
+      }
+    ]
+  },
+  { 
+    title: "🌐🔍 ClarityBot",
+    text: "Multi-Language Explanation and Example Generator",
+    category: "I’m your Multi-Language Explanation and Example Generator",
+    assistantId: "asst_xxxClarityBotId", // Replace with the actual assistant ID
+    suggest: [
+      {
+        label: "🌐🔍 Translate Complex Concepts Across Languages",
+        content: "Provides simplified explanations in multiple South African languages, improving comprehension in multilingual classrooms."
+      },
+      {
+        label: "🌐🔍 Provide Definitions and Contextualized Vocabulary",
+        content: "Supplies accessible definitions and vocabulary explanations, helping students grasp technical terms and academic language."
+      },
+      {
+        label: "🌐🔍 Offer Step-by-Step Explanations",
+        content: "Breaks down difficult concepts into manageable steps, ensuring clarity and reducing cognitive load for students."
+      },
+      {
+        label: "🌐🔍 Adapt Explanations for Different Proficiency Levels",
+        content: "Tailors explanations based on students’ language proficiency and comprehension level, ensuring accessibility for all learners."
+      },
+      {
+        label: "🌐🔍 Generate Analogies and Real-World Examples",
+        content: "Uses familiar, culturally relevant analogies to make abstract concepts easier to understand for diverse learners."
+      },
+      {
+        label: "🌐🔍 Suggest Visual Aids and Diagrams",
+        content: "Recommends visual aids and diagrams that complement verbal explanations, supporting varied learning styles and enhancing retention."
+      }
+    ]
+  },
+  {
+    title: "📈🧭 InsightMax",
+    text: "Student Progress Tracker with Tailored Support",
+    category: "I’m your Student Progress Tracker with Tailored Support",
+    assistantId: "asst_xxxInsightMaxId", // Replace with the actual assistant ID
+    suggest: [
+      {
+        label: "📈🧭 Monitor Individual and Class-Wide Progress",
+        content: "Tracks individual and overall class performance, providing teachers with insights into each student's progress on specific topics."
+      },
+      {
+        label: "📈🧭 Offer Data-Driven Insights for Lesson Adjustment",
+        content: "Provides feedback on lesson effectiveness, helping teachers adjust teaching methods based on student performance data."
+      },
+      {
+        label: "📈🧭 Track Improvements Over Time",
+        content: "Monitors progress over weeks or terms, helping teachers see improvements and make data-driven decisions on pacing."
+      },
+      {
+        label: "📈🧭 Identify Learning Gaps and Intervention Needs",
+        content: "Highlights areas where students may need extra help, enabling timely intervention and targeted support for at-risk students."
+      },
+      {
+        label: "📈🧭 Suggest Remediation Activities for Struggling Students",
+        content: "Recommends targeted activities and resources to help struggling students catch up and close knowledge gaps."
+      },
+      {
+        label: "📈🧭 Identify Common Misconceptions",
+        content: "Recognizes patterns in student errors, enabling teachers to address common misconceptions early and improve concept clarity."
+      }
+    ]
+  },
+  { 
+    title: "💡🤝 EngageAI",
+    text: "Interactive Learning and Critical Thinking Enhancer",
+    category: " I’m a Interactive Learning and Critical Thinking Enhancer",
+    assistantId: "asst_xxxEngageAIId", // Replace with the actual assistant ID
+    suggest: [
+      {
+        label: "💡🤝 Generate Group Activity Ideas",
+        content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
+      },
+      {
+        label: "💡🤝 Facilitate Peer-Led Discussions",
+        content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
+      },
+      {
+        label: "💡🤝 Create Culturally Relevant Discussion Prompts",
+        content: "Provides prompts based on local issues and cultural contexts, helping students connect course material with real-world relevance."
+      },
+      {
+        label: "💡🤝 Encourage Creative Problem-Solving Activities",
+        content: "Suggests problem-solving tasks that challenge students to think creatively, helping them apply concepts to new situations."
+      },
+      {
+        label: "💡🤝 Design Role-Play and Simulation Exercises",
+        content: "Helps teachers set up simulations and role-plays to explore topics in depth, encouraging hands-on learning and empathy."
+      },
+      {
+        label: "💡🤝 Introduce Reflective Thinking Prompts",
+        content: "Provides reflective questions that encourage students to analyze their learning, fostering self-awareness and metacognitive skills."
+      }
+    ]
+  },
+  {
+    title: "💙🕊️ WellnessWatch",
+    text: "Mental Health and Classroom Wellbeing Monitor",
+    category: "I’m your Mental Health and Classroom Wellbeing Monitor",
+    assistantId: "asst_xxxWellnessWatchId", // Replace with the actual assistant ID
+    suggest: [
+      {
+        label: "💙🕊️ Identify Signs of Student Stress and Burnout",
+        content: "Monitors classroom behavior and provides tips on identifying early signs of stress, helping teachers support student well-being."
+      },
+      {
+        label: "💙🕊️ Promote Inclusivity and Positive Interactions",
+        content: "Suggests activities and guidelines that encourage inclusivity, making all students feel valued and supported."
+      },
+      {
+        label: "💙🕊️ Suggest Mindfulness and Focus Exercises",
+        content: "Recommends exercises that can reduce stress, increase focus, and create a calmer classroom environment for students."
+      },
+      {
+        label: "💙🕊️ Support Teachers with Self-Care Tips",
+        content: "Shares practical self-care strategies for teachers to manage their workload, reduce stress, and maintain a positive mindset."
+      },
+      {
+        label: "💙🕊️ Provide Classroom Management Strategies",
+        content: "Offers techniques for managing disruptive behavior constructively, fostering a positive learning environment."
+      },
+      {
+        label: "💙🕊️ Encourage Peer Support and Community Building",
+        content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
+      }
+    ]
+  }
+];
 
 
 interface SuggestState {

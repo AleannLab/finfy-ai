@@ -2,7 +2,7 @@ import { useChat, useUser } from "@/hooks";
 import { setSuggest, setSuggests } from "@/lib/store/features/suggest/suggestSlice";
 import { useAppSelector } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FC } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,8 @@ interface SuggestBoxProps {
 
 const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
+  const suggests = useAppSelector((state) => state.suggest.suggests);
+
 
   const { user } = useUser();
   const router = useRouter();
@@ -63,8 +65,11 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
       threadIdFromURL,
     });
   };
+
+  const pathname = usePathname();
+
   return (
-    <button onClick={handleClick} className={cn("suggest-box lg:min-h-[112px] flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "")}>
+    <button onClick={handleClick} className={cn("suggest-box lg:min-h-[112px] flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "!min-w-[336px]" : "")}>
       <p className="mb-1 text-start  !text-[#272e48] text-sm font-semibold leading-tight">
         {icon} {label}
       </p>

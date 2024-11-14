@@ -188,6 +188,9 @@ const MenuAccordion: FC = () => {
     if (pathname.includes('career-coach')) {
       setValue('career-coach')
     }
+    if (pathname.includes('teacher')) {
+      setValue('teacher')
+    }
   }, [pathname])
 
   const handleAccordionToggle = (itemValue: string) => {
@@ -213,7 +216,7 @@ const MenuAccordion: FC = () => {
         <MenuAccordionItem
           key={item.value}
           item={item}
-          contents={item.value === "career-coach" || item.value === "tutor" ? chats : item.contents}
+          contents={item.value === "career-coach" || item.value === "tutor" || item.value === "teacher" ? chats : item.contents}
           handleOpen={handleOpen}
           isHideChevron={item.isHideChevron}
           onClick={() => {

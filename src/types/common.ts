@@ -162,7 +162,7 @@ export type MenuItem = {
         title: string;
         date: string;
         chatId: string;
-        category: "assistant" | "goals" | "payments" | "advisor" | "tutor" | "career-coach";
+        category: "assistant" | "goals" | "payments" | "advisor" | "tutor" | "career-coach" | "teacher";
       }[]
     | [];
 };

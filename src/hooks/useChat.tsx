@@ -148,7 +148,8 @@ export const useChat = () => {
   
               try {
                 const json = JSON.parse(cleanChunk);
-                const type = pathname.includes("tutor") ? "tutor" : "career-coach";
+                const type = pathname.includes("tutor") ? "tutor" : pathname.includes("teacher") ? "teacher" : "career-coach";
+
   
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
@@ -322,7 +323,7 @@ export const useChat = () => {
 
               try {
                 const json = JSON.parse(cleanChunk);
-                const type = pathname.includes("tutor") ? "tutor" : "career-coach";
+                const type = pathname.includes("tutor") ? "tutor" : pathname.includes("teacher") ? "teacher" : "career-coach";
 
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;

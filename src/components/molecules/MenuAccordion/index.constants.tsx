@@ -28,4 +28,17 @@ export const menuItems: MenuItem[] = [
     href: "/dashboard/tutor",
     contents: [],
   },
+  {
+    value: "teacher",
+    icon: () => (
+      <Icon
+        type="TeacherIcon"
+        className="w-6 h-6"
+      />
+    ),
+    title: "Teacher",
+    link: "/dashboard/teacher/chat",
+    href: "/dashboard/teacher",
+    contents: [],
+  },
 ];

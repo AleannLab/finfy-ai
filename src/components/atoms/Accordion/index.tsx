@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useSidebar } from "@/hooks";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
-import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTutor, setFocusSuggests, setSuggest, setSuggests, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, defaultTutor, setFocusSuggests, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
 const AccordionComponent = AccordionPrimitive.Root;
 
@@ -45,8 +45,12 @@ const AccordionTrigger = React.forwardRef<
       dispatch(setSuggests(careerCoachAssistantSuggestionData))
 
     }
+    if (pathname.includes('teacher')) {
+      dispatch(setFocusSuggests(teacher))
+      dispatch(setSuggest(defaultTeacher))
+      dispatch(setSuggests(teacherSuggestionData))
+    }
   }
-  //TODO
   return (
   <AccordionPrimitive.Header onClick={onClick} className="flex items-center max-w-full ">
     <AccordionPrimitive.Trigger
