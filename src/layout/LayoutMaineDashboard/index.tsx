@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 "use client";
 
 import { AssistInput, Conversation } from "@/components/organisms";
@@ -25,7 +27,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
 
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(setMessages([]));
   }, [streamMessage, isLoading])
 
@@ -59,21 +61,47 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   }
 
   return (
-    <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
-        <>
-          {!isMessages && <HeaderText />}
-          <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
-            <div className="flex items-center h-fit text-[#547a91]">
-              <Icon type="LightningBolt" className="text-[#547a91]" />
-              <p className="text-base">Suggestions</p>
-            </div>
-            <HomeSuggestBoxes />
-            <div className="mt-6">
-              <ChatMessageInput  isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
+      <>
+        {!isMessages && <HeaderText />}
+        <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
+          <div className="flex items-center h-fit text-[#547a91]">
+            <Icon type="LightningBolt" className="text-[#547a91]" />
+            <p className="text-base">Suggestions</p>
+          </div>
+          <HomeSuggestBoxes />
+          <div className="mt-6">
+            <ChatMessageInput isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
+          </div>
+        </div>
+      </>
+      <footer className="h-[78px] hidden lg:flex absolute bottom-0 left-0 right-0 w-full justify-center items-center">
+        <div className="h-[76px] mx-auto pl-8 pr-4 py-2 rounded-[50px] justify-start items-center gap-10 inline-flex">
+          <div className="justify-start items-center gap-4 flex">
+            <div className="text-[#272e48] text-sm font-medium  leading-tight">Powered by</div>
+            <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center flex">
+              <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center inline-flex">
+                <Icon type="LogoIcon" />
+                <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div>
+              </div>
             </div>
           </div>
-        </>
+          <div className="justify-start items-center gap-4 flex">
+            <div className="text-[#272e48] text-sm font-medium  leading-tight">In collaboration with</div>
+            <div className="w-[140px] h-[60px] px-[11px] py-3 justify-center items-center flex">
+              <img className="w-[118px] h-9 mix-blend-darken" src="/images/logo-ultimate.png" />
+            </div>
+          </div>
+          <div className="justify-start items-center gap-4 flex">
+            <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div>
+            {/* <Icon type="LogoLiberty" /> */}
+            <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
+              <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
     </>
   );

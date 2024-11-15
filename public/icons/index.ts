@@ -55,8 +55,14 @@ import AudioLogo from "./audio-logo.svg";
 import Photogragph from "./photograph.svg";
 import Camera from "./camera.svg";
 import TeacherIcon from "./teacher-icon.svg";
+import DepartmentLogoFull from "./department-logo-full.svg";
+import DepartmentLogo from "./department-logo.svg";
+import LogoLiberty from "./logo-liberty.svg";
 
 export default {
+  LogoLiberty,
+  DepartmentLogo,
+  DepartmentLogoFull,
   TeacherIcon,
   SmallLogo,
   LightningIcon,

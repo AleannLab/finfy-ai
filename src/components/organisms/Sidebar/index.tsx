@@ -59,13 +59,13 @@ const Sidebar = () => {
               //   className="cursor-pointer"
               // />
               <>
-                <div className="w-[169px] h-9 relative">
-                  <div className="w-[110px] left-[38px] top-[10px] absolute text-[#547a91] text-base font-semibold leading-none">Career Buddy</div>
-                  <Icon type="LogoIcon" />
+                <div className="w-[127px] h-[50px] relative"> {/*//TODO/*/}
+                  {/* <div className="w-[110px] left-[38px] top-[10px] absolute text-[#547a91] text-base font-semibold leading-none">Career Buddy</div> */}
+                  <Icon type="DepartmentLogoFull" />
                 </div>
               </>
             ) : (
-              <Icon type="LogoIcon" />
+              <Icon type="DepartmentLogo" />
             )}
           </button>
           <Button onClick={handleToggle} variant="ghost">
