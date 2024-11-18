@@ -119,7 +119,7 @@ export const createMessageInDB = async (dataMessage: {
   const emojiMapping: any = {
     "asst_XizmVhjCdwImRlerh0Z5bh9e": "🔢", // Career Coach Assistant
     "asst_kosUuOZshZP2ULAD6zBOob4f": "💼", // Tutor
-    "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "🔬", // Mathematics Tutor
+    "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "🔢", // Mathematics Tutor
     "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "🌱", // Physical Sciences Tutor
     "asst_vaBKqqnSfyus1suFdb8BGqvK": "📖", // English Tutor
     "asst_yKj9zsjFZtcm4yZFhNzfztn": "🧭", // Career Coach
@@ -128,6 +128,12 @@ export const createMessageInDB = async (dataMessage: {
     "asst_c6ZOXBtcSSw7Jy3F7zkzeryA": "🔍", // CareerExplorer
     "asst_YaKOJNycgzRZ62P271Od6hCP": "📚", // PersonalityQuiz
     "asst_stEGiVDTlMIeDM7XGiezPI28": "📈", // Economics Tutor
+    "asst_nxJVZh17j23ovTc4923NOdc4": "📚", // LessonCraft
+    "asst_Vj1B8r7Coh1M2waAnahdbv27": "🧩", // AssessGenie
+    "asst_h9xwAFmreZXrWVbjIDujBTrE": "🌐", // ClarityBot
+    "asst_BvSZyrPkHJUu27VBJgixMgK": "📈", // InsightMax
+    "asst_UEl50keGMUzrmR1R2Hdjlyfx": "💡", // EngageAI
+    "asst_RDT2IiplUg4wCmvJL3Sedes8": "💙"  // WellnessWatch
   };
   
   const getEmojis = (assistantId: string) => {
