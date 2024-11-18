@@ -16,6 +16,7 @@ import { AudioChat } from "../AudioChat";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { AssistActions } from "@/components/organisms";
 import { AssistAction } from "@/layout/LayoutDashboard";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, defaultTutor, setFocusSuggests, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -117,6 +118,54 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     setFiles(file);
   }
 
+  const fetchDataBasedOnRole = async (role: string, threadMatchPattern: RegExp, dataSet: any[], defaultSuggest: { label: string; content: string; icon: string; category: string; assistantId: string; instructions: string; }) => {
+    const currentPath = window.location.href;
+    const match = currentPath.match(threadMatchPattern);
+    const threadIdFromURL = match ? match[1] : null;
+    let assistantIdFromDB = null;
+  
+    if (threadIdFromURL) {
+      const tread: any = await fetchChatByTread(threadIdFromURL);
+      assistantIdFromDB = tread?.[0]?.assistantId;
+    }
+  
+    const currentAssistant = dataSet.filter((item: { assistantId: any; }) => item?.assistantId === assistantIdFromDB)?.[0];
+    dispatch(setSuggest(currentAssistant || defaultSuggest));
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      if (pathname.includes('tutor')) {
+        await fetchDataBasedOnRole(
+          'tutor',
+          /\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/,
+          tutor,
+          defaultTutor
+        );
+      }
+  
+      if (pathname.includes('career-coach')) {
+        await fetchDataBasedOnRole(
+          'career-coach',
+          /\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/,
+          careerCoach,
+          defaultCareerCoachAssistant
+        );
+      }
+  
+      if (pathname.includes('teacher')) {
+        await fetchDataBasedOnRole(
+          'teacher',
+          /\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/, // Adjust the pattern if needed
+          teacher,
+          defaultTeacher
+        );
+      }
+    };
+  
+    fetchData();
+  }, [pathname]);
+  
   const onSubmit = async (formData: FormData) => {
     setMessage("");
     if (assistActionOpenState === AssistAction.UPLOAD_FILE) {
@@ -129,6 +178,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       console.error("Missing message or userId");
       return;
     }
+    //TODO do
 
     const currentPath = window.location.href;
     const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
