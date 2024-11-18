@@ -20,6 +20,7 @@ import {
 } from "@/lib/store/features/chat/chatSlice";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase/client";
 
 export const useChat = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -65,9 +66,17 @@ export const useChat = () => {
       // if (data.message_type === "bot") {
         const newFiles = data?.files ? 
         data?.files.map((file: any)=> {
+          const filePath = `uploads/${file.path}`;
+
+          const { data } = supabase.storage
+          .from("avatars")
+          .getPublicUrl(filePath);
+        
+          const publicURL = data?.publicUrl; // Correctly access publicUrl
+
           return {
             file,
-            preview: file?.saverSRC || ""
+            preview: publicURL || ""
           }
         })
         : null;
@@ -106,7 +115,13 @@ export const useChat = () => {
       let threadId = threadIdFromURL || null;
       let isFirstStream = true;
       let currentMessages = [...chatState.messages]; // Use a local copy of messages
+      if (files?.length) {
+        files.forEach((file: any) => {
+          file.name = `${Date.now()}`;
+        });
+      }
 
+      
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
@@ -209,7 +224,7 @@ export const useChat = () => {
                       files: files?.Dropzone?.map((file: File)=> {
                         return {
                           ...file,
-                          saverSRC: `/uploads/${file?.name}`
+                          saverSRC: `/uploads/${file.name}`
                         }
               
                       }),

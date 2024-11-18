@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import fs from "node:fs/promises";
 import path from "path";
 import fsSync from "fs";
+import { supabase } from "@/lib/supabase/client";
 
 dotenv.config();
 
@@ -35,8 +36,7 @@ export async function POST(req: NextRequest) {
     const chatId = formData.get("chatId") as string;
 
     const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
-    let fileId: string | null = null;
-    console.log("Processing file:", uploadedFiles);
+    let openAiFileIds: string[] = []; // Array to hold OpenAI file IDs
 
     for (const uploadedFile of uploadedFiles) {
       console.log("Processing file:", uploadedFile?.name);
@@ -47,20 +47,31 @@ export async function POST(req: NextRequest) {
         continue; // Skip unsupported files
       }
 
-      // Save file locally
+      // Convert uploaded file to a buffer
       const arrayBuffer = await uploadedFile.arrayBuffer();
       const buffer = new Uint8Array(arrayBuffer);
-      const filePath = `./public/uploads/${uploadedFile.name}`;
-      await fs.writeFile(filePath, buffer);
 
-      // Upload file to OpenAI
+      // Upload buffer to OpenAI
       const openaiFile = await openai.files.create({
-        file: fsSync.createReadStream(path.resolve(filePath)),
+        file: uploadedFile, // Directly use the buffer here
         purpose: "assistants",
       });
 
       console.log("Uploaded file to OpenAI:", openaiFile);
-      fileId = openaiFile?.id; // Save the file ID for further use
+      if (openaiFile?.id) {
+        openAiFileIds.push(openaiFile.id); // Save the file ID for further use
+        // Upload file to Supabase storage
+        const { data, error } = await supabase.storage.from('avatars').upload(`uploads/${uploadedFile.name}`, buffer, {
+          contentType: uploadedFile.type,
+        });
+
+        if (error) {
+          console.error("Error uploading file to Supabase:", error);
+          continue; // Handle error (e.g., skip this file)
+        }
+
+        console.log("Uploaded file to Supabase:", data);
+      }
     }
 
     // Ensure message is provided
@@ -77,7 +88,7 @@ export async function POST(req: NextRequest) {
       isNewThread = true;
     }
 
-    // Construct additional messages with file_id if available
+    // Construct additional messages with file_ids if available
     interface ImageFileContentBlock {
       image_file: {
         file_id: string;
@@ -85,23 +96,25 @@ export async function POST(req: NextRequest) {
       };
       type: 'image_file';
     }
-    
+
     interface AdditionalMessage {
       role: "user" | "assistant";
       content: string | ImageFileContentBlock[];
     }
-    
+
     const additionalMessages: AdditionalMessage[] = [
       { role: "user", content: message }
     ];
 
-    if (fileId) {
+    if (openAiFileIds.length > 0) {
+      const imageBlocks: ImageFileContentBlock[] = openAiFileIds.map(fileId => ({
+        image_file: { file_id: `${fileId}`, detail: 'low' },
+        type: 'image_file'
+      }));
+
       additionalMessages.push({
         role: "user",
-        content: [{
-          image_file: { file_id: `${fileId}`, detail: 'low' },
-          type: 'image_file'
-        }]
+        content: imageBlocks
       });
     }
 
@@ -125,7 +138,6 @@ export async function POST(req: NextRequest) {
           }, 10);
 
           for await (const event of stream) {
-            // console.log("Event data structure:", event.data);
             const messageContent = extractMessageContent(event);
             if (messageContent) {
               controller.enqueue(encoder.encode(messageContent));
@@ -135,7 +147,6 @@ export async function POST(req: NextRequest) {
           clearInterval(pingInterval);
           controller.close();
         } catch (err) {
-          // console.error("Error in stream:", err);
           controller.error(err);
         }
       },
@@ -153,3 +164,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Internal Server Error." }, { status: 500 });
   }
 }
+

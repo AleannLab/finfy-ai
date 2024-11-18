@@ -11,6 +11,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { useChat } from "@/hooks";
+import { supabase } from "@/lib/supabase/client";
 
 interface ContentMessageProps {
   text: ReactNode;
@@ -157,7 +158,6 @@ const ContentMessage: FC<ContentMessageProps> = ({
   
     return removeSpaceBeforePunctuation(text);
   }
-  
 
   if (isUser) {
     return (
@@ -165,8 +165,8 @@ const ContentMessage: FC<ContentMessageProps> = ({
         <div className="text-[#272e48] text-base font-normal leading-normal">{text}</div>
         <div className="flex overflow-hidden gap-4">
             {files?.map((file: any) => {
-                console.log(file, "filesfiles");
-              if (file?.preview || file?.saverSRC) {
+              if (file?.preview) {
+                console.log("publicURL", file?.preview)
                 // eslint-disable-next-line @next/next/no-img-element
                 return <img width={300} key={file?.preview} alt={file?.path} src={file?.preview} />
               }
