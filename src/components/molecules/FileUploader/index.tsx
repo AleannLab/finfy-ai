@@ -3,14 +3,14 @@
 import { FC } from "react";
 import { DropzoneComponent } from "../DropzoneComponent";
 
-interface FileUploaderProps {}
+interface FileUploaderProps { onSubmit: any }
 
-const FileUploader: FC<FileUploaderProps> = ({}) => {
+const FileUploader: FC<FileUploaderProps> = ({onSubmit}) => {
   return (
     <div className="w-full flex items-center justify-center">
       <DropzoneComponent
         name="Dropzone"
-        onSubmit={() => console.log("FILES UPLOADED")}
+        onSubmit={onSubmit}
         content="Upload a question"
         classes={{ wrapper: "border-0" }}
       />

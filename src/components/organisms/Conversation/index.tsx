@@ -67,6 +67,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                 return (
                   <Fragment key={message.id}>
                     <Message
+                      files={message?.files}
                       text={message.content}
                       date={""}
                       isUser={message.message_type === "user"}

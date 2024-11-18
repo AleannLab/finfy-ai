@@ -100,6 +100,7 @@ export const createMessageInDB = async (dataMessage: {
     is_processed?: boolean;
     response_time?: string | null;
     created_at?: string;
+    files: any[]
   }) => {
     const { data, error } = await supabase
       .from("messages")

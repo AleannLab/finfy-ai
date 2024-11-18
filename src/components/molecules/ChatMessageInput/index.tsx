@@ -42,6 +42,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   } = useChat();
 
   const [message, setMessage] = useState("");
+  const [files, setFiles] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage Popover
   const textareaRef = useAutoResizeTextArea();
   const popoverRef = useRef<HTMLDivElement | null>(null)
@@ -112,8 +113,15 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     setIsPopupOpen(false);
   };
 
+  const onSubmitFile = (file: any) => {
+    setFiles(file);
+  }
+
   const onSubmit = async (formData: FormData) => {
     setMessage("");
+    if (assistActionOpenState === AssistAction.UPLOAD_FILE) {
+      setAssistActionOpenState(null);
+    };
     const inValue = formData.get("message") as string;
     const userId = user?.id;
 
@@ -147,6 +155,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       userId,
       assistantId: assistantId || assistantIdFromDB,
       threadIdFromURL,
+      files
     });
 
     // Reset the input field after submission
@@ -255,7 +264,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           onClose={closeAssistAction}
         >
           {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
-          {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader />}
+          {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader onSubmit={onSubmitFile} />}
           {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
         </AssistActions>
       </div>}
@@ -269,7 +278,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         }}
       >
         {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
-        {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader />}
+        {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader onSubmit={onSubmitFile} />}
         {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
       </Modal>}
     </>

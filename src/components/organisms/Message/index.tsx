@@ -11,6 +11,7 @@ interface MessageProps {
   date?: string;
   isLoading?: boolean;
   isLastMessage?: boolean;
+  files?: any;
 }
 
 const Message: FC<MessageProps> = (props) => {
@@ -30,6 +31,7 @@ const Message: FC<MessageProps> = (props) => {
               isUser={isUser}
               isLoading={isLoading}
               isLastMessage={isLastMessage}
+              files={props?.files}
             />
           </div>
         </div>

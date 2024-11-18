@@ -63,7 +63,19 @@ export const useChat = () => {
   const fetchCreateMessage = useCallback(
     async (data: any) => {
       // if (data.message_type === "bot") {
-        createMessageInDB(data)
+        const newFiles = data?.files ? 
+        data?.files.map((file: any)=> {
+          return {
+            file,
+            preview: file?.saverSRC || ""
+          }
+        })
+        : null;
+        const message = {
+          ...data,
+          files: newFiles
+        }
+      createMessageInDB(message)
       // } else {
       //   await dispatch(createMessage(data));
       // }
@@ -79,6 +91,7 @@ export const useChat = () => {
       threadIdFromURL,
       handleClose,
       handleResetChat,
+      files = []
     }: {
       message: string;
       userId: string;
@@ -86,28 +99,36 @@ export const useChat = () => {
       threadIdFromURL?: string | null;
       handleClose?: () => void;
       handleResetChat?: () => void;
+      files?: any
     }) => {
       setIsLoadingSendQuery(true);
       let accumulatedResponse = "";
       let threadId = threadIdFromURL || null;
       let isFirstStream = true;
       let currentMessages = [...chatState.messages]; // Use a local copy of messages
-  
+
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
         return;
       }
-  
+
       // Add user message to local state immediately
       const newUserMessage = {
         content: message,
         date: `${Date.now()}`,
         message_type: "user",
+        files: files?.Dropzone?.map((file: File)=> {
+          return {
+            ...file,
+            saverSRC: `/uploads/${file?.name}`
+          }
+
+        }),
       };
       currentMessages = [...currentMessages, newUserMessage];
       dispatch(setMessages(currentMessages));
-  
+
       if (threadId) {
         await fetchCreateMessage({
           chat_id: threadId,
@@ -115,42 +136,67 @@ export const useChat = () => {
           content: message,
           message_type: "user",
           is_processed: true,
+          files: files?.Dropzone?.map((file: File)=> {
+            return {
+              ...file,
+              saverSRC: `/uploads/${file?.name}`
+            }
+  
+          }),
         });
       }
-  
+
       try {
         if (handleClose) {
           handleClose();
         }
-  
+
+
+        // const response = await fetch("/api/openai", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({
+        //     message,
+        //     assistantId,
+        //     chatId: threadId,
+        //   }),
+        // });
+
+        const formData = new FormData();
+        formData.append("message", message);
+        formData.append("assistantId", assistantId);
+        formData.append("chatId", threadId || "");
+
+        if (files?.Dropzone?.length > 0) {
+          // formData.append("file", files?.Dropzone?.[0]);
+          for (const file of files?.Dropzone) {
+            formData.append("file", file);
+          }
+        }
+
         const response = await fetch("/api/openai", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message,
-            assistantId,
-            chatId: threadId,
-          }),
+          body: formData,
         });
-  
+
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
         if (reader) {
           while (true) {
             const { value, done } = await reader.read();
             if (done) break;
-  
+
             const chunk = decoder.decode(value, { stream: true });
-  
+
             // Check for threadId and handle thread creation logic
             if (chunk.includes("threadId")) {
               const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
-  
+
               try {
                 const json = JSON.parse(cleanChunk);
                 const type = pathname.includes("tutor") ? "tutor" : pathname.includes("teacher") ? "teacher" : "career-coach";
 
-  
+
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId).then(async () => {
@@ -160,12 +206,19 @@ export const useChat = () => {
                       content: message,
                       message_type: "user",
                       is_processed: true,
+                      files: files?.Dropzone?.map((file: File)=> {
+                        return {
+                          ...file,
+                          saverSRC: `/uploads/${file?.name}`
+                        }
+              
+                      }),
                     }).then(() => {
                       router.push(`${pathname}/chat/${threadId}`, undefined);
                     });
                   });
                 }
-  
+
                 if (json.message) {
                   accumulatedResponse += json.message;
                   // Incrementally update the assistant's message
@@ -190,7 +243,7 @@ export const useChat = () => {
                       },
                     ];
                   }
-  
+
                   dispatch(setMessages(currentMessages)); // Update state with new messages
                   dispatch(setStreamMessage(accumulatedResponse));
                 }
@@ -221,15 +274,15 @@ export const useChat = () => {
                   },
                 ];
               }
-  
+
               dispatch(setMessages(currentMessages)); // Update state with new messages
               dispatch(setStreamMessage(accumulatedResponse));
             }
           }
         }
-  
+
         accumulatedResponse = accumulatedResponse.trim();
-  
+
         // Finalize the assistant's message
         currentMessages = [
           ...currentMessages.slice(0, -1),
@@ -241,7 +294,7 @@ export const useChat = () => {
         ];
         dispatch(setMessages(currentMessages));
         dispatch(setStreamMessage(""));
-  
+
         if (threadId) {
           await fetchCreateMessage({
             chat_id: threadId,
@@ -250,7 +303,7 @@ export const useChat = () => {
             message_type: "bot",
             is_processed: true,
           });
-  
+
           console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
