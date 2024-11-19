@@ -25,6 +25,7 @@ const AccordionTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     isHideChevron?: boolean;
     isOpen?: boolean;
+    OnChangeState?: any
   }
 >(({ className, children, isHideChevron, ...props }, ref) => {
   const { open } = useSidebar();
@@ -67,6 +68,7 @@ const AccordionTrigger = React.forwardRef<
           // color={props?.isOpen ? "#f3f9fd" : "#272E48"}
           className={cn("h-4 w-4 shrink-0 transition-transform duration-200")}
           aria-hidden
+          onClick={props?.OnChangeState}
         />
       )}
     </AccordionPrimitive.Trigger>

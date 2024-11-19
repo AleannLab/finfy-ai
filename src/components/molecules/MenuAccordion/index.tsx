@@ -80,10 +80,10 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
         isOpen={isActiveType}
         isHideChevron={isHideChevron && !open}
         disabled={isHideChevron}
+        OnChangeState={OnChangeState}
         onClick={() => {
           handleOpen()
           router.push(href)
-          OnChangeState()
         }}
         className={cn("p-2 rounded-sm group", {
           "bg-[#547A91] text-[#f3f9fd] stroke-[#f3f9fd]": isActiveType,
@@ -180,18 +180,18 @@ const MenuAccordion: FC = () => {
   const [value, setValue] = useState('')
   const pathname = usePathname();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (pathname.includes('tutor')) {
-      setValue('tutor')
-    }
-    if (pathname.includes('career-coach')) {
-      setValue('career-coach')
-    }
-    if (pathname.includes('teacher')) {
-      setValue('teacher')
-    }
-  }, [pathname])
+  //   if (pathname.includes('tutor')) {
+  //     setValue('tutor')
+  //   }
+  //   if (pathname.includes('career-coach')) {
+  //     setValue('career-coach')
+  //   }
+  //   if (pathname.includes('teacher')) {
+  //     setValue('teacher')
+  //   }
+  // }, [pathname])
 
   const handleAccordionToggle = (itemValue: string) => {
     // Toggle logic based on the current value and pathname
