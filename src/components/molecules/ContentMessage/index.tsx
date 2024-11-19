@@ -148,7 +148,15 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   function adaptMarkdownForMath(text: string): string {
     const newlinePlaceholder = '__NEWLINE__';
-    text = text.replace(/\n/g, newlinePlaceholder);
+    text = text.replace(/\n/g, newlinePlaceholder); 
+    // Handle \begin{align*} blocks
+    text = text.replace(/\\begin\{align\*\}(.*?)\\end\{align\*\}/gs, (_, content: string) => {
+      // Split the content into lines and wrap each in $...$
+      return content
+        .split(/\\\\/)
+        .map(line => ` $ __NEWLINE__ ${line.replace(/&/g, '').trim()} __NEWLINE__ $ `)
+        .join('__NEWLINE__');
+    });
     text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
     text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
     text = text.replace(/\$\$\s+/g, '$$ ').replace(/\s+\$\$/g, ' $$');
