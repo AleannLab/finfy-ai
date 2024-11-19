@@ -3,7 +3,7 @@
 import { Icon } from "@/components/atoms";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { FC, ReactNode, useState } from "react";
+import React, { FC, ReactNode, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -123,23 +123,169 @@ const ContentMessage: FC<ContentMessageProps> = ({
         </a>
       );
     },
-    grapth: ({ children, node }: any) => {
-      // Extract data from the node if needed
-      const graphData = node?.children?.[0]?.value ? JSON.parse(node.children[0].value) : null;
+    div: ({ node, children }: any) => {
+      const graphId = node?.properties?.id;
+      const shapeId = node?.properties?.id;
+      const dataRaw = children;
+    
+      if (graphId === "GraphId" && typeof dataRaw === "string") {
+        let parsedData;
+        try {
+          parsedData = JSON.parse(dataRaw);
+        } catch (error) {
+          console.error("Error parsing JSON for graph:", error);
+          return <div>Error parsing graph data</div>;
+        }
+    
+        const csvData = parsedData?.data;
+        if (typeof csvData !== "string" || !parsedData?.data) {
+          return <div>Invalid graph data</div>;
+        }
+    
+        const rows = csvData.split("\n").filter(row => row.trim() !== "");
+        const points = rows.map(row => {
+          const [x, y] = row.split(",").map(Number);
+          if (isNaN(x) || isNaN(y)) {
+            console.error("Invalid point detected:", { x, y });
+          }
+          return { x, y };
+        }).filter(point => !isNaN(point.x) && !isNaN(point.y)); // Filter out invalid points
+    
+   
+        // If there are no valid points, display an error
+        if (points.length === 0) {
+          return <div>No valid data points to display</div>;
+        }
+    
+        const minX = Math.min(...points.map(p => p.x));
+        const maxX = Math.max(...points.map(p => p.x));
+        const minY = Math.min(...points.map(p => p.y));
+        const maxY = Math.max(...points.map(p => p.y));
+    
+        // Guard against invalid min/max values
+        if (minX === maxX || minY === maxY) {
+          console.error("Invalid range for graph scaling");
+          return <div>Error with graph data range</div>;
+        }
+    
+        const width = 400;
+        const height = 300;
+        const padding = 40;
+    
+        const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
+        const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
+       
+        return (
+          <div>
+            <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+              <polyline
+                fill="none"
+                stroke="#FBAB18"
+                strokeWidth="2"
+                points={points.map(point => `${scaleX(point.x)},${scaleY(point.y)}`).join(" ")}
+              />
+              {points.map((point, index) => (
+                <circle
+                  key={index}
+                  cx={scaleX(point.x)}
+                  cy={scaleY(point.y)}
+                  r="3"
+                  fill="#272E48"
+                />
+              ))}
+            </svg>
+          </div>
+        );
+      }
   
-      // Render the graph data or a placeholder if data is missing
-      return (
-        <div className="graph-container">
-          {graphData ? (
-            // Replace this with any graph rendering logic you prefer
-            <pre>{JSON.stringify(graphData, null, 2)}</pre>
-          ) : (
-            <div>No graph data provided.</div>
-          )}
-        </div>
-      );
+      if (shapeId === "ShapeId" && typeof dataRaw === "string") {
+        let parsedData;
+        try {
+          parsedData = JSON.parse(dataRaw);
+        } catch (error) {
+          console.error("Error parsing JSON for shape:", error);
+          return <div>Error parsing shape data</div>;
+        }
+      
+        const { shapeType, dimensions, color, points } = parsedData;
+      
+        const width = 400;
+        const height = 300;
+        const padding = 40;
+      
+        switch (shapeType) {
+          // case "circle":
+          //   if (dimensions?.radius) {
+          //     // Scaling logic for the circle
+          //     const scaleFactor = 50; // Adjusting factor for better visibility
+          //     const radius = 50 * scaleFactor;
+          //     const numPoints = 100; // Number of points to approximate the circle
+      
+          //     const circlePoints = Array.from({ length: numPoints }, (_, i) => {
+          //       const angle = (i / numPoints) * 2 * Math.PI;
+          //       const x = radius + radius * Math.cos(angle);
+          //       const y = radius + radius * Math.sin(angle);
+          //       return `${x},${y}`;
+          //     }).join(" ");
+      
+          //     return (
+          //       <svg
+          //         width={radius * 2 + padding}
+          //         height={radius * 2 + padding}
+          //         radius={radius}
+          //         viewBox={`0 0 ${radius * 2 + padding} ${radius * 2 + padding}`}
+          //       >
+          //         <polyline
+          //           fill={"red"}
+          //           // fill={color || "blue"}
+          //           stroke={color || "blue"}
+          //           strokeWidth="2"
+          //           points={circlePoints}
+          //         />
+          //       </svg>
+          //     );
+          //   }
+          //   return <div>Error: Missing radius for circle.</div>;
+      
+          case "polygon":
+            if (points && Array.isArray(points)) {
+              // Find min/max values to create a dynamic scaling factor
+              const minX = Math.min(...points.map(p => p.x));
+              const maxX = Math.max(...points.map(p => p.x));
+              const minY = Math.min(...points.map(p => p.y));
+              const maxY = Math.max(...points.map(p => p.y));
+      
+              // Guard against invalid min/max values
+              if (minX === maxX || minY === maxY) {
+                console.error("Invalid range for polygon scaling");
+                return <div>Error with polygon data range</div>;
+              }
+      
+              const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
+              const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
+      
+              const polygonPoints = points
+                .map(({ x, y }) => `${scaleX(+x)},${scaleY(+y)}`)
+                .join(" ");
+      
+              return (
+                <svg width={width / 10} height={height / 10} viewBox={`0 0 ${width / 10} ${height / 10}`}>
+                  <polygon points={polygonPoints} fill={color || "green"} stroke={color || "black"} strokeWidth="2" />
+                </svg>
+              );
+            }
+            return <div>Error: Missing points for polygon.</div>     
+          default:
+            return <div>Error: Unsupported shape type.</div>;
+        }
+      }
+       
+  
+      return children;
     },
   };
+
+
 
   function removeSpaceBeforePunctuation(text: string): string {
     return text.replace(/ (\.|\:)/g, '$1');
@@ -163,7 +309,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
     text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
     text = text.replace(/([.:])\s+(\$\$)/g, '$1$2');
     text = text.replace(new RegExp(newlinePlaceholder, 'g'), '\n');
-  
+    console.log(text, "graphData")
     return removeSpaceBeforePunctuation(text);
   }
 
