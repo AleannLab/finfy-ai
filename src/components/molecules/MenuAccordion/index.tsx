@@ -108,10 +108,13 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
       {open && (
         <>
           {Object.keys(groupedContents).length ? (
-            Object.entries(groupedContents).map(([group, contents]: any) => (
+            Object.entries(groupedContents).map(([group, contents]: any) => {
+              const filteredContents = contents.filter((chat: any) => item.href.includes(chat?.type));
+
+              return filteredContents?.length ? (
               <Accordion.Content key={group}>
                 <p className="text-sm lg:text-xs my-1">{group}</p>
-                {contents.filter((chat: any) => item.href.includes(chat?.type)).map((content: any, index: number) => {
+                {filteredContents.map((content: any, index: number) => {
                   return (
                     <div
                       key={index}
@@ -147,7 +150,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                   )
                 })}
               </Accordion.Content>
-            ))
+            ) : null})
           ) : (
             <>
               <Accordion.Content className="flex justify-between">
