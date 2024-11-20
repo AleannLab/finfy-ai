@@ -7,7 +7,7 @@ import path from "path";
 import fsSync from "fs";
 import { supabase } from "@/lib/supabase/client";
 
-const tools: any  = [
+const tools: any = [
   {
     type: "function",
     function: {
@@ -89,15 +89,12 @@ const tools: any  = [
 ];
 
 async function renderGraph(params: any, controller: any, encoder: any): Promise<string> {
-  console.log("renderGraph", params);
-
   const graphHtml = `<div id="GraphId">${JSON.stringify(params)}</div>`;
   controller.enqueue(encoder.encode(`\n\n ${graphHtml} \n\n`));
   return `<div class="graph-container">Generated Graph with data: ${JSON.stringify(params)}</div>`;
 }
 
 async function renderShape(params: any, controller: any, encoder: any): Promise<string> {
-  console.log("renderShape", params);
 
   // Extracting parameters
   const { shapeType, dimensions, color, points } = params;
@@ -128,28 +125,28 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
       }
       break;
 
-      case "rectangle":
-        if (dimensions?.width && dimensions?.height) {
-          const width = dimensions.width * scaleFactor;
-          const height = dimensions.height * scaleFactor;
-          shapeHtml = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+    case "rectangle":
+      if (dimensions?.width && dimensions?.height) {
+        const width = dimensions.width * scaleFactor;
+        const height = dimensions.height * scaleFactor;
+        shapeHtml = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
             <rect width="${width}" height="${height}" fill="${color || 'black'}" />
           </svg>`;
-        } else {
-          shapeHtml = "Error: Missing width or height for rectangle.";
-        }
-        break;
-  
-      case "polygon":
-        if (points && Array.isArray(points)) {
-          const scaledPoints = points.map(({ x, y }) => `${x * scaleFactor},${y * scaleFactor}`).join(" ");
-          shapeHtml = `<svg width="500" height="500" viewBox="0 0 500 500">
+      } else {
+        shapeHtml = "Error: Missing width or height for rectangle.";
+      }
+      break;
+
+    case "polygon":
+      if (points && Array.isArray(points)) {
+        const scaledPoints = points.map(({ x, y }) => `${x * scaleFactor},${y * scaleFactor}`).join(" ");
+        shapeHtml = `<svg width="500" height="500" viewBox="0 0 500 500">
             <polygon points="${scaledPoints}" fill="${color || 'green'}" />
           </svg>`;
-        } else {
-          shapeHtml = "Error: Missing points for polygon.";
-        }
-        break;
+      } else {
+        shapeHtml = "Error: Missing points for polygon.";
+      }
+      break;
 
     default:
       shapeHtml = "Error: Unsupported shape type.";
@@ -199,7 +196,6 @@ export async function POST(req: NextRequest) {
     let openAiFileIds: string[] = []; // Array to hold OpenAI file IDs
 
     for (const uploadedFile of uploadedFiles) {
-      console.log("Processing file:", uploadedFile?.name);
 
       // Check if the file is an image
       if (!allowedImageTypes.includes(uploadedFile.type)) {
@@ -217,7 +213,6 @@ export async function POST(req: NextRequest) {
         purpose: "assistants",
       });
 
-      console.log("Uploaded file to OpenAI:", openaiFile);
       if (openaiFile?.id) {
         openAiFileIds.push(openaiFile.id); // Save the file ID for further use
         // Upload file to Supabase storage
@@ -263,7 +258,7 @@ export async function POST(req: NextRequest) {
     }
 
     const additionalMessages: AdditionalMessage[] = [
-      { role: "user", content: `${message} { Please never use tools thread first message in t, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
+      { role: "user", content: `${message} { Please never use tools only in first thread message, after please use tools, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
     ];
 
     if (openAiFileIds.length > 0) {
@@ -282,10 +277,30 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools,
-      instructions: "If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here some graph:' instead use 'Here some graph.'"
+      instructions: " Please never use tools only in first thread message, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here some graph:' instead use 'Here some graph.'"
     });
 
     const encoder = new TextEncoder();
+
+    async function waitForRunCompletion(openai: any, runId: string) {
+      let status = "in_progress";
+    
+      while (status === "in_progress") {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+        const run = await openai.beta.threads.runs.retrieve(runId);
+        status = run.status;
+    
+      }
+    
+      if (status !== "completed") {
+        throw new Error(`Run ${runId} did not complete successfully. Status: ${status}`);
+      }
+    
+    }
+    
+
+    let isProcessing = false;
 
     async function processStream(
       stream: any,
@@ -295,57 +310,111 @@ export async function POST(req: NextRequest) {
       openai: any,
       currentChatId: string
     ) {
-      for await (const event of stream) {
-        if (controller.desiredSize === null) {
-          console.error("Stream controller closed; stopping processing.");
-          return;
-        }
+      if (isProcessing) {
+        return;
+      }
     
-        const messageContent = extractMessageContent(event);
-        if (messageContent && controller.desiredSize !== null) {
-          controller.enqueue(encoder.encode(messageContent));
-        }
+      isProcessing = true;
     
-        const currentRun = stream.currentRun();
-        if (currentRun?.status === "requires_action") {
-          const functions =
-            currentRun?.required_action?.submit_tool_outputs?.tool_calls || [];
-          for (const func of functions) {
-            const result = await availableFunctions[func.function.name](
-              func.function.arguments ? JSON.parse(func.function.arguments) : "",
-              controller,
-              encoder
-            );
+      try {
+        for await (const event of stream) {
+          if (controller.desiredSize === null) {
+            return;
+          }
     
-            const newStream = openai.beta.threads.runs.submitToolOutputsStream(
-              currentChatId,
-              currentRun.id,
-              {
-                tool_outputs: [
-                  {
-                    tool_call_id: func.id,
-                    output: JSON.stringify(result),
-                  },
-                ],
+    
+          const messageContent = extractMessageContent(event);
+          if (messageContent && controller.desiredSize !== null) {
+            controller.enqueue(encoder.encode(messageContent));
+          }
+    
+          const currentRun = stream.currentRun();
+          if (!currentRun) {
+            continue;
+          }
+    
+    
+          if (currentRun.status === "requires_action") {
+            const functions =
+              currentRun?.required_action?.submit_tool_outputs?.tool_calls || [];
+    
+            if (!functions.length) {
+              continue;
+            }
+    
+            const toolOutputs: any[] = [];
+    
+            for (const func of functions) {
+              let result;
+    
+              try {
+    
+                result = await availableFunctions[func.function.name](
+                  func.function.arguments ? JSON.parse(func.function.arguments) : "",
+                  controller,
+                  encoder
+                );
+    
+                if (!result) {
+
+                  result = {
+                    message: "No data returned from the tool. Placeholder data used.",
+                  };
+                }
+    
+    
+                toolOutputs.push({
+                  tool_call_id: func.id,
+                  output: JSON.stringify(result),
+                });
+              } catch (error) {
+                console.error(`Error in function ${func.function.name}:`, error);
+                toolOutputs.push({
+                  tool_call_id: func.id,
+                  output: JSON.stringify({
+                    error: `Error processing ${func.function.name}`,
+                    details: error,
+                  }),
+                });
               }
-            );
+            }
     
-            // Cleanup old stream before processing a new one
-            stream.removeAllListeners();
+            try {
+              const newStream = openai.beta.threads.runs.submitToolOutputsStream(
+                currentChatId,
+                currentRun.id,
+                {
+                  tool_outputs: toolOutputs,
+                }
+              );
     
-            await processStream(
-              newStream,
-              controller,
-              encoder,
-              availableFunctions,
-              openai,
-              currentChatId
-            );
+    
+              await processStream(
+                newStream,
+                controller,
+                encoder,
+                availableFunctions,
+                openai,
+                currentChatId
+              );
+            } catch (error: any) {
+              if (
+                error?.message.includes("already has an active run") ||
+                error.includes("already has an active run")
+              ) {
+                await waitForRunCompletion(openai, currentRun.id);
+              } else {
+                throw error;
+              }
+            }
           }
         }
+      } finally {
+        isProcessing = false;
       }
     }
-
+    
+    
     const readableStream = new ReadableStream({
       async start(controller) {
         try {
@@ -353,11 +422,11 @@ export async function POST(req: NextRequest) {
             const threadInfo = { threadId: currentChatId };
             controller.enqueue(encoder.encode(`data: ${JSON.stringify(threadInfo)}\n\n`));
           }
-    
-          const pingInterval = setInterval(() => {
-            controller.enqueue(encoder.encode(""));
-          }, 1000);
-    
+
+          // const pingInterval = setInterval(() => {
+          //   controller.enqueue(encoder.encode(""));
+          // }, 1000);
+
           await processStream(
             stream,
             controller,
@@ -366,8 +435,8 @@ export async function POST(req: NextRequest) {
             openai,
             currentChatId
           );
-    
-          clearInterval(pingInterval);
+
+          // clearInterval(pingInterval);
           controller.close();
         } catch (err) {
           controller.error(err);

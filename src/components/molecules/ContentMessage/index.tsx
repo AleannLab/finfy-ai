@@ -223,7 +223,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
         };
         
       
-        return <div className="w-full"><Line data={data} options={options} /></div>;
+        return <div className="w-full p-3 lg:p-10"><Line data={data} options={options} /></div>;
       }
   
       if (shapeId === "ShapeId" && typeof dataRaw === "string") {
@@ -361,7 +361,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col w-full h-full">
       {!isUser && !isLoading && (
         <div className="flex items-center gap-4 mb-4">
           <span className="w-8 h-8">
