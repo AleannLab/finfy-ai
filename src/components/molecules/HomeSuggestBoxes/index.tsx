@@ -12,9 +12,9 @@ const HomeSuggestBoxes = () => {
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
-      <div className="hidden lg:block w-full max-w-[1050px]">
+      <div className="hidden xl:block w-full max-w-[1050px]">
         <Swiper
-          className="max-w-[calc(100vw-300px)]"
+          className="max-w-[calc(100vw-400px)]"
           spaceBetween={16}
           slidesPerView={isLgScreen ? (pathname.includes("teacher")) ? 3 : 4 : 2}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
@@ -50,7 +50,7 @@ const HomeSuggestBoxes = () => {
           className="swiper-button-next !w-8 absolute z-10 p-2 !bg-transparent !-translate-y-2 !scale-[0.4]">
         </button>
       </div>
-      <div className="flex lg:hidden flex-wrap gap-3">
+      <div className="flex xl:hidden flex-wrap gap-3">
         {suggests.map((item: any) => (
           <SuggestedBox
             key={item.label}

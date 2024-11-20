@@ -296,13 +296,16 @@ export async function POST(req: NextRequest) {
       currentChatId: string
     ) {
       for await (const event of stream) {
-        const messageContent = extractMessageContent(event);
+        if (controller.desiredSize === null) {
+          console.error("Stream controller closed; stopping processing.");
+          return;
+        }
     
-        if (messageContent) {
+        const messageContent = extractMessageContent(event);
+        if (messageContent && controller.desiredSize !== null) {
           controller.enqueue(encoder.encode(messageContent));
         }
     
-        // Check for tool calls and handle them
         const currentRun = stream.currentRun();
         if (currentRun?.status === "requires_action") {
           const functions =
@@ -314,7 +317,6 @@ export async function POST(req: NextRequest) {
               encoder
             );
     
-            // Submit tool outputs and reinitialize the stream
             const newStream = openai.beta.threads.runs.submitToolOutputsStream(
               currentChatId,
               currentRun.id,
@@ -328,7 +330,9 @@ export async function POST(req: NextRequest) {
               }
             );
     
-            // Recursive call to continue processing the new stream
+            // Cleanup old stream before processing a new one
+            stream.removeAllListeners();
+    
             await processStream(
               newStream,
               controller,
@@ -352,7 +356,7 @@ export async function POST(req: NextRequest) {
     
           const pingInterval = setInterval(() => {
             controller.enqueue(encoder.encode(""));
-          }, 10);
+          }, 1000);
     
           await processStream(
             stream,

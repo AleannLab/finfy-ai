@@ -197,7 +197,9 @@ const ContentMessage: FC<ContentMessageProps> = ({
           responsive: true,
           plugins: {
             legend: {
-              position: "top" as const, // Explicitly set as const to ensure correct typing
+              display: false,
+              position: "top" as const,
+              
             },
             title: {
               display: true,
@@ -221,7 +223,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
         };
         
       
-        return <Line data={data} options={options} />;
+        return <div className="w-full"><Line data={data} options={options} /></div>;
       }
   
       if (shapeId === "ShapeId" && typeof dataRaw === "string") {
@@ -307,11 +309,11 @@ const ContentMessage: FC<ContentMessageProps> = ({
       }
        
   
-      return children;
+      return <div className="markdown !whitespace-normal markdown-special">{children}</div>;
     },
+  
+    
   };
-
-
 
   function removeSpaceBeforePunctuation(text: string): string {
     return text.replace(/ (\.|\:)/g, '$1');
