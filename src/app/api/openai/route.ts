@@ -300,7 +300,7 @@ export async function POST(req: NextRequest) {
     }
     
 
-    let isProcessing = false;
+    let isProcessingTool = false;
 
     async function processStream(
       stream: any,
@@ -310,37 +310,45 @@ export async function POST(req: NextRequest) {
       openai: any,
       currentChatId: string
     ) {
-      if (isProcessing) {
-        return;
-      }
-    
-      isProcessing = true;
+      isProcessingTool = false;
     
       try {
         for await (const event of stream) {
           if (controller.desiredSize === null) {
+            console.error("Stream controller closed; stopping processing.");
             return;
           }
     
     
           const messageContent = extractMessageContent(event);
-          if (messageContent && controller.desiredSize !== null) {
+          if (messageContent && !isProcessingTool) {
+            console.log("Enqueuing message content:", messageContent);
             controller.enqueue(encoder.encode(messageContent));
           }
     
           const currentRun = stream.currentRun();
           if (!currentRun) {
+            console.warn("No current run found.");
             continue;
           }
     
     
           if (currentRun.status === "requires_action") {
+            isProcessingTool = true;
+    
             const functions =
               currentRun?.required_action?.submit_tool_outputs?.tool_calls || [];
     
             if (!functions.length) {
+              console.warn("No tool calls found in current run.");
+              isProcessingTool = false;
               continue;
             }
+    
+            console.log(
+              "Functions to call:",
+              functions.map((f: { function: { name: string } }) => f.function.name)
+            );
     
             const toolOutputs: any[] = [];
     
@@ -356,12 +364,13 @@ export async function POST(req: NextRequest) {
                 );
     
                 if (!result) {
-
+                  console.warn(
+                    `Function ${func.function.name} returned no output. Using placeholder.`
+                  );
                   result = {
                     message: "No data returned from the tool. Placeholder data used.",
                   };
                 }
-    
     
                 toolOutputs.push({
                   tool_call_id: func.id,
@@ -402,18 +411,22 @@ export async function POST(req: NextRequest) {
                 error?.message.includes("already has an active run") ||
                 error.includes("already has an active run")
               ) {
+                console.warn("Active run detected. Waiting for completion...");
                 await waitForRunCompletion(openai, currentRun.id);
               } else {
                 throw error;
               }
+            } finally {
+              isProcessingTool = false;
             }
           }
         }
+      } catch (error) {
+        console.error("Error processing stream:", error);
       } finally {
-        isProcessing = false;
+        console.log("Stream processing completed.");
       }
-    }
-    
+    }  
     
     const readableStream = new ReadableStream({
       async start(controller) {
