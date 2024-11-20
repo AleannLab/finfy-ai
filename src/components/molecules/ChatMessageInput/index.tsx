@@ -210,6 +210,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
     // Reset the input field after submission
     setMessage("");
+    setFiles(null);
   };
 
 
