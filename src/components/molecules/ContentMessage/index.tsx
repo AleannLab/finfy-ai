@@ -12,6 +12,28 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { useChat } from "@/hooks";
 import { supabase } from "@/lib/supabase/client";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface ContentMessageProps {
   text: ReactNode;
@@ -136,12 +158,12 @@ const ContentMessage: FC<ContentMessageProps> = ({
           console.error("Error parsing JSON for graph:", error);
           return <div>Error parsing graph data</div>;
         }
-    
+      
         const csvData = parsedData?.data;
         if (typeof csvData !== "string" || !parsedData?.data) {
           return <div>Invalid graph data</div>;
         }
-    
+      
         const rows = csvData.split("\n").filter(row => row.trim() !== "");
         const points = rows.map(row => {
           const [x, y] = row.split(",").map(Number);
@@ -150,52 +172,56 @@ const ContentMessage: FC<ContentMessageProps> = ({
           }
           return { x, y };
         }).filter(point => !isNaN(point.x) && !isNaN(point.y)); // Filter out invalid points
-    
-   
-        // If there are no valid points, display an error
+      
         if (points.length === 0) {
           return <div>No valid data points to display</div>;
         }
-    
-        const minX = Math.min(...points.map(p => p.x));
-        const maxX = Math.max(...points.map(p => p.x));
-        const minY = Math.min(...points.map(p => p.y));
-        const maxY = Math.max(...points.map(p => p.y));
-    
-        // Guard against invalid min/max values
-        if (minX === maxX || minY === maxY) {
-          console.error("Invalid range for graph scaling");
-          return <div>Error with graph data range</div>;
-        }
-    
-        const width = 400;
-        const height = 300;
-        const padding = 40;
-    
-        const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
-        const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
-       
-        return (
-          <div>
-            <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-              <polyline
-                fill="none"
-                stroke="#FBAB18"
-                strokeWidth="2"
-                points={points.map(point => `${scaleX(point.x)},${scaleY(point.y)}`).join(" ")}
-              />
-              {points.map((point, index) => (
-                <circle
-                  key={index}
-                  cx={scaleX(point.x)}
-                  cy={scaleY(point.y)}
-                  r="3"
-                  fill="#272E48"
-                />
-              ))}
-            </svg>
-          </div>
-        );
+      
+        const labels = points.map(point => point.x);
+        const dataset = {
+          label: "Graph Data",
+          data: points.map(point => point.y),
+          borderColor: "#FBAB18",
+          backgroundColor: "rgba(251, 171, 24, 0.2)",
+          tension: 0.4,
+          pointRadius: 3,
+          pointBackgroundColor: "#272E48",
+        };
+      
+        const data = {
+          labels,
+          datasets: [dataset],
+        };
+      
+        const options = {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top" as const, // Explicitly set as const to ensure correct typing
+            },
+            title: {
+              display: true,
+              text: "Graph Data Representation",
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "X-Axis",
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Y-Axis",
+              },
+            },
+          },
+        };
+        
+      
+        return <Line data={data} options={options} />;
       }
   
       if (shapeId === "ShapeId" && typeof dataRaw === "string") {
