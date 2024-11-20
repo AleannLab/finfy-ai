@@ -263,7 +263,7 @@ export async function POST(req: NextRequest) {
     }
 
     const additionalMessages: AdditionalMessage[] = [
-      { role: "user", content: message }
+      { role: "user", content: `${message} { Please never use tools thread first message in t, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
     ];
 
     if (openAiFileIds.length > 0) {
