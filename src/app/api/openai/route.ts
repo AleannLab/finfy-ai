@@ -95,21 +95,16 @@ async function renderGraph(params: any, controller: any, encoder: any): Promise<
 }
 
 async function renderShape(params: any, controller: any, encoder: any): Promise<string> {
-
-  // Extracting parameters
   const { shapeType, dimensions, color, points } = params;
 
   let shapeHtml = "";
-
-  // Creating HTML based on different shape types
-  const scaleFactor = 20; // Scaling factor for rendering
+  const scaleFactor = 10; // Scaling factor for rendering
 
   switch (shapeType) {
     case "circle":
       if (dimensions?.radius) {
-        const scaleFactor = 20; // Scaling factor for rendering
         const radius = dimensions.radius * scaleFactor;
-        const numPoints = 100; // Number of points for circle approximation
+        const numPoints = 100;
         const circlePoints = Array.from({ length: numPoints }, (_, i) => {
           const angle = (i / numPoints) * 2 * Math.PI;
           const x = radius + radius * Math.cos(angle);
@@ -139,9 +134,24 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
 
     case "polygon":
       if (points && Array.isArray(points)) {
-        const scaledPoints = points.map(({ x, y }) => `${x * scaleFactor},${y * scaleFactor}`).join(" ");
-        shapeHtml = `<svg width="500" height="500" viewBox="0 0 500 500">
-            <polygon points="${scaledPoints}" fill="${color || 'green'}" />
+        const scaledPoints = points.map(({ x, y }) => ({
+          x: x * scaleFactor,
+          y: y * scaleFactor,
+        }));
+
+        // Calculate bounds to dynamically adjust the viewBox
+        const minX = Math.min(...scaledPoints.map((p) => p.x));
+        const minY = Math.min(...scaledPoints.map((p) => p.y));
+        const maxX = Math.max(...scaledPoints.map((p) => p.x));
+        const maxY = Math.max(...scaledPoints.map((p) => p.y));
+
+        // Adjust points for the viewBox offset
+        const normalizedPoints = scaledPoints
+          .map(({ x, y }) => `${x - minX},${y - minY}`)
+          .join(" ");
+
+        shapeHtml = `<svg width="500" height="500" viewBox="0 0 ${maxX - minX} ${maxY - minY}">
+            <polygon points="${normalizedPoints}" fill="${color || 'green'}" />
           </svg>`;
       } else {
         shapeHtml = "Error: Missing points for polygon.";
@@ -154,8 +164,9 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
 
   // Sending the HTML to the stream
   controller.enqueue(encoder.encode(`\n\n ${shapeHtml} \n\n`));
-  return `<div class="shape-container">Generated Shape: ${shapeHtml}</div>`;
+  return `<div class="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
 }
+
 
 
 
@@ -258,7 +269,7 @@ export async function POST(req: NextRequest) {
     }
 
     const additionalMessages: AdditionalMessage[] = [
-      { role: "user", content: `${message} { Please never use tools only in first thread message, after please use tools, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
+      { role: "user", content: `${message} { Please use tools when asked for graph or figure, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
     ];
 
     if (openAiFileIds.length > 0) {
@@ -277,7 +288,7 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools,
-      instructions: " Please never use tools only in first thread message, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here some graph:' instead use 'Here some graph.'"
+      instructions: " Please use tools when asked for graph or figure, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here [name] graph: or Here [name] figure:' instead use 'Here [name] graph: or Here [name] figure.' Replace [name] to real figure or graph name"
     });
 
     const encoder = new TextEncoder();

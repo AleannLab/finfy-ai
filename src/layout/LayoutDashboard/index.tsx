@@ -58,7 +58,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
-        <div className={cn("flex max-w-[912px] mx-auto w-full lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
+        <div className={cn("flex w-full lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
           <Conversation handleOpenModal={handleOpenModal} />
         </div>
       {!!messages.length && <div className="bg-[#1F263D] w-full mx-auto  max-w-[912px]">

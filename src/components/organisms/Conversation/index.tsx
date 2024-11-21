@@ -52,7 +52,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
             "pb-24 md:pb-28"
           )}
         >
-          <div onScroll={handleScroll} className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center gap-2.5 md:gap-5 overflow-x-hidden pr-2">
+          <div onScroll={handleScroll} className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center  gap-2.5 md:gap-5 overflow-x-hidden pr-2">
             <PaginationScroll
               elements={undefined}
               fetchPagination={undefined}

@@ -93,7 +93,7 @@ const PaginationScroll: FC<PaginationScrollProps> = ({
     <div
       ref={ref}
       className={clsx(
-        "flex flex-col items-center gap-2.5 md:gap-5 w-full",
+        "flex flex-col items-center max-w-[912px] gap-2.5 md:gap-5 w-full",
         classes?.wrapper
       )}
     >
