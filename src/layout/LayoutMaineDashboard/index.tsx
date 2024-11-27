@@ -93,13 +93,13 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
               <img className="w-[118px] h-9 mix-blend-darken" src="/images/logo-ultimate.png" />
             </div>
           </div>
-          <div className="justify-start items-center gap-4 flex">
-            <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div>
+          {/* <div className="justify-start items-center gap-4 flex"> //HIDE ICONS
+            <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div> */}
             {/* <Icon type="LogoLiberty" /> */}
-            <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
+            {/* <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
               <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
             </div>
-          </div>
+          </div> */}
         </div>
       </footer>
     </div>
