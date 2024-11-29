@@ -87,7 +87,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                 <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div> */}
                   {/* <Icon type="DepartmentLogoFull" /> */}
                   <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
-                    <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
+                    <img className="w-28 h-12 mix-blend-darken" src="/images/liberty-new.svg" />
                   </div>
                 </div>
               </div>
