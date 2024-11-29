@@ -82,10 +82,13 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             <div className="text-[#272e48] text-sm font-medium  leading-tight">Powered by</div>
             <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center flex">
               <div className="flex w-[140px]">
-              <div className="w-[137px] h-[60px] relative">
-                {/* <Icon type="LogoIcon" />
+                <div className="w-[137px] h-[60px] relative">
+                  {/* <Icon type="LogoIcon" />
                 <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div> */}
-                  <Icon type="DepartmentLogoFull" />
+                  {/* <Icon type="DepartmentLogoFull" /> */}
+                  <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
+                    <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -98,8 +101,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           </div>
           {/* <div className="justify-start items-center gap-4 flex"> //HIDE ICONS
             <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div> */}
-            {/* <Icon type="LogoLiberty" /> */}
-            {/* <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
+          {/* <Icon type="LogoLiberty" /> */}
+          {/* <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
               <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
             </div>
           </div> */}
