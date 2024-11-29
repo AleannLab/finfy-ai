@@ -81,9 +81,12 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           <div className="justify-start items-center gap-4 flex">
             <div className="text-[#272e48] text-sm font-medium  leading-tight">Powered by</div>
             <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center flex">
-              <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center inline-flex">
-                <Icon type="LogoIcon" />
-                <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div>
+              <div className="flex w-[140px]">
+              <div className="w-[137px] h-[60px] relative">
+                {/* <Icon type="LogoIcon" />
+                <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div> */}
+                  <Icon type="DepartmentLogoFull" />
+                </div>
               </div>
             </div>
           </div>
