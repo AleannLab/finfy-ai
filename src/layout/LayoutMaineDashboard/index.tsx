@@ -79,7 +79,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       <footer className="h-[78px] hidden lg:flex absolute bottom-0 left-0 right-0 w-full justify-center items-center">
         <div className="h-[76px] mx-auto pl-8 pr-4 py-2 rounded-[50px] justify-start items-center gap-10 inline-flex">
           <div className="justify-start items-center gap-4 flex">
-            <div className="text-[#272e48] text-sm font-medium  leading-tight">Powered by</div>
+            <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div>
             <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center flex">
               <div className="flex w-[140px]">
                 <div className="w-[137px] h-[60px] relative">
