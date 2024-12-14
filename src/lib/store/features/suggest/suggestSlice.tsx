@@ -75,7 +75,7 @@ export const tutorSuggestionData = [
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
-    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
+    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
     label: "Mathematics",
     isDefault: "true",
     suggest: [
@@ -1075,7 +1075,7 @@ export const tutor = [
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
-    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
+    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
     suggest: [
       {
         label: "Practice Algebra Questions",

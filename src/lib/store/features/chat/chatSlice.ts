@@ -119,7 +119,7 @@ export const createMessageInDB = async (dataMessage: {
   const emojiMapping: any = {
     "asst_XizmVhjCdwImRlerh0Z5bh9e": "🔢", // Career Coach Assistant
     "asst_kosUuOZshZP2ULAD6zBOob4f": "💼", // Tutor
-    "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "🔢", // Mathematics Tutor
+    "asst_wu5H6HvbW3o0qLw443ojVx6V": "🔢", // Mathematics Tutor
     "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "🌱", // Physical Sciences Tutor
     "asst_vaBKqqnSfyus1suFdb8BGqvK": "📖", // English Tutor
     "asst_yKj9zsjFZtcm4yZFhNzfztn": "🧭", // Career Coach
