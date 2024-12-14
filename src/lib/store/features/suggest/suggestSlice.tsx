@@ -1,4 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+
+export enum TutorAssistants {
+  Mathematics = "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  MathsLiteracy = "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  English = "asst_vaBKqqnSfyus1suFdb8BGqvK",
+  PhysicalSciences = "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
+  EconomicsTutor = "asst_stEGiVDTlMIeDM7XGiezPI28",
+  Accounting = "asst_kosUuOZshZP2ULAD6zBOob4f",
+}
+
+export enum CareerCoachAssistants {
+  BursaryFinder = "asst_e9SCWWWVAqsFGhIFB0f8RstS",
+  CampusNavigator = "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
+  CareerExplorer = "asst_c6Z0XBtcSSw7Jy3F7zkzeryA",
+  CareerXpert = "asst_yKj9zsjFZtcm4yZFhNzfzatn",
+  PersonalityQuiz = "asst_YaKOJNycgzRZ62P271Od6hCP",
+}
+
+export enum TeacherAssistants {
+  LessonCraft = "asst_nxJVZh17j23ovTc4923NOdc4",
+  AssessGenie = "asst_Vjl8Br7Coh1M2waAnahdbvZ7",
+  InsightMax = "asst_BvSZyrPkHJUu27VBJgigiMgK",
+  EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
+  ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
+  WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8",
+}
 
 export const defaultCareerCoachAssistant = {
   label: "",
@@ -75,7 +101,7 @@ export const tutorSuggestionData = [
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: TutorAssistants.Mathematics,
     label: "Mathematics",
     isDefault: "true",
     suggest: [
@@ -382,7 +408,7 @@ export const tutorSuggestionData = [
     ],
     content: "Conquer science topics and excel in exams.",
     icon: "🔬",
-    assistantId: "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
+    assistantId: TutorAssistants.PhysicalSciences,
     instructions: `System settings:
       Tool use: enabled.
 
@@ -404,7 +430,7 @@ export const tutorSuggestionData = [
     title: "📖 English",
     text: "Enhance your English skills and boost your grades.",
     category: "I’m your personal English tutor",
-    assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
+    assistantId: TutorAssistants.English,
     label: "English",
     isDefault: "true",
     suggest: [
@@ -558,7 +584,7 @@ export const tutorSuggestionData = [
     content: "Ace accounting principles and top your tests.",
     icon: "💼",
     category: "accounting",
-    assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
+    assistantId: TutorAssistants.Accounting,
     instructions: `System settings:
       Tool use: enabled.
 
@@ -583,7 +609,7 @@ export const careerCoachAssistantSuggestionData = [
     title: "🧭 CoachXpert",
     text: "Guiding your career growth.",
     category: "I’m your personal Career Coach",
-    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn",
+    assistantId: CareerCoachAssistants.CareerXpert,
     label: "CoachXpert",
     isDefault: "true",
     suggest: [
@@ -660,7 +686,7 @@ export const careerCoachAssistantSuggestionData = [
     label: "CampusNavigator",
     text: "Discover your perfect school.",
     category: "I’m here to help you find a place to study",
-    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
+    assistantId: CareerCoachAssistants.CampusNavigator,
     isDefault: "true",
     suggest: [
       {
@@ -735,7 +761,7 @@ export const careerCoachAssistantSuggestionData = [
     title: "📖 PersonalityQuiz",
     text: "Pursue the ideal courses.",
     category: "courses",
-    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
+    assistantId: CareerCoachAssistants.PersonalityQuiz,
     label: "PersonalityQuiz",
     isDefault: "true",
     content: "What online courses can I take for free?",
@@ -797,7 +823,7 @@ export const careerCoachAssistantSuggestionData = [
     title: "🎓 BursaryFinder",
     text: "Unlock scholarships for you.",
     category: "I’m here to help you find bursaries             ",
-    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
+    assistantId: CareerCoachAssistants.BursaryFinder,
     isDefault: "true",
     suggest: [
       {
@@ -875,7 +901,7 @@ export const teacherSuggestionData = [
     title: "📝📚 LessonCraft",
     text: "CAPS-Aligned Lesson and Activity Designer",
     category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
-    assistantId: "asst_nxJVZh17j23ovTc4923NOdc4",
+    assistantId: TeacherAssistants.LessonCraft,
     label: "LessonCraft",
     isDefault: "true",
     suggest: [
@@ -925,7 +951,7 @@ export const teacherSuggestionData = [
     title: "🧩📊 AssessGenie",
     text: "Flexible Assessment and CAPS-Consistent Grading Tool",
     category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: "asst_Vj1B8r7Coh1M2waAnahdbv27", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.AssessGenie,
     label: "AssessGenie",
     isDefault: "true",
     suggest: [
@@ -974,7 +1000,7 @@ export const teacherSuggestionData = [
     title: "🌐🔍 ClarityBot",
     text: "Multi-Language Explanation and Example Generator",
     category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: "asst_h9xwAFmreZXrWVbjIDujBTrE", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.ClarityBot,
     label: "ClarityBot",
     isDefault: "true",
     suggest: [
@@ -1023,7 +1049,7 @@ export const teacherSuggestionData = [
     title: "📈🧭 InsightMax",
     text: "Student Progress Tracker with Tailored Support",
     category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: "asst_BvSZyrPkHJUu27VBJgixMgK", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.InsightMax,
     label: "InsightMax",
     isDefault: "true",
     suggest: [
@@ -1075,7 +1101,7 @@ export const tutor = [
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
     category: "I’m your personal Mathematics tutor ",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: TutorAssistants.Mathematics,
     suggest: [
       {
         label: "Practice Algebra Questions",
@@ -1143,7 +1169,7 @@ export const tutor = [
     title: "🔬 Physical Sciences",
     text: "Conquer science topics and excel in exams.",
     category: "I’m your personal Physical Science tutor",
-    assistantId: "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
+    assistantId: TutorAssistants.PhysicalSciences,
     suggest: [
       {
         label: "Practice Physics Questions",
@@ -1211,7 +1237,7 @@ export const tutor = [
     title: "📖 English",
     text: "Enhance your English skills and boost your grades.",
     category: "I’m your personal English tutor",
-    assistantId: "asst_vaBKqqnSfyus1suFdb8BGqvK",
+    assistantId: TutorAssistants.English,
     suggest: [
       {
         label: "Practice Essay Writing",
@@ -1279,7 +1305,7 @@ export const tutor = [
     title: "📈 Economics",
     category: "I’m your personal Economics tutor ",
     text: "Understand economics deeply and score high marks.",
-    assistantId: "asst_stEGiVDTlMIeDM7XGiezPI28",
+    assistantId: TutorAssistants.EconomicsTutor,
     suggest: [
       {
         label: "Practice Past Papers",
@@ -1347,7 +1373,7 @@ export const tutor = [
     title: "📐 Mathematical Literacy",
     text: "Grasp math concepts and excel in exams.",
     category: "I’m your personal Math Literacy tutor",
-    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
+    assistantId: TutorAssistants.MathsLiteracy,
     suggest: [
       {
         label: "Practice Statistics Questions",
@@ -1414,6 +1440,8 @@ export const tutor = [
   {
     title: "💼 Accounting",
     text: "Ace accounting principles and top your tests.",
+    category: "I’m your accounting tutor",
+    assistantId: TutorAssistants.Accounting,
     suggest: [
       {
         label: "Practice Accounting Problems",
@@ -1682,7 +1710,7 @@ export const careerCoach = [
     title: "🧭 CoachXpert",
     text: "Guiding your career growth.",
     category: "I’m your personal Career Coach",
-    assistantId: "asst_yKj9zsjFZtcm4yZFhNzfztn",
+    assistantId: CareerCoachAssistants.CareerXpert,
     suggest: [
       {
         label: "🧭 Choosing Grade 9 Subjects",
@@ -1738,7 +1766,7 @@ export const careerCoach = [
     title: "🎓 BursaryFinder",
     text: "Unlock scholarships for you.",
     category: "I’m here to help you find bursaries             ",
-    assistantId: "asst_e9SCWWWVAqsFGhIFB0f8RstS",
+    assistantId: CareerCoachAssistants.BursaryFinder,
     suggest: [
       {
         label: "2024 Bursaries",
@@ -1794,7 +1822,7 @@ export const careerCoach = [
     title: "🏫 CampusNavigator",
     text: "Discover your perfect school.",
     category: "I’m here to help you find a place to study",
-    assistantId: "asst_p5JE3MZY94FUgL9Ow5CAJqbc",
+    assistantId: CareerCoachAssistants.BursaryFinder,
     suggest: [
       {
         label: "Top TVET Colleges",
@@ -1850,7 +1878,7 @@ export const careerCoach = [
     title: "🔍 CareerExplorer",
     text: "Find your passion, shape future.",
     category: " I’m here to help you discover careers",
-    assistantId: "asst_c6ZOXBtcSSw7Jy3F7zkzeryA",
+    assistantId: CareerCoachAssistants.CareerExplorer,
     suggest: [
       {
         label: "Careers in Demand",
@@ -1906,7 +1934,7 @@ export const careerCoach = [
     title: "📖 PersonalityQuiz",
     text: "Pursue the ideal courses.",
     category: "courses",
-    assistantId: "asst_YaKOJNycgzRZ62P271Od6hCP",
+    assistantId: CareerCoachAssistants.PersonalityQuiz,
     suggest: [
       {
         label: "📚 Discover My Personality",
@@ -1956,7 +1984,7 @@ export const teacher = [
     title: "📝📚 LessonCraft",
     text: "CAPS-Aligned Lesson and Activity Designer",
     category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
-    assistantId: "asst_nxJVZh17j23ovTc4923NOdc4",
+    assistantId: TeacherAssistants.LessonCraft,
     suggest: [
       {
         label: "📝📚 Generate CAPS-Compliant Lesson Plans",
@@ -1988,7 +2016,7 @@ export const teacher = [
     title: "🧩📊 AssessGenie",
     text: "Flexible Assessment and CAPS-Consistent Grading Tool",
     category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: "asst_Vj1B8r7Coh1M2waAnahdbv27", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.AssessGenie,
     suggest: [
       {
         label: "🧩📊 Create CAPS-Aligned Assessments",
@@ -2020,7 +2048,7 @@ export const teacher = [
     title: "🌐🔍 ClarityBot",
     text: "Multi-Language Explanation and Example Generator",
     category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: "asst_h9xwAFmreZXrWVbjIDujBTrE", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.ClarityBot,
     suggest: [
       {
         label: "🌐🔍 Translate Complex Concepts Across Languages",
@@ -2052,7 +2080,7 @@ export const teacher = [
     title: "📈🧭 InsightMax",
     text: "Student Progress Tracker with Tailored Support",
     category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: "asst_BvSZyrPkHJUu27VBJgixMgK", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.InsightMax,
     suggest: [
       {
         label: "📈🧭 Monitor Individual and Class-Wide Progress",
@@ -2084,7 +2112,7 @@ export const teacher = [
     title: "💡🤝 EngageAI",
     text: "Interactive Learning and Critical Thinking Enhancer",
     category: " I’m a Interactive Learning and Critical Thinking Enhancer",
-    assistantId: "asst_UEl50keGMUzrmR1R2Hdjlyfx", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.EngageAI,
     suggest: [
       {
         label: "💡🤝 Generate Group Activity Ideas",
@@ -2116,7 +2144,7 @@ export const teacher = [
     title: "💙🕊️ WellnessWatch",
     text: "Mental Health and Classroom Wellbeing Monitor",
     category: "I’m your Mental Health and Classroom Wellbeing Monitor",
-    assistantId: "asst_RDT2IiplUg4wCmvJL3Sedes8", // Replace with the actual assistant ID
+    assistantId: TeacherAssistants.WellnessWatch,
     suggest: [
       {
         label: "💙🕊️ Identify Signs of Student Stress and Burnout",
