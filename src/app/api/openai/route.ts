@@ -288,7 +288,7 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools,
-      instructions: " Please use tools when asked for graph or figure, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here [name] graph: or Here [name] figure:' instead use 'Here [name] graph: or Here [name] figure.' Replace [name] to real figure or graph name"
+      // instructions: " Please use tools when asked for graph or figure, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here [name] graph: or Here [name] figure:' instead use 'Here [name] graph: or Here [name] figure.' Replace [name] to real figure or graph name"
     });
 
     const encoder = new TextEncoder();
