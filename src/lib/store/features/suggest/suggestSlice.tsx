@@ -774,7 +774,7 @@ export const careerCoachAssistantSuggestionData = [
         content: "I’m ready to explore my personality type and see how it can help with my career goals. Can we start the quiz?"
       }
     ],
-    
+
     instructions: `System settings:
       Tool use: enabled.
 
@@ -1019,7 +1019,7 @@ export const teacherSuggestionData = [
       - Focused on breaking barriers to understanding.
     `
   },
-  { 
+  {
     title: "📈🧭 InsightMax",
     text: "Student Progress Tracker with Tailored Support",
     category: "I’m your Student Progress Tracker with Tailored Support",
@@ -1347,7 +1347,7 @@ export const tutor = [
     title: "📐 Mathematical Literacy",
     text: "Grasp math concepts and excel in exams.",
     category: "I’m your personal Math Literacy tutor",
-    assistantId: "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
+    assistantId: "asst_wu5H6HvbW3o0qLw443ojVx6V",
     suggest: [
       {
         label: "Practice Statistics Questions",
@@ -2016,7 +2016,7 @@ export const teacher = [
       }
     ]
   },
-  { 
+  {
     title: "🌐🔍 ClarityBot",
     text: "Multi-Language Explanation and Example Generator",
     category: "I’m your Multi-Language Explanation and Example Generator",
@@ -2080,7 +2080,7 @@ export const teacher = [
       }
     ]
   },
-  { 
+  {
     title: "💡🤝 EngageAI",
     text: "Interactive Learning and Critical Thinking Enhancer",
     category: " I’m a Interactive Learning and Critical Thinking Enhancer",
