@@ -18,7 +18,7 @@ const tools: any = [
         properties: {
           data: {
             type: "string",
-            description: "The data used to generate the graph in CSV format (e.g., 'x,y\\n-10,-100\\n-8,-64\\n...'). Provide a lot of dots more then 50",
+            description: "The data used to generate the graph in CSV format (e.g., 'x,y\\n-10,-100\\n-8,-64\\n...'). Provide a lot of dots more then 200",
           },
           title: {
             type: "string",
@@ -33,7 +33,7 @@ const tools: any = [
     type: "function",
     function: {
       name: "render_shape",
-      description: "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. For complex shapes, such as circles, ensure there are more than 50 points for smooth rendering. Shapes can be scaled for larger rendering.",
+      description: "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. For complex shapes, such as circles, ensure there are more than 50 points for smooth rendering. Shapes can be scaled for larger rendering. Wrap all svg in <li></li>",
       parameters: {
         type: "object",
         properties: {
@@ -95,10 +95,10 @@ async function renderGraph(params: any, controller: any, encoder: any): Promise<
 }
 
 async function renderShape(params: any, controller: any, encoder: any): Promise<string> {
-  const { shapeType, dimensions, color, points } = params;
+  const { shapeType, dimensions, color, points, name } = params;
 
   let shapeHtml = "";
-  const scaleFactor = 10; // Scaling factor for rendering
+  const scaleFactor = 20; // Scaling factor for rendering
 
   switch (shapeType) {
     case "circle":
@@ -150,7 +150,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
           .map(({ x, y }) => `${x - minX},${y - minY}`)
           .join(" ");
 
-        shapeHtml = `<svg width="500" height="500" viewBox="0 0 ${maxX - minX} ${maxY - minY}">
+        shapeHtml = `<svg width="${(maxX - minX) * 3}" height="${(maxY - minY) * 3}" viewBox="0 0 ${maxX - minX} ${maxY - minY}">
             <polygon points="${normalizedPoints}" fill="${color || 'green'}" />
           </svg>`;
       } else {
@@ -163,8 +163,8 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
   }
 
   // Sending the HTML to the stream
-  controller.enqueue(encoder.encode(`\n\n ${shapeHtml} \n\n`));
-  return `<div class="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
+  controller.enqueue(encoder.encode(`<li className="bolt"> Generated ${shapeType}: \n\n <p className="shape-container">\n\n ${shapeHtml} \n\n </p> \n\n </li>`));
+  return `<div className="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
 }
 
 
