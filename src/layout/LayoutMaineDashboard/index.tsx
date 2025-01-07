@@ -61,7 +61,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   }
 
   return (
-    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-10 flex !min-h-screen !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-10 flex !min-h-screen  !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       <>
         {!isMessages && <HeaderText />}
