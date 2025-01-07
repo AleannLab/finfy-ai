@@ -96,7 +96,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
   useEffect(() => {
     if (!assistActionOpenState) {
-      setShouldFocus(true);
+      setShouldFocus(true && window.innerWidth > 1024);
     }
   }, [assistActionOpenState]);
 

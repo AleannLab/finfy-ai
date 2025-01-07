@@ -98,7 +98,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
   const { shapeType, dimensions, color, points, name } = params;
 
   let shapeHtml = "";
-  const scaleFactor = 20; // Scaling factor for rendering
+  const scaleFactor = 2; // Scaling factor for rendering
 
   switch (shapeType) {
     case "circle":
