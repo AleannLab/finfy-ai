@@ -243,6 +243,11 @@ input:-webkit-autofill:active{
   font-weight: 500;
 }
 
+input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* Make table scrollable on small screens */
 .markdown-special table {
   width: 100%; /* Full width to fit the container */

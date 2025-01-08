@@ -46,10 +46,11 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
       </Head>
       <StoreProvider>
         <ClarityAnalytics />
-        <body className={clsx(inter.className, "min-h-screen")}>
+        <body className={clsx(inter.className, "min-h-screen !max-h-screen overflow-hidden")}>
           <FullScreenLoader />
           {children}
           <Toaster />

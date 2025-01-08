@@ -7,9 +7,9 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <main className="flex w-full absolute lg:static top-0 left-0 right-0 bottom-0 min-h-screen font-inter">
+    <main className="flex w-full bg-navy-25 absolute lg:static top-0 left-0 right-0 bottom-0 min-h-screen font-inter">
       <Sidebar />
-      <div className="flex-grow flex bg-navy-25">{children}</div>
+      {children}
     </main>
   );
 }
