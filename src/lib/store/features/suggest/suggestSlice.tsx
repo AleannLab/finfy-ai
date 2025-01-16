@@ -1976,7 +1976,29 @@ export const careerCoach = [
     text: "Helping You Choose the Right Subjects, for Your Dream Career",
     category: "education-path",
     assistantId: CareerCoachAssistants.SubjectWise,
-    suggest: []
+    suggest: [
+      {
+        label: "🏛 Discover My Personality",
+        content: "Can you help me discover my personality type before we dive into career suggestions?"
+      },
+      {
+        label: "🏛 Set Personal Goals",
+        content: "Can you assist me in setting clear and achievable personal goals for the next few months?"
+      },
+      {
+        label: "🏛 Enhance Study Skills",
+        content: "What are some effective techniques to improve my study habits and focus on academic success?"
+      },
+      {
+        label: "🏛 Explore New Hobbies",
+        content: "Could you suggest some hobbies that align with my interests and personality traits?"
+      },
+      {
+        label: "🏛 Boost Self-Confidence",
+        content: "What steps can I take to build my self-confidence in academic and social settings?"
+      }
+    ]
+
   }
 ];
 
