@@ -1823,7 +1823,7 @@ export const careerCoach = [
     title: "🏫 CampusNavigator",
     text: "Discover your perfect school.",
     category: "I’m here to help you find a place to study",
-    assistantId: CareerCoachAssistants.BursaryFinder,
+    assistantId: CareerCoachAssistants.CampusNavigator,
     suggest: [
       {
         label: "Top TVET Colleges",
