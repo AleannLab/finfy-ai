@@ -1978,6 +1978,10 @@ export const careerCoach = [
     assistantId: CareerCoachAssistants.SubjectWise,
     suggest: [
       {
+        label: "🏛 Top Tips for Subject Selection",
+        content: "How do I decide which subjects to choose?"
+      },
+      {
         label: "🏛 Best Subjects for My Career",
         content: "Which subjects should I choose to become an engineer?"
       },
@@ -2016,11 +2020,44 @@ export const careerCoach = [
       {
         label: "🏛 Impact of Subject Choices",
         content: "How will my subject choices affect my career options?"
+      },
+      {
+        label: "🏛 Subjects for Medical Careers",
+        content: "What subjects should I choose to become a doctor?"
+      },
+      {
+        label: "🏛 Importance of Life Sciences",
+        content: "Why is Life Sciences important for my career?"
+      },
+      {
+        label: "🏛 Subject Choices for Law",
+        content: "Which subjects are best for pursuing a career in law?"
+      },
+      {
+        label: "🏛 Business-Focused Subjects",
+        content: "What subjects should I take if I want to start my own business?"
+      },
+      {
+        label: "🏛 Subjects for Engineering Pathways",
+        content: "Which subjects will help me get into engineering?"
+      },
+      {
+        label: "🏛 Math Requirements for Careers",
+        content: "What careers require Pure Mathematics?"
+      },
+      {
+        label: "🏛 Balancing Practical and Academic Goals",
+        content: "What subjects are best if I want both a degree and practical skills?"
+      },
+      {
+        label: "🏛 Subjects for Creative Industries",
+        content: "What subjects should I take for a career in design or media?"
+      },
+      {
+        label: "🏛 Exploring Geography as a Subject",
+        content: "What careers can I pursue with Geography as a subject?"
       }
-    ]
-    
-
-
+    ]   
   }
 ];
 
