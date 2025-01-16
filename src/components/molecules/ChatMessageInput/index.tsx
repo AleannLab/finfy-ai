@@ -167,17 +167,19 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   }, [pathname]);
   
   const onSubmit = async (formData: FormData) => {
+    const inValue = formData.get("message") as string;
+    const userId = user?.id;
+    if (!inValue || !userId) {
+      console.error("Missing message or userId");
+      toast.error("You can't send message without any text")
+      return;
+    }
     setMessage("");
     if (assistActionOpenState === AssistAction.UPLOAD_FILE) {
       setAssistActionOpenState(null);
     };
-    const inValue = formData.get("message") as string;
-    const userId = user?.id;
 
-    if (!inValue || !userId) {
-      console.error("Missing message or userId");
-      return;
-    }
+
     //TODO do
 
     const currentPath = window.location.href;
