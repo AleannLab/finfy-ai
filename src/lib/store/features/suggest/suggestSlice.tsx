@@ -15,6 +15,7 @@ export enum CareerCoachAssistants {
   CareerExplorer = "asst_c6Z0XBtcSSw7Jy3F7zkzeryA",
   CareerXpert = "asst_yKj9zsjFZtcm4yZFhNzfzatn",
   PersonalityQuiz = "asst_YaKOJNycgzRZ62P271Od6hCP",
+  SubjectWise = "asst_mpf05UMJdIybK5W0BWvFL04t"
 }
 
 export enum TeacherAssistants {
@@ -1971,10 +1972,10 @@ export const careerCoach = [
     ],
   },
   {
-    title: "🏛 EduPathfinder",
-    text: "Helping you find the best places to study.",
+    title: "🏛 SubjectWise",
+    text: "Helping You Choose the Right Subjects, for Your Dream Career",
     category: "education-path",
-    assistantId: "",
+    assistantId: CareerCoachAssistants.SubjectWise,
     suggest: []
   }
 ];
