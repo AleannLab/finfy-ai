@@ -1978,26 +1978,48 @@ export const careerCoach = [
     assistantId: CareerCoachAssistants.SubjectWise,
     suggest: [
       {
-        label: "🏛 Discover My Personality",
-        content: "Can you help me discover my personality type before we dive into career suggestions?"
+        label: "🏛 Best Subjects for My Career",
+        content: "Which subjects should I choose to become an engineer?"
       },
       {
-        label: "🏛 Set Personal Goals",
-        content: "Can you assist me in setting clear and achievable personal goals for the next few months?"
+        label: "🏛 Choosing Between Math Options",
+        content: "Should I take Pure Mathematics or Mathematical Literacy?"
       },
       {
-        label: "🏛 Enhance Study Skills",
-        content: "What are some effective techniques to improve my study habits and focus on academic success?"
+        label: "🏛 Personality-Based Subjects",
+        content: "Which subjects align with my personality type?"
       },
       {
-        label: "🏛 Explore New Hobbies",
-        content: "Could you suggest some hobbies that align with my interests and personality traits?"
+        label: "🏛 University Entry Requirements",
+        content: "What subjects are required for university admission in South Africa?"
       },
       {
-        label: "🏛 Boost Self-Confidence",
-        content: "What steps can I take to build my self-confidence in academic and social settings?"
+        label: "🏛 Exploring Elective Options",
+        content: "Which electives should I take if I enjoy science and technology?"
+      },
+      {
+        label: "🏛 Balancing Grades and Interests",
+        content: "How do I pick subjects I like and also perform well in?"
+      },
+      {
+        label: "🏛 Subjects for a Creative Career",
+        content: "What are the best subjects for a career in the arts?"
+      },
+      {
+        label: "🏛 Career Opportunities with Math Literacy",
+        content: "What careers are possible with Mathematical Literacy?"
+      },
+      {
+        label: "🏛 Changing My Subject Choices",
+        content: "Can I change my subjects after starting Grade 10?"
+      },
+      {
+        label: "🏛 Impact of Subject Choices",
+        content: "How will my subject choices affect my career options?"
       }
     ]
+    
+
 
   }
 ];
