@@ -65,7 +65,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       <Header />
       <>
         {!isMessages && <HeaderText />}
-        <div className="flex max-w-[1050px] flex-1 mx-auto flex-col">
+        <div className="flex !max-w-[441px] w-full lg:!max-w-[1050px] flex-1 mx-auto flex-col">
           <div className="flex items-center h-fit text-[#547a91]">
             <Icon type="LightningBolt" className="text-[#547a91]" />
             <p className="text-base">Suggestions</p>

@@ -18,12 +18,36 @@ import { CreateNewChatPop } from "../CreateNewChatPop";
 const Sidebar = () => {
   const router = useRouter();
   const { handleResetChat } = useChat();
-  const { open, handleToggle } = useSidebar();
+  const { open, handleToggle, handleClose } = useSidebar();
   const [isMounted, setIsMounted] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+
+    const handleResize = () => {
+      setIsResizing(true);
+      const isMobile = window.matchMedia("(max-width: 1024px)").matches;
+      if (isMobile) {
+        handleClose(); 
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleClose]);
+
+  useEffect(() => {
+    if (isResizing) {
+      const timeout = setTimeout(() => setIsResizing(false), 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [isResizing]);
+
+
 
   const handleClick = () => {
     handleResetChat();

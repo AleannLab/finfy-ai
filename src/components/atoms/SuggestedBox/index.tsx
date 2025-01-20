@@ -69,12 +69,15 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   const pathname = usePathname();
 
   return (
-    <button onClick={handleClick} className={cn("suggest-box lg:min-h-[112px] flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "!min-w-[336px]" : "")}>
-      <p className="mb-1 text-start  !text-[#272e48] text-sm font-semibold leading-tight">
+    <button onClick={handleClick} className={cn("suggest-box max-h-[44px] max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[112px] lg:max-h-[112px] flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
+      <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
         {icon} {label}
       </p>
       <div className="relative !text-[#547a91]">
-        <p className="pr-6 text-start !text-[#547a91]">
+        <p className="pr-6 text-start !text-[#547a91] overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] line-clamp-2  lg:hidden">
+          &quot;{content}&quot; ↗
+        </p>
+        <p className="pr-6 text-start !text-[#547a91] max-h-[56px] overflow-hidden text-ellipsis whitespace-pre-line line-clamp-2 hidden lg:block">
           &quot;{content}&quot; ↗
         </p>
         {/* <Icon
