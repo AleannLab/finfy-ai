@@ -1934,7 +1934,7 @@ export const careerCoach = [
   {
     title: "📖 PersonalityQuiz",
     text: "Pursue the ideal courses.",
-    category: "courses",
+    category: "I'm here to help you discover your personality type and align it with the best career path for you",
     assistantId: CareerCoachAssistants.PersonalityQuiz,
     suggest: [
       {
@@ -1974,7 +1974,7 @@ export const careerCoach = [
   {
     title: "🏛 SubjectWise",
     text: "Helping You Choose the Right Subjects, for Your Dream Career",
-    category: "education-path",
+    category: "Hi Niev! I'm here to guide you through your Grade 10 subject selection and help you make the best choices for your future. Let’s get started!",
     assistantId: CareerCoachAssistants.SubjectWise,
     suggest: [
       {

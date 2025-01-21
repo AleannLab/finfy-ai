@@ -79,7 +79,7 @@ const HeaderText = () => {
     home: {
       title: (
         <>
-          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category || " I’m your Career Buddy"}.
+          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category || " I’m your Career Buddy"}{suggest?.category?.slice(-1) === "!" ? "" : "."}
         </>
       ),
       cta: <></>,
