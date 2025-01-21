@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/lib/store/hooks";
 import { FC, useEffect } from "react";
 import { careerCoach, setFocusSuggests, setSuggest, setSuggests, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 interface FocusAssistantOptionProps {
   title: string;
   text: string;
@@ -19,9 +19,17 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
   item
 }) => {
   const dispatch = useAppDispatch();
+  const path = usePathname();
+  const router = useRouter();
+  const basePath = path.split("chat")?.[0]
   const handleClick = () => {
     dispatch(setSuggests(suggest));
     dispatch(setSuggest(item))
+    if (path.includes("chat")) {
+      const query = new URLSearchParams({ assistantId: item?.assistantId }).toString();
+      router.push(`${basePath}?${query}`);
+      
+    }
   }; 
   return (
     <button

@@ -13,7 +13,8 @@ import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { careerCoach, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
 
 interface LayoutDashboardProps extends PropsWithChildren { }
 
@@ -30,6 +31,28 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   useEffect(() => {
     dispatch(setMessages([]));
   }, [streamMessage, isLoading])
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+
+  const fetchDataBasedOnRole = async (dataSet: any[]) => {
+    const assistantId = searchParams.get('assistantId');
+
+    if (assistantId) {
+      const currentAssistant = dataSet.filter((item: { assistantId: any; }) => item?.assistantId === assistantId)?.[0];
+      dispatch(setSuggest(currentAssistant));
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete('assistantId');
+  
+      router.replace(`${window.location.pathname}?${params.toString()}`);
+    }
+
+  };
+
+  useEffect(()=> {
+    fetchDataBasedOnRole([...tutor, ...careerCoach, ...teacher])
+  })
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
