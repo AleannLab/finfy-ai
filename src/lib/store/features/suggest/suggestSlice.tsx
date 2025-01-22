@@ -1,12 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 export enum TutorAssistants {
-  Mathematics = "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  Mathematics = "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
   MathsLiteracy = "asst_wu5H6HvbW3o0qLw443ojVx6V",
   English = "asst_vaBKqqnSfyus1suFdb8BGqvK",
   PhysicalSciences = "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
   EconomicsTutor = "asst_stEGiVDTlMIeDM7XGiezPI28",
   Accounting = "asst_kosUuOZshZP2ULAD6zBOob4f",
+
+  // Newly Added Assistants
+  History = "asst_Z51zCCMIQHcHIjskMTCdUShB",
+  BusinessStudies = "asst_wQYJcKbahjyXKsqfEBj09lXz",
+  Economics = "asst_aTBwaKFPUyuF0Mf0jECA0ogY",
+  LifeSciences = "asst_tmcVNihaQQXIJsgBBsmStbVh",
+  Geography = "asst_7pMzMLlE5LixiysB2hFXJWKH",
+  ComputerApplicationsTechnology = "asst_NlwgosvgKl7Pbhi0RWK8CBEk",
+  InformationTechnology = "asst_HbpRzr8Ne3Vigiw0K29J7AZ5",
+  NaturalScience = "asst_HbpRzr8Ne3Vigiw0K29J7AZ5"
 }
 
 export enum CareerCoachAssistants {
