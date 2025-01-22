@@ -118,7 +118,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                   return (
                     <div
                       key={index}
-                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group lg:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#F3F9ED]" : "")}
+                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group md:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#F3F9ED]" : "")}
                     >
                       <button
                         onClick={() =>
@@ -127,7 +127,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                             content.chatId
                           )
                         }
-                        className="flex flex-col w-[90%] lg:w-[180px]"
+                        className="flex flex-col w-[90%] md:w-[180px]"
                       >
                         <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white", pathname.includes(content?.chatId) ? " !text-[#F3F9ED]" : "text-[#547A91]")}>
                           {content.title}
