@@ -74,6 +74,8 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   const isActiveType =
     pathname.includes(item.href);
 
+    console.log("item.href", item.href, pathname, isActiveType)
+
   return (
     <Accordion.Item className="flex flex-col max-w-full gap-0.5" value={item.value}>
       <Accordion.Trigger
@@ -95,7 +97,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             onClick={onClick}
             className="flex gap-3 items-center"
           >
-            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#F3F9ED]", isActiveType ? "text-[#F3F9ED] stroke-[#F3F9ED]" : "stroke-[#547A91] text-[#547A91]")}>
+            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#F3F9ED]", isActiveType ? "!text-[#F3F9ED] !stroke-[#F3F9ED]" : "!stroke-[#547A91] !text-[#547A91]")}>
               <Icon />
             </span>
             <span className={cn("group-hover:text-[#F3F9ED] ", isActiveType ? "text-[#F3F9ED] " : "")}>{item.title}</span>
