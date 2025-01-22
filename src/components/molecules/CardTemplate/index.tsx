@@ -5,6 +5,7 @@ import { FC, PropsWithChildren, ReactNode } from "react";
 interface CardTemplateComponentProps extends PropsWithChildren {
   title?: ReactNode;
   description?: string;
+  descriptionBtn?: any;
   classes?: {
     card?: string;
     cardHeader?: string;
@@ -16,6 +17,7 @@ interface CardTemplateComponentProps extends PropsWithChildren {
 const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
   title,
   description,
+  descriptionBtn,
   children,
   classes,
 }) => {
@@ -31,7 +33,7 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {title && typeof title === "string" ? (
             <Card.Title
               className={cn(
-                "text-[#547a91] text-2xl text-start font-bold",
+                "text-[#272E48] text-2xl text-start font-bold",
                 classes?.cardTitle
               )}
             >
@@ -43,11 +45,14 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {description && (
             <Card.Description
               className={cn(
-                "text-sm font-medium mt-2",
+                "text-sm text-[#547A91] font-medium mt-2",
                 classes?.cardDescription
               )}
             >
               {description}
+              <>
+                {descriptionBtn && descriptionBtn}
+              </>
             </Card.Description>
           )}
         </Card.Header>

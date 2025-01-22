@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { createUser } from "@/lib/store/features/user/userSlice";
 import { getErrorMessage, resetCookies } from "@/utils/helpers";
+import Link from "next/link";
 
 const CardSignUp = () => {
   const router = useRouter();
@@ -19,10 +20,11 @@ const CardSignUp = () => {
   const handleClickSignUpButton = (formData: FormData) => {
     startTransition(async () => {
       const email = formData.get("email") as string;
+      const name = formData.get("username") as string;
       const ERROR_DUPLICATE_CODE = "23505";
       try {
         resetCookies();
-        const data: any = await dispatch(createUser({ email }));
+        const data: any = await dispatch(createUser({ email, name }));
         if (data?.error?.code !== ERROR_DUPLICATE_CODE) {
           const { errorMessage } = await createAccountAction(formData);
           if (errorMessage) {
@@ -40,7 +42,7 @@ const CardSignUp = () => {
     });
   };
   return (
-    <CardTemplate title="Sign Up">
+    <CardTemplate descriptionBtn={<Link href="/login" className="text-[#FBAB18] ml-1">Log in</Link>} description="Already have an account?" title="Sign Up">
       <form action={handleClickSignUpButton}>
         <CardTemplate.Content className="flex flex-col gap-4 mt-4">
           <Field
@@ -57,20 +59,18 @@ const CardSignUp = () => {
             type="password"
             disabled={isPending}
           />
-        </CardTemplate.Content>
-        <CardTemplate.Footer className="flex flex-col gap-4 mt-4">
-          <Button disabled={isPending} type="submit" size="xl" full>
-            {isPending ? <Loader2 className="animate-spin" /> : "Sign up"}
-          </Button>
-          <Button
-            disabled={isPending}
-            size="xl"
-            variant="ghost"
+          <span className="text-[#A1A1AA] text-sm">Use 6-20 characters from at least 2 categories: letters, numbers, special characters.</span>
+          <Field
+            name="username"
+            label={"Username"}
             full
-            href="/login"
-            as="link"
-          >
-            Log In
+            type="text"
+            placeholder="Optional"
+          />
+        </CardTemplate.Content>
+        <CardTemplate.Footer className="flex flex-col gap-4 mt-6">
+          <Button disabled={isPending} className="!bg-transparent !rounded-md" type="submit" size="xl" full>
+            {isPending ? <Loader2 className="animate-spin" /> : "Sign up"}
           </Button>
         </CardTemplate.Footer>
       </form>

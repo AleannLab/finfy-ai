@@ -72,7 +72,7 @@ export const fetchUserById = createAsyncThunk<User, number>(
   }
 );
 
-export const createUser = createAsyncThunk<User, Pick<User, "email">>(
+export const createUser = createAsyncThunk<User, any>(
   "users/createUser",
   async (newUser) => {
     const { data, error } = await supabase

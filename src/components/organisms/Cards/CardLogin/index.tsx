@@ -32,7 +32,7 @@ const CardLogin = () => {
 
   return (
     <CardTemplate
-      title="Login"
+      title="Log in"
       description="To continue, please enter your password."
     >
       <form action={handleClickLogInButton}>
@@ -52,15 +52,15 @@ const CardLogin = () => {
             type="password"
           />
         </CardTemplate.Content>
-        <CardTemplate.Footer className="flex flex-col w-full justify-between">
-          <div className="flex flex-col gap-4 mt-4 w-full">
-            <Button disabled={isPending} size="xl" full type="submit">
+        <CardTemplate.Footer className="flex flex-col w-full mt-6 justify-center items-center">
+        <div className="flex flex-col gap-4 mt-4 w-full">
+            <Button disabled={isPending} className="!rounded-md" size="xl" full type="submit">
               {isPending ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>
             <Button
               disabled={isPending}
               size="xl"
-              variant="ghost"
+              className="!rounded-md !bg-transparent"
               full
               href="/sign-up"
               as="link"
@@ -71,7 +71,7 @@ const CardLogin = () => {
           <Button
             variant="link"
             size="xs"
-            className="text-xs text-purple-5 underline-offset-1 underline font-normal self-end"
+            className="text-md-center rounded-md mx-auto mt-6  underline-offset-1 underline font-normal self-end"
             href="/reset-password"
             as="link"
           >

@@ -50,6 +50,9 @@ export async function middleware(request: NextRequest) {
     "/update-password",
     "/reset-password",
     "/send-reset-password",
+    "/terms-of-service",
+    "/usage-policy",
+    "/privacy-policy",
   ];
   const isProtectedRoute = protectedRoutes.includes(path);
   const isAuthRoute = authRoutes.includes(path);
