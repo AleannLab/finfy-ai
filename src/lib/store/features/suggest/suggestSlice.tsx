@@ -1585,68 +1585,46 @@ export const tutor = [
   {
     title: "📊 Business Studies",
     text: "Excel in business studies and ace every test.",
+    assistantId: TutorAssistants.BusinessStudies,
     suggest: [
       {
-        label: "Business Case Studies",
-        content: "Can you provide case studies to analyze for practice?",
-        icon: "📊",
-        category: "business-studies",
+        label: "CAPS-Aligned Lesson and Activity Designer",
+        content: "Design a Grade 10 lesson plan on 'Forms of Ownership,' including objectives, key content, and a group activity related to South African businesses.",
+        icon: "📚",
+        category: "lesson-craft",
       },
       {
-        label: "Marketing Concepts",
-        content: "Help me understand marketing strategies for my test.",
-        icon: "📊",
-        category: "business-studies",
+        label: "Flexible Assessment and CAPS-Consistent Grading Tool",
+        content: "Generate a Grade 12 mid-year exam paper on 'Management and Leadership,' with a detailed memorandum and CAPS-aligned rubrics.",
+        icon: "📝",
+        category: "assess-genie",
       },
       {
-        label: "Grade My Business Answers",
-        content: "Can you grade my responses to business studies questions?",
-        icon: "📊",
-        category: "business-studies",
+        label: "Multi-Language Explanation and Example Generator",
+        content: "Explain 'SWOT Analysis' for Grade 10 in simple terms, with an example of a local South African startup.",
+        icon: "🔍",
+        category: "clarity-bot",
       },
       {
-        label: "Improve Business Analysis",
-        content: "How can I improve my business analysis skills?",
+        label: "Student Progress Tracker with Tailored Support",
+        content: "Analyze Grade 12 learners’ performance in 'Investment and Insurance' and recommend intervention strategies.",
         icon: "📊",
-        category: "business-studies",
+        category: "insight-max",
       },
       {
-        label: "Detailed Feedback",
-        content: "Can you review my business answers and provide feedback?",
-        icon: "📊",
-        category: "business-studies",
+        label: "Interactive Learning and Critical Thinking Enhancer",
+        content: "Design a role-play activity for Grade 12 on 'Business Ethics,' where students debate ethical dilemmas in advertising.",
+        icon: "💡",
+        category: "engage-ai",
       },
       {
-        label: "Exam Prep Plan",
-        content: "Help me create a study plan for Business Studies.",
-        icon: "📊",
-        category: "business-studies",
-      },
-      {
-        label: "Review Marking Scheme",
-        content: "How does my answer compare to business guidelines?",
-        icon: "📊",
-        category: "business-studies",
-      },
-      {
-        label: "Understanding Economic Indicators",
-        content: "Can you explain key economic indicators?",
-        icon: "📊",
-        category: "business-studies",
-      },
-      {
-        label: "Targeted Tutoring",
-        content: "Which business topics should I focus on to boost my score?",
-        icon: "📊",
-        category: "business-studies",
-      },
-      {
-        label: "Retake Practice Questions",
-        content: "Can I try another business question and get feedback?",
-        icon: "📊",
-        category: "business-studies",
+        label: "Mental Health and Classroom Wellbeing Monitor",
+        content: "Provide time-saving strategies for Grade 12 teachers during exam preparation for 'Business Roles.'",
+        icon: "💙",
+        category: "wellness-watch",
       },
     ],
+
   },
   {
     title: "🌍 Geography",
@@ -2067,7 +2045,7 @@ export const careerCoach = [
         label: "🏛 Exploring Geography as a Subject",
         content: "What careers can I pursue with Geography as a subject?"
       }
-    ]   
+    ]
   }
 ];
 
