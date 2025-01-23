@@ -30,62 +30,63 @@ const tools: any = [
     },
   },
   {
-    type: "function",
-    function: {
-      name: "render_shape",
-      description: "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. For complex shapes, such as circles, ensure there are more than 50 points for smooth rendering. Shapes can be scaled for larger rendering. Wrap all svg in <li></li>",
-      parameters: {
-        type: "object",
-        properties: {
-          shapeType: {
-            type: "string",
-            description: "Type of shape to render (e.g., 'circle', 'rectangle', 'polygon')."
+    "type": "function",
+    "function": {
+      "name": "render_shape",
+      "description": "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. This function should only be used when explicitly requested to render a shape. The function will directly return the shape in markdown format as an SVG wrapped in <li></li>. There is no need to return the shape again as a response after execution. The shape will automatically render upon the tool's execution. Therefore, the tool should only be executed when the shape needs to be displayed. Shapes will be rendered with fixed dimensions to ensure they are clearly visible on both mobile and desktop devices, regardless of the input points' size or aspect ratio.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "shapeType": {
+            "type": "string",
+            "description": "Type of shape to render (e.g., 'circle', 'rectangle', 'polygon')."
           },
-          dimensions: {
-            type: "object",
-            description: "Dimensions and properties of the shape.",
-            properties: {
-              radius: {
-                type: "number",
-                description: "Radius of the circle (required for circles)."
+          "dimensions": {
+            "type": "object",
+            "description": "Fixed dimensions and properties of the shape. These dimensions ensure consistent rendering across different devices.",
+            "properties": {
+              "radius": {
+                "type": "number",
+                "description": "Radius of the circle (required for circles). If not specified, a default value ensuring visibility on mobile and desktop will be applied."
               },
-              width: {
-                type: "number",
-                description: "Width of the rectangle (required for rectangles)."
+              "width": {
+                "type": "number",
+                "description": "Width of the rectangle (required for rectangles). A default fixed width will be applied for consistency."
               },
-              height: {
-                type: "number",
-                description: "Height of the rectangle (required for rectangles)."
+              "height": {
+                "type": "number",
+                "description": "Height of the rectangle (required for rectangles). A default fixed height will be applied for consistency."
               }
             }
           },
-          points: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                x: {
-                  type: "number",
-                  description: "X-coordinate of the point."
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number",
+                  "description": "X-coordinate of the point."
                 },
-                y: {
-                  type: "number",
-                  description: "Y-coordinate of the point."
+                "y": {
+                  "type": "number",
+                  "description": "Y-coordinate of the point."
                 }
               },
-              required: ["x", "y"]
+              "required": ["x", "y"]
             },
-            description: "Array of points for polygons or other custom shapes. Minimum 50 points for smoother rendering."
+            "description": "Array of points for polygons or other custom shapes. A minimum of 50 points is required for smoother rendering. The tool will automatically scale the points to ensure the shape fits within the fixed dimensions for clear visibility on both mobile and desktop."
           },
-          color: {
-            type: "string",
-            description: "Color of the shape (e.g., 'red', '#ff0000')."
+          "color": {
+            "type": "string",
+            "description": "Color of the shape (e.g., 'red', '#ff0000')."
           }
         },
-        required: ["shapeType", "dimensions"]
+        "required": ["shapeType", "dimensions"]
       }
     }
   }
+
 ];
 
 async function renderGraph(params: any, controller: any, encoder: any): Promise<string> {
@@ -98,7 +99,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
   const { shapeType, dimensions, color, points, name } = params;
 
   let shapeHtml = "";
-  const scaleFactor = 2; // Scaling factor for rendering
+  const scaleFactor = 10; // Scaling factor for rendering
 
   switch (shapeType) {
     case "circle":
@@ -164,7 +165,8 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
 
   // Sending the HTML to the stream
   controller.enqueue(encoder.encode(`<li className="bolt"> Generated ${shapeType}: \n\n <p className="shape-container">\n\n ${shapeHtml} \n\n </p> \n\n </li>`));
-  return `<div className="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
+  // return `<div className="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
+  return "";
 }
 
 
@@ -295,21 +297,21 @@ export async function POST(req: NextRequest) {
 
     async function waitForRunCompletion(openai: any, runId: string) {
       let status = "in_progress";
-    
+
       while (status === "in_progress") {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+
         const run = await openai.beta.threads.runs.retrieve(runId);
         status = run.status;
-    
+
       }
-    
+
       if (status !== "completed") {
         throw new Error(`Run ${runId} did not complete successfully. Status: ${status}`);
       }
-    
+
     }
-    
+
 
     let isProcessingTool = false;
 
@@ -322,58 +324,58 @@ export async function POST(req: NextRequest) {
       currentChatId: string
     ) {
       isProcessingTool = false;
-    
+
       try {
         for await (const event of stream) {
           if (controller.desiredSize === null) {
             console.error("Stream controller closed; stopping processing.");
             return;
           }
-    
-    
+
+
           const messageContent = extractMessageContent(event);
           if (messageContent && !isProcessingTool) {
             console.log("Enqueuing message content:", messageContent);
             controller.enqueue(encoder.encode(messageContent));
           }
-    
+
           const currentRun = stream.currentRun();
           if (!currentRun) {
             console.warn("No current run found.");
             continue;
           }
-    
-    
+
+
           if (currentRun.status === "requires_action") {
             isProcessingTool = true;
-    
+
             const functions =
               currentRun?.required_action?.submit_tool_outputs?.tool_calls || [];
-    
+
             if (!functions.length) {
               console.warn("No tool calls found in current run.");
               isProcessingTool = false;
               continue;
             }
-    
+
             console.log(
               "Functions to call:",
               functions.map((f: { function: { name: string } }) => f.function.name)
             );
-    
+
             const toolOutputs: any[] = [];
-    
+
             for (const func of functions) {
               let result;
-    
+
               try {
-    
+
                 result = await availableFunctions[func.function.name](
                   func.function.arguments ? JSON.parse(func.function.arguments) : "",
                   controller,
                   encoder
                 );
-    
+
                 if (!result) {
                   console.warn(
                     `Function ${func.function.name} returned no output. Using placeholder.`
@@ -382,7 +384,7 @@ export async function POST(req: NextRequest) {
                     message: "No data returned from the tool. Placeholder data used.",
                   };
                 }
-    
+
                 toolOutputs.push({
                   tool_call_id: func.id,
                   output: JSON.stringify(result),
@@ -398,7 +400,7 @@ export async function POST(req: NextRequest) {
                 });
               }
             }
-    
+
             try {
               const newStream = openai.beta.threads.runs.submitToolOutputsStream(
                 currentChatId,
@@ -407,8 +409,8 @@ export async function POST(req: NextRequest) {
                   tool_outputs: toolOutputs,
                 }
               );
-    
-    
+
+
               await processStream(
                 newStream,
                 controller,
@@ -437,8 +439,8 @@ export async function POST(req: NextRequest) {
       } finally {
         console.log("Stream processing completed.");
       }
-    }  
-    
+    }
+
     const readableStream = new ReadableStream({
       async start(controller) {
         try {
