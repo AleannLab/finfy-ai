@@ -13,47 +13,49 @@ import { cn } from "@/lib/utils";
 import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { careerCoach, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
 
-interface LayoutDashboardProps extends PropsWithChildren { }
+interface LayoutDashboardProps extends PropsWithChildren {}
 
 const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const { messages, isLoading, streamMessage } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const router = useRouter();
 
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
 
-
   useEffect(() => {
     dispatch(setMessages([]));
-  }, [streamMessage, isLoading])
-
-  // const searchParams = useSearchParams();
-  const router = useRouter();
-
+  }, [streamMessage, isLoading]);
 
   const fetchDataBasedOnRole = async (dataSet: any[]) => {
-    // const assistantId = searchParams.get('assistantId');
-    const assistantId = "";
+    // Wrap `useSearchParams` in a `useEffect` to ensure it only runs on the client
+    const searchParams = new URLSearchParams(window.location.search); // Use `window.location.search` directly to avoid server-side rendering issues
+    const assistantId = searchParams.get("assistantId");
+
+    console.log(assistantId, "assistantId")
 
     if (assistantId) {
-      const currentAssistant = dataSet.filter((item: { assistantId: any; }) => item?.assistantId === assistantId)?.[0];
-      dispatch(setSuggest(currentAssistant));
-      // const params = new URLSearchParams(searchParams.toString());
-      // params.delete('assistantId');
-  
-      // router.replace(`${window.location.pathname}?${params.toString()}`);
-    }
+      const currentAssistant = dataSet.find(
+        (item: { assistantId: any }) => item?.assistantId === assistantId
+      );
+      if (currentAssistant) {
+        dispatch(setSuggest(currentAssistant));
+      }
 
+      // Remove `assistantId` from the URL without reloading the page
+      searchParams.delete("assistantId");
+      router.replace(`${pathname}?${searchParams.toString()}`);
+    }
   };
 
-  useEffect(()=> {
-    fetchDataBasedOnRole([...tutor, ...careerCoach, ...teacher])
-  })
+  useEffect(() => {
+    fetchDataBasedOnRole([...tutor, ...careerCoach, ...teacher]);
+  }, []); // Run this effect only once when the component mounts
 
   const { addChart, deleteChart, charts } = useDynamicChart();
 
