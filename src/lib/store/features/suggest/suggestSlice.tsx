@@ -29,12 +29,19 @@ export enum CareerCoachAssistants {
 }
 
 export enum TeacherAssistants {
-  LessonCraft = "asst_nxJVZh17j23ovTc4923NOdc4",
-  AssessGenie = "asst_Vjl8Br7Coh1M2waAnahdbvZ7",
-  InsightMax = "asst_BvSZyrPkHJUu27VBJgigiMgK",
-  EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
-  ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
-  WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8",
+  // LessonCraft = "asst_nxJVZh17j23ovTc4923NOdc4",
+  // AssessGenie = "asst_Vjl8Br7Coh1M2waAnahdbvZ7",
+  // InsightMax = "asst_BvSZyrPkHJUu27VBJgigiMgK",
+  // EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
+  // ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
+  // WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8", 
+  BusinessStudies = "asst_bEooVJojtlmBl3qO2z7xgIx0",
+  Mathematics = "asst_quosLWwOUiWyRxoUF3sn9RBE",
+  MathematicalLiteracy = "asst_GNr95kfHSeLTztEukBB1v3We",
+  PhysicalSciences = "asst_PZLeW6lOto3Aq1Dbm4MId5Ji",
+  LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
+  ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
+  InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
 }
 
 export const defaultCareerCoachAssistant = {
@@ -909,11 +916,11 @@ export const careerCoachAssistantSuggestionData = [
 
 export const teacherSuggestionData = [
   {
-    title: "📝📚 LessonCraft",
-    text: "CAPS-Aligned Lesson and Activity Designer",
-    category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
-    assistantId: TeacherAssistants.LessonCraft,
-    label: "LessonCraft",
+    title: "📚 Business Studies",
+    text: "Deliver CAPS-aligned, NSC-ready lessons and assessments for Grades 10-12. Equip your students with real-world business insights through engaging activities tailored to South Africa's unique business context.",
+    category: "I’m your CAPS-aligned Business Studies Assistant.",
+    assistantId: TeacherAssistants.BusinessStudies,
+    label: "BusinessStudies",
     isDefault: "true",
     suggest: [
       {
@@ -941,29 +948,28 @@ export const teacherSuggestionData = [
         content: "Recommends digital tools and multimedia elements (like videos or slides) to enhance lesson delivery and student engagement."
       }
     ],
-    content: "CAPS-Aligned Lesson and Activity Designer.",
-    icon: "📝📚",
+    content: "CAPS-aligned Business Studies Assistant.",
+    icon: "📚",
     instructions: `
       System settings:
       Tool use: enabled.
 
       Instructions:
-      - You are a teaching assistant focused on helping with CAPS-aligned lesson planning and engaging activities.
-      - Be supportive, creative, and offer dynamic solutions to help teachers.
-      - Provide assistance in structuring lesson plans, creating activities, and offering strategies for classroom management.
-      - Be informative and tailored to the needs of educators.
+      - You are a teaching assistant focused on CAPS-aligned lessons and engaging activities for Business Studies.
+      - Provide real-world insights and examples tailored to South Africa’s business context.
+      - Be supportive and dynamic in assisting teachers with structured plans and strategies.
 
       Personality:
-      - Professional and knowledgeable.
-      - Friendly and engaging when interacting with teachers.
+      - Professional and resourceful.
+      - Engaging and culturally relevant in your approach.
     `
   },
   {
-    title: "🧩📊 AssessGenie",
-    text: "Flexible Assessment and CAPS-Consistent Grading Tool",
-    category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: TeacherAssistants.AssessGenie,
-    label: "AssessGenie",
+    title: "➕ Mathematics",
+    text: "Simplify your Grade 10-12 math teaching with CAPS-aligned problem sets, step-by-step solutions, and differentiated strategies, all tailored to the NSC curriculum.",
+    category: "I’m your Mathematics Assistant.",
+    assistantId: TeacherAssistants.Mathematics,
+    label: "Mathematics",
     isDefault: "true",
     suggest: [
       {
@@ -991,28 +997,28 @@ export const teacherSuggestionData = [
         content: "Provides tools for student self-assessment and peer evaluation, promoting reflective learning and collaboration."
       }
     ],
-    content: "Flexible Assessment and CAPS-Consistent Grading Tool.",
-    icon: "🧩📊",
+    content: "CAPS-aligned Mathematics Assistant.",
+    icon: "➕",
     instructions: `
       System settings:
       Tool use: enabled.
 
       Instructions:
-      - You are a flexible assessment tool, providing CAPS-compliant grading solutions and customizable assessments.
-      - Offer diverse question types, grading rubrics, and feedback mechanisms for teachers.
-      - Ensure fair assessment practices while promoting student understanding.
+      - Provide CAPS-aligned problem sets and assessments for Mathematics.
+      - Offer step-by-step solutions and strategies tailored to the NSC curriculum.
+      - Be detailed, structured, and engaging in your support for math educators.
 
       Personality:
-      - Accurate and detailed in grading and feedback.
-      - Helpful and thorough in assessment customization.
+      - Analytical and accurate.
+      - Clear and supportive in simplifying complex concepts.
     `
   },
   {
-    title: "🌐🔍 ClarityBot",
-    text: "Multi-Language Explanation and Example Generator",
-    category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: TeacherAssistants.ClarityBot,
-    label: "ClarityBot",
+    title: "📊 Mathematical Literacy",
+    text: "Empower your Grade 10-12 students to apply math in real-life scenarios with CAPS-aligned, NSC-focused lessons and practical activities designed for South African contexts.",
+    category: "I’m your Mathematical Literacy Assistant.",
+    assistantId: TeacherAssistants.MathematicalLiteracy,
+    label: "MathematicalLiteracy",
     isDefault: "true",
     suggest: [
       {
@@ -1040,28 +1046,28 @@ export const teacherSuggestionData = [
         content: "Recommends visual aids and diagrams that complement verbal explanations, supporting varied learning styles and enhancing retention."
       }
     ],
-    content: "Multi-Language Explanation and Example Generator.",
-    icon: "🌐🔍",
+    content: "CAPS-aligned Mathematical Literacy Assistant.",
+    icon: "📊",
     instructions: `
       System settings:
       Tool use: enabled.
 
       Instructions:
-      - Provide translations, cultural examples, and simplified explanations for complex topics.
-      - Support teachers in bridging language gaps and improving student comprehension.
-      - Be adaptive and culturally sensitive.
+      - Assist with Mathematical Literacy lessons and activities.
+      - Provide real-world examples and culturally relevant scenarios for practical learning.
+      - Be engaging and adaptable to the diverse needs of students.
 
       Personality:
-      - Clear, concise, and inclusive.
-      - Focused on breaking barriers to understanding.
+      - Practical and relatable.
+      - Focused on connecting math with everyday applications.
     `
   },
   {
-    title: "📈🧭 InsightMax",
-    text: "Student Progress Tracker with Tailored Support",
-    category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: TeacherAssistants.InsightMax,
-    label: "InsightMax",
+    title: "🧪 Physical Sciences",
+    text: "Bring science to life for Grade 10-12 learners with CAPS-aligned, NSC-ready experiments, simulations, and clear explanations that simplify complex concepts.",
+    category: "I’m your Physical Sciences Assistant.",
+    assistantId: TeacherAssistants.PhysicalSciences,
+    label: "PhysicalSciences",
     isDefault: "true",
     suggest: [
       {
@@ -1089,23 +1095,24 @@ export const teacherSuggestionData = [
         content: "Recognizes patterns in student errors, enabling teachers to address common misconceptions early and improve concept clarity."
       }
     ],
-    content: "Student Progress Tracker with Tailored Support.",
-    icon: "📈🧭",
+    content: "CAPS-aligned Physical Sciences Assistant.",
+    icon: "🧪",
     instructions: `
       System settings:
       Tool use: enabled.
 
       Instructions:
-      - Provide tools and insights to track student progress and identify gaps in understanding.
-      - Offer strategies for intervention, remediation, and improving overall class performance.
-      - Be data-driven and supportive in providing actionable insights.
+      - Offer CAPS-aligned experiments, simulations, and concept explanations.
+      - Simplify complex science topics to make them accessible for all learners.
+      - Be clear, hands-on, and supportive in assisting teachers.
 
       Personality:
-      - Analytical, supportive, and precise.
-      - Focused on helping students and teachers succeed together.
+      - Precise and scientific.
+      - Interactive and practical in approach.
     `
   }
 ];
+
 
 export const tutor = [
   {
@@ -2051,10 +2058,10 @@ export const careerCoach = [
 
 export const teacher = [
   {
-    title: "📝📚 LessonCraft",
-    text: "CAPS-Aligned Lesson and Activity Designer",
-    category: "I’m your CAPS-Aligned Lesson and Activity Designer.",
-    assistantId: TeacherAssistants.LessonCraft,
+    title: "📚 Business Studies",
+    text: "Deliver CAPS-aligned, NSC-ready lessons and assessments for Grades 10-12. Equip your students with real-world business insights through engaging activities tailored to South Africa's unique business context.",
+    category: "I’m your CAPS-aligned Business Studies Assistant.",
+    assistantId: TeacherAssistants.BusinessStudies,
     suggest: [
       {
         label: "📝📚 Generate CAPS-Compliant Lesson Plans",
@@ -2083,10 +2090,10 @@ export const teacher = [
     ]
   },
   {
-    title: "🧩📊 AssessGenie",
-    text: "Flexible Assessment and CAPS-Consistent Grading Tool",
-    category: "I’m a Flexible Assessment and CAPS-Consistent Grading Tool",
-    assistantId: TeacherAssistants.AssessGenie,
+    title: "➕ Mathematics",
+    text: "Simplify your Grade 10-12 math teaching with CAPS-aligned problem sets, step-by-step solutions, and differentiated strategies, all tailored to the NSC curriculum.",
+    category: "I’m your Mathematics Assistant.",
+    assistantId: TeacherAssistants.Mathematics,
     suggest: [
       {
         label: "🧩📊 Create CAPS-Aligned Assessments",
@@ -2115,10 +2122,10 @@ export const teacher = [
     ]
   },
   {
-    title: "🌐🔍 ClarityBot",
-    text: "Multi-Language Explanation and Example Generator",
-    category: "I’m your Multi-Language Explanation and Example Generator",
-    assistantId: TeacherAssistants.ClarityBot,
+    title: "📊 Mathematical Literacy",
+    text: "Empower your Grade 10-12 students to apply math in real-life scenarios with CAPS-aligned, NSC-focused lessons and practical activities designed for South African contexts.",
+    category: "I’m your Mathematical Literacy Assistant.",
+    assistantId: TeacherAssistants.MathematicalLiteracy,
     suggest: [
       {
         label: "🌐🔍 Translate Complex Concepts Across Languages",
@@ -2147,10 +2154,10 @@ export const teacher = [
     ]
   },
   {
-    title: "📈🧭 InsightMax",
-    text: "Student Progress Tracker with Tailored Support",
-    category: "I’m your Student Progress Tracker with Tailored Support",
-    assistantId: TeacherAssistants.InsightMax,
+    title: "🧪 Physical Sciences",
+    text: "Bring science to life for Grade 10-12 learners with CAPS-aligned, NSC-ready experiments, simulations, and clear explanations that simplify complex concepts.",
+    category: "I’m your Physical Sciences Assistant.",
+    assistantId: TeacherAssistants.PhysicalSciences,
     suggest: [
       {
         label: "📈🧭 Monitor Individual and Class-Wide Progress",
@@ -2179,10 +2186,10 @@ export const teacher = [
     ]
   },
   {
-    title: "💡🤝 EngageAI",
-    text: "Interactive Learning and Critical Thinking Enhancer",
-    category: " I’m a Interactive Learning and Critical Thinking Enhancer",
-    assistantId: TeacherAssistants.EngageAI,
+    title: "🌱 Life Sciences",
+    text: "Teach Grade 10-12 students the wonders of biology with CAPS-aligned, NSC-focused lessons and activities that connect key concepts to South Africa’s biodiversity and health challenges.",
+    category: "I’m your Life Sciences Assistant.",
+    assistantId: TeacherAssistants.LifeSciences,
     suggest: [
       {
         label: "💡🤝 Generate Group Activity Ideas",
@@ -2211,10 +2218,10 @@ export const teacher = [
     ]
   },
   {
-    title: "💙🕊️ WellnessWatch",
-    text: "Mental Health and Classroom Wellbeing Monitor",
-    category: "I’m your Mental Health and Classroom Wellbeing Monitor",
-    assistantId: TeacherAssistants.WellnessWatch,
+    title: "💻 Computer Applications Technology",
+    text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
+    category: "I’m your Computer Applications Technology Assistant.",
+    assistantId: TeacherAssistants.ComputerApplicationTechnology,
     suggest: [
       {
         label: "💙🕊️ Identify Signs of Student Stress and Burnout",
@@ -2239,6 +2246,22 @@ export const teacher = [
       {
         label: "💙🕊️ Encourage Peer Support and Community Building",
         content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
+      }
+    ]
+  },
+  {
+    title: "👨‍💻 Information Technology",
+    text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
+    category: "I’m your Information Technology Assistant.",
+    assistantId: TeacherAssistants.InformationTechnology,
+    suggest: [
+      {
+        label: "💡🤝 Generate Group Activity Ideas",
+        content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
+      },
+      {
+        label: "💡🤝 Facilitate Peer-Led Discussions",
+        content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
       }
     ]
   }

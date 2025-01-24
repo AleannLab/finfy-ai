@@ -1,3 +1,5 @@
+"use client"
+
 import { WithRedirectProps } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 
