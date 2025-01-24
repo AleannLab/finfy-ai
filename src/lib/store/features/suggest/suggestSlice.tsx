@@ -1526,6 +1526,7 @@ export const tutor = [
   {
     title: "🌱 Life Sciences",
     text: "Master biology topics and crush your exams.",
+    assistantId: TutorAssistants.LifeSciences,
     suggest: [
       {
         label: "Practice Biology Questions",
@@ -1636,6 +1637,7 @@ export const tutor = [
   {
     title: "🌍 Geography",
     text: "Master geography topics and ace your exams.",
+    assistantId: TutorAssistants.Geography,
     suggest: [
       {
         label: "Geography Exam Questions",
