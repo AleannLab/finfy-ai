@@ -32,20 +32,21 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     dispatch(setMessages([]));
   }, [streamMessage, isLoading])
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const router = useRouter();
 
 
   const fetchDataBasedOnRole = async (dataSet: any[]) => {
-    const assistantId = searchParams.get('assistantId');
+    // const assistantId = searchParams.get('assistantId');
+    const assistantId = "";
 
     if (assistantId) {
       const currentAssistant = dataSet.filter((item: { assistantId: any; }) => item?.assistantId === assistantId)?.[0];
       dispatch(setSuggest(currentAssistant));
-      const params = new URLSearchParams(searchParams.toString());
-      params.delete('assistantId');
+      // const params = new URLSearchParams(searchParams.toString());
+      // params.delete('assistantId');
   
-      router.replace(`${window.location.pathname}?${params.toString()}`);
+      // router.replace(`${window.location.pathname}?${params.toString()}`);
     }
 
   };
