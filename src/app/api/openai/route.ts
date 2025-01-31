@@ -141,13 +141,11 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
           y: y * scaleFactor,
         }));
 
-        // Визначення розмірів полігону
         const minX = Math.min(...scaledPoints.map((p) => p.x));
         const minY = Math.min(...scaledPoints.map((p) => p.y));
         const maxX = Math.max(...scaledPoints.map((p) => p.x));
         const maxY = Math.max(...scaledPoints.map((p) => p.y));
 
-        // Нормалізація координат у межах viewBox
         const normalizedPoints = scaledPoints
           .map(({ x, y }) => `${x - minX},${y - minY}`)
           .join(" ");
@@ -313,7 +311,7 @@ export async function POST(req: NextRequest) {
     };
 
     function getVectorStoreId(assistantId: string): string[] {
-      return [vectorStoreMap[assistantId]] || null;
+      return [vectorStoreMap[assistantId]];
     }
 
 
