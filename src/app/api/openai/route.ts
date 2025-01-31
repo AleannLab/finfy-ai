@@ -75,7 +75,7 @@ const tools: any = [
               },
               "required": ["x", "y"]
             },
-            "description": "Array of points for polygons or other custom shapes. A minimum of 50 points is required for smoother rendering. The tool will automatically scale the points to ensure the shape fits within the fixed dimensions for clear visibility on both mobile and desktop."
+            "description": "Array of points for polygons or other custom shapes. A minimum of 50 points is required for smoother rendering. The tool will not automatically scale the points. Generate the shape fits within the fixed dimensions for clear visibility on both mobile and desktop - use standard small size."
           },
           "color": {
             "type": "string",
@@ -85,7 +85,8 @@ const tools: any = [
         "required": ["shapeType", "dimensions"]
       }
     }
-  }
+  },
+  { "type": "file_search" }
 
 ];
 
@@ -113,7 +114,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
           return `${x},${y}`;
         }).join(" ");
 
-        shapeHtml = `<svg width="${radius * 2}" height="${radius * 2}" viewBox="0 0 ${radius * 2} ${radius * 2}">
+        shapeHtml = `<svg width="100%" height="100%" viewBox="0 0 ${radius * 2} ${radius * 2}" preserveAspectRatio="xMidYMid meet">
           <polyline fill="${color || 'none'}" stroke="${color || 'black'}" stroke-width="1" points="${circlePoints}" />
         </svg>`;
       } else {
@@ -125,7 +126,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
       if (dimensions?.width && dimensions?.height) {
         const width = dimensions.width * scaleFactor;
         const height = dimensions.height * scaleFactor;
-        shapeHtml = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+        shapeHtml = `<svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
             <rect width="${width}" height="${height}" fill="${color || 'black'}" />
           </svg>`;
       } else {
@@ -140,18 +141,18 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
           y: y * scaleFactor,
         }));
 
-        // Calculate bounds to dynamically adjust the viewBox
+        // Визначення розмірів полігону
         const minX = Math.min(...scaledPoints.map((p) => p.x));
         const minY = Math.min(...scaledPoints.map((p) => p.y));
         const maxX = Math.max(...scaledPoints.map((p) => p.x));
         const maxY = Math.max(...scaledPoints.map((p) => p.y));
 
-        // Adjust points for the viewBox offset
+        // Нормалізація координат у межах viewBox
         const normalizedPoints = scaledPoints
           .map(({ x, y }) => `${x - minX},${y - minY}`)
           .join(" ");
 
-        shapeHtml = `<svg width="${(maxX - minX) * 3}" height="${(maxY - minY) * 3}" viewBox="0 0 ${maxX - minX} ${maxY - minY}">
+        shapeHtml = `<svg width="100%" height="100%" viewBox="0 0 ${maxX - minX} ${maxY - minY}" preserveAspectRatio="xMidYMid meet">
             <polygon points="${normalizedPoints}" fill="${color || 'green'}" />
           </svg>`;
       } else {
@@ -163,9 +164,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
       shapeHtml = "Error: Unsupported shape type.";
   }
 
-  // Sending the HTML to the stream
   controller.enqueue(encoder.encode(`<li className="bolt"> Generated ${shapeType}: \n\n <p className="shape-container">\n\n ${shapeHtml} \n\n </p> \n\n </li>`));
-  // return `<div className="shape-container p-4 lg:p-10">Generated Shape: ${shapeHtml}</div>`;
   return "";
 }
 
@@ -286,10 +285,67 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    async function getAllVectorStoreIds(): Promise<string[]> {
+      const vectorStores = await openai.beta.vectorStores.list();
+      console.log("vector stores found", vectorStores);
+
+      return vectorStores.data.map(vs => vs.id);
+    }
+
+    const vectorStoreMap: Record<string, string> = {
+      "asst_wQYJcKbahjyXKsqfEBj09lXz": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies
+      "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics
+      "asst_wu5H6HvbW3o0qLw443ojVx6V": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Maths Literacy
+      "asst_vaBKqqnSfyus1suFdb8BGqvK": "vs_MX5w91YMFpqJjWkVbbhfVGTg", // English
+      "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences
+      "asst_stEGiVDTlMIeDM7XGiezPI28": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
+      "asst_kosUuOZshZP2ULAD6zBOob4f": "", // Accounting (No match)
+      "asst_tmcVNihaQQXIJsgBBsmStbVh": "", // Life Sciences (No match in vector stores)
+      "asst_NlwgosvgKl7Pbhi0RWK8CBEk": "", // Computer Applications Technology (No match)
+      "asst_HbpRzr8Ne3Vigiw0K29J7AZ5": "", // Information Technology / Natural Science (No match)
+      "asst_bEooVJojtlmBl3qO2z7xgIx0": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies (Teacher Assistants)
+      "asst_quosLWwOUiWyRxoUF3sn9RBE": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics (Teacher Assistants)
+      "asst_GNr95kfHSeLTztEukBB1v3We": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Mathematical Literacy (Teacher Assistants)
+      "asst_PZLeW6Loto3Aq1Dbm4MId5Ji": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences (Teacher Assistants)
+      "asst_74NyBtJTV1VWDufZc6E0xjla": "", // Life Sciences (Teacher Assistants, no match)
+      "asst_8ccbmmtDJWTZ7ABAdUSzbax8": "", // Computer Applications Technology (Teacher Assistants, no match)
+      "asst_ub7PKtIFXKBAPOlqqcFoYy7B": ""  // Information Technology (Teacher Assistants, no match)
+    };
+
+    function getVectorStoreId(assistantId: string): string[] {
+      return [vectorStoreMap[assistantId]] || null;
+    }
+
+
+    const vectorStoreIds = await getAllVectorStoreIds();
+
+    if (!getVectorStoreId(assistantId)?.[0]) {
+      console.log("No vector stores found!", getVectorStoreId(assistantId)?.[0]);
+    } else {
+      console.log("Vector stores found!", getVectorStoreId(assistantId)?.[0]);
+      const updateResponse = await openai.beta.assistants.update(assistantId, (getVectorStoreId(assistantId)?.length ? {
+        tool_resources: { file_search: { vector_store_ids: getVectorStoreId(assistantId) } },
+        instructions: "Please search for answers in the vector store first before responding.",
+        tools: [{ type: "file_search" }]
+      } : {
+
+      }));
+      console.log("Updated assistant:", updateResponse);
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Ensure update is applied
+
+    }
+
+    // const vectorStoreFiles = await openai.beta.vectorStores.files.list('vs_37ssYcJuMUHoZsMKRCRzC7j0');
+
+    // vectorStoreFiles.data.forEach(file => {
+    //   console.log(`File ID: ${file.id}, Status: ${file.status}`);
+    // });
+
+
     const stream = openai.beta.threads.runs.stream(currentChatId, {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
-      tools,
+      tools: [{ type: "file_search" }, ...tools],
       // instructions: " Please use tools when asked for graph or figure, after please use tools for droving graph ang call it only after a few words or full text (this tool automatically return graph into frontend just call it and provide params), never return image in response in all messages, never replay for message in {} - just us it as instructions. If u write graphs, sharps write as graphs located above your message. Never provide pictures. Provide a lot of dots more then 50. Never Write with graphs 'Here [name] graph: or Here [name] figure:' instead use 'Here [name] graph: or Here [name] figure.' Replace [name] to real figure or graph name"
     });
 
@@ -301,16 +357,28 @@ export async function POST(req: NextRequest) {
       while (status === "in_progress") {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const run = await openai.beta.threads.runs.retrieve(runId);
-        status = run.status;
+        const run = await openai.beta.threads.runs.retrieve(runId, {
+          include: ["step_details.tool_calls[*].file_search.results[*].content"]
+        });
 
+        status = run.status;
+        console.log("Run Status:", status);
+
+        // Check if file_search tool calls exist
+        if (run?.step_details?.tool_calls) {
+          run.step_details.tool_calls.forEach((toolCall: any) => {
+            if (toolCall.type === "file_search") {
+              console.log("File Search Results:", JSON.stringify(toolCall.file_search.results, null, 2));
+            }
+          });
+        }
       }
 
       if (status !== "completed") {
         throw new Error(`Run ${runId} did not complete successfully. Status: ${status}`);
       }
-
     }
+
 
 
     let isProcessingTool = false;
