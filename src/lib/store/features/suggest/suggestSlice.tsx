@@ -924,28 +924,28 @@ export const teacherSuggestionData = [
     isDefault: "true",
     suggest: [
       {
-        label: "📝📚 Generate CAPS-Compliant Lesson Plans",
-        content: "Provides structured lesson outlines aligned with CAPS requirements, ensuring curriculum consistency across subjects."
+        "label": "📚 CAPS-Aligned Lesson and Activity Designer",
+        "content": "Design a Grade 10 lesson plan on 'Forms of Ownership,' including objectives, key content, and a group activity related to South African businesses."
       },
       {
-        label: "📝📚 Create Engaging Activities and Resources",
-        content: "Suggests interactive and hands-on activities tailored to specific topics, making lessons dynamic and engaging for students."
+        "label": "📝 Flexible Assessment and CAPS-Consistent Grading Tool",
+        "content": "Generate a Grade 12 mid-year exam paper on 'Management and Leadership,' with a detailed memorandum and CAPS-aligned rubrics."
       },
       {
-        label: "📝📚 Localize Content for Cultural Relevance",
-        content: "Customizes content with examples and references from South African contexts, making learning more relatable for students."
+        "label": "🔍 Multi-Language Explanation and Example Generator",
+        "content": "Explain 'SWOT Analysis' for Grade 10 in simple terms, with an example of a local South African startup."
       },
       {
-        label: "📝📚 Suggest Cross-Curricular Links",
-        content: "Offers ideas for integrating concepts across subjects, such as connecting environmental studies in Geography with Physical Sciences."
+        "label": "📊 Student Progress Tracker with Tailored Support",
+        "content": "Analyze Grade 12 learners’ performance in 'Investment and Insurance' and recommend intervention strategies."
       },
       {
-        label: "📝📚 Differentiate for Diverse Learning Levels",
-        content: "Designs activities and resources suitable for various proficiency levels, helping teachers support mixed-ability classes."
+        "label": "💡 Interactive Learning and Critical Thinking Enhancer",
+        "content": "Design a role-play activity for Grade 12 on 'Business Ethics,' where students debate ethical dilemmas in advertising."
       },
       {
-        label: "📝📚 Provide Multimedia and Technology Integration Tips",
-        content: "Recommends digital tools and multimedia elements (like videos or slides) to enhance lesson delivery and student engagement."
+        "label": "💙 Mental Health and Classroom Wellbeing Monitor",
+        "content": "Provide time-saving strategies for Grade 12 teachers during exam preparation for 'Business Roles.'"
       }
     ],
     content: "CAPS-aligned Business Studies Assistant.",
@@ -2066,30 +2066,30 @@ export const teacher = [
     assistantId: TeacherAssistants.BusinessStudies,
     suggest: [
       {
-        label: "📝📚 Generate CAPS-Compliant Lesson Plans",
-        content: "Provides structured lesson outlines aligned with CAPS requirements, ensuring curriculum consistency across subjects."
+        "label": "📚 CAPS-Aligned Lesson and Activity Designer",
+        "content": "Design a Grade 10 lesson plan on 'Forms of Ownership,' including objectives, key content, and a group activity related to South African businesses."
       },
       {
-        label: "📝📚 Create Engaging Activities and Resources",
-        content: "Suggests interactive and hands-on activities tailored to specific topics, making lessons dynamic and engaging for students."
+        "label": "📝 Flexible Assessment and CAPS-Consistent Grading Tool",
+        "content": "Generate a Grade 12 mid-year exam paper on 'Management and Leadership,' with a detailed memorandum and CAPS-aligned rubrics."
       },
       {
-        label: "📝📚 Localize Content for Cultural Relevance",
-        content: "Customizes content with examples and references from South African contexts, making learning more relatable for students."
+        "label": "🔍 Multi-Language Explanation and Example Generator",
+        "content": "Explain 'SWOT Analysis' for Grade 10 in simple terms, with an example of a local South African startup."
       },
       {
-        label: "📝📚 Suggest Cross-Curricular Links",
-        content: "Offers ideas for integrating concepts across subjects, such as connecting environmental studies in Geography with Physical Sciences."
+        "label": "📊 Student Progress Tracker with Tailored Support",
+        "content": "Analyze Grade 12 learners’ performance in 'Investment and Insurance' and recommend intervention strategies."
       },
       {
-        label: "📝📚 Differentiate for Diverse Learning Levels",
-        content: "Designs activities and resources suitable for various proficiency levels, helping teachers support mixed-ability classes."
+        "label": "💡 Interactive Learning and Critical Thinking Enhancer",
+        "content": "Design a role-play activity for Grade 12 on 'Business Ethics,' where students debate ethical dilemmas in advertising."
       },
       {
-        label: "📝📚 Provide Multimedia and Technology Integration Tips",
-        content: "Recommends digital tools and multimedia elements (like videos or slides) to enhance lesson delivery and student engagement."
+        "label": "💙 Mental Health and Classroom Wellbeing Monitor",
+        "content": "Provide time-saving strategies for Grade 12 teachers during exam preparation for 'Business Roles.'"
       }
-    ]
+    ],
   },
   {
     title: "➕ Mathematics",
