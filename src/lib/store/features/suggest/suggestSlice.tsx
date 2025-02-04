@@ -444,94 +444,94 @@ export const tutorSuggestionData = [
       - Try speaking quickly as if excited
       `
   },
-  {
-    title: "📖 English",
-    text: "Enhance your English skills and boost your grades.",
-    category: "I’m your personal English tutor",
-    assistantId: TutorAssistants.English,
-    label: "English",
-    isDefault: "true",
-    suggest: [
-      {
-        label: "Practice Essay Writing",
-        content: "Can you provide essay prompts from past English exams?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Comprehension Focus",
-        content: "Help me practice comprehension questions from past papers.",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Grade My Essay",
-        content: "Can you grade my essay and give feedback?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Improve Writing Skills",
-        content: "How can I improve my essay writing for exams?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Exam Prep Plan",
-        content: "Help me create a study plan for my English exam.",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Review Marking Criteria",
-        content: "How does my essay compare to the marking criteria?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Targeted Tutoring",
-        content: "Which English topics should I focus on to improve my score?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Retake Practice Essays",
-        content: "Can I try another essay prompt and get feedback?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Detailed Feedback",
-        content: "Can you review my English answers and provide suggestions?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Understanding Literary Devices",
-        content: "Can you explain literary devices like metaphors and symbolism?",
-        icon: "📖",
-        category: "english",
-      },
-    ],
-    content: "Enhance your English skills and boost your grades.",
-    icon: "📖",
-    instructions: `System settings:
-      Tool use: enabled.
+  // {
+  //   title: "📖 English",
+  //   text: "Enhance your English skills and boost your grades.",
+  //   category: "I’m your personal English tutor",
+  //   assistantId: TutorAssistants.English,
+  //   label: "English",
+  //   isDefault: "true",
+  //   suggest: [
+  //     {
+  //       label: "Practice Essay Writing",
+  //       content: "Can you provide essay prompts from past English exams?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Comprehension Focus",
+  //       content: "Help me practice comprehension questions from past papers.",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Grade My Essay",
+  //       content: "Can you grade my essay and give feedback?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Improve Writing Skills",
+  //       content: "How can I improve my essay writing for exams?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Exam Prep Plan",
+  //       content: "Help me create a study plan for my English exam.",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Review Marking Criteria",
+  //       content: "How does my essay compare to the marking criteria?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Targeted Tutoring",
+  //       content: "Which English topics should I focus on to improve my score?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Retake Practice Essays",
+  //       content: "Can I try another essay prompt and get feedback?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Detailed Feedback",
+  //       content: "Can you review my English answers and provide suggestions?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Understanding Literary Devices",
+  //       content: "Can you explain literary devices like metaphors and symbolism?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //   ],
+  //   content: "Enhance your English skills and boost your grades.",
+  //   icon: "📖",
+  //   instructions: `System settings:
+  //     Tool use: enabled.
 
-      Instructions:
-      - You are an artificial intelligence agent responsible for helping test realtime voice capabilities
-      - Please make sure to respond with a helpful voice via audio
-      - Be kind, helpful, and curteous
-      - It is okay to ask the user questions
-      - Use tools and functions you have available liberally, it is part of the training apparatus
-      - Be open to exploration and conversation
-      - Remember: this is just for fun and testing!
+  //     Instructions:
+  //     - You are an artificial intelligence agent responsible for helping test realtime voice capabilities
+  //     - Please make sure to respond with a helpful voice via audio
+  //     - Be kind, helpful, and curteous
+  //     - It is okay to ask the user questions
+  //     - Use tools and functions you have available liberally, it is part of the training apparatus
+  //     - Be open to exploration and conversation
+  //     - Remember: this is just for fun and testing!
 
-      Personality:
-      - Be upbeat and genuine
-      - Try speaking quickly as if excited
-      `
-  },
+  //     Personality:
+  //     - Be upbeat and genuine
+  //     - Try speaking quickly as if excited
+  //     `
+  // },
   {
     title: "💼 Accounting",
     text: "Ace accounting principles and top your tests.",
@@ -1251,74 +1251,74 @@ export const tutor = [
       },
     ],
   },
-  {
-    title: "📖 English",
-    text: "Enhance your English skills and boost your grades.",
-    category: "I’m your personal English tutor",
-    assistantId: TutorAssistants.English,
-    suggest: [
-      {
-        label: "Practice Essay Writing",
-        content: "Can you provide essay prompts from past English exams?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Comprehension Focus",
-        content: "Help me practice comprehension questions from past papers.",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Grade My Essay",
-        content: "Can you grade my essay and give feedback?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Improve Writing Skills",
-        content: "How can I improve my essay writing for exams?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Exam Prep Plan",
-        content: "Help me create a study plan for my English exam.",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Review Marking Criteria",
-        content: "How does my essay compare to the marking criteria?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Targeted Tutoring",
-        content: "Which English topics should I focus on to improve my score?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Retake Practice Essays",
-        content: "Can I try another essay prompt and get feedback?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Detailed Feedback",
-        content: "Can you review my English answers and provide suggestions?",
-        icon: "📖",
-        category: "english",
-      },
-      {
-        label: "Understanding Literary Devices",
-        content: "Can you explain literary devices like metaphors and symbolism?",
-        icon: "📖",
-        category: "english",
-      },
-    ],
-  },
+  // {
+  //   title: "📖 English",
+  //   text: "Enhance your English skills and boost your grades.",
+  //   category: "I’m your personal English tutor",
+  //   assistantId: TutorAssistants.English,
+  //   suggest: [
+  //     {
+  //       label: "Practice Essay Writing",
+  //       content: "Can you provide essay prompts from past English exams?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Comprehension Focus",
+  //       content: "Help me practice comprehension questions from past papers.",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Grade My Essay",
+  //       content: "Can you grade my essay and give feedback?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Improve Writing Skills",
+  //       content: "How can I improve my essay writing for exams?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Exam Prep Plan",
+  //       content: "Help me create a study plan for my English exam.",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Review Marking Criteria",
+  //       content: "How does my essay compare to the marking criteria?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Targeted Tutoring",
+  //       content: "Which English topics should I focus on to improve my score?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Retake Practice Essays",
+  //       content: "Can I try another essay prompt and get feedback?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Detailed Feedback",
+  //       content: "Can you review my English answers and provide suggestions?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //     {
+  //       label: "Understanding Literary Devices",
+  //       content: "Can you explain literary devices like metaphors and symbolism?",
+  //       icon: "📖",
+  //       category: "english",
+  //     },
+  //   ],
+  // },
   {
     title: "📈 Economics",
     category: "I’m your personal Economics tutor ",
