@@ -33,7 +33,7 @@ const tools: any = [
     "type": "function",
     "function": {
       "name": "render_shape",
-      "description": "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. This function should only be used when explicitly requested to render a shape. The function will directly return the shape in markdown format as an SVG wrapped in <li></li>. There is no need to return the shape again as a response after execution. The shape will automatically render upon the tool's execution. Therefore, the tool should only be executed when the shape needs to be displayed. Shapes will be rendered with fixed dimensions to ensure they are clearly visible on both mobile and desktop devices, regardless of the input points' size or aspect ratio.",
+      "description": "Generates a simple shape (circle, rectangle, polygon, etc.) based on provided parameters. This function should only be used when explicitly requested to render a shape. The function will directly return the shape in markdown format as an SVG wrapped in <p></p>. There is no need to return the shape again as a response after execution. The shape will automatically render upon the tool's execution. Therefore, the tool should only be executed when the shape needs to be displayed. Shapes will be rendered with fixed dimensions to ensure they are clearly visible on both mobile and desktop devices, regardless of the input points' size or aspect ratio.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -162,7 +162,7 @@ async function renderShape(params: any, controller: any, encoder: any): Promise<
       shapeHtml = "Error: Unsupported shape type.";
   }
 
-  controller.enqueue(encoder.encode(`<li className="bolt"> Generated ${shapeType}: \n\n <p className="shape-container">\n\n ${shapeHtml} \n\n </p> \n\n </li>`));
+  controller.enqueue(encoder.encode(`<p className="bolt"> Generated ${shapeType}: \n\n <p className="shape-container">\n\n ${shapeHtml} \n\n </p> \n\n </p>`));
   return "";
 }
 

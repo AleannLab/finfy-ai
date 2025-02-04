@@ -138,7 +138,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
     ),
     a: ({ children, node }: any) => {
       const href = node?.properties?.href || '#';
-    
+
       return (
         <a target="_blank" href={href} className="underline text-blue-700">
           {children}
@@ -149,7 +149,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
       const graphId = node?.properties?.id;
       const shapeId = node?.properties?.id;
       const dataRaw = children;
-    
+
       if (graphId === "GraphId" && typeof dataRaw === "string") {
         let parsedData;
         try {
@@ -158,12 +158,12 @@ const ContentMessage: FC<ContentMessageProps> = ({
           console.error("Error parsing JSON for graph:", error);
           return <div>Error parsing graph data</div>;
         }
-      
+
         const csvData = parsedData?.data;
         if (typeof csvData !== "string" || !parsedData?.data) {
           return <div>Invalid graph data</div>;
         }
-      
+
         const rows = csvData.split("\n").filter(row => row.trim() !== "");
         const points = rows.map(row => {
           const [x, y] = row.split(",").map(Number);
@@ -172,11 +172,11 @@ const ContentMessage: FC<ContentMessageProps> = ({
           }
           return { x, y };
         }).filter(point => !isNaN(point.x) && !isNaN(point.y)); // Filter out invalid points
-      
+
         if (points.length === 0) {
           return <div>No valid data points to display</div>;
         }
-      
+
         const labels = points.map(point => point.x);
         const dataset = {
           label: "Graph Data",
@@ -187,19 +187,19 @@ const ContentMessage: FC<ContentMessageProps> = ({
           pointRadius: 3,
           pointBackgroundColor: "#272E48",
         };
-      
+
         const data = {
           labels,
           datasets: [dataset],
         };
-      
+
         const options = {
           responsive: true,
           plugins: {
             legend: {
               display: false,
               position: "top" as const,
-              
+
             },
             title: {
               display: true,
@@ -221,11 +221,11 @@ const ContentMessage: FC<ContentMessageProps> = ({
             },
           },
         };
-        
-      
+
+
         return <div className="w-full p-3 lg:p-10"><Line data={data} options={options} /></div>;
       }
-  
+
       if (shapeId === "ShapeId" && typeof dataRaw === "string") {
         let parsedData;
         try {
@@ -234,13 +234,13 @@ const ContentMessage: FC<ContentMessageProps> = ({
           console.error("Error parsing JSON for shape:", error);
           return <div>Error parsing shape data</div>;
         }
-      
+
         const { shapeType, dimensions, color, points } = parsedData;
-      
+
         const width = 400;
         const height = 300;
         const padding = 40;
-      
+
         switch (shapeType) {
           // case "circle":
           //   if (dimensions?.radius) {
@@ -248,14 +248,14 @@ const ContentMessage: FC<ContentMessageProps> = ({
           //     const scaleFactor = 50; // Adjusting factor for better visibility
           //     const radius = 50 * scaleFactor;
           //     const numPoints = 100; // Number of points to approximate the circle
-      
+
           //     const circlePoints = Array.from({ length: numPoints }, (_, i) => {
           //       const angle = (i / numPoints) * 2 * Math.PI;
           //       const x = radius + radius * Math.cos(angle);
           //       const y = radius + radius * Math.sin(angle);
           //       return `${x},${y}`;
           //     }).join(" ");
-      
+
           //     return (
           //       <svg
           //         width={radius * 2 + padding}
@@ -274,7 +274,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
           //     );
           //   }
           //   return <div>Error: Missing radius for circle.</div>;
-      
+
           case "polygon":
             if (points && Array.isArray(points)) {
               // Find min/max values to create a dynamic scaling factor
@@ -282,47 +282,47 @@ const ContentMessage: FC<ContentMessageProps> = ({
               const maxX = Math.max(...points.map(p => p.x));
               const minY = Math.min(...points.map(p => p.y));
               const maxY = Math.max(...points.map(p => p.y));
-      
+
               // Guard against invalid min/max values
               if (minX === maxX || minY === maxY) {
                 console.error("Invalid range for polygon scaling");
                 return <div>Error with polygon data range</div>;
               }
-      
+
               const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
               const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
-      
+
               const polygonPoints = points
                 .map(({ x, y }) => `${scaleX(+x)},${scaleY(+y)}`)
                 .join(" ");
-      
+
               return (
                 <svg width={width / 10} height={height / 10} viewBox={`0 0 ${width / 10} ${height / 10}`}>
                   <polygon points={polygonPoints} fill={color || "green"} stroke={color || "black"} strokeWidth="2" />
                 </svg>
               );
             }
-            return <div>Error: Missing points for polygon.</div>     
+            return <div>Error: Missing points for polygon.</div>
           default:
             return <div>Error: Unsupported shape type.</div>;
         }
       }
-       
-  
+
+
       return <div className="markdown !whitespace-normal markdown-special">{children}</div>;
     },
-  
-    
+
+
   };
 
   function removeSpaceBeforePunctuation(text: string): string {
-    return text.replace(/ (\.|\:)/g, '$1');
+    return text?.replace(/ (\.|\:)/g, '$1');
   }
-  
+
 
   function adaptMarkdownForMath(text: string): string {
     const newlinePlaceholder = '__NEWLINE__';
-    text = text.replace(/\n/g, newlinePlaceholder); 
+    text = text.replace(/\n/g, newlinePlaceholder);
     // Handle \begin{align*} blocks
     text = text.replace(/\\begin\{align\*\}(.*?)\\end\{align\*\}/gs, (_, content: string) => {
       // Split the content into lines and wrap each in $...$
@@ -337,7 +337,6 @@ const ContentMessage: FC<ContentMessageProps> = ({
     text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
     text = text.replace(/([.:])\s+(\$\$)/g, '$1$2');
     text = text.replace(new RegExp(newlinePlaceholder, 'g'), '\n');
-    console.log(text, "graphData")
     return removeSpaceBeforePunctuation(text);
   }
 
@@ -346,16 +345,38 @@ const ContentMessage: FC<ContentMessageProps> = ({
       <div className="min-h-[88px] flex-col p-8 bg-[#daede6] rounded-xl border border-[#f3f9ed] justify-center items-end gap-2.5 inline-flex">
         <div className="text-[#272e48] text-base font-normal leading-normal">{text}</div>
         <div className="flex overflow-hidden gap-4">
-            {files?.map((file: any) => {
-              if (file?.preview) {
-                console.log("publicURL", file?.preview)
-                // eslint-disable-next-line @next/next/no-img-element
-                return <img width={300} key={file?.preview} alt={file?.path} src={file?.preview} />
-              }
-            })}
-          </div>
+          {files?.map((file: any) => {
+            if (file?.preview) {
+              console.log("publicURL", file?.preview)
+              // eslint-disable-next-line @next/next/no-img-element
+              return <img width={300} key={file?.preview} alt={file?.path} src={file?.preview} />
+            }
+          })}
+        </div>
       </div>
     )
+  }
+
+  function splitByBoltParagraphs(text: string): Array<{ type: "html" | "markdown"; content: string }> {
+    const regex = /(<p className="bolt">[\s\S]*?<\/p>)(\s*\n\n)/gi;
+
+    const parts: Array<{ type: "html" | "markdown"; content: string }> = [];
+    let lastIndex = 0;
+
+    text?.replace(regex, (match, _, index) => {
+      if (index > lastIndex) {
+        parts.push({ type: "markdown", content: text.slice(lastIndex, index) });
+      }
+      parts.push({ type: "html", content: match });
+      lastIndex = index + match.length;
+      return match;
+    });
+
+    if (lastIndex < text.length) {
+      parts.push({ type: "markdown", content: text.slice(lastIndex) });
+    }
+
+    return parts;
   }
 
 
@@ -387,14 +408,43 @@ const ContentMessage: FC<ContentMessageProps> = ({
         {isUser || isLoading ? (
           text
         ) : (
-          <Markdown
-            className={"markdown !whitespace-normal markdown-special"}
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeRaw, rehypeKatex]}
-            components={renderers}
-          >
-            {adaptMarkdownForMath(text as string) as string}
-          </Markdown>
+          <>
+            {!!streamMessage?.length ? <>
+              <Markdown
+                className={"markdown !whitespace-normal markdown-special"}
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
+                components={renderers}
+              >
+                {adaptMarkdownForMath(text as string) as string}
+              </Markdown>
+            </> :
+              <>
+                {splitByBoltParagraphs(text as string).map((part, index) =>
+                  part.type === "html" ? (
+                    <Markdown
+                      key={index}
+                      className={"markdown !whitespace-normal markdown-special"}
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeRaw, rehypeKatex]}
+                      components={renderers}
+                    >
+                      {adaptMarkdownForMath(part?.content as string) as string}
+                    </Markdown>
+                  ) : (
+                    <Markdown
+                      key={index}
+                      className={"markdown !whitespace-normal markdown-special"}
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeRaw, rehypeKatex]}
+                      components={renderers}
+                    >
+                      {adaptMarkdownForMath(part?.content?.replace("</p>", "") as string) as string}
+                    </Markdown>
+                  )
+                )}
+              </>}
+          </>
         )}
       </p>
     </div>
