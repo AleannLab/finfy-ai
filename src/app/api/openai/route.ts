@@ -12,13 +12,13 @@ const tools: any = [
     type: "function",
     function: {
       name: "render_graph",
-      description: "Generates a graph based on the provided parameters.",
+      description: "Generates a graph based on the provided parameters. Use this to solve equation like x = 1 ",
       parameters: {
         type: "object",
         properties: {
           data: {
             type: "string",
-            description: "The data used to generate the graph in CSV format (e.g., 'x,y\\n-10,-100\\n-8,-64\\n...'). Provide a lot of dots more then 200",
+            description: "The data used to generate the graph in CSV format (e.g., 'x,y\\n-10,-100\\n-8,-64\\n...'). Provide a lot of dots more then 40. If x = q it is line. Always provide correct ranges and, if possible, keep the graph in the range not less X = -3...3, Y = -3...3",
           },
           title: {
             type: "string",
@@ -344,7 +344,7 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools: [{ type: "file_search" }, ...tools],
-      instructions: "Ensure consistent formatting: structured, clear, uniform style"
+      instructions: "Ensure consistent formatting: structured, clear, uniform style. Use render_graph if you need to render or generate graph"
     });
 
     const encoder = new TextEncoder();

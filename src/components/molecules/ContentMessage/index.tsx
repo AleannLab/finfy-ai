@@ -23,6 +23,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import dynamic from 'next/dynamic';
+
 
 // Register Chart.js components
 ChartJS.register(
@@ -165,66 +167,172 @@ const ContentMessage: FC<ContentMessageProps> = ({
         }
 
         const rows = csvData.split("\n").filter(row => row.trim() !== "");
-        const points = rows.map(row => {
-          const [x, y] = row.split(",").map(Number);
-          if (isNaN(x) || isNaN(y)) {
-            console.error("Invalid point detected:", { x, y });
-          }
-          return { x, y };
-        }).filter(point => !isNaN(point.x) && !isNaN(point.y)); // Filter out invalid points
+
+        const points = rows
+          .map(row => {
+            const [x, y] = row.split(",").map(Number);
+            if (isNaN(x) || isNaN(y)) {
+              console.error("Invalid point detected:", { x, y });
+            }
+            return { x, y };
+          })
+          .filter(point => !isNaN(point.x) && !isNaN(point.y));
 
         if (points.length === 0) {
           return <div>No valid data points to display</div>;
         }
 
-        const labels = points.map(point => point.x);
-        const dataset = {
-          label: "Graph Data",
-          data: points.map(point => point.y),
-          borderColor: "#FBAB18",
-          backgroundColor: "rgba(251, 171, 24, 0.2)",
-          tension: 0.4,
-          pointRadius: 3,
-          pointBackgroundColor: "#272E48",
-        };
+        const interpolatedPoints = [];
+        for (let i = 0; i < points.length - 1; i++) {
+          interpolatedPoints.push(points[i]);
+          const midX = (points[i].x + points[i + 1].x) / 2;
+          const midY = (points[i].y + points[i + 1].y) / 2;
+          interpolatedPoints.push({ x: midX, y: midY });
+        }
+        interpolatedPoints.push(points[points.length - 1]);
 
-        const data = {
-          labels,
-          datasets: [dataset],
-        };
+        let minX = Math.min(...interpolatedPoints.map(p => p.x));
+        let maxX = Math.max(...interpolatedPoints.map(p => p.x));
+        let minY = Math.min(...interpolatedPoints.map(p => p.y));
+        let maxY = Math.max(...interpolatedPoints.map(p => p.y));
 
-        const options = {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false,
-              position: "top" as const,
+        minX = Math.min(minX, 0);
+        maxX = Math.max(maxX, 0);
+        minY = Math.min(minY, 0);
+        maxY = Math.max(maxY, 0);
 
-            },
-            title: {
-              display: true,
-              text: "Graph Data Representation",
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "X-Axis",
-              },
-            },
-            y: {
-              title: {
-                display: true,
-                text: "Y-Axis",
-              },
-            },
-          },
-        };
+        if (minX === maxX) {
+          minX -= 1;
+          maxX += 1;
+        }
+        if (minY === maxY) {
+          minY -= 1;
+          maxY += 1;
+        }
 
+        const yPadding = (maxY - minY) * 0.001;
+        const minYWithPadding = minY - yPadding;
+        const maxYWithPadding = maxY + yPadding;
 
-        return <div className="w-full p-3 lg:p-10"><Line data={data} options={options} /></div>;
+        const width = 600;
+        const height = 500;
+        const padding = 60;
+
+        const scaleX = (x: number) =>
+          ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding
+        const scaleY = (y: number) =>
+          height -
+          ((y - minYWithPadding) / (maxYWithPadding - minYWithPadding)) *
+          (height - 2 * padding) -
+          padding;
+
+        const polylinePoints = interpolatedPoints
+          .map(({ x, y }) => `${scaleX(x)},${scaleY(y)}`)
+          .join(" ");
+
+        const TICK_COUNT = 5;
+        function generateTicks(minVal: number, maxVal: number) {
+          const step = (maxVal - minVal) / (TICK_COUNT - 1);
+          const arr: number[] = [];
+          for (let i = 0; i < TICK_COUNT; i++) {
+            const val = minVal + i * step;
+            arr.push(parseFloat(val.toFixed(2)));
+          }
+          return Array.from(new Set(arr));
+        }
+
+        const xTicks = generateTicks(minX, maxX);
+        const yTicks = generateTicks(minYWithPadding, maxYWithPadding);
+
+        return (
+          <div className="svg-container p-3 w-full h-auto lg:p-10">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox={`0 0 ${width} ${height}`}
+              style={{ border: "1px solid #ccc" }}
+            >
+              {[...Array(10)].map((_, i) => {
+                const x = padding + (i / 9) * (width - 2 * padding);
+                const y = padding + (i / 9) * (height - 2 * padding);
+                return (
+                  <React.Fragment key={i}>
+                    <line
+                      x1={x}
+                      y1={padding}
+                      x2={x}
+                      y2={height - padding}
+                      stroke="#ddd"
+                      strokeWidth="1"
+                    />
+                    <line
+                      x1={padding}
+                      y1={y}
+                      x2={width - padding}
+                      y2={y}
+                      stroke="#ddd"
+                      strokeWidth="1"
+                    />
+                  </React.Fragment>
+                );
+              })}
+
+              <line
+                x1={scaleX(0)}
+                y1={padding}
+                x2={scaleX(0)}
+                y2={height - padding}
+                stroke="black"
+                strokeWidth="2"
+              />
+              <line
+                x1={padding}
+                y1={scaleY(0)}
+                x2={width - padding}
+                y2={scaleY(0)}
+                stroke="black"
+                strokeWidth="2"
+              />
+
+              <polyline fill="none" stroke="blue" strokeWidth="3" points={polylinePoints} />
+
+              <text x={scaleX(0) - 4} y={padding - 20} fontSize="14" fill="black">
+                Y
+              </text>
+              <text x={width - padding + 25} y={scaleY(0) + 15} fontSize="14" fill="black">
+                X
+              </text>
+
+              {xTicks.map((val, i) => (
+                <text
+                  key={`xTick-${i}`}
+                  x={scaleX(val)}
+                  y={scaleY(0) + 15}
+                  fontSize="12"
+                  fill="black"
+                  textAnchor="middle"
+                >
+                  {val}
+                </text>
+              ))}
+
+              {yTicks.map((val, i) => (
+                <text
+                  key={`yTick-${i}`}
+                  x={scaleX(0) - 10}
+                  y={scaleY(val) + 4}
+                  fontSize="12"
+                  fill="black"
+                  textAnchor="end"
+                >
+                  {val}
+                </text>
+              ))}
+            </svg>
+          </div>
+        );
       }
+
 
       if (shapeId === "ShapeId" && typeof dataRaw === "string") {
         let parsedData;
