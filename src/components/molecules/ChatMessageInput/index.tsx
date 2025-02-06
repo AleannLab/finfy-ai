@@ -260,7 +260,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     <>
       <form
         action={onSubmit}
-        className="rounded-[50px] md:max-h-16 mx-2  min-h-16  justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
+        className="rounded-[50px] mx-2  min-h-16 py-0  justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
       >
         <div className="relative hidden">
           <button
@@ -292,7 +292,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           // }}
           onChange={handleChange}
           className={cn(
-            "pl-20 min-h-16 md:max-h-16 rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
+            "pl-20 min-h-16 h-auto rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
             isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
           )}
           placeholder={isTutor ? "Ask any subject question..." : isCareerCoach ? "Ask any subject question..." : "Ask any subject question..."}
