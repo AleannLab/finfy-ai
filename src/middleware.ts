@@ -57,35 +57,35 @@ export async function middleware(request: NextRequest) {
   if (isProtectedRoute || isAuthRoute) {
     const user = await getUser(response, request);
 
-    if (!user && isProtectedRoute) {
-      return NextResponse.redirect(new URL("/authentication", request.url));
-    }
-    if (isAuthRoute && user) {
-      return NextResponse.redirect(new URL("/onboarding", request.url));
-    }
+    // if (!user && isProtectedRoute) {
+    //   return NextResponse.redirect(new URL("/authentication", request.url));
+    // }
+    // if (isAuthRoute && user) {
+    //   return NextResponse.redirect(new URL("/onboarding", request.url));
+    // }
 
-    if (isProtectedRoute) {
-      return NextResponse.redirect(
-        new URL(`/onboarding/${stepsOnboarding.at(0)}`, request.url)
-      );
-    }
+    // if (isProtectedRoute) {
+    //   return NextResponse.redirect(
+    //     new URL(`/onboarding/${stepsOnboarding.at(0)}`, request.url)
+    //   );
+    // }
   } else {
-    const user = await getUser(response, request);
-    if (!user && !isAuthRoute) {
-      return NextResponse.redirect(new URL("/authentication", request.url));
-    }
-    if (!path.includes("/dashboard")) {
-      const { data, error } = await supabase
-      .from("users")
-      .select()
-      .ilike("email", `${user?.email}`)
-      .single();
-      if (data?.finished_onboarding) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-      } else if (!path.includes("/onboarding")) {
-        return NextResponse.redirect(new URL("/onboarding", request.url));
-      }
-    }
+    // const user = await getUser(response, request);
+    // if (!user && !isAuthRoute) {
+    //   return NextResponse.redirect(new URL("/authentication", request.url));
+    // }
+    // if (!path.includes("/dashboard")) {
+    //   const { data, error } = await supabase
+    //   .from("users")
+    //   .select()
+    //   .ilike("email", `${user?.email}`)
+    //   .single();
+    //   if (data?.finished_onboarding) {
+    //     return NextResponse.redirect(new URL("/dashboard", request.url));
+    //   } else if (!path.includes("/onboarding")) {
+    //     return NextResponse.redirect(new URL("/onboarding", request.url));
+    //   }
+    // }
   }
 }
 

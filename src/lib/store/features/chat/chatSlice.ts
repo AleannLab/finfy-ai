@@ -28,9 +28,12 @@ interface ChatResponse {
   error?: string;
 }
 
+export const MOCK_CHAT_ID = "2bd12001-4d22-465b-aa8d-2494f495bc59";
+export const MOCK_USER_ID = "56";
+
 const initialState: ChatState = {
-  user_id: "",
-  chat_id: "",
+  user_id: MOCK_USER_ID,
+  chat_id: MOCK_CHAT_ID,
   history: [],
   user_query: "",
   loading: true,
@@ -51,8 +54,8 @@ export const sendChatQuery = createAsyncThunk<
   async ({ user_id, chat_id, history, user_query, provider, category }, { rejectWithValue }) => {
     try {
       const response = await axiosExternal.post(`/${category && category !== Category.ASSISTANT ? category : 'chat'}` as string, {
-        user_id: user_id || "",
-        chat_id: chat_id || "",
+        user_id: user_id || MOCK_USER_ID,
+        chat_id: chat_id || MOCK_CHAT_ID,
         history: history || [],
         user_query: user_query || "",
         provider: provider || "",
@@ -192,7 +195,7 @@ const chatSlice = createSlice({
     },
     resetChat(state) {
       state.history = [];
-      state.chat_id = "";
+      state.chat_id = MOCK_CHAT_ID;
       state.output = null;
       state.calculations = null;
       state.messages = [];

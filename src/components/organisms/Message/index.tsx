@@ -18,8 +18,29 @@ interface MessageProps {
   showDetailed?: any;
 }
 
+const recursive = (text: string) => {
+  try {
+
+
+    const json = JSON.parse(text as string)
+
+    if (json.text) {
+      text = json.text
+    }
+
+    return  recursive(text)
+
+
+  } catch (err) {
+    // do nothing
+  }
+
+  return text
+}
 const Message: FC<MessageProps> = (props) => {
   const { text, isUser, isLoading, isLastMessage, detailed, calculations, showHideDetailed, showHideCalculation, showDetailed } = props;
+
+  const messageText = recursive(text as string)
 
   return (
     <>
@@ -30,12 +51,12 @@ const Message: FC<MessageProps> = (props) => {
         )}>
           <div
             className={cn(
-              "message relative inline-block text-white w-full rounded-md px-4 py-1 md:px-5 md:py-2",
+              "message relative inline-block  w-full rounded-md px-4 py-1 md:px-5 md:py-2",
               "md:w-auto"
             )}
           >
             <ContentMessage
-              text={text}
+              text={messageText}
               isUser={isUser}
               isLoading={isLoading}
               isLastMessage={isLastMessage}

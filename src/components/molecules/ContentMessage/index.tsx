@@ -142,9 +142,9 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
       <p
         className={cn(
-          "whitespace-pre-line text-white font-normal text-base leading-5",
+          "whitespace-pre-line  font-normal text-base leading-5",
           isUser
-            ? "flex gap-2.5 items-center"
+            ? "text-white flex gap-2.5 items-center"
             : ""
         )}
         style={{ letterSpacing: '-0.3px', lineHeight: '140%' }}

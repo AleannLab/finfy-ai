@@ -63,7 +63,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
           }
         }
 
-        const fullText = output?.answer || output;
+        const fullText = output?.answer || output?.text || output;
         const words = fullText.split(/(\s+)/);
         const chunkSize = 15;
         let index = 0;
@@ -103,15 +103,14 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
   return (
     <div
       className={clsx(
-        "flex-1 overflow-hidden  max-w-[845px] mx-auto w-full relative flex flex-row gap-8 lg:pt-20 lg:pb-12",
+        "flex-1  max-h-[50vh] overflow-auto mx-auto w-full relative flex flex-row gap-8 lg:pb-12",
         isOpenChart ? "" : ""
       )}
     >
-      <div className={`w-full relative pb-32`}>
+      <div className={`w-full relative`}>
         <div
           className={cn(
-            "react-scroll-to-bottom--css-ikyem-79elbk absolute inset-0",
-            (suggests && !messages.length) ? "pb-52 md:pb-60" : "pb-28"
+            "react-scroll-to-bottom--css-ikyem-79elbk inset-0",
           )}
         >
           <div className="react-scroll-to-bottom--css-ikyem-1n7m0yu custom-scrollbar flex flex-col items-center gap-2.5 md:gap-5 overflow-x-hidden pr-2">

@@ -11,6 +11,7 @@ import { ActionButton, ConnectBankAction, FocusAssistantPopover } from "@/compon
 import { ActionButtonsGroupMobile } from "@/components/organisms/ActionButtonsGroup";
 import { Category } from "@/lib/store/features/category/categorySlice";
 import clsx from "clsx";
+import {MOCK_USER_ID} from "@/lib/store/features/chat/chatSlice";
 
 interface ChatMessageInputProps {
   handleClose?: () => void;
@@ -30,7 +31,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     history,
     isLoading,
     setIsLoadingSendQuery,
-    chatCategory
+    chatCategory,
+      ...rest
   } = useChat();
   const { category } = useCategory();
 
@@ -64,7 +66,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       const value = formData.get("message") as string;
       setMessage("");
       handleClose && handleClose();
-      const userId = user?.id;
+      const userId = user?.id || MOCK_USER_ID;
       if (value && userId) {
         let currentChatId = chatId;
         let currentChatCategory = chatCategory;
@@ -139,25 +141,20 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   return (
     <form
       action={onSubmit}
-      className="rounded-full mx-2 flex justify-between border-2 items-center bg-transparent lg:bg-navy-15 relative lg:border lg:border-[#374061]"
+      className="rounded-full flex justify-between border-2 items-center bg-transparent  relative"
     >
       <div className="absolute">
         <button
           type="button"
           className="w-10 h-10 pl-3 pt-2.5 pb-3 -mr-2 flex"
-          onClick={isPopupOpen ? handleClosePopup : handleOpenPopup}
         >
-          <Icon type="PlusIcon" className={cn("w-5 h-5", isPopupOpen ? "stroke-purple-15" : " stroke-slate-400")} />
+          <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 1.67188V7.67188M7 7.67188V13.6719M7 7.67188H13M7 7.67188L1 7.67187"
+                  stroke="#515AD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
 
-        {(
-          <div
-            ref={popoverRef}
-            className={clsx(isPopupOpen ? "absolute w-max bg-[#272E48] rounded-md px-4 border-[#374061] border-[1px] py-2 bottom-16 left-0 z-50" : "overflow-hidden !w-0 !h-0")}
-          >
-            <ActionButtonsGroupMobile />
-          </div>
-        )}
       </div>
 
       <Textarea
@@ -165,8 +162,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         value={message}
         onChange={handleChange}
         className={cn(
-          "lg:pl-4 h-16 focus:outline-none justify-center text-base border-none resize-none text-white py-5 pr-16 !pl-10",
-          isDark ? "lg:bg-[#1F263D]" : "lg:bg-navy-15"
+          "lg:pl-4 h-16 focus:outline-none justify-center text-base border-none resize-none  py-5 pr-16 !pl-10",
         )}
         placeholder="Ask anything..."
         name="message"
