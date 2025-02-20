@@ -152,14 +152,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
         {isUser || isLoading ? (
           text
         ) : (
-          <Markdown
-            className={"markdown max-w-[845px] w-full !whitespace-normal markdown-special"}
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={renderers}
-          >
-            {text as string}
-          </Markdown>
+            text
         )}
       </p>
     </div>

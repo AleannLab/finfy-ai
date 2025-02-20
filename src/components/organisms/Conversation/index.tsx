@@ -36,51 +36,50 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
     setShowCalculation(!showCalculation)
   }
 
-  useEffect(() => {
-    if (isLoading) {
-      stateRef.current = true;
-    }
-    if (!isLoading && messages.length > 0 && stateRef.current) {
-      const lastMessage = messages[messages.length - 1];
-      if (lastMessage.message_type !== "user") {
-        let output = null;
-
-        if (
-          lastMessage.content &&
-          lastMessage.message_type !== "user" &&
-          typeof lastMessage.content === "string"
-        ) {
-          try {
-            output = JSON.parse(lastMessage.content);
-          } catch (error) {
-            console.error("messagemessage Invalid JSON:", error);
-            output = {
-              answer: lastMessage?.content || lastMessage,
-              breakdown: "",
-              table: "",
-              text: ""
-            }
-          }
-        }
-
-        const fullText = output?.answer || output?.text || output || "";
-        const words = fullText.split(/(\s+)/);
-        const chunkSize = 15;
-        let index = 0;
-
-        const interval = setInterval(() => {
-          index += chunkSize;
-          setStreamText(words.slice(0, index).join(""));
-
-          if (index >= words.length) {
-            clearInterval(interval);
-            setStreamText("");
-            stateRef.current = false;
-          }
-        }, 100);
-      }
-    }
-  }, [isLoading, messages]);
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     stateRef.current = true;
+  //   }
+  //   if (!isLoading && messages.length > 0 && stateRef.current) {
+  //     const lastMessage = messages[messages.length - 1];
+  //     if (lastMessage.message_type !== "user") {
+  //       let output = null;
+  //
+  //       if (
+  //         lastMessage.content &&
+  //         lastMessage.message_type !== "user" &&
+  //         typeof lastMessage.content === "string"
+  //       ) {
+  //         try {
+  //           output = JSON.parse(lastMessage.content);
+  //         } catch (error) {
+  //           console.error("messagemessage Invalid JSON:", error);
+  //           output = {
+  //             answer: lastMessage?.content || lastMessage,
+  //             breakdown: "",
+  //             table: "",
+  //             text: ""
+  //           }
+  //         }
+  //       }
+  //       const fullText = output?.answer || output?.text || output || "";
+  //       const words = fullText.split(/(\s+)/);
+  //       const chunkSize = 15;
+  //       let index = 0;
+  //
+  //       const interval = setInterval(() => {
+  //         index += chunkSize;
+  //         setStreamText(words.slice(0, index).join(""));
+  //
+  //         if (index >= words.length) {
+  //           clearInterval(interval);
+  //           setStreamText("");
+  //           stateRef.current = false;
+  //         }
+  //       }, 100);
+  //     }
+  //   }
+  // }, [isLoading, messages]);
 
   // const objM = {
   //   "id": "920e8afa-392a-403d-ae8d-1e74ccd06339",

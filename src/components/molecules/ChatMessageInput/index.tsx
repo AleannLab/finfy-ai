@@ -61,7 +61,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
       return;
     }
     setMessage("");
-    setActivePrompt("");
+    // setActivePrompt("");
 
 
 
@@ -107,7 +107,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
           const formData = new FormData(form);
           const value = formData.get("message") as string;
 
-          onSubmit(value || activePrompt);
+          onSubmit(value);
         }
       }
     }
@@ -230,14 +230,16 @@ planning? `,
 
         {
           isShowSuggest && (
-              <div className="flex gap-[10px]">
+              <div className="flex gap-[10px] mt-2">
                 {
                   suggests[assistantKey ?? ""]?.map((prompt, index) => {
                     const active = prompt === activePrompt;
                     return (
                         <button
                             onClick={() => {
+
                               setActivePrompt(prompt);
+                              return onSubmit(prompt)
                             }}
                             key={index}
 
@@ -248,7 +250,7 @@ planning? `,
             <span className={
               clsx("text-[12px] text-left", {
                 "text-[#515AD9]": active,
-                "text-[#D1D5DB]": !active
+                "text-[#9CA3AF]": !active
               })
             }>
                 { `"${prompt}" ↗`}
@@ -262,14 +264,10 @@ planning? `,
             )
         }
         <form
-            action={messages.length === 0 ? (formData) => {
+            action={(formData) => {
               const value = formData.get("message") as string;
 
-              setTempValue(value || activePrompt)
-            } : (formData) => {
-              const value = formData.get("message") as string;
-
-              return onSubmit(value || activePrompt)
+              return onSubmit(value)
             }}
             className="rounded-full flex justify-between border-2 items-center bg-transparent  relative mt-[16px]"
         >
@@ -308,37 +306,6 @@ planning? `,
             </Button>
           </div>
         </form>
-        <Modal
-            classes={{
-              background: "z-[10000]",
-              wrapper: "z-[10000]",
-              container: "bg-white rounded-[24px] !w-fit !max-w-[600px] !z-[10000]",
-            }} open={!!tempValue} onClose={() => {
-
-
-          onSubmit(tempValue)
-          setTempValue("")
-        }}>
-          <Modal.Header classes={{
-            wrapperHeader: "flex flex-col justify-center items-center mb-[48px]",
-          }}>
-            <img src="/liberty-modal-2.svg"/>
-          </Modal.Header>
-          <Modal.Body>
-            <p className="text-[12px] text-[#9CA3AF] mt-[24px]">
-              Please note that all information and guidance I provide are for educational and informational purposes
-              only and should not be considered financial advice. If you require personalized assistance or have
-              specific financial concerns, you can request to speak with an accredited financial advisor at any time.
-              I`m here to guide you to the right resources and support your financial learning journey.
-            </p>
-            <p className="text-[12px] text-[#9CA3AF]">
-              For more details on how we handle your information, please see our <a
-                href="https://www.libertykenya.co.ke/privacy-statement.php" target="_blank"
-                className="text-[#515AD9] underline"
-            >Privacy Statement.</a>
-            </p>
-          </Modal.Body>
-        </Modal>
       </>
   );
 };

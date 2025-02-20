@@ -194,6 +194,39 @@ function extractMessageContent(event: any): string | null {
 }
 
 export async function POST(req: NextRequest) {
+
+    //
+    // const readableStream = new ReadableStream({
+    //     async start(controller) {
+    //         try {
+    //
+    //             const encoder = new TextEncoder();
+    //
+    //             // const pingInterval = setInterval(() => {
+    //             //   controller.enqueue(encoder.encode(""));
+    //             // }, 1000);
+    //
+    //             for (let i = 0; i < 4; i++) {
+    //                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ message: `Message ${i}` })}\n\n`));
+    //                 await new Promise((resolve) => setTimeout(resolve, 1000));
+    //             }
+    //
+    //             // clearInterval(pingInterval);
+    //             controller.close();
+    //         } catch (err) {
+    //             controller.error(err);
+    //         }
+    //     },
+    // });
+    //
+    // return new Response(readableStream, {
+    //     headers: {
+    //         "Content-Type": "text/event-stream",
+    //         "Cache-Control": "no-cache, no-transform",
+    //         Connection: "keep-alive",
+    //     },
+    // });
+
     try {
         const formData = await req.formData();
 

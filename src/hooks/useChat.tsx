@@ -211,7 +211,7 @@ export const useChat = () => {
               if (done) break;
 
               const chunk = decoder.decode(value, { stream: true });
-
+              console.log(chunk)
               // Check for threadId and handle thread creation logic
               if (chunk.includes("threadId")) {
                 const cleanChunk = chunk.startsWith("data:") ? chunk.slice(5).trim() : chunk;
