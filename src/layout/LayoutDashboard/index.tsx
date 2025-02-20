@@ -13,9 +13,11 @@ import { HeaderFocus } from "@/components/molecules/Header";
 import { fetchFocusSuggests, setSuggest } from "@/lib/store/features/suggest/suggestSlice";
 import clsx from "clsx";
 
-interface LayoutDashboardProps extends PropsWithChildren { }
+interface LayoutDashboardProps extends PropsWithChildren {
+  assistantKey?: string;
+}
 
-const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
+const LayoutDashboard: FC<LayoutDashboardProps> = ({ children, assistantKey }) => {
   const { messages } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
@@ -73,6 +75,7 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       )}
       <div className={clsx("relative")}>
         <AssistInput
+            assistantKey={assistantKey}
           isDark={false}
           classes={{
             container: messages.length ? "xl:bottom-0": "",

@@ -4,7 +4,6 @@ import { getErrorMessage, randomNumber } from "@/utils/helpers";
 import { supabase } from "@/lib/supabase/client";
 import * as Sentry from "@sentry/nextjs";
 import { emojis } from "@/utils/variables";
-import { Category } from "../category/categorySlice";
 
 interface ChatState {
   user_id: string;
@@ -19,8 +18,7 @@ interface ChatState {
   chats: any[];
   messages: any[];
   suggests: any;
-  provider?: string;
-  category?: string;
+  streamMessage: string;
 }
 
 interface ChatResponse {
@@ -28,7 +26,8 @@ interface ChatResponse {
   error?: string;
 }
 
-export const MOCK_CHAT_ID = "2bd12001-4d22-465b-aa8d-2494f495bc59";
+// export const MOCK_CHAT_ID = "2bd12001-4d22-465b-aa8d-2494f495bc59";
+export const MOCK_CHAT_ID = "";
 export const MOCK_USER_ID = "56";
 
 const initialState: ChatState = {
@@ -43,144 +42,234 @@ const initialState: ChatState = {
   calculations: null,
   chats: [],
   messages: [],
+  streamMessage: "",
   suggests: null,
 };
 
 export const sendChatQuery = createAsyncThunk<
-  ChatResponse | any,
-  Partial<ChatState>
+    ChatResponse | any,
+    Partial<ChatState>
 >(
-  "chat/sendChatQuery",
-  async ({ user_id, chat_id, history, user_query, provider, category }, { rejectWithValue }) => {
-    try {
-      const response = await axiosExternal.post(`/${category && category !== Category.ASSISTANT ? category : 'chat'}` as string, {
-        user_id: user_id || MOCK_USER_ID,
-        chat_id: chat_id || MOCK_CHAT_ID,
-        history: history || [],
-        user_query: user_query || "",
-        provider: provider || "",
-      });
-      if (response.data.error) {
-        return rejectWithValue(response.data.error || "Something went wrong");
+    "chat/sendChatQuery",
+    async ({ user_id, chat_id, history, user_query }, { rejectWithValue }) => {
+      try {
+        const response = await axiosExternal.post(`/chat` as string, {
+          user_id: user_id || "",
+          chat_id: chat_id || "",
+          history: history || [],
+          user_query: user_query || "",
+        });
+        if (response.data.error) {
+          return rejectWithValue(response.data.error || "Something went wrong");
+        }
+        return response.data;
+      } catch (error: any) {
+        Sentry.captureException(error);
+        return rejectWithValue(error.response?.data || "Something went wrong");
       }
-      return response.data;
-    } catch (error: any) {
-      Sentry.captureException(error);
-      return rejectWithValue(error.response?.data || "Something went wrong");
     }
-  }
 );
 
 export const createMessage = createAsyncThunk(
-  "chat/createMessage",
-  async (dataMessage: {
-    chat_id: string;
-    user_id: number;
-    content: string;
-    message_type: "user" | "bot";
-    is_processed?: boolean;
-    response_time?: string | null;
-  }) => {
-    const { data, error } = await supabase
-      .from("messages")
-      .insert([dataMessage])
-      .select();
-    if (error) {
-      Sentry.captureException(error);
-      throw error;
+    "chat/createMessage",
+    async (dataMessage: {
+      chat_id: string;
+      user_id: number;
+      content: string;
+      message_type: "user" | "bot";
+      is_processed?: boolean;
+      response_time?: string | null;
+      created_at?: string;
+    }) => {
+      // const { data, error } = await supabase
+      //     .from("messages")
+      //     .insert([dataMessage])
+      //     .select();
+      // if (error) {
+      //   Sentry.captureException(error);
+      //   throw error;
+      // }
+      //
+      // if (dataMessage?.message_type === "bot") {
+      //   return null;
+      // }
+      // return data[0];
     }
-    return data[0];
-  }
 );
+export const createMessageInDB = async (dataMessage: {
+  chat_id: string;
+  user_id: number;
+  content: string;
+  message_type: "user" | "bot";
+  is_processed?: boolean;
+  response_time?: string | null;
+  created_at?: string;
+  files: any[]
+}) => {
+  // const { data, error } = await supabase
+  //     .from("messages")
+  //     .insert([dataMessage])
+  //     .select();
+  // if (error) {
+  //   Sentry.captureException(error);
+  //   throw error;
+  // }
+
+  if (dataMessage?.message_type === "bot") {
+    return null;
+  }
+}
+
+const emojiMapping: any = {
+  "asst_XizmVhjCdwImRlerh0Z5bh9e": "🔢", // Career Coach Assistant
+  "asst_kosUuOZshZP2ULAD6zBOob4f": "💼", // Tutor
+  "asst_wu5H6HvbW3o0qLw443ojVx6V": "🔢", // Mathematics Tutor
+  "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "🌱", // Physical Sciences Tutor
+  "asst_vaBKqqnSfyus1suFdb8BGqvK": "📖", // English Tutor
+  "asst_yKj9zsjFZtcm4yZFhNzfztn": "🧭", // Career Coach
+  "asst_e9SCWWWVAqsFGhIFB0f8RstS": "🎓", // BursaryFinder
+  "asst_p5JE3MZY94FUgL9Ow5CAJqbc": "🏫", // CampusNavigator
+  "asst_c6ZOXBtcSSw7Jy3F7zkzeryA": "🔍", // CareerExplorer
+  "asst_YaKOJNycgzRZ62P271Od6hCP": "📚", // PersonalityQuiz
+  "asst_stEGiVDTlMIeDM7XGiezPI28": "📈", // Economics Tutor
+  "asst_nxJVZh17j23ovTc4923NOdc4": "📚", // LessonCraft
+  "asst_Vj1B8r7Coh1M2waAnahdbv27": "🧩", // AssessGenie
+  "asst_h9xwAFmreZXrWVbjIDujBTrE": "🌐", // ClarityBot
+  "asst_BvSZyrPkHJUu27VBJgixMgK": "📈", // InsightMax
+  "asst_UEl50keGMUzrmR1R2Hdjlyfx": "💡", // EngageAI
+  "asst_RDT2IiplUg4wCmvJL3Sedes8": "💙"  // WellnessWatch
+};
+
+const getEmojis = (assistantId: string) => {
+  return emojiMapping[assistantId] || "🌤️"; // Return a default emoji if no match is found
+};
 
 export const createChat = createAsyncThunk(
-  "chat/createChat",
-  async ({ userId, title, category }: any) => {
-    const index = randomNumber(1, emojis.length);
+    "chat/createChat",
+    async ({ userId, title, chatId, type, assistantId }: { userId: string; title: string, chatId: any, type: string, assistantId: string }, { dispatch }) => {
+      const index = randomNumber(1, emojis.length);
+      const currentData = new Date().toISOString();
+      const emoji = getEmojis(assistantId)
 
-    const { data, error } = await supabase
-      .from("chats")
-      .insert([{ user_id: userId, title: `${emojis[index]} ${title}`, category: category ? category : Category.ASSISTANT }])
-      .select();
-    if (error) {
-      Sentry.captureException(error);
-      throw error;
+
+      const { data, error } = await supabase
+          .from("chats")
+          .insert([{ title: `${emoji} ${title}`, id: userId, chatId, type, assistantId, created_at: currentData }])
+          .select();
+
+      if (error) {
+        Sentry.captureException(error);
+        console.error("Error creating chat:", error);
+        throw new Error("Failed to create chat.");
+      }
+
+      if (!data || data.length === 0) {
+        throw new Error("No chat data returned from Supabase.");
+      }
+
+      dispatch(fetchChatsByUserId(userId))
+
+      return data[0];
     }
-    return data.at(0);
-  }
 );
+
+
 
 export const fetchChatsByUserId = createAsyncThunk(
-  "chat/fetchChatsByUserId",
-  async (userId: string) => {
-    const { data, error } = await supabase
+    "chat/fetchChatsByUserId",
+    async (userId: string, { dispatch, getState }) => {
+      const { data, error } = await supabase
+          .from("chats")
+          .select("*")
+          .eq("id", userId)
+      if (error) {
+        Sentry.captureException(error);
+        throw error;
+      }
+      dispatch(setChats(data));
+      return data;
+    }
+);
+
+export const fetchChatByTread = async (chatId: string) => {
+  const { data, error } = await supabase
       .from("chats")
       .select("*")
-      .eq("user_id", userId);
-    if (error) {
-      Sentry.captureException(error);
-      throw error;
-    }
-    return data;
+      .eq("chatId", chatId)
+  if (error) {
+    Sentry.captureException(error);
+    throw error;
   }
-);
+  return data;
+}
 
 export const updateChat = createAsyncThunk(
-  "chat/updateChat",
-  async (
-    { id, updateData }: { id: string; updateData: any },
-    { rejectWithValue }
-  ) => {
-    try {
-      const { data, error } = await supabase
-        .from("chats")
-        .update(updateData)
-        .eq("id", id)
-        .select();
-      if (error) {
-        Sentry.captureException(error);
-        throw error;
+    "chat/updateChat",
+    async (
+        { id, updateData }: { id: string; updateData: any },
+        { rejectWithValue }
+    ) => {
+      try {
+        const { data, error } = await supabase
+            .from("chats")
+            .update(updateData)
+            .eq("chatId", id)
+            .select();
+        if (error) {
+          Sentry.captureException(error);
+          throw error;
+        }
+        return data[0];
+      } catch (error: any) {
+        return rejectWithValue(error.message);
       }
-      return data[0];
-    } catch (error: any) {
-      return rejectWithValue(error.message);
     }
-  }
 );
 
+
 export const deleteChat = createAsyncThunk(
-  "chat/deleteChat",
-  async (chatId: string, { rejectWithValue }) => {
-    try {
-      const { error } = await supabase.from("chats").delete().eq("id", chatId);
-      if (error) {
-        Sentry.captureException(error);
-        throw error;
+    "chat/deleteChat",
+    async (chatId: string, { rejectWithValue, dispatch, getState }) => {
+      try {
+        const data: any = getState();
+        const { error } = await supabase.from("chats").delete().eq("chatId", chatId);
+        if (error) {
+          Sentry.captureException(error);
+          throw error;
+        }
+        dispatch(fetchChatsByUserId(data.user.user.id))
+        return chatId;
+      } catch (error: any) {
+        return rejectWithValue(error.message);
       }
-      return chatId;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
     }
-  }
 );
 
 export const fetchMessagesForChat = createAsyncThunk(
-  "chat/fetchMessagesForChat",
-  async (chatId: string, { rejectWithValue }) => {
-    try {
-      const { data, error } = await supabase
-        .from("messages")
-        .select("*")
-        .eq("chat_id", chatId);
-      if (error) {
-        Sentry.captureException(error);
-        throw error;
-      }
-      return data;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    "chat/fetchMessagesForChat",
+    async (chatId: string, { dispatch, getState, rejectWithValue }) => {
+
+        return []
+      // try {
+      //   const { data, error } = await supabase
+      //       .from("messages")
+      //       .select("*")
+      //       .eq("chat_id", chatId)
+      //       .order("created_at", { ascending: true });
+      //
+      //   if (error) {
+      //     Sentry.captureException(error);
+      //     throw error;
+      //   }
+      //
+      //   console.log(data)
+      //   dispatch(setMessages(data));
+      //   dispatch(setIsLoading(false));
+      //   return data;
+      // } catch (error: any) {
+      //   return rejectWithValue(error.message);
+      // }
     }
-  }
 );
 
 const chatSlice = createSlice({
@@ -190,12 +279,15 @@ const chatSlice = createSlice({
     setUserQuery(state, action: PayloadAction<string>) {
       state.user_query = action.payload;
     },
+    setStreamMessage(state, action: PayloadAction<string>) {
+      state.streamMessage = action.payload;
+    },
     addToHistory(state, action: PayloadAction<string>) {
       state.history.push(action.payload);
     },
     resetChat(state) {
       state.history = [];
-      state.chat_id = MOCK_CHAT_ID;
+      state.chat_id = "";
       state.output = null;
       state.calculations = null;
       state.messages = [];
@@ -212,94 +304,22 @@ const chatSlice = createSlice({
     setSuggestQuestions(state, action: PayloadAction<any>) {
       state.suggests = action.payload;
     },
+    setMessages(state, action: PayloadAction<any[]>) {
+      state.messages = action.payload;
+    },
+    setChats(state, action: PayloadAction<any[]>) {
+      state.chats = action.payload;
+    },
+    addMessage(state, action: PayloadAction<any>) {
+      state.messages.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(sendChatQuery.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(sendChatQuery.fulfilled, (state, action) => {
-        if (action.payload.output) {
-          state.output = action.payload.output.text || action.payload.output;
-          state.calculations = action.payload.calculations;
-          state.suggests = action.payload?.suggested_questions || null;
-          if (state.user_query) {
-            state.history.push(state.user_query);
-          }
-        }
-      })
-      .addCase(sendChatQuery.rejected, (state, action) => {
-        state.error = action.payload as string;
-      })
-
-      .addCase(createChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(createChat.fulfilled, (state, action) => {
-        state.chats.push(action.payload);
-        state.chat_id = action.payload.id;
-      })
-      .addCase(createChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-      .addCase(fetchChatsByUserId.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(
-        fetchChatsByUserId.fulfilled,
-        (state, action: PayloadAction<any[]>) => {
-          state.chats = action.payload;
-        }
-      )
-      .addCase(fetchChatsByUserId.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(updateChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(updateChat.fulfilled, (state, action) => {
-        const index = state.chats.findIndex(
-          (chat) => chat.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.chats[index] = action.payload;
-        }
-      })
-      .addCase(updateChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(deleteChat.pending, (state) => {
-        state.error = null;
-      })
-      .addCase(deleteChat.fulfilled, (state, action: PayloadAction<string>) => {
-        state.chats = state.chats.filter((chat) => chat.id !== action.payload);
-      })
-      .addCase(deleteChat.rejected, (state, action) => {
-        state.error = getErrorMessage(action.error) || null;
-      })
-
-      .addCase(fetchMessagesForChat.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(
-        fetchMessagesForChat.fulfilled,
-        (state, action: PayloadAction<any[]>) => {
-          state.loading = false;
-          state.messages = action.payload;
-          state.history = action.payload.map((message) => message.content);
-        }
-      )
-      .addCase(fetchMessagesForChat.rejected, (state, action) => {
-        state.loading = false;
-        state.error = getErrorMessage(action.error) || null;
-      })
-      .addCase(createMessage.fulfilled, (state, action: PayloadAction<any>) => {
-        state.history.push(action.payload.content);
-        state.messages.push(action.payload);
-      });
+        .addCase(createMessage.fulfilled, (state, action: PayloadAction<any>) => {
+          state.history.push(action.payload.content);
+          state.messages.push(action.payload);
+        });
   },
 });
 
@@ -307,9 +327,13 @@ export const {
   setUserQuery,
   addToHistory,
   resetChat,
+  setChats,
   setIsLoadingSendMessage,
   setIsLoading,
   setChatId,
   setSuggestQuestions,
+  setMessages,
+  addMessage,
+  setStreamMessage
 } = chatSlice.actions;
 export default chatSlice.reducer;

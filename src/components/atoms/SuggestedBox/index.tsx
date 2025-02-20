@@ -25,51 +25,51 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon }) => {
   const { category } = useCategory();
 
   const handleClick = async () => {
-    if (!isLoading) {
-      setIsLoadingSendQuery(true);
-      const value = content;
-      const userId = user?.id;
-      if (value && userId) {
-        let currentChatId = chatId;
-        let chatCategory = undefined;
-        if (!currentChatId) {
-          const chat = await createChat(userId, value, category ? category : Category.ASSISTANT);
-          currentChatId = chat.payload.id;
-          chatCategory = chat.payload.category;
-          router.push(`/dashboard/chat/${currentChatId}`, undefined);
-        }
-        if (currentChatId) {
-          createMessage({
-            chat_id: currentChatId,
-            user_id: userId,
-            content: value,
-            message_type: "user",
-            is_processed: true,
-          });
-          const data: any = await sendChatQuery(
-            `${userId}`,
-            currentChatId,
-            history,
-            value,
-            user?.selected_country === "ZA" ? "yodlee" : "plaid",
-            category ? category : Category.ASSISTANT
-          );
-
-          if (data?.error) {
-            toast.error(data.error.message);
-          } else {
-            createMessage({
-              chat_id: currentChatId,
-              user_id: userId,
-              content: data.payload.output.text || data.payload.output,
-              message_type: "bot",
-              is_processed: true,
-            });
-          }
-        }
-      }
-      setIsLoadingSendQuery(false);
-    }
+    // if (!isLoading) {
+    //   setIsLoadingSendQuery(true);
+    //   const value = content;
+    //   const userId = user?.id;
+    //   if (value && userId) {
+    //     let currentChatId = chatId;
+    //     let chatCategory = undefined;
+    //     if (!currentChatId) {
+    //       const chat = await createChat(userId, value, category ? category : Category.ASSISTANT);
+    //       currentChatId = chat.payload.id;
+    //       chatCategory = chat.payload.category;
+    //       router.push(`/dashboard/chat/${currentChatId}`, undefined);
+    //     }
+    //     if (currentChatId) {
+    //       createMessage({
+    //         chat_id: currentChatId,
+    //         user_id: userId,
+    //         content: value,
+    //         message_type: "user",
+    //         is_processed: true,
+    //       });
+    //       const data: any = await sendChatQuery(
+    //         `${userId}`,
+    //         currentChatId,
+    //         history,
+    //         value,
+    //         user?.selected_country === "ZA" ? "yodlee" : "plaid",
+    //         category ? category : Category.ASSISTANT
+    //       );
+    //
+    //       if (data?.error) {
+    //         toast.error(data.error.message);
+    //       } else {
+    //         createMessage({
+    //           chat_id: currentChatId,
+    //           user_id: userId,
+    //           content: data.payload.output.text || data.payload.output,
+    //           message_type: "bot",
+    //           is_processed: true,
+    //         });
+    //       }
+    //     }
+    //   }
+    //   setIsLoadingSendQuery(false);
+    // }
   };
   return (
     <button onClick={handleClick} className="suggest-box h-[116px] flex flex-col gap-1 items-start block-suggest overflow-hidden truncate">

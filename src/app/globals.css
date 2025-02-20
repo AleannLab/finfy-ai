@@ -197,7 +197,7 @@ input:-webkit-autofill:active{
 .markdown-special ul li,
 .markdown-special ol li {
   font-size: 1rem;
-  color: white;
+  /*color: white;*/
 }
 
 /* You can also add specific bullet styling */

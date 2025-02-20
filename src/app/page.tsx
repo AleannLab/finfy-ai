@@ -18,11 +18,12 @@ export default function Home() {
     const [
         activeAssistant,
         setActiveAssistant
-    ] = useState("")
+    ] = useState("asst_F0t5kwftVyUBthhNWnrkGFZL")
 
     const {
         chatId,
-        fetchMessagesForChat
+        fetchMessagesForChat,
+        handleResetChat
     } =  useChat();
 
     useEffect(() => {
@@ -147,13 +148,17 @@ export default function Home() {
                                 tools.map((tool, index) => (
                                     <Tool key={index}
                                           active={tool.assistantKey === activeAssistant}
-                                          onClick={() => setActiveAssistant(tool.assistantKey)}
+                                          onClick={() => {
+
+                                              setActiveAssistant(tool.assistantKey)
+                                              handleResetChat()
+                                          }}
                                           {...tool}/>
                                 ))
                           }
 
                       </div>
-                      <LayoutDashboard />
+                      <LayoutDashboard assistantKey={activeAssistant} />
                   </div>
               </Modal.Body>
 
@@ -260,11 +265,13 @@ const tools = [{
 },{
     title: "👥 Connect with a Human Advisor",
     description: "Instantly connect with a financial expert.",
-    assistantKey: "3"
+    assistantKey: "",
+    disabled: true
 },{
     title: "📝 Enquire About Claims",
     description: "Get help with filing and tracking claims.",
-    assistantKey: "4"
+    assistantKey: "",
+    disabled: true
 }]
 
 
@@ -272,18 +279,25 @@ const Tool = ({
     title,
     description,
     active,
-    onClick
+    onClick,
+    disabled,
               }: {
     title: string;
     description: string;
     active: boolean;
     onClick: () => void;
+    disabled?: boolean;
 }) => {
 
     return (
-        <div onClick={onClick} className={clsx("flex flex-col px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
+        <button
+            disabled={!!disabled}
+            onClick={active ? () => {
+                console.log("skip")
+            } : onClick} className={clsx("flex flex-col px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
             "border-[#515AD9]": active,
-            "border-[#D1D5DB]": !active
+            "border-[#D1D5DB]": !active,
+            "!cursor-not-allowed": !!disabled
         })}>
             <span className={
                 clsx("text-[12px]", {
@@ -299,6 +313,6 @@ const Tool = ({
             })}>
                 {description}
             </span>
-        </div>
+        </button>
     )
 }
