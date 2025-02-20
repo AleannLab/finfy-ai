@@ -134,7 +134,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
 
   const suggests: Record<string, string[]> = {
     // 💼 Financial Coaching
-    asst_F0t5kwftVyUBthhNWnrkGFZL: [  `How can the HeriAfya Medical Cover benefit my family's healthcare needs? ↗"`,
+    asst_F0t5kwftVyUBthhNWnrkGFZL: [  `How can the HeriAfya Medical Cover benefit my family's healthcare needs?`,
          `What are the key features of Liberty Kenya’s Group Life Cover for businesses? `,
          `Can you explain how the Boresha Ustaafu Income Drawdown can help with retirement 
 planning? `,
@@ -251,7 +251,7 @@ planning? `,
                 "text-[#D1D5DB]": !active
               })
             }>
-                { `${prompt} `}
+                { `"${prompt}" ↗`}
             </span>
 
                         </button>

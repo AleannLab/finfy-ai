@@ -63,7 +63,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
           }
         }
 
-        const fullText = output?.answer || output?.text || output;
+        const fullText = output?.answer || output?.text || output || "";
         const words = fullText.split(/(\s+)/);
         const chunkSize = 15;
         let index = 0;
