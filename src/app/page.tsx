@@ -20,7 +20,7 @@ export default function Home() {
     const [
         activeAssistant,
         setActiveAssistant
-    ] = useState("asst_F0t5kwftVyUBthhNWnrkGFZL")
+    ] = useState("asst_nuXXAaT4hka5X1kLytlDiPed")
 
     const {
         chatId,
@@ -250,11 +250,11 @@ function LogoDark() {
 const tools = [{
     title: "💼 Financial Coaching",
     description: "Personalized financial advice for better planning",
-    assistantKey: "asst_F0t5kwftVyUBthhNWnrkGFZL"
+    assistantKey: "asst_nuXXAaT4hka5X1kLytlDiPed"
 },{
     title: "🛒 Product Recommendation",
     description: "Tailored product saggestions to fit your needs.",
-    assistantKey: "asst_nuXXAaT4hka5X1kLytlDiPed"
+    assistantKey: "asst_F0t5kwftVyUBthhNWnrkGFZL"
 },{
     title: "👥 Connect with a Human Advisor",
     description: "Instantly connect with a financial expert.",
