@@ -240,6 +240,46 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
                           </svg>
                         </button>
                       </div>
+                      <div className="flex gap-[24px] justify-between items-center text-[12px]">
+                        <p>Link - <a href="/Liberty-Kenya-Products.pdf"
+                                     target="_blank"
+                                     rel="noopener noreferrer"
+                                     className="text-[#515AD9] hover:underline"
+                        >
+                          Products | Docs
+                        </a></p>
+                        <button onClick={() => {
+                          // copy to clipboard
+                          navigator.clipboard.writeText(window.location.href + "/Liberty-Kenya-Products.pdf")
+                        }}>
+                          <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.5237 8.97631C10.2219 7.67456 8.11139 7.67456 6.80964 8.97631L3.47631 12.3096C2.17456 13.6114 2.17456 15.7219 3.47631 17.0237C4.77806 18.3254 6.88861 18.3254 8.19036 17.0237L9.10832 16.1057M8.47631 12.0237C9.77806 13.3254 11.8886 13.3254 13.1904 12.0237L16.5237 8.69036C17.8254 7.38861 17.8254 5.27806 16.5237 3.97631C15.2219 2.67456 13.1114 2.67456 11.8096 3.97631L10.8933 4.89265"
+                                stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
+                      <div className="flex gap-[24px] justify-between items-center text-[12px]">
+                        <p>Link - <a href="/Liberty-Kenya-Products.pdf"
+                                     target="_blank"
+                                     rel="noopener noreferrer"
+                                     className="text-[#515AD9] hover:underline"
+                        >
+                          Assistants | Docs
+                        </a></p>
+                        <button onClick={() => {
+                          // copy to clipboard
+                          navigator.clipboard.writeText(window.location.href + "/Liberty-Kenya-Products.pdf")
+                        }}>
+                          <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.5237 8.97631C10.2219 7.67456 8.11139 7.67456 6.80964 8.97631L3.47631 12.3096C2.17456 13.6114 2.17456 15.7219 3.47631 17.0237C4.77806 18.3254 6.88861 18.3254 8.19036 17.0237L9.10832 16.1057M8.47631 12.0237C9.77806 13.3254 11.8886 13.3254 13.1904 12.0237L16.5237 8.69036C17.8254 7.38861 17.8254 5.27806 16.5237 3.97631C15.2219 2.67456 13.1114 2.67456 11.8096 3.97631L10.8933 4.89265"
+                                stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col gap-[4px] mr-[24px]">
@@ -258,7 +298,8 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal, isOpenChart }) =
                 <p className="text-[12px] text-[#9CA3AF] mt-[24px]">
                   Please note that all information and guidance I provide are for educational and informational purposes
                   only and should not be considered financial advice. If you require personalized assistance or have
-                  specific financial concerns, you can request to speak with an accredited financial advisor at any time.
+                  specific financial concerns, you can request to speak with an accredited financial advisor at any
+                  time.
                   I`m here to guide you to the right resources and support your financial learning journey.
                 </p>
                 <p className="text-[12px] text-[#9CA3AF]">

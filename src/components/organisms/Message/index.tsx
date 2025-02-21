@@ -49,7 +49,8 @@ const Message: FC<MessageProps> = (props) => {
     const regex = /【\d+:\d+†[^】]+】/;
     detailed = regex.test(messageText);
     messageText = messageText.replace(/【(\d+:\d+)†([^】]+)】/g, (_, code, filename) => {
-      return `[【${code}†${filename}】](/${filename.replace(/\s+/g, '-')})`;
+      return ""
+      // return `[【${code}†${filename}】](/${filename.replace(/\s+/g, '-')})`;
     });
   } catch (err) {
     //
