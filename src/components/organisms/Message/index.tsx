@@ -38,9 +38,22 @@ const recursive = (text: string) => {
   return text
 }
 const Message: FC<MessageProps> = (props) => {
-  const { text, isUser, isLoading, isLastMessage, detailed, calculations, showHideDetailed, showHideCalculation, showDetailed } = props;
+  const { text, isUser, isLoading, isLastMessage, calculations, showHideDetailed, showHideCalculation, showDetailed } = props;
 
-  const messageText = recursive(text as string)
+  let messageText = recursive(text as string)
+
+  let detailed = false
+
+
+  try {
+    const regex = /【\d+:\d+†[^】]+】/;
+    detailed = regex.test(messageText);
+    messageText = messageText.replace(/【(\d+:\d+)†([^】]+)】/g, (_, code, filename) => {
+      return `[【${code}†${filename}】](/${filename.replace(/\s+/g, '-')})`;
+    });
+  } catch (err) {
+    //
+  }
 
   return (
     <>
@@ -61,8 +74,8 @@ const Message: FC<MessageProps> = (props) => {
               isLoading={isLoading}
               isLastMessage={isLastMessage}
             />
-            <div className="flex w-full gap-3">
-              {!!detailed && <div onClick={() => showHideDetailed()} className=" hover:cursor-pointer text-[#525ED1]">Detailed Breakdown</div>}
+            <div className="flex w-full gap-3 justify-end">
+              {!!detailed && <div onClick={() => showHideDetailed()} className=" hover:cursor-pointer text-[#525ED1]">References</div>}
               {calculations && <div onClick={() => showHideCalculation()} className=" hover:cursor-pointer text-[#525ED1]" >Visualise Breakdown</div>}
             </div>
           </div>

@@ -125,6 +125,16 @@ const ContentMessage: FC<ContentMessageProps> = ({
         <li>{children}</li>
       );
     },
+    a: ({ children, href }: any) => (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#515AD9] hover:underline"
+        >
+            {children}
+        </a>
+    )
   };
 
   return (
@@ -152,7 +162,14 @@ const ContentMessage: FC<ContentMessageProps> = ({
         {isUser || isLoading ? (
           text
         ) : (
-            text
+            <Markdown
+                className={"markdown max-w-[845px] w-full !whitespace-normal markdown-special"}
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+                components={renderers}
+            >
+              {text as string}
+            </Markdown>
         )}
       </p>
     </div>
