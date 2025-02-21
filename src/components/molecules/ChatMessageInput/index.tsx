@@ -134,13 +134,13 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
 
   const suggests: Record<string, string[]> = {
     // 💼 Financial Coaching
-    asst_nuXXAaT4hka5X1kLytlDiPed: [  `How can the HeriAfya Medical Cover benefit my family's healthcare needs?`,
+    asst_F0t5kwftVyUBthhNWnrkGFZL: [  `How can the HeriAfya Medical Cover benefit my family's healthcare needs?`,
          `What are the key features of Liberty Kenya’s Group Life Cover for businesses? `,
          `Can you explain how the Boresha Ustaafu Income Drawdown can help with retirement 
 planning? `,
     ],
     // 🛒 Product Recommendation
-    asst_F0t5kwftVyUBthhNWnrkGFZL: [
+    asst_nuXXAaT4hka5X1kLytlDiPed: [
          `What are the best ways to save money on groceries and household essentials? `,
          `Can you recommend some budget-friendly recipes for a family of four? `,
         `How can I find the best deals on electronics and home appliances? `,

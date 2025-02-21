@@ -293,7 +293,7 @@ const Tool = ({
             "!cursor-not-allowed": !!disabled
         })}>
             <span className={
-                clsx("text-[12px]", {
+                clsx("text-[12px] text-left", {
                 "text-[#515AD9]": active,
                 "text-[#9CA3AF]": !active
                 })
