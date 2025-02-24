@@ -554,10 +554,10 @@ export async function POST(req: NextRequest) {
         const readableStream = new ReadableStream({
             async start(controller) {
                 try {
-                    if (isNewThread) {
+                    // if (isNewThread) {
                         const threadInfo = { threadId: currentChatId };
                         controller.enqueue(encoder.encode(`data: ${JSON.stringify(threadInfo)}\n\n`));
-                    }
+                    // }
 
                     // const pingInterval = setInterval(() => {
                     //   controller.enqueue(encoder.encode(""));

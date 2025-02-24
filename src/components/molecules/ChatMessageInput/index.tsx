@@ -51,7 +51,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
   const [
     activePrompt,
     setActivePrompt
-  ] = useState("")
+  ] = useState<number | null>(null)
 
   const onSubmit = async (inValue: string) => {
     const userId = user?.id || MOCK_USER_ID;
@@ -89,7 +89,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
 
     // Reset the input field after submission
     setMessage("");
-    setActivePrompt("");
+    setActivePrompt(null);
     setFiles(null);
   };
 
@@ -132,18 +132,57 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
     return "";
   }, [messages]);
 
-  const suggests: Record<string, string[]> = {
+  const suggests: Record<string, {
+    title: string
+    body: string
+  }[]> = {
     // 💼 Financial Coaching
-    asst_F0t5kwftVyUBthhNWnrkGFZL: [  `How can the HeriAfya Medical Cover benefit my family's healthcare needs?`,
-         `What are the key features of Liberty Kenya’s Group Life Cover for businesses? `,
-         `Can you explain how the Boresha Ustaafu Income Drawdown can help with retirement 
-planning? `,
+    asst_F0t5kwftVyUBthhNWnrkGFZL: [  {
+      title: "",
+      body: `How can the HeriAfya Medical Cover benefit my family's healthcare needs?`,
+    },
+      {
+        title: "",
+        body: `What are the key features of Liberty Kenya’s Group Life Cover for businesses? `
+      },
+      {
+        title: "",
+        body:  `Can you explain how the Boresha Ustaafu Income Drawdown can help with retirement 
+planning? `
+      },
     ],
     // 🛒 Product Recommendation
     asst_nuXXAaT4hka5X1kLytlDiPed: [
-         `What are the best ways to save money on groceries and household essentials? `,
-         `Can you recommend some budget-friendly recipes for a family of four? `,
-        `How can I find the best deals on electronics and home appliances? `,
+      {
+        title: "",
+        body: `What are the best ways to save money on groceries and household essentials? `
+      },
+      {
+        title: "",
+        body: `Can you recommend some budget-friendly recipes for a family of four? `
+      },
+      {
+        title: "",
+        body: `How can I find the best deals on electronics and home appliances? `
+      },
+    ],
+    asst_xYdJNkDJQoKTS6S5sNAnhGY6: [
+      {
+        title: "Personal Tax Planning",
+        body: "I’m an individual taxpayer in Kenya. How can I calculate my taxable income and maximize my deductions, such as pension contributions and other allowable expenses?"
+      },
+      {
+        title: "Corporate Tax Strategy",
+        body: "I’m a business owner in Kenya. Can you advise on structuring our finances to reduce corporate tax liabilities, manage dividend distributions, and take advantage of available incentives?"
+      },
+      {
+        title: "Tax Filing and Documentation",
+        body: "I need assistance with filing my tax return in Kenya. Can you guide me through the filing process and what steps I need to take to ensure I meet all the requirements?"
+      },
+      {
+        title: "Tax Dispute Resolution",
+        body: "I received a tax assessment from KRA that I believe is incorrect. How should I proceed with lodging an objection or appeal and resolving this dispute?"
+      },
     ]
   }
 
@@ -233,27 +272,34 @@ planning? `,
               <div className="flex gap-[10px] mt-2">
                 {
                   suggests[assistantKey ?? ""]?.map((prompt, index) => {
-                    const active = prompt === activePrompt;
+                    const active = index === activePrompt;
                     return (
                         <button
                             onClick={() => {
-
-                              setActivePrompt(prompt);
-                              return onSubmit(prompt)
+                              setActivePrompt(index);
+                              return onSubmit(prompt.body)
                             }}
                             key={index}
 
-                            className={clsx("max-w-[341px] flex justify-start px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
+                            className={clsx("flex flex-1 flex-col max-w-[341px] flex justify-start px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
                               "border-[#515AD9]": active,
                               "border-[#D1D5DB]": !active,
                             })}>
-            <span className={
-              clsx("text-[12px] text-left", {
-                "text-[#515AD9]": active,
-                "text-[#9CA3AF]": !active
-              })
-            }>
-                { `"${prompt}" ↗`}
+                                <span className={
+                                  clsx("text-[12px] text-left text-nowrap font-semibold", {
+                                    "text-[#515AD9]": active,
+                                    // "text-[#9CA3AF]": !active
+                                  })
+                                }>
+                {prompt.title}
+            </span>
+                          <span className={
+                            clsx("text-[12px] text-left", {
+                              "text-[#515AD9]": active,
+                              // "text-[#9CA3AF]": !active
+                            })
+                          }>
+                {`"${prompt.body}" ↗`}
             </span>
 
                         </button>

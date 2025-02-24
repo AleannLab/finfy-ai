@@ -256,17 +256,15 @@ const tools = [{
     description: "Tailored product saggestions to fit your needs.",
     assistantKey: "asst_F0t5kwftVyUBthhNWnrkGFZL"
 },{
+    title: "📝 TaxWise Kenya",
+    description: "Your expert Al tax advisor for seamless filing, compliance, and smart tax strategies in Kenya.",
+    assistantKey: "asst_xYdJNkDJQoKTS6S5sNAnhGY6",
+},{
     title: "👥 Connect with a Human Advisor",
     description: "Instantly connect with a financial expert.",
     assistantKey: "",
     disabled: true
-},{
-    title: "📝 Enquire About Claims",
-    description: "Get help with filing and tracking claims.",
-    assistantKey: "",
-    disabled: true
 }]
-
 
 const Tool = ({
     title,
@@ -287,22 +285,22 @@ const Tool = ({
             disabled={!!disabled}
             onClick={active ? () => {
                 console.log("skip")
-            } : onClick} className={clsx("flex flex-col px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
+            } : onClick} className={clsx("flex flex-1 flex-col px-[12px] py-[6px] rounded-[8px] border border-[1px] cursor-pointer", {
             "border-[#515AD9]": active,
             "border-[#D1D5DB]": !active,
             "!cursor-not-allowed": !!disabled
         })}>
             <span className={
-                clsx("text-[12px] text-left", {
+                clsx("text-[12px] text-left text-nowrap font-semibold", {
                 "text-[#515AD9]": active,
-                "text-[#9CA3AF]": !active
+                // "text-[#9CA3AF]": !active
                 })
             }>
                 {title}
             </span>
-            <span className={clsx("text-[11px]", {
+            <span className={clsx("text-[11px] text-left", {
                 "text-[#515AD9]": active,
-                "text-[#9CA3AF]": !active
+                // "text-[#9CA3AF]": !active
             })}>
                 {description}
             </span>
