@@ -57,7 +57,7 @@ const CardLogin = () => {
             <Button disabled={isPending} className="!rounded-md" size="xl" full type="submit">
               {isPending ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>
-            <Button
+            {/* <Button
               disabled={isPending}
               size="xl"
               className="!rounded-md !bg-transparent"
@@ -66,7 +66,7 @@ const CardLogin = () => {
               as="link"
             >
               Sign up
-            </Button>
+            </Button> */}
           </div>
           <Button
             variant="link"

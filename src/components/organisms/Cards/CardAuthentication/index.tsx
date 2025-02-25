@@ -16,9 +16,9 @@ const CardAuthentication = () => {
         <Button className="!rounded-md" size="xl" full href="/login" as="link">
           Log in
         </Button>
-        <Button className="!bg-transparent !rounded-md" size="xl" full href="/sign-up" as="link">
+        {/* <Button className="!bg-transparent !rounded-md" size="xl" full href="/sign-up" as="link">
           Sign up
-        </Button>
+        </Button> */}
       </CardTemplate.Content>
       <CardTemplate.Footer className="flex flex-col w-full mt-6 justify-center items-center">
           <Button
