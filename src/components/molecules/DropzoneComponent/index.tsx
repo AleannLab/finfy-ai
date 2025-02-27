@@ -48,7 +48,7 @@ const DropzoneComponent = (props: DropzoneProps) => {
     <div
       {...getRootProps()}
       className={cn(
-        "rounded-md w-full justify-center items-center flex py-6 cursor-pointer",
+        "rounded-md w-full justify-center items-center flex py-0 cursor-pointer",
         classes?.wrapper
       )}
     >

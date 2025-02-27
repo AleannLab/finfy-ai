@@ -34,7 +34,7 @@ const HomeSuggestBoxes = () => {
       </div>
       <div className="w-full max-w-[1050px] hidden lg:block">
         <Swiper
-          className="min-w-[100vw] md:min-w-0 max-w-[calc(100%-50px)]"
+          className="min-w-[100vw] md:min-w-0 max-w-[calc(100%)]"
           spaceBetween={16}
           slidesPerView={(pathname.includes("teacher")) ? 3 : 4}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}

@@ -38,19 +38,19 @@ export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: 
         <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
           <ActionButton
             onClick={() => { }}
-            className={cn("h-10 p-2 !z-[500]  hover:bg-[#fbab18] hover:text-[#f3f9ed] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
-              open ? "bg-[#fbab18] text-[#f3f9ed]" : "text-[#547a91]"
+            className={cn("h-10 p-2 !z-[500]  hover:bg-black hover:text-[#E9E9E9] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",
+              open ? "bg-black text-[#E9E9E9]" : "text-[#000]"
             )}
             Icon={
               <Icon
                 type="SearchIcon"
-                className={cn("group-hover:fill-white h-3.5 w-5", open ? "fill-[#f3f9ed]" : "fill-purple-15")}
+                className={cn("group-hover:fill-white h-3.5 w-5", open ? "fill-[#E9E9E9]" : "fill-black")}
               />
             }
             text={suggest?.title ? cutIcon(suggest?.title) : "Focus"}
             IconAfter={<Icon
               type="ChIcon"
-              className={cn("group-hover:stroke-[#f3f9ed] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#f3f9ed] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
+              className={cn("group-hover:stroke-[#E9E9E9] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#E9E9E9] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
             />}
           />
         </FocusAssistantPopover>
@@ -79,7 +79,7 @@ const HeaderText = () => {
     home: {
       title: (
         <>
-          <span className="text-[#74BBC9]">Hey {user?.name}!</span> {suggest?.category || " I’m your Career Buddy"}{suggest?.category?.slice(-1) === "!" ? "" : "."}
+          <span className="text-black">Hey {user?.name}!</span> <span className="text-grey">{suggest?.category || " I’m your Career Buddy"}{suggest?.category?.slice(-1) === "!" ? "" : "."}</span>
         </>
       ),
       cta: <></>,

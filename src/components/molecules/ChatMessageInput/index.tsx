@@ -123,16 +123,16 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     const match = currentPath.match(threadMatchPattern);
     const threadIdFromURL = match ? match[1] : null;
     let assistantIdFromDB = null;
-  
+
     if (threadIdFromURL) {
       const tread: any = await fetchChatByTread(threadIdFromURL);
       assistantIdFromDB = tread?.[0]?.assistantId;
     }
-  
+
     const currentAssistant = dataSet.filter((item: { assistantId: any; }) => item?.assistantId === assistantIdFromDB)?.[0];
     dispatch(setSuggest(currentAssistant || defaultSuggest));
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       if (pathname.includes('tutor')) {
@@ -143,7 +143,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           defaultTutor
         );
       }
-  
+
       if (pathname.includes('career-coach')) {
         await fetchDataBasedOnRole(
           'career-coach',
@@ -152,7 +152,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           defaultCareerCoachAssistant
         );
       }
-  
+
       if (pathname.includes('teacher')) {
         await fetchDataBasedOnRole(
           'teacher',
@@ -162,10 +162,10 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         );
       }
     };
-  
+
     fetchData();
   }, [pathname]);
-  
+
   const onSubmit = async (formData: FormData) => {
     const inValue = formData.get("message") as string;
     const userId = user?.id;
@@ -255,61 +255,99 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
     return "";
   }, [messages]);
+  const [textareaHeight, setTextareaHeight] = useState("auto");
+
+  const SubmitButton = ({ isLoading }: any) => {
+    return (
+      <button
+        type="submit"
+        className="h-[40px] w-[40px] flex items-center justify-center rounded-full bg-[#666] hover:bg-black transition-all"
+      >
+        {isLoading ? (
+          <Loader2 className="w-5 h-5 animate-spin text-white" />
+        ) : (
+          <Icon type="ArrowRightIcon" className="size-4 text-[#272E48]" />
+        )}
+      </button>
+    );
+  };
 
   return (
     <>
       <form
         action={onSubmit}
-        className="rounded-[50px] mx-2  min-h-16 py-0  justify-between items-center lg:bg-navy-15 relative lg:border-t lg:border-t-grey-15 md:border-none flex flex-col"
+        className="flex flex-col items-center overflow-hidden p-4 text-base text-[#666] font-medium bg-white rounded-3xl border border-[#e9e9e9] shadow-[0px_0px_30px_0px_rgba(38,38,38,0.04)] relative w-full min-h-[80px]"
+        style={{ height: textareaHeight }}
       >
-        <div className="relative hidden">
-          <button
-            type="button"
-            className="w-10 h-10 pl-3 pt-2.5 pb-3 -mr-2 flex lg:hidden"
-            onClick={isPopupOpen ? handleClosePopup : handleOpenPopup}
-          >
-            <Icon type="PlusIcon" className={cn("w-5 h-5", isPopupOpen ? "stroke-purple-15" : " stroke-slate-400")} />
-          </button>
-
-          {isPopupOpen && (
-            <div
-              ref={popoverRef}
-              className="absolute lg:hidden w-max bg-[#272E48] rounded-md px-4 border-[#374061] border-[1px] py-2 bottom-16 left-0 z-50"
-            >
-              <ActionButtonsGroupMobile />
-            </div>
-          )}
-        </div>
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-          <Icon type='Photogragph' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.UPLOAD_FILE)} />
-          <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.QUESTION_SCANNER)} />
-        </div>
-        <Textarea
-          ref={setTextareaRef}
+        <textarea
           value={message}
-          // style={{
-          //   padding: "20px 16px"
-          // }}
-          onChange={handleChange}
-          className={cn(
-            "pl-20 min-h-16 h-auto rounded-[50px] pt-5 md:py-5 focus:outline-none text-sm md:text-base overflow-hidden border-[1px] resize-none text-[#272E48] pr-16 lg:pr-48",
-            isDark ? "lg:bg-[#F3F9ED]" : "lg:bg-navy-15"
-          )}
-          placeholder={isTutor ? "Ask any subject question..." : isCareerCoach ? "Ask any subject question..." : "Ask any subject question..."}
+          onChange={(e) => {
+            handleChange(e);
+
+            e.target.style.height = "auto";
+
+            const baseHeight = Math.min(Math.max(e.target.scrollHeight, 48), 200);
+            const adjustedHeight = window.innerWidth <= 768 ? baseHeight * 0.8 : baseHeight;
+
+            if (window.innerWidth <= 768) {
+              e.target.style.height = `${adjustedHeight}px`;
+              e.target.style.overflowY = "auto";
+              e.target.style.scrollbarWidth = "thin";
+            } else {
+              e.target.style.height = `${adjustedHeight}px`;
+            }
+
+            setTextareaHeight(`${adjustedHeight + 90}px`);
+          }}
+
+          className="w-full resize-none min-h-[40px] max-h-[200px] outline-none overflow-y-auto"
+          placeholder="Ask me any physical science question..."
           name="message"
           onKeyDown={handleEnter}
         />
-        <div className="flex items-center md:gap-3 py-3 absolute right-4 top-1/2 -translate-y-1/2">
-          <Button variant="transparent" size="xl" type="submit" className="w-10 h-10 p-2 disabled:opacity-30 disabled:pointer-events-none" onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)} disabled={assistActionOpenState === AssistAction.AUDIO_CHAT}>
-            <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
-          </Button>
-          <Button size="xl" type="submit" className="w-10 h-10 p-3 disabled:opacity-30 disabled:pointer-events-none" disabled={assistActionOpenState === AssistAction.AUDIO_CHAT}>
-            {isLoading ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : (
-              <Icon type="ArrowRightIcon" className="size-4 text-[#272E48]" />
+        <div className="flex w-full justify-between mt-2">
+          <div className="relative flex items-center">
+            {isPopupOpen && (
+              <div className="absolute left-0 bottom-12 bg-white p-2 rounded-md border shadow-md z-50 flex gap-2">
+                <Icon type='Photogragph' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.UPLOAD_FILE)} />
+                <Icon type='Camera' className="w-6 h-6 cursor-pointer" onClick={() => openAssistAction(AssistAction.QUESTION_SCANNER)} />
+              </div>
             )}
-          </Button>
+            <button
+              type="button"
+              className="flex items-center justify-center w-10 h-10 p-2 rounded-full border border-gray-300 "
+              onClick={() => setIsPopupOpen(!isPopupOpen)}
+            >
+              <div data-svg-wrapper>
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="#E9E9E9" />
+                  <path
+                    d="M19.9987 13.3335V26.6668M26.6654 20.0002L13.332 20.0002"
+                    stroke="#666666"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+          <div className="flex items-center ml-3">
+            <button
+              type="button"
+              className="h-[40px] w-[40px] flex items-center justify-center mr-2"
+              onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)}
+            >
+              <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
+            </button>
+            <SubmitButton isLoading={isLoading} />
+          </div>
         </div>
       </form>
       {!isUserUsingMobile && assistActionOpenState && <div ref={audioChatRef} className="w-full py-6">

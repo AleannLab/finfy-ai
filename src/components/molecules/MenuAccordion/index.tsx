@@ -97,10 +97,10 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             onClick={onClick}
             className="flex gap-3 items-center"
           >
-            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#F3F9ED]", isActiveType ? "!text-[#F3F9ED] !stroke-[#F3F9ED]" : "!stroke-[#547A91] !text-[#547A91]")}>
+            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#E9E9E9]", isActiveType ? "!text-[#E9E9E9] !stroke-[#E9E9E9]" : "!stroke-[#547A91] !text-[#547A91]")}>
               <Icon />
             </span>
-            <span className={cn("group-hover:text-[#F3F9ED] ", isActiveType ? "text-[#F3F9ED] " : "")}>{item.title}</span>
+            <span className={cn("group-hover:text-[#E9E9E9] ", isActiveType ? "text-[#E9E9E9] " : "")}>{item.title}</span>
           </Link>
           {isHideChevron && (
             <span className="text-[10px] font-normal">Coming Soon</span>
@@ -120,7 +120,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                   return (
                     <div
                       key={index}
-                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group md:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#F3F9ED]" : "")}
+                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group md:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#E9E9E9]" : "")}
                     >
                       <button
                         onClick={() =>
@@ -131,7 +131,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                         }
                         className="flex flex-col w-[90%] md:w-[180px]"
                       >
-                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white", pathname.includes(content?.chatId) ? " !text-[#F3F9ED]" : "text-[#547A91]")}>
+                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white", pathname.includes(content?.chatId) ? " !text-[#E9E9E9]" : "text-[#547A91]")}>
                           {content.title}
                         </p>
                       </button>

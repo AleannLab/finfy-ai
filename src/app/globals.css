@@ -179,7 +179,7 @@ input:-webkit-autofill:active{
 
 input:-webkit-autofill {
   -webkit-text-fill-color: #272e48 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #f3f9ed inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #E9E9E9 inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
@@ -432,6 +432,10 @@ input {
 
 .dropdown > li:hover {
   background-color: #6870DA !important;
+}
+
+.text-grey {
+  color: #666666;
 }
 
 .buttonPhoneNumber {

@@ -450,7 +450,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   if (isUser) {
     return (
-      <div className="min-h-[88px] flex-col p-8 bg-[#daede6] rounded-xl border border-[#f3f9ed] justify-center items-end gap-2.5 inline-flex">
+      <div className="min-h-[88px] flex-col p-8 bg-[#daede6] rounded-xl border border-[#E9E9E9] justify-center items-end gap-2.5 inline-flex">
         <div className="text-[#272e48] text-base font-normal leading-normal">{text}</div>
         <div className="flex overflow-hidden gap-4">
           {files?.map((file: any) => {

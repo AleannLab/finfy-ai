@@ -102,16 +102,15 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           </div>
         </div>
       </>
-      <footer className="h-[78px] hidden lg:flex absolute bottom-0 left-0 right-0 w-full justify-center items-center">
+      <footer className="w-[372px] mx-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
+      {/* <footer className="h-[78px] hidden lg:flex absolute bottom-0 left-0 right-0 w-full justify-center items-center">
         <div className="h-[76px] mx-auto pl-8 pr-4 py-2 rounded-[50px] justify-start items-center gap-10 inline-flex">
           <div className="justify-start items-center gap-4 flex">
             <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div>
             <div className="w-[140px] h-[60px] pl-[5px] pr-[4.07px] pt-[17px] pb-[17.75px] justify-center items-center flex">
               <div className="flex w-[140px]">
                 <div className="w-[137px] h-[60px] relative">
-                  {/* <Icon type="LogoIcon" />
-                <div className="w-[96.56px] ml-1.5 h-[14.81px] text-[#547a91] text-sm font-semibold leading-[14.57px]">Career Buddy</div> */}
-                  {/* <Icon type="DepartmentLogoFull" /> */}
+
                   <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
                     <img className="w-28 h-12 mix-blend-darken" src="/images/liberty-new.svg" />
                   </div>
@@ -125,15 +124,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
               <img className="w-[118px] h-9 mix-blend-darken" src="/images/logo-ultimate.png" />
             </div>
           </div>
-          {/* <div className="justify-start items-center gap-4 flex"> //HIDE ICONS
-            <div className="text-[#272e48] text-sm font-medium  leading-tight">Brought to you by</div> */}
-          {/* <Icon type="LogoLiberty" /> */}
-          {/* <div className="w-[140px] h-[60px] px-3.5 py-1.5 justify-center items-center inline-flex">
-              <img className="w-28 h-12 mix-blend-darken" src="/images/liberty.png" />
-            </div>
-          </div> */}
         </div>
-      </footer>
+      </footer> */}
     </div>
     </>
   );

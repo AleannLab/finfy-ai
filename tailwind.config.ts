@@ -148,8 +148,8 @@ const config: Config = {
         },
         navy: {
           5: "#74BBC9",
-          15: "#F3F9ED ",
-          25: "#FCFFF9",
+          15: "#E9E9E9 ",
+          25: "#FFF",
         },
       },
       borderRadius: {

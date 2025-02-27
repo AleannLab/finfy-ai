@@ -69,7 +69,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   const pathname = usePathname();
 
   return (
-    <button onClick={handleClick} className={cn("suggest-box max-h-[44px] max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[112px] lg:max-h-[112px] flex-grow !border-opacity-15 bg-[#f3f9ed] border-[#74bbc9]/20 flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
+    <button onClick={handleClick} className={cn(" max-h-[44px] transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
       <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
         {icon} {label}
       </p>
