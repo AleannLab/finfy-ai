@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #272E48;
+  color: black;
 }
 
 .shape-container svg {
@@ -87,7 +87,7 @@
 @layer utilities {
   /* Right sidebar */
   .right-sidebar {
-    @apply no-scrollbar min-h-screen h-full bg-navy-15 text-grey-15 flex flex-col !important;
+    @apply no-scrollbar min-h-screen h-full bg-[#F9F9F9] text-grey-15 flex flex-col !important;
   }
 
   .text-16 {

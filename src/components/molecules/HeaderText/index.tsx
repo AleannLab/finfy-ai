@@ -56,12 +56,12 @@ export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: 
         </FocusAssistantPopover>
       </>)
     }
-    <UserAvatar src={user?.avatar_url}
+    {/* <UserAvatar src={user?.avatar_url}
       className={cn(
         " lg:flex justify-center items-center !border-none !z-50 w-[42px] h-[42px] rounded-full !ml-0 "
 
       )}
-    />
+    /> */}
   </div>)
 }
 

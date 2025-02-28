@@ -88,8 +88,8 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
           router.push(href)
         }}
         className={cn("p-2 rounded-sm group", {
-          "bg-[#547A91] text-[#f3f9fd] stroke-[#f3f9fd]": isActiveType,
-        }, { "hover:text-[#f3f9fd] hover:stroke-[#f3f9fd] hover:bg-[#547A91]": !isActiveType })}
+          "bg-[#ECECEC] text-[#000] ": isActiveType,
+        }, { " hover:bg-[#ECECEC] text-[#000]": !isActiveType })}
       >
         <div className={"flex justify-between w-full items-center"}>
           <Link
@@ -97,10 +97,10 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             onClick={onClick}
             className="flex gap-3 items-center"
           >
-            <span className={cn("w-6 h-6 flex justify-center items-center group-hover:stroke-[#E9E9E9]", isActiveType ? "!text-[#E9E9E9] !stroke-[#E9E9E9]" : "!stroke-[#547A91] !text-[#547A91]")}>
+            <span className={cn("w-6 min-w-6 min-h-6 h-6 flex justify-center bg-black/20 rounded-full items-center", isActiveType ? "" : "")}>
               <Icon />
             </span>
-            <span className={cn("group-hover:text-[#E9E9E9] ", isActiveType ? "text-[#E9E9E9] " : "")}>{item.title}</span>
+            <span className={cn("", isActiveType ? "" : "")}>{item.title}</span>
           </Link>
           {isHideChevron && (
             <span className="text-[10px] font-normal">Coming Soon</span>
@@ -131,7 +131,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                         }
                         className="flex flex-col w-[90%] md:w-[180px]"
                       >
-                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 group-hover:text-white", pathname.includes(content?.chatId) ? " !text-[#E9E9E9]" : "text-[#547A91]")}>
+                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 ", pathname.includes(content?.chatId) ? " " : "")}>
                           {content.title}
                         </p>
                       </button>
@@ -143,7 +143,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                           >
                             <IconComponent
                               type="DotsIcon"
-                              className="stroke-grey-15 w-4 h-4"
+                              className="stroke-black w-4 h-4"
                             />
                           </Button>
                         </DropDownModal>
