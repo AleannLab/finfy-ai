@@ -217,8 +217,6 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
 
 
 
-
-
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
     setMessage(value);
@@ -272,6 +270,11 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     );
   };
 
+  const cutIcon = (title: any) => {
+    const arr = title?.split(" ")
+    return arr?.slice(1, arr?.length)?.join(" ")
+  }
+
   return (
     <>
       <form
@@ -301,7 +304,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           }}
 
           className="w-full resize-none min-h-[40px] max-h-[200px] outline-none overflow-y-auto"
-          placeholder="Ask me any physical science question..."
+          placeholder={suggest?.title ? `Ask me any ${cutIcon(suggest?.title)} question...` : "Ask question..."}
           name="message"
           onKeyDown={handleEnter}
         />
