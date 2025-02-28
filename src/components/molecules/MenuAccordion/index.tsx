@@ -156,19 +156,19 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
           ) : (
             <>
               <Accordion.Content className="flex justify-between">
-                {/* <Link
+                <Link
                   href={item.link}
                   className="menu-list-btn flex gap-1 ml-1 items-center"
                 >
                   Start a new thread...
-                </Link> */}
-                <CreateNewChatPop>
+                </Link>
+                {/* <CreateNewChatPop>
                   <button
                     className="menu-list-btn bg-transparent  flex gap-1 ml-1 items-center"
                   >
                     Start a new thread...
                   </button>
-                </CreateNewChatPop>
+                </CreateNewChatPop> */}
               </Accordion.Content>
 
             </>

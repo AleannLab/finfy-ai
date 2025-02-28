@@ -36,7 +36,7 @@ const HomeSuggestBoxes = () => {
         <Swiper
           className="min-w-[100vw] md:min-w-0 max-w-[calc(100%)]"
           spaceBetween={16}
-          slidesPerView={(pathname.includes("teacher")) ? 3 : 4}
+          slidesPerView={4}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >
@@ -51,7 +51,7 @@ const HomeSuggestBoxes = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <button 
+        {/* <button 
           style={{
             backgroundColor: 'transparent',
             color: '#74BBC9',
@@ -68,7 +68,7 @@ const HomeSuggestBoxes = () => {
             top: '50%',
           }} 
           className="swiper-button-next !w-8 absolute z-10 p-2 !bg-transparent !-translate-y-2 !scale-[0.4]">
-        </button>
+        </button> */}
       </div>
       {/* <div className="flex xl:hidden flex-wrap gap-3">
         {suggests.map((item: any) => (

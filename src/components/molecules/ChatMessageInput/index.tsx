@@ -304,7 +304,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           }}
 
           className="w-full resize-none min-h-[40px] max-h-[200px] outline-none overflow-y-auto"
-          placeholder={suggest?.title ? `Ask me any ${cutIcon(suggest?.title)} question...` : "Ask question..."}
+          placeholder={suggest?.title ? `Ask me any ${cutIcon(suggest?.title)} question...` : "Ask follow-up question..."}
           name="message"
           onKeyDown={handleEnter}
         />

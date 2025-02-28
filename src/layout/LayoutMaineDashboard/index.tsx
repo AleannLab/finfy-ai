@@ -87,11 +87,11 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   }
 
   return (
-    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen  !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen !max-w-screen  !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       <>
         {!isMessages && <HeaderText />}
-        <div className="flex !max-w-[441px] w-full lg:!max-w-[1050px] flex-1 mx-auto flex-col">
+        <div className="flex !max-w-[441px] w-[calc(100%)] md:w-[calc(100%-60px)] lg:!max-w-[1050px] flex-1 mx-auto flex-col">
           <div className="flex items-center h-fit text-[#547a91]">
             <Icon type="LightningBolt" className="text-[#547a91]" />
             <p className="text-base">Suggestions</p>
@@ -102,7 +102,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           </div>
         </div>
       </>
-      <footer className="w-[372px] mx-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
+      <footer className="w-[372px] mt-4 mx-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
       {/* <footer className="h-[78px] hidden lg:flex absolute bottom-0 left-0 right-0 w-full justify-center items-center">
         <div className="h-[76px] mx-auto pl-8 pr-4 py-2 rounded-[50px] justify-start items-center gap-10 inline-flex">
           <div className="justify-start items-center gap-4 flex">

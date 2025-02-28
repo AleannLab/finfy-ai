@@ -69,23 +69,34 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   const pathname = usePathname();
 
   return (
-    <button onClick={handleClick} className={cn(" max-h-[44px] transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
-      <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
-        {icon} {label}
-      </p>
-      <div className="relative !text-[#547a91]">
-        <p className="pr-6 text-start !text-[#547a91] overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] line-clamp-2  lg:hidden">
-          &quot;{content}&quot; ↗
+    <>
+      <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white hidden md:flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
+        <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>
+        <div className="self-stretch h-10 flex-col justify-start items-start gap-8 flex">
+          <div className="self-stretch h-10 flex-col justify-start items-start gap-2 flex">
+            <div className="self-stretch text-[#666666] text-sm font-medium  leading-tight">&quot;{content}&quot;</div>
+          </div>
+        </div>
+      </button>
+
+      <button onClick={handleClick} className={cn(" max-h-[44px] md:hidden transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
+        <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
+          {icon} {label}
         </p>
-        <p className="pr-6 text-start !text-[#547a91] max-h-[56px] overflow-hidden text-ellipsis whitespace-pre-line line-clamp-2 hidden lg:block">
-          &quot;{content}&quot; ↗
-        </p>
-        {/* <Icon
+        <div className="relative !text-[#547a91]">
+          <p className="pr-6 text-start text-[#666666] !text-[11px] font-medium  overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] line-clamp-2  lg:hidden">
+            &quot;{content}&quot;
+          </p>
+          <p className="text-[#666666] text-[11px] font-medium  leading-tight">
+            &quot;{content}&quot;
+          </p>
+          {/* <Icon
           type={"UpArrowIcon"}
           className="size-3 rotate-45 absolute bottom-0 right-0"
         /> */}
-      </div>
-    </button>
+        </div>
+      </button>
+    </>
   );
 };
 
