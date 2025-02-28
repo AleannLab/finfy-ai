@@ -60,6 +60,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, assistantKey
       toast.error("You can't send message without any text")
       return;
     }
+    setIsShowSuggest(false)
     setMessage("");
     // setActivePrompt("");
 
