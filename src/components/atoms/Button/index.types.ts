@@ -38,5 +38,7 @@ export type Color =
   | "secondary"
   | "ghost"
   | "link"
+  | "outlineMain"
+  | "main"
   | "transparent";
 export type Size = "xs" | "sm" | "base" | "lg" | "xl";

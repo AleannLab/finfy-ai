@@ -9,6 +9,8 @@ const variantClasses: Record<Color, string> = {
   ghost: "hover:bg-navy-5 text-grey-15 hover:text-[#272E48]",
   link: "text-[#272E48] underline-offset-4 hover:underline",
   transparent: "!bg-transparent h-10 w-10 !rounded-[50px] ",
+  outlineMain: "h-10 text-black bg-white hover:bg-black hover:text-white text-base font-semibold  leading-normal px-4 py-2 !rounded-lg  !shadow-[inset_0px_2px_0px_0px_rgba(255,255,255,0.15)] border border-black justify-center items-center gap-3 inline-flex overflow-hidden !rounded-lg",
+  main: "h-10 text-white bg-black hover:bg-white hover:text-black text-base font-semibold  leading-normal px-4 py-2 !rounded-lg  !shadow-[inset_0px_2px_0px_0px_rgba(255,255,255,0.15)] border border-black justify-center items-center gap-3 inline-flex overflow-hidden !rounded-lg"
 };
 
 const sizeClassesWithText: Record<Size, string> = {

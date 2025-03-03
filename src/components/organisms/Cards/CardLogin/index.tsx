@@ -54,24 +54,25 @@ const CardLogin = () => {
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col w-full mt-6 justify-center items-center">
         <div className="flex flex-col gap-4 mt-4 w-full">
-            <Button disabled={isPending} className="!rounded-md" size="xl" full type="submit">
+            <Button disabled={isPending} variant="main" className="" size="xl" full type="submit">
               {isPending ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>
-            {/* <Button
+            <Button
               disabled={isPending}
               size="xl"
-              className="!rounded-md !bg-transparent"
+              className="!hover:bg-white !hover:text-black rounded-lg"
               full
               href="/sign-up"
+              variant="outlineMain"
               as="link"
             >
               Sign up
-            </Button> */}
+            </Button>
           </div>
           <Button
             variant="link"
             size="xs"
-            className="text-md-center rounded-md mx-auto mt-6  underline-offset-1 underline font-normal self-end"
+            className="text-md-center mx-auto mt-6  underline-offset-1 underline font-normal self-end"
             href="/reset-password"
             as="link"
           >

@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = ["/", "/onboarding"];
   const authRoutes = [
     "/login",
-    // "/sign-up",
+    "/sign-up",
     "/authentication",
     "/confirm-email",
     "/update-password",

@@ -31,26 +31,21 @@ const Field: FC<FieldProps> = forwardRef(
           <div className="flex justify-between items-center">
             {label && (
               <Label
-                className={cn(classes?.label, {
-                  "!text-accent-content": Boolean(helperText),
-                })}
+                className={cn("text-[#666666] text-sm font-semibold", classes?.label)}
                 htmlFor={id}
               >
                 {label}
               </Label>
             )}
             {!isRequired && (
-              <span className="text-grey-15 font-semibold text-sm">
-                (Optional)
-              </span>
+              <span className="text-gray-400 font-medium text-sm">(Optional)</span>
             )}
           </div>
           <div
             className={cn(
-              "rounded-lg overflow-hidden px-3 py-2 text-base font-medium bg-navy-15 border flex items-center shadow-sm border-deep-slate",
+              "px-3 py-1.5 bg-white rounded-lg shadow-sm border border-[#e9e9e9] flex items-center overflow-hidden",
               classes?.containerInput,
-              full ? "w-full" : "w-fit",
-              { "border-accent-content": helperText }
+              full ? "w-full" : "w-fit"
             )}
           >
             {left}
@@ -59,19 +54,14 @@ const Field: FC<FieldProps> = forwardRef(
               {...props}
               ref={ref}
               className={cn(
-                "text-[#547a91] outline-none bg-transparent h-full w-full placeholder:text-base placeholder:font-light",
+                "text-gray-400 h-6 text-base font-medium outline-none bg-transparent w-full placeholder:text-base placeholder:font-light",
                 props?.className
               )}
             />
             {right}
           </div>
           {helperText && (
-            <span
-              className={cn(
-                "text-accent-content text-xs font-light absolute top-full",
-                classes?.helperText
-              )}
-            >
+            <span className={cn("text-zinc-400 text-sm font-medium", classes?.helperText)}>
               {helperText}
             </span>
           )}
@@ -80,6 +70,7 @@ const Field: FC<FieldProps> = forwardRef(
     );
   }
 );
+
 Field.displayName = "Field";
 export { Field };
 export type { FieldProps };

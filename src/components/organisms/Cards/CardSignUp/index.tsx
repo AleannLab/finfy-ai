@@ -42,7 +42,7 @@ const CardSignUp = () => {
     });
   };
   return (
-    <CardTemplate descriptionBtn={<Link href="/login" className="text-[#FBAB18] ml-1">Log in</Link>} description="Already have an account?" title="Sign Up">
+    <CardTemplate descriptionBtn={<Link href="/login" className="text-black font-semibold ml-1">Log in</Link>} description="Already have an account?" title="Sign Up">
       <form action={handleClickSignUpButton}>
         <CardTemplate.Content className="flex flex-col gap-4 mt-4">
           <Field
@@ -69,7 +69,7 @@ const CardSignUp = () => {
           />
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col gap-4 mt-6">
-          <Button disabled={isPending} className="!bg-transparent !rounded-md" type="submit" size="xl" full>
+          <Button variant="outlineMain" disabled={isPending} className="" type="submit" size="xl" full>
             {isPending ? <Loader2 className="animate-spin" /> : "Sign up"}
           </Button>
         </CardTemplate.Footer>

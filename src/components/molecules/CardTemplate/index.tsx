@@ -33,7 +33,7 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {title && typeof title === "string" ? (
             <Card.Title
               className={cn(
-                "text-[#272E48] text-2xl text-start font-bold",
+                "text-black text-2xl font-bold ",
                 classes?.cardTitle
               )}
             >
@@ -45,7 +45,7 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {description && (
             <Card.Description
               className={cn(
-                "text-sm text-[#547A91] font-medium mt-2",
+                "text-[#666666] text-sm font-medium leading-tight",
                 classes?.cardDescription
               )}
             >
