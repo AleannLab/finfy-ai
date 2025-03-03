@@ -16,6 +16,7 @@ export const emojis = ['🗂','🧑', '🛒', '💸', '🛍️', '🎓', '📈',
 
 export const routesOnboarding = {
   // verifyPhoneNumber: "verify-phone-number",
+  confirmEmail: "confirm-email",
   // confirmPhoneNumber: "confirm-phone-number",
   // selectPlan: "select-plan",
   // personalize: "personalize",

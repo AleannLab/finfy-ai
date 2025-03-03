@@ -1,3 +1,4 @@
+// import ConfirmEmail from "@/app/(auth)/confirm-email/page";
 import {
   CardVerifyPhoneNumber,
   CardConfirmPhoneNumber,
@@ -9,6 +10,7 @@ import {
   CardSelectCurrency,
   CardSetupComplete,
   CardSelectCountry,
+  CardConfirmEmail
 } from "@/components/organisms";
 import { AddStripe } from "@/components/organisms/Cards/AddStripe";
 import { RouteOnboardingValues } from "@/types";
@@ -22,7 +24,7 @@ interface OnboardingStepPops {
 const stepComponents: {
   [key: string]: (props: any) => JSX.Element;
 } = {
-  // [routesOnboarding.verifyPhoneNumber]: CardVerifyPhoneNumber,
+  [routesOnboarding.confirmEmail]: CardConfirmEmail,
   // [routesOnboarding.confirmPhoneNumber]: CardConfirmPhoneNumber,
   // [routesOnboarding.selectPlan]: CardSelectPlan,
   // [routesOnboarding.personalize]: CardPersonalize,

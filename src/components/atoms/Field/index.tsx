@@ -19,6 +19,7 @@ const Field: FC<FieldProps> = forwardRef(
     ref
   ) => {
     const { left, right } = sideElements;
+
     return (
       <div className={cn(classes?.wrapper, full ? "w-full" : "w-fit")}>
         <div
@@ -43,7 +44,7 @@ const Field: FC<FieldProps> = forwardRef(
           </div>
           <div
             className={cn(
-              "px-3 py-1.5 bg-white rounded-lg shadow-sm border border-[#e9e9e9] flex items-center overflow-hidden",
+              "px-3 py-1.5 bg-white rounded-lg shadow-sm border border-[#e9e9e9] flex items-center relative overflow-hidden",
               classes?.containerInput,
               full ? "w-full" : "w-fit"
             )}
@@ -58,7 +59,12 @@ const Field: FC<FieldProps> = forwardRef(
                 props?.className
               )}
             />
-            {right}
+            {/* Якщо `right` передано — рендеримо його в абсолютному контейнері */}
+            {right && (
+              <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                {right}
+              </div>
+            )}
           </div>
           {helperText && (
             <span className={cn("text-zinc-400 text-sm font-medium", classes?.helperText)}>
@@ -70,6 +76,7 @@ const Field: FC<FieldProps> = forwardRef(
     );
   }
 );
+
 
 Field.displayName = "Field";
 export { Field };

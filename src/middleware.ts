@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
     "/login",
     "/sign-up",
     "/authentication",
-    "/confirm-email",
+    // "/confirm-email",
     "/update-password",
     "/reset-password",
     "/send-reset-password",

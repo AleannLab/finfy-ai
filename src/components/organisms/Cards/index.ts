@@ -1,7 +1,7 @@
 export { CardAuthentication } from "./CardAuthentication";
 export { CardLogin } from "./CardLogin";
 export { CardSignUp } from "./CardSignUp";
-export { CardConfirmEmail } from "./CardConfirmEmail";
+// export { CardConfirmEmail } from "./CardConfirmEmail";
 export { CardVerifyPhoneNumber } from "./CardVerifyPhoneNumber";
 export { CardConfirmPhoneNumber } from "./CardConfirmPhoneNumber";
 export { CardSelectPlan } from "./CardSelectPlan";
@@ -15,4 +15,5 @@ export { CardResetPassword } from "./CardResetPassword";
 export { CardUpdatePassword } from "./CardUpdatePassword";
 export { CardSendResetPassword } from "./CardSendResetPassword";
 export { CardSelectCountry } from "./CardSelectCountry";
+export { CardConfirmEmail } from "./CardConfirmEmail";
 export { CardSubscribePlan } from "./CardSubscribePlan";

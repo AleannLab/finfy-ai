@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { createAccountAction } from "@/lib/supabase/actions";
 import { Loader2 } from "lucide-react";
 import { useAppDispatch } from "@/lib/store/hooks";
-import { createUser } from "@/lib/store/features/user/userSlice";
+import { createUser, fetchUserByEmailOrPhone } from "@/lib/store/features/user/userSlice";
 import { getErrorMessage, resetCookies } from "@/utils/helpers";
 import Link from "next/link";
 
@@ -30,8 +30,9 @@ const CardSignUp = () => {
           if (errorMessage) {
             toast.error(errorMessage);
           } else {
-            router.push("/confirm-email");
-            toast.success("A verification link has been sent to your email!");
+            dispatch(fetchUserByEmailOrPhone());
+            router.push("/onboarding/confirm-email");
+            // toast.success("A verification link has been sent to your email!");
           }
         } else {
           toast.error("This user is already registered");
@@ -49,7 +50,7 @@ const CardSignUp = () => {
             name="email"
             label={"Email"}
             full
-            type="email"
+            type="text"
             disabled={isPending}
           />
           <Field

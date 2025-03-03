@@ -10,21 +10,27 @@ import { config } from "@/config/env";
 export const createAccountAction = async (formData: FormData) => {
   try {
     const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
 
     const { auth } = createSupabaseClient();
-    const { error } = await auth.signUp({ password, email });
+    const { error } = await auth.signInWithOtp({
+      email,
+      options: { shouldCreateUser: true },
+    });
+
     if (error) {
       Sentry.captureException(error);
+      console.log("sign-up", error)
       throw error;
     }
     return { errorMessage: null };
   } catch (error) {
+    console.log("err", error)
     return {
       errorMessage: getErrorMessage(error),
     };
   }
 };
+
 
 export const loginAction = async (formData: FormData) => {
   try {
