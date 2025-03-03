@@ -4,26 +4,41 @@ import { SuggestedQuestion } from "@/components/molecules";
 import { RootState } from "@/lib/store";
 import { useAppSelector } from "@/lib/store/hooks";
 import { useSelector } from "react-redux";
+import { cn } from "@/lib/utils";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/swiper-bundle.css";
+
+const HomeSuggestBoxes = ({ suggests }: { suggests?: any }) => {
+  if (!suggests?.length) return null;
+  const isLgScreen = typeof window !== "undefined" && window.innerWidth >= 1024;
+
+  return (
+    <div className=" min-w-max relative">
+      <Swiper
+        key={JSON.stringify(suggests)}
+        className="max-h-[116px] w-[870px]"
+        spaceBetween={16}
+        slidesPerView={3}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        modules={[Navigation]}
+      >
+        {suggests.map((question: string, i: any) => {
+          return <SwiperSlide key={question + i}>
+            <SuggestedQuestion key={question + i} question={question} />; </SwiperSlide>
+        })}
+
+      </Swiper>
+    </div>
+  );
+};
 
 const SuggestedQuestions = () => {
-//   const suggests = {
-//     "simple": [
-//         "What is my average monthly spending on general services?",
-//         "How much have I spent on entertainment over the past three months?",
-//         "Can you show me a breakdown of my bank fees?",
-//         "What is the total income I have received in the last three months?",
-//         "How does my spending compare between entertainment and general services?"
-//     ],
-//     "open_ended": [
-//         "What factors influence my spending on entertainment, and could I find ways to reduce it?",
-//         "Are there any unexpected spikes in my bank fees that I should be aware of, and how can I manage them better?",
-//         "In what areas of my general services spending could I potentially save money without impacting my daily life?",
-//         "How consistent is my income from freelance work, and what steps can I take to increase my earnings?",
-//         "Reflecting on my recent transactions, do I notice any patterns that could indicate overspending or under-budgeting in certain categories?"
-//     ]
-// };
+  const suggests = useAppSelector((state) => state.chat.suggests);
 
-  const suggests = useSelector((state: RootState) => state.chat.suggests);
   if (!suggests) {
     return null;
   }
@@ -36,9 +51,10 @@ const SuggestedQuestions = () => {
     <div className="absolute w-full px-3 bottom-[110%] md:bottom-[105%]">
       <h4 className="text-white font-semibold text-2xl mb-4">Related</h4>
       <div className="flex gap-2 md:gap-4 overflow-auto w-full scrollbar-hide">
-        {[...simple, ...open_ended].map((question, i) => {
-          return <SuggestedQuestion key={question + i} question={question} />;
-        })}
+        {/* {[...simple, ...open_ended].map((question, i) => {
+          return <SuggestedQuestion key={question + i} question={question} />; //TODO
+        })} */}
+        <HomeSuggestBoxes suggests={suggests} />
       </div>
     </div>
   );
