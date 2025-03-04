@@ -14,6 +14,8 @@ import { useNavigationOnboarding, useUser } from "@/hooks";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { useSearchParams } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 
 const CardConfirmEmail = () => {
   const router = useRouter();
