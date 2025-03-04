@@ -20,6 +20,7 @@ export interface User {
   name: string;
   email: string;
   created_at: string;
+  email_verified_at: string;
   plan: string;
   subscribe_plan: string;
   selected_currency: string;

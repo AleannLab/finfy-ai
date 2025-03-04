@@ -40,24 +40,36 @@ export const setDataUser = createAsyncThunk<InsertDataUser, string>(
   }
 );
 
-export const fetchUserByEmailOrPhone = createAsyncThunk<User>(
-  "users/fetchUserByEmailOrPhone",
-  async () => {
+export const fetchUserByEmailOrPhone = createAsyncThunk<
+  User | null,
+  void
+>("users/fetchUserByEmailOrPhone", async () => {
+  try {
     const response = await axiosInternal.get("/api/get-user");
     const email = response?.data?.email;
-    const phone = response?.data?.phone;
-    if (email || phone) {
-      const { data, error } = await supabase
-        .from("users")
-        .select()
-        .ilike(email ? "email" : "phone", email || `+${phone}`)
-        .single();
-      if (error) throw error;
-      return data!;
+
+    if (!email) {
+      throw new Error("Email is required");
     }
+
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .ilike("email", email)
+      .single()
+
+    if (error) {
+      console.error("Supabase error:", error);
+      throw error;
+    }
+
+    return data ?? null; 
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
     return null;
   }
-);
+});
+
 
 export const fetchUserById = createAsyncThunk<User, number>(
   "users/fetchUser",
@@ -118,12 +130,13 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserByEmailOrPhone.pending, (state) => {})
-      .addCase(
-        fetchUserByEmailOrPhone.fulfilled,
-        (state, action: PayloadAction<User>) => {
-          state.user = action.payload;
+      .addCase(fetchUserByEmailOrPhone.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.user = action.payload; 
+        } else {
+          state.user = null;
         }
-      )
+      })
       .addCase(fetchUserByEmailOrPhone.rejected, (state, action) => {
         state.error = getErrorMessage(action.error) || null;
       })

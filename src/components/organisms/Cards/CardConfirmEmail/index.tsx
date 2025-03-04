@@ -6,22 +6,21 @@ import { Button, Field } from "@/components/atoms";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import { createUser, fetchUserByEmailOrPhone } from "@/lib/store/features/user/userSlice";
+import { createUser, fetchUserByEmailOrPhone, setDataUser, updateUser } from "@/lib/store/features/user/userSlice";
 import { getErrorMessage, resetCookies } from "@/utils/helpers";
 import { supabase } from "@/lib/supabase/client";
 import * as Sentry from "@sentry/nextjs";
 import { useNavigationOnboarding, useUser } from "@/hooks";
-import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/lib/store/hooks";
+import { useSearchParams } from "next/navigation";
 
 
 const CardConfirmEmail = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { nextStep, prevStep } = useNavigationOnboarding();
-  const userCurrent = useSelector((state: RootState) => state.user.user);
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
 
 
 
@@ -31,24 +30,50 @@ const CardConfirmEmail = () => {
     const otp = formData.get("otp") as string;
     dispatch(fetchUserByEmailOrPhone());
 
+    const email = searchParams.get("email");
 
     if (!otp) {
       toast.error("Please enter the OTP code.");
       return;
     }
 
-    console.log(userCurrent)
-    if (!userCurrent?.email) {
+    if (!email) {
       toast.error("User not created, please use another email");
+      // router.push("/sign-up")
       return;
     }
 
     try {
       const { data, error } = await supabase.auth.verifyOtp({
-        email: userCurrent.email,
+        email: email,
         token: otp,
-        type: "email",
+        type: "signup",
       });
+
+      if (error?.message.includes("Token has expired") || error?.message.includes("is invalid")) {
+        console.log("Token expired or invalid, resending OTP...");
+      
+        const { error: resendError } = await supabase.auth.signInWithOtp({
+          email,
+          options: { shouldCreateUser: true },
+        });
+      
+        if (resendError) {
+          console.error("Error resending OTP:", resendError.message);
+          toast.error("Failed to resend OTP. Please try again later.");
+        } else {
+          toast.success("New OTP has been sent to your email.");
+        }
+      }
+      
+
+      if (data.user?.id) {
+        await dispatch(
+          updateUser({
+            email_verified_at: data.user.email_confirmed_at,
+          })
+        );
+      }
 
 
       if (error) {
@@ -59,6 +84,7 @@ const CardConfirmEmail = () => {
       toast.success("Your account has been verified!");
       nextStep();
     } catch (error) {
+      // router.push("/sign-up")
       toast.error(getErrorMessage(error));
     }
   };

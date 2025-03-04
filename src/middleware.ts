@@ -46,7 +46,6 @@ export async function middleware(request: NextRequest) {
     "/login",
     "/sign-up",
     "/authentication",
-    // "/confirm-email",
     "/update-password",
     "/reset-password",
     "/send-reset-password",
@@ -56,14 +55,15 @@ export async function middleware(request: NextRequest) {
   ];
   const isProtectedRoute = protectedRoutes.includes(path);
   const isAuthRoute = authRoutes.includes(path);
+  const isEmailConfirm = path.includes("onboarding/confirm-email");
 
   if (isProtectedRoute || isAuthRoute) {
     const user = await getUser(response, request);
 
-    if (!user && isProtectedRoute) {
+    if (!user && isProtectedRoute && !isEmailConfirm) {
       return NextResponse.redirect(new URL("/authentication", request.url));
     }
-    if (isAuthRoute && user) {
+    if ((isAuthRoute && user) || isEmailConfirm) {
       return NextResponse.redirect(new URL("/onboarding", request.url));
     }
 
@@ -74,7 +74,7 @@ export async function middleware(request: NextRequest) {
     }
   } else {
     const user = await getUser(response, request);
-    if (!user && !isAuthRoute) {
+    if (!user && !isAuthRoute && !isEmailConfirm) {
       return NextResponse.redirect(new URL("/authentication", request.url));
     }
     if (path == "/dashboard") {

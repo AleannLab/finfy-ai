@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { createAccountAction } from "@/lib/supabase/actions";
 import { Loader2 } from "lucide-react";
 import { useAppDispatch } from "@/lib/store/hooks";
-import { createUser, fetchUserByEmailOrPhone } from "@/lib/store/features/user/userSlice";
+import { createUser, fetchUserByEmailOrPhone, setDataUser } from "@/lib/store/features/user/userSlice";
 import { getErrorMessage, resetCookies } from "@/utils/helpers";
 import Link from "next/link";
 
@@ -25,13 +25,14 @@ const CardSignUp = () => {
       try {
         resetCookies();
         const data: any = await dispatch(createUser({ email, name }));
+        // await dispatch(setDataUser(data.user.id));
         if (data?.error?.code !== ERROR_DUPLICATE_CODE) {
           const { errorMessage } = await createAccountAction(formData);
           if (errorMessage) {
             toast.error(errorMessage);
           } else {
-            dispatch(fetchUserByEmailOrPhone());
-            router.push("/onboarding/confirm-email");
+            router.push(`/onboarding/select-plan`);
+            // router.push(`/onboarding/confirm-email?email=${encodeURIComponent(email)}`);
             // toast.success("A verification link has been sent to your email!");
           }
         } else {

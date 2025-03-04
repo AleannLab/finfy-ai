@@ -10,12 +10,22 @@ import { config } from "@/config/env";
 export const createAccountAction = async (formData: FormData) => {
   try {
     const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
     const { auth } = createSupabaseClient();
-    const { error } = await auth.signInWithOtp({
+
+
+    const { data, error } = await auth.signUp({
       email,
-      options: { shouldCreateUser: true },
+      password,
     });
+
+    // if (data?.user?.email) {
+    //   const { error } = await auth.signInWithOtp({
+    //     email: data?.user?.email,
+    //     options: { shouldCreateUser: false },
+    //   });
+    // }
 
     if (error) {
       Sentry.captureException(error);
@@ -85,7 +95,7 @@ export const signInWithOtp = async (phone: string) => {
 };
 
 export const getAppURL = () => {
-  const env = process.env.NEXT_PUBLIC_NODE_ENV ;
+  const env = process.env.NEXT_PUBLIC_NODE_ENV;
 
   // Set default URL for localhost
   let url = "http://localhost:3000/";
