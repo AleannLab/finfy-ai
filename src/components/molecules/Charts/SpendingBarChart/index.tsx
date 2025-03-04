@@ -227,7 +227,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ data: dataChart }) => {
       {
         label: title,
         data: amounts,
-        backgroundColor: (chartType === 'pie' || chartType === 'bar') ? ["#0EA5E9", "#FBAB18", "#6870DA", "#9CA3AF", "#374061"] : "#FBAB18",
+        backgroundColor: (chartType === 'pie' || chartType === 'bar') ? ["#0EA5E9", "#666", "#6870DA", "#9CA3AF", "#374061"] : "#666",
         borderColor: "rgb(81, 90, 217)",
         hoverBackgroundColor: "#6870DA",
         borderWidth: 1,

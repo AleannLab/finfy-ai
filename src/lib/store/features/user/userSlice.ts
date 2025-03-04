@@ -55,15 +55,15 @@ export const fetchUserByEmailOrPhone = createAsyncThunk<
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .ilike("email", email)
-      .single()
+      .eq("email", email)
+      .single();
 
     if (error) {
       console.error("Supabase error:", error);
       throw error;
     }
 
-    return data ?? null; 
+    return data ?? null;
   } catch (error) {
     console.error("Error fetching user by email:", error);
     return null;
@@ -129,10 +129,10 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserByEmailOrPhone.pending, (state) => {})
+      .addCase(fetchUserByEmailOrPhone.pending, (state) => { })
       .addCase(fetchUserByEmailOrPhone.fulfilled, (state, action) => {
         if (action.payload) {
-          state.user = action.payload; 
+          state.user = action.payload;
         } else {
           state.user = null;
         }

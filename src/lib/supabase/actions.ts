@@ -17,8 +17,12 @@ export const createAccountAction = async (formData: FormData) => {
 
     const { data, error } = await auth.signUp({
       email,
-      password,
+      password
     });
+
+    if (data?.user) {
+      await supabase.from("users").update({ role: "authenticated" }).eq("id", data.user.id);
+    }
 
     // if (data?.user?.email) {
     //   const { error } = await auth.signInWithOtp({

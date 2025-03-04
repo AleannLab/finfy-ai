@@ -42,7 +42,7 @@ const Initializer: FC<InitializerProps> = () => {
   return (
     <ProgressBar
       height="4px"
-      color="#FBAB18"
+      color="#666"
       options={{ showSpinner: false }}
       shallowRouting
     />

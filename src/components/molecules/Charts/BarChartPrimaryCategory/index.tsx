@@ -20,7 +20,7 @@ const chartData = [
 const chartConfig = {
   amount: {
     label: "Amount",
-    color: "#FBAB18",
+    color: "#666",
   },
 } satisfies ChartConfig;
 

@@ -144,7 +144,7 @@ const config: Config = {
         },
         purple: {
           5: "#6B73DF",
-          15: "#FBAB18",
+          15: "#666",
         },
         navy: {
           5: "#74BBC9",
