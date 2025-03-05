@@ -182,7 +182,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   };
 
   const isMessages = pathname.includes("thread")
-  const isTeacher = pathname.includes("teacher")
+  const isTeacher = pathname.includes("tutor")
 
   const tools = [
     { icon: "🏆", label: "Exam Mastery", content: "Want to practice real past math papers? I’ll grade your answers, provide feedback based on official marking guidelines, and help you strengthen your skills!", toolsId: "exam_mastery" },
