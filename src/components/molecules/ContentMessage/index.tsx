@@ -490,7 +490,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full mb-2 h-full">
       {!isUser && !isLoading && (
         <div className="flex items-center gap-4 mb-4">
           <span className="w-8 h-8">
