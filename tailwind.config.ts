@@ -182,6 +182,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     responsiveTextPlugin({
       extraFonts: [{ name: "serif", multiplicator: 1.08 }],
     }),

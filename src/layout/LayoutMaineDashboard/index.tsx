@@ -16,6 +16,8 @@ import { AssistAction } from "../LayoutDashboard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { careerCoach, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { HomeSlides } from "@/components/molecules/HomeSlides";
+import { typeCatagories } from "@/lib/constants";
+import { useAppSelector } from "@/lib/store/hooks";
 
 const StyledSelect = ({disable}: any) => {
   const [selectedGrade, setSelectedGrade] = useState("Grade 12"); // Default selection
@@ -128,6 +130,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
   const [tool, setTool] = useState<any>(null);
   const [isOn, setIsOn] = useState(false);
+  const suggest = useAppSelector((state) => state.suggest.suggest);
+  const isMath = `${suggest?.title}`?.includes("Mathematics")
 
 
   useEffect(() => {
@@ -182,7 +186,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   };
 
   const isMessages = pathname.includes("thread")
-  const isTeacher = pathname.includes("tutor")
+  const isTeacher = pathname.includes("teacher") && !!0 //disable teacher
+  const isTutor = pathname.includes("tutor") && isMath
 
   const tools = [
     { icon: "🏆", label: "Exam Mastery", content: "Want to practice real past math papers? I’ll grade your answers, provide feedback based on official marking guidelines, and help you strengthen your skills!", toolsId: "exam_mastery" },
@@ -224,10 +229,22 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                 </div>
               </div>
             </div>
-            <HomeSlides selectedTool={tool} slides={tools} setTool={setTool}
+            <HomeSlides type={typeCatagories.teacher} selectedTool={tool} slides={tools} setTool={setTool}
             />
           </>)}
-          {isTeacher ?
+          {isTutor && (<>
+            <div className="max-w-[1050px] w-full h-9 justify-between items-center inline-flex">
+              <div className="justify-start items-center gap-1 flex">
+                <div data-svg-wrapper className="relative">
+                  <Icon type="LightningBolt" className="text-[#547a91]" />
+                </div>
+                <div className="text-[#666666] text-base font-medium  leading-tight">All tools</div>
+              </div>
+            </div>
+            <HomeSlides type={typeCatagories.tutor} selectedTool={tool} slides={tools} setTool={setTool}
+            />
+          </>)}
+          {(isTeacher || isTutor) ?
             (
               <div className="max-w-[1050px] w-full mt-6 mb-2 justify-between gap-6 md:items-center flex-col-reverse md:flex-row flex">
                 <div className="justify-start items-center gap-2 flex">
@@ -240,7 +257,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                   </div>
                 </div>
                 <div className="justify-start items-center gap-3 flex">
-                  <div className="text-[#666666] text-sm font-semibold  leading-tight">Select</div>
+                  <div className="text-[#666666] text-sm font-semibold  leading-tight">Sort by</div>
                   <StyledSelect disable={!tool} />
                 </div>
               </div>
@@ -250,7 +267,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
               <p className="text-base">Suggestions</p>
             </div>
             )}
-          {(isOn || !isTeacher) && <HomeSuggestBoxes />}
+          {(isOn || !isTutor) && <HomeSuggestBoxes />}
           <div className="mt-6">
             <ChatMessageInput isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
           </div>
