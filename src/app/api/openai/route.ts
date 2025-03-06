@@ -201,6 +201,7 @@ export async function POST(req: NextRequest) {
     const message = formData.get("message") as string;
     const assistantId = formData.get("assistantId") as string;
     const chatId = formData.get("chatId") as string;
+    const additionalPrompt = formData.get("additionalPrompt") as string;
 
     const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
     let openAiFileIds: string[] = []; // Array to hold OpenAI file IDs
@@ -344,7 +345,7 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools: [{ type: "file_search" }, ...tools],
-      instructions: "Ensure consistent formatting: structured, clear, uniform style. Use render_graph if you need to render or generate graph"
+      instructions: "Ensure consistent formatting: structured, clear, uniform style. Use render_graph if you need to render or generate graph " + JSON.stringify(additionalPrompt)
     });
 
     const encoder = new TextEncoder();

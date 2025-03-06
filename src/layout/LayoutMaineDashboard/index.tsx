@@ -14,13 +14,12 @@ import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { careerCoach, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
+import { careerCoach, setPrompt, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { HomeSlides } from "@/components/molecules/HomeSlides";
 import { typeCatagories } from "@/lib/constants";
 import { useAppSelector } from "@/lib/store/hooks";
 
-const StyledSelect = ({disable}: any) => {
-  const [selectedGrade, setSelectedGrade] = useState("Grade 12"); // Default selection
+const StyledSelect = ({ disable, options, selectedGrade, setSelectedGrade }: any) => {
 
   return (
     <div className={cn("w-[141px] outline-none flex-col justify-start items-end gap-1 inline-flex relative", disable ? "cursor-not-allowed opacity-60" : "")}>
@@ -28,11 +27,12 @@ const StyledSelect = ({disable}: any) => {
         disabled={disable}
         className="self-stretch px-4 py-2 bg-white rounded-lg border border-[#e9e9e9] text-black text-sm font-medium leading-tight appearance-none cursor-pointer"
         value={selectedGrade}
-        onChange={(e) => setSelectedGrade(e.target.value)}
+        onChange={(e: any) => setSelectedGrade(e.target.value)}
       >
-        <option value="Grade 10">Grade 10</option>
-        <option value="Grade 11">Grade 11</option>
-        <option value="Grade 12">Grade 12</option>
+        {options.map((item: any) => {
+          return (<option key={item.id} value={item.id}>{item.label}</option>)
+
+        })}
       </select>
       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
         <svg
@@ -125,13 +125,21 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();
+  const prompt = useAppSelector((state) => state.suggest.prompt);
 
-  const [selectedChartId, setSelectedChartId] = useState<string | null>(null);
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
   const [tool, setTool] = useState<any>(null);
   const [isOn, setIsOn] = useState(false);
   const suggest = useAppSelector((state) => state.suggest.suggest);
+  const [selectedPrompt, setSelectedPrompt] = useState<string | null>(null);
   const isMath = `${suggest?.title}`?.includes("Mathematics")
+  const grades: Array<{ label: string, id: string }> = [
+    { label: "Grade 10", id: "grade_10" },
+    { label: "Grade 11", id: "grade_11" },
+    { label: "Grade 12", id: "grade_12" }
+  ];
+  const [selectedGrade, setSelectedGrade] = useState(grades?.[0].id); // Default selection
+
 
 
   useEffect(() => {
@@ -143,8 +151,6 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     const searchParams = new URLSearchParams(window.location.search); // Use `window.location.search` directly to avoid server-side rendering issues
     const assistantId = searchParams.get("assistantId");
 
-    console.log(assistantId, "assistantId")
-
     if (assistantId) {
       const currentAssistant = dataSet.find(
         (item: { assistantId: any }) => item?.assistantId === assistantId
@@ -153,7 +159,6 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
         dispatch(setSuggest(currentAssistant));
       }
 
-      // Remove `assistantId` from the URL without reloading the page
       searchParams.delete("assistantId");
       router.replace(`${pathname}?${searchParams.toString()}`);
     }
@@ -161,20 +166,15 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
   useEffect(() => {
     fetchDataBasedOnRole([...tutor, ...careerCoach, ...teacher]);
-  }, []); // Run this effect only once when the component mounts
+  }, []);
 
-  const { addChart, deleteChart, charts } = useDynamicChart();
 
   const handleOpenModal = (id: string, chart: any) => {
-    addChart({ [id]: chart });
-    setSelectedChartId(id);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = (id: string) => {
-    deleteChart(id);
     setIsModalOpen(false);
-    setSelectedChartId(null);
   };
 
   const makeTitle = (id: string) => {
@@ -195,12 +195,114 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Struggling with calculus, algebra, or statistics? I’ll break them down into easy-to-follow steps, ensuring you understand every detail. Plus, I’ll track your progress and create a personalized study plan to help you improve!", toolsId: "ai_tutoring" },
     { icon: "✍️", label: "Smart Math Notes Generator", content: "I’ll generate customized study notes based on your topics, making revision easier and more effective!", toolsId: "math_notes" }
   ];
+
+  const prompts: Record<string, Record<string, string[]>> = {
+    exam_mastery: {
+      grade_10: [
+        "Provide a past NSC exam question on basic trigonometry and grade my answer with feedback.",
+        "Share an algebraic factorization question from a Grade 10 NSC paper and assess my response using official guidelines.",
+        "Show me a past exam question on linear functions for Grade 10 and guide me through it step by step.",
+        "Offer a geometry question from a previous Grade 10 NSC exam and evaluate my solution for errors."
+      ],
+      grade_11: [
+        "Give me a past NSC exam question on geometric sequences and grade my answer with feedback.",
+        "Provide a probability question involving the basic principle of counting for Grade 11 and mark my response using official guidelines.",
+        "Show me a past NSC exam question on quadratic functions and solve it step by step.",
+        "Give me a question from a previous NSC exam on analytical geometry and check my approach for errors."
+      ],
+      grade_12: [
+        "Give me a past NSC exam question on calculus (derivatives or integrals) and grade my answer with feedback.",
+        "Provide a probability question from a Grade 12 NSC paper and mark my response using official guidelines.",
+        "Show me a past NSC exam question on trigonometry identities and help me solve it step by step.",
+        "Give me a complex numbers question from a previous NSC exam and check my solution for errors."
+      ]
+    },
+    homework_hero: {
+      grade_10: [
+        "I have a geometry question on parallelograms. Let me upload a photo—walk me through the solution.",
+        "Assist me with solving this simultaneous equation step by step.",
+        "Help solve a Grade 10 word problem involving percentages.",
+        "Provide guidance on a simple probability question and explain the solution using a probability tree."
+      ],
+      grade_11: [
+        "I have a trigonometry question involving angles of elevation. Let me upload a photo—guide me through the solution.",
+        "Help me solve this complex number equation step by step.",
+        "Assist with solving a Grade 11 word problem involving growth and decay.",
+        "Walk me through a statistical question using grouped data with step-by-step explanations."
+      ],
+      grade_12: [
+        "I have a trigonometry question on 3D problems. Let me upload a photo—guide me through the solution.",
+        "Help me solve this logarithm equation step by step.",
+        "I need help solving a financial math problem involving compound interest.",
+        "Guide me through a probability question using a tree diagram to explain the steps."
+      ]
+    },
+    ai_tutoring: {
+      grade_10: [
+        "Go over quadratic equations with a worked past paper example for Grade 10.",
+        "Take me through interpreting points of intersection for linear and quadratic functions.",
+        "Explain a past paper question on the importance of congruency in triangles and its applications.",
+        "Guide me through solving area problems involving circles using a past paper example."
+      ],
+      grade_11: [
+        "Explain the concept of functions and transformations with a practical example from past papers.",
+        "Take me through solving inequalities and discuss critical points with visual aids.",
+        "Break down a past paper question on the binomial theorem.",
+        "Discuss solving angles in a circle using properties of cyclic quadrilaterals."
+      ],
+      grade_12: [
+        "Explain arithmetic and geometric sequences with a worked NSC past paper example.",
+        "Take me through a cubic function sketching question, including turning points and intercepts.",
+        "Break down a past paper question on the second derivative test and how to apply it.",
+        "Explain how to solve a Grade 12 NSC exam question on solving simultaneous equations graphically."
+      ]
+    },
+    math_notes: {
+      grade_10: [
+        "Create concise study notes on properties of parallel lines and angles.",
+        "Summarize key formulas for solving basic algebraic expressions in Grade 10.",
+        "Generate a cheat sheet for basic statistical concepts and their uses.",
+        "Prepare a quick study guide on simple interest calculations and applications."
+      ],
+      grade_11: [
+        "Generate concise study notes on the laws of exponents.",
+        "Create a summary of key concepts in analytical geometry for the Grade 11 syllabus.",
+        "Prepare a revision cheat sheet for sequences and series with example questions.",
+        "Provide a quick study guide on transformations in mathematics with diagrams."
+      ],
+      grade_12: [
+        "Generate concise study notes on differentiation rules and their applications.",
+        "Summarize key formulas and concepts for probability and statistics in the NSC syllabus.",
+        "Create a revision cheat sheet for trigonometry identities and their proofs.",
+        "Give me a quick study guide on financial mathematics, including annuities and present value."
+      ]
+    }
+  };
+
+  useEffect(() => {
+
+    if (tool && selectedGrade) {
+      const promptList = prompts[tool]?.[selectedGrade] || [];
+
+      if (promptList.length > 0) {
+        setSelectedPrompt(promptList[0]);
+        dispatch(setPrompt(promptList))
+
+      } else {
+        setSelectedPrompt(null);
+        dispatch(setPrompt(null))
+      }
+    }
+  }, [selectedGrade, tool]);
+
+
+
   if (isLoading || streamMessage?.length) {
     return <div className="w-screen h-screen top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
   }
 
   return (
-    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen !max-w-screen  !h-auto flex-col ", selectedChartId ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen !max-w-screen  !h-auto flex-col ", isModalOpen ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
       <Header />
       <>
         {!isMessages && <HeaderText />}
@@ -258,7 +360,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                 </div>
                 <div className="justify-start items-center gap-3 flex">
                   <div className="text-[#666666] text-sm font-semibold  leading-tight">Sort by</div>
-                  <StyledSelect disable={!tool} />
+                  <StyledSelect selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} options={grades} disable={!tool} />
                 </div>
               </div>
             )

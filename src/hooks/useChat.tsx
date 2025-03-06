@@ -21,6 +21,7 @@ import {
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
+import { useAppSelector } from "@/lib/store/hooks";
 
 export const useChat = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -28,6 +29,8 @@ export const useChat = () => {
   const pathname = usePathname();
 
   const chatState = useSelector((state: RootState) => state.chat);
+  const prompt = useAppSelector((state) => state.suggest.prompt);
+
 
   const fetchChatsCallback = useCallback(
     (user_id: string) => {
@@ -181,6 +184,7 @@ export const useChat = () => {
         formData.append("message", message);
         formData.append("assistantId", assistantId);
         formData.append("chatId", threadId || "");
+        formData.append("additionalPrompt", prompt || "");
 
         if (files?.Dropzone?.length > 0) {
           // formData.append("file", files?.Dropzone?.[0]);
@@ -374,6 +378,7 @@ export const useChat = () => {
             message: dialogText,
             assistantId,
             chatId: null,
+            additionalPrompt: prompt || ""
           }),
         });
 
@@ -459,6 +464,7 @@ export const useChat = () => {
             message: dialogText,
             assistantId,
             chatId: threadId,
+            additionalPrompt: prompt || ""
           }),
         });
       } catch (error) {

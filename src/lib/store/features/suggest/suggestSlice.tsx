@@ -2259,12 +2259,14 @@ interface SuggestState {
   suggest: any;
   suggests: any;
   focusSuggests: any;
+  prompt: any;
 }
 
 const initialState: SuggestState = {
   suggest: {},
   suggests: [],
   focusSuggests: [],
+  prompt: [],
 };
 
 export const suggestSlice = createSlice({
@@ -2280,9 +2282,12 @@ export const suggestSlice = createSlice({
     setSuggest: (state, action) => {
       state.suggest = action.payload;
     },
+    setPrompt: (state, action) => {
+      state.prompt = action.payload;
+    },
   },
 });
 
-export const { setSuggests, setSuggest, setFocusSuggests } = suggestSlice.actions;
+export const { setSuggests, setSuggest, setFocusSuggests, setPrompt } = suggestSlice.actions;
 
 export default suggestSlice.reducer;
