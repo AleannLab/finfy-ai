@@ -291,7 +291,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
 
     if (tool && selectedGrade) {
-      const promptList = prompts[tool]?.[selectedGrade] || [];
+      const promptList = prompts?.[tool]?.[selectedGrade] || [];
 
       if (promptList.length > 0) {
         dispatch(setPrompt(promptList))
