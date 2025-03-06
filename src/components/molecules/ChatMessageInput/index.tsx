@@ -23,9 +23,10 @@ interface ChatMessageInputProps {
   isDark?: boolean;
   assistActionOpenState: AssistAction | null;
   setAssistActionOpenState: (value: AssistAction | null) => void;
+  disable?: any
 }
 
-const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, assistActionOpenState, setAssistActionOpenState }) => {
+const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = false, assistActionOpenState, setAssistActionOpenState, disable }) => {
   const { user } = useUser();
   const router = useRouter();
   const {
@@ -223,6 +224,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if(disable) {
+      return
+    }
     if (window.innerWidth > 768) {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
@@ -255,11 +259,12 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   }, [messages]);
   const [textareaHeight, setTextareaHeight] = useState("auto");
 
-  const SubmitButton = ({ isLoading }: any) => {
+  const SubmitButton = ({ isLoading, disable }: any) => {
     return (
       <button
+        disabled={disable || isLoading}
         type="submit"
-        className="h-[40px] w-[40px] flex items-center justify-center rounded-full bg-[#666] hover:bg-black transition-all"
+        className={cn("h-[40px] w-[40px] flex items-center justify-center rounded-full transition-all", disable ? "bg-[#666]" : "bg-black")}
       >
         {isLoading ? (
           <Loader2 className="w-5 h-5 animate-spin text-white" />
@@ -279,10 +284,11 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     <>
       <form
         action={onSubmit}
-        className="flex flex-col items-center overflow-hidden p-4 text-base text-[#666] font-medium bg-white rounded-3xl border border-[#e9e9e9] shadow-[0px_0px_30px_0px_rgba(38,38,38,0.04)] relative w-full min-h-[80px]"
+        className={cn("flex flex-col items-center overflow-hidden p-4 text-base text-[#666] font-medium rounded-3xl border border-[#e9e9e9] shadow-[0px_0px_30px_0px_rgba(38,38,38,0.04)] relative w-full min-h-[80px]", disable ? "bg-[#EFEFEF4D]" : "bg-white")}
         style={{ height: textareaHeight }}
       >
         <textarea
+          disabled={disable}
           value={message}
           onChange={(e) => {
             handleChange(e);
@@ -349,7 +355,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             >
               <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
             </button>
-            <SubmitButton isLoading={isLoading} />
+            <SubmitButton disable={disable} isLoading={isLoading} />
           </div>
         </div>
       </form>

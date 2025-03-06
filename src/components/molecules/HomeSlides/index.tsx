@@ -44,6 +44,10 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
 const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setTool: any, selectedTool: any, type: any }) => {
   const isTutor = typeCatagories.tutor === type;
 
+  if(!slides?.length) {
+    return <></>
+  }
+
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
