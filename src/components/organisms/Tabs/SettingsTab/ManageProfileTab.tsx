@@ -65,7 +65,7 @@ const ManageProfileTab = () => {
     <>
       <div className="mt-8 w-full flex flex-col">
         <p className="my-4">Account</p>
-        <div className="p-3 border w-full rounded-md bg-navy-15 border-navy-5 text-[#547a91]">
+        <div className="p-3 border w-full rounded-md bg-[#F9F9F9] border-navy-5 text-[#000]">
           <div className="w-full flex items-center justify-between">
             <p>Avatar</p>
             <UserAvatarWithUpload />
@@ -73,7 +73,7 @@ const ManageProfileTab = () => {
           <SeparatorLine />
           <div className="w-full flex justify-between">
             <p>Username</p>
-            <div className="flex items-center gap-2 text-grey-5">
+            <div className="flex items-center gap-2 text-black">
               {isEditingUsername ? (
                 <input
                   type="text"
@@ -96,7 +96,7 @@ const ManageProfileTab = () => {
           <SeparatorLine />
           <div className="w-full flex justify-between">
             <p>Email</p>
-            <p className="text-grey-5">{user?.email}</p>
+            <p className="text-black">{user?.email}</p>
           </div>
           <SeparatorLine />
           <div className="w-full flex justify-between">

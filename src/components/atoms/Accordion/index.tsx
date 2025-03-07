@@ -6,7 +6,7 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/hooks";
-import { useAppDispatch } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
 import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, defaultTutor, setFocusSuggests, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
@@ -31,6 +31,8 @@ const AccordionTrigger = React.forwardRef<
   const { open } = useSidebar();
   const dispatch = useAppDispatch();
   const pathname = usePathname();
+  const focusData = useAppSelector((state) => state.suggest.focusSuggests);
+
 
 
   const onClick = () => {
@@ -39,6 +41,8 @@ const AccordionTrigger = React.forwardRef<
       dispatch(setFocusSuggests(tutor))
       dispatch(setSuggest(defaultTutor))
       dispatch(setSuggests(tutorSuggestionData))
+      dispatch(setSuggests(focusData?.[0]?.suggest));
+      dispatch(setSuggest(focusData?.[0]))
     }
     if (pathname.includes('career-coach')) {
       dispatch(setFocusSuggests(careerCoach))

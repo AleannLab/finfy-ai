@@ -24,7 +24,7 @@ interface OnboardingStepPops {
 const stepComponents: {
   [key: string]: (props: any) => JSX.Element;
 } = {
-  // [routesOnboarding.confirmEmail]: CardConfirmEmail,
+  [routesOnboarding.confirmEmail]: CardConfirmEmail,
   // [routesOnboarding.confirmPhoneNumber]: CardConfirmPhoneNumber,
   [routesOnboarding.selectPlan]: CardSelectPlan,
   // [routesOnboarding.personalize]: CardPersonalize,

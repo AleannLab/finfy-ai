@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import {
@@ -21,6 +21,11 @@ export const useUser = () => {
     dispatch(fetchUserByEmailOrPhone());
   }, [dispatch]);
 
+  useEffect(()=> {
+    if (!userState?.user?.id) {
+      fetchCurrentUser();
+    };
+  }, [userState])
   const fetchUserByIdCallback = useCallback(
     async (id: number) => {
       await dispatch(fetchUserById(id));

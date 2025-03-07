@@ -23,30 +23,16 @@ const initialState: UsersState = {
   error: null,
 };
 
-export const setDataUser = createAsyncThunk<InsertDataUser, string>(
-  "insert_data/setDataUser",
-  async (user_id, { rejectWithValue }) => {
-    try {
-      const response = await axiosExternal.post("/insert_data", {
-        user_id: user_id || "",
-      });
-      if (response.data.error) {
-        return rejectWithValue(response.data.error || "Something went wrong");
-      }
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
-    }
-  }
-);
-
 export const fetchUserByEmailOrPhone = createAsyncThunk<
   User | null,
   void
 >("users/fetchUserByEmailOrPhone", async () => {
+  console.log("dataUser")
+
   try {
     const response = await axiosInternal.get("/api/get-user");
     const email = response?.data?.email;
+    console.log("dataUser", email)
 
     if (!email) {
       throw new Error("Email is required");
@@ -55,8 +41,9 @@ export const fetchUserByEmailOrPhone = createAsyncThunk<
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("email", email)
-      .single();
+      .ilike("email", email)
+      .maybeSingle();
+
 
     if (error) {
       console.error("Supabase error:", error);

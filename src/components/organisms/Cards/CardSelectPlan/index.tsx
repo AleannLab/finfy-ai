@@ -16,19 +16,28 @@ const CardSelectPlan = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (userCurrent?.id) return;
     (async () => {
       const data: any = await dispatch(fetchUserByEmailOrPhone());
       if (data.payload?.id) {
         dispatch(fetchChatsByUserId(data.payload?.id as string));
       }
     })();
-  }, [dispatch]);
+    // window.location.reload()
+  }, []);
 
-  const handlePlanSelection = async (plan: string) => {
-    if (userCurrent?.id) {
-      await dispatch(updateUser({ plan }));
-      nextStep();
+  const handlePlanSelection = async (role: string) => {
+    console.log("role", userCurrent?.id)
+
+    try {
+      if (userCurrent?.id) {
+        await dispatch(updateUser({ role }));
+        nextStep();
+      }
+    } catch (err) {
+      console.log("err", err)
     }
+
   };
 
   return (

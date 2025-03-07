@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
     if (!user && isProtectedRoute && !isEmailConfirm) {
       return NextResponse.redirect(new URL("/authentication", request.url));
     }
-    if ((isAuthRoute && user) || isEmailConfirm) {
+    if ((isAuthRoute && user) && !isEmailConfirm) {
       return NextResponse.redirect(new URL("/onboarding", request.url));
     }
 

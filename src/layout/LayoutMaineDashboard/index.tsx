@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { careerCoach, setPrompt, setSuggest, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
+import { careerCoach, setPrompt, setSuggest, setSuggests, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { HomeSlides } from "@/components/molecules/HomeSlides";
 import { typeCatagories } from "@/lib/constants";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -139,7 +139,18 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const [selectedGrade, setSelectedGrade] = useState(grades?.[0].id); // Default selection
   const prompt = useAppSelector((state) => state.suggest.prompt);
 
+  useEffect(() => {
+    if (pathname.includes('tutor') && !isMessages) {
+      dispatch(setSuggests(tutor?.[0]?.suggest));
+      dispatch(setSuggest(tutor?.[0]))
+    }
+    if (pathname.includes('career-coach')) {
 
+    }
+    if (pathname.includes('teacher')) {
+
+    }
+  }, [pathname, dispatch])
 
   useEffect(() => {
     dispatch(setMessages([]));

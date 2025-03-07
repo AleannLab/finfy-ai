@@ -3,7 +3,7 @@
 import { Button, Icon } from "@/components/atoms";
 import { CardTemplate } from "@/components/molecules";
 import { useNavigationOnboarding, useUser } from "@/hooks";
-import { fetchUserById, setDataUser, updateUser } from "@/lib/store/features/user/userSlice";
+import { fetchUserById, updateUser } from "@/lib/store/features/user/userSlice";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -34,14 +34,11 @@ const CardSetupComplete = () => {
     startTransition(async () => {
       try {
         if (user?.id) {
-          await dispatch(setDataUser(user?.id));
-          if (user?.id) {
-            await dispatch(
-              updateUser({
-                finished_onboarding: true,
-              })
-            );
-          }
+          await dispatch(
+            updateUser({
+              finished_onboarding: true,
+            })
+          );
           router.push("/dashboard");
         } else {
           window.location.reload()
@@ -67,7 +64,7 @@ const CardSetupComplete = () => {
       description="Thank you! Registration finished"
     >
       <CardTemplate.Footer className="flex justify-between flex-col w-full gap-3 items-center mt-6">
-        <Button onClick={handleClickComplete} size="xl" full>
+        <Button variant="main" onClick={handleClickComplete} size="xl" full>
           {(isPending || !user?.id) ? <Loader2 className="animate-spin" /> : "Go to Dashboard"}
         </Button>
       </CardTemplate.Footer>

@@ -156,16 +156,14 @@ const HeaderText = () => {
     content = headerText.home;
     isHome = true;
   }
-  const focusData = useAppSelector((state) => state.suggest.focusSuggests);
-
 
   useEffect(() => {
     if (pathname.includes('tutor')) {
       dispatch(setFocusSuggests(tutor))
       dispatch(setSuggest(defaultTutor))
       dispatch(setSuggests(tutorSuggestionData))
-      dispatch(setSuggests(focusData?.[0]?.suggest));
-      dispatch(setSuggest(focusData?.[0]))
+      // dispatch(setSuggests(focusData?.[0]?.suggest));
+      // dispatch(setSuggest(focusData?.[0]))
     }
     if (pathname.includes('career-coach')) {
       dispatch(setFocusSuggests(careerCoach))
@@ -178,19 +176,6 @@ const HeaderText = () => {
       dispatch(setSuggests(teacherSuggestionData))
     }
   }, [pathname])
-
-  useEffect(() => {
-    if (pathname.includes('tutor')) {
-      dispatch(setSuggests(tutor?.[0]?.suggest));
-      dispatch(setSuggest(tutor?.[0]))
-    }
-    if (pathname.includes('career-coach')) {
-
-    }
-    if (pathname.includes('teacher')) {
-
-    }
-  }, [pathname, focusData])
 
   return (
     <div className="h-full lg:h-max">

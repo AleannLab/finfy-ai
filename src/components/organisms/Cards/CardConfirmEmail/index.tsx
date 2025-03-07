@@ -6,7 +6,7 @@ import { Button, Field } from "@/components/atoms";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import { createUser, fetchUserByEmailOrPhone, setDataUser, updateUser } from "@/lib/store/features/user/userSlice";
+import { createUser, fetchUserByEmailOrPhone, updateUser } from "@/lib/store/features/user/userSlice";
 import { getErrorMessage, resetCookies } from "@/utils/helpers";
 import { supabase } from "@/lib/supabase/client";
 import * as Sentry from "@sentry/nextjs";
@@ -106,7 +106,8 @@ const CardConfirmEmail = () => {
             type="text"
             placeholder="Digit Code"
             sideElements={{
-              right: <div className="text-[#c6cfde] text-base font-bold">47s</div>,
+              right: <></>,
+              // right: <div className="text-[#c6cfde] text-base font-bold">47s</div>,
             }}
           />
         </CardTemplate.Content>
