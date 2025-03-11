@@ -3,7 +3,6 @@ import Stripe from "stripe";
 import { createSupabaseClient } from "@/lib/supabase/server";
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET_KEY!;
-console.log(WEBHOOK_SECRET, "WEBHOOK_SECRET");
 export async function POST(req: Request) {
   const body = await req.text();
 
@@ -30,7 +29,6 @@ export async function POST(req: Request) {
         );
         const customerId = session.customer as string;
         const customerDetails = session.customer_details;
-        console.log(customerId, "customerId");
         if (customerDetails?.email) {
           const { data, error } = await supabase
             .from("users")

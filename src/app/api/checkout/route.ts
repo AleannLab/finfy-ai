@@ -11,9 +11,6 @@ export async function POST(req: NextRequest) {
 
     const isOnboardingReturn = !!isOnboarding;
 
-    console.log("Fetching prices for product:", productId);
-    console.log("User email:", email);
-
     const prices = await stripe.prices.list({
       product: productId,
       active: true,
@@ -25,7 +22,6 @@ export async function POST(req: NextRequest) {
 
     const priceId = prices.data[0].id;
 
-    console.log("Using price:", priceId);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

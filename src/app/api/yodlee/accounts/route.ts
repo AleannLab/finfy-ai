@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
     const providerAccountId = searchParams.get("providerAccountId");
     const requestId = searchParams.get("requestId");
     // Make request to Yodlee API for account details
-    console.log(providerAccountId, requestId, "requestId");
     const response = await axiosYodleeExternal("/accounts", {
       headers: {
         Authorization: `Bearer ${accessToken}`,

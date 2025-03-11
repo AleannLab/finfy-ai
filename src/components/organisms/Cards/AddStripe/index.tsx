@@ -26,7 +26,6 @@ const AddStripe = () => {
           toast.success("Waite! Creating new customer...");
           setLoading(true)
           const customerId = await createStripeCustomer(user.email);
-          console.log("Customer ID:", customerId);
 
           await dispatch(
             updateUser({

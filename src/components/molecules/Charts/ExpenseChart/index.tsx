@@ -84,7 +84,6 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ data: dataChart }) => {
     })
   );
 
-  console.log(datasets, "allDates");
   const data: any = {
     labels: allDates,
     datasets: datasets.map((dataset) => ({

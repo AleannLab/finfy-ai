@@ -59,7 +59,6 @@ const DropzoneComponent = (props: DropzoneProps) => {
         <>
           <div className="flex gap-4">
             {previewFiles.map((file: any) => {
-              console.log(file)
               if (file?.preview) {
                 // eslint-disable-next-line @next/next/no-img-element
                 return <img width={180} key={file?.preview} alt="" src={file?.preview} />

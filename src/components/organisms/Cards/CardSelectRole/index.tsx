@@ -27,7 +27,6 @@ const CardSelectRole = () => {
   }, []);
 
   const handlePlanSelection = async (role: string) => {
-    console.log("role", userCurrent?.id)
 
     try {
       if (userCurrent?.id) {

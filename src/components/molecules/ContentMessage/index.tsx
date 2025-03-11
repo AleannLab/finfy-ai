@@ -455,7 +455,6 @@ const ContentMessage: FC<ContentMessageProps> = ({
         <div className="flex overflow-hidden gap-4">
           {files?.map((file: any) => {
             if (file?.preview) {
-              console.log("publicURL", file?.preview)
               // eslint-disable-next-line @next/next/no-img-element
               return <img width={300} key={file?.preview} alt={file?.path} src={file?.preview} />
             }

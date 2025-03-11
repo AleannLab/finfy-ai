@@ -32,7 +32,6 @@ const SubscribePop: FC<SubscribePopProps> = ({ children }) => {
           setLoading(true)
           toast.success("Creating new customer...");
           const customerId = await createStripeCustomer(user.email);
-          console.log("Customer ID:", customerId);
 
           await dispatch(
             updateUser({

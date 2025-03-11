@@ -30,7 +30,6 @@ interface GroupedBarChartProps {
 const getDataset = (data: any, emptyArray: null[]) => {
   return Object.values(data)
     .map((item: any, index) => {
-      console.log(item);
       return item.map((value: any) => {
         const data = [...emptyArray] as any;
         data.splice(index, 1, value.amount);
@@ -47,7 +46,6 @@ const getDataset = (data: any, emptyArray: null[]) => {
 const GroupedBarChart: React.FC<GroupedBarChartProps> = ({ data }) => {
   const labels = Object.keys(data);
   const dataset = getDataset(data, Array.from({ length: labels.length }));
-  console.log(dataset, "data");
   const chartData = {
     labels,
     datasets: dataset,

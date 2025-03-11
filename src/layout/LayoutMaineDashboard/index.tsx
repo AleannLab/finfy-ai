@@ -298,8 +298,6 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const prompts: any =subjectsData?.[`${cutIcon(suggest?.title)}`]?.prompts
 
   useEffect(() => {
-    console.log(`${cutIcon(suggest?.title)}`)
-
 
     if (tool && selectedGrade) {
       const promptList = prompts?.[tool]?.[selectedGrade] || [];

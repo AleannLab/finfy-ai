@@ -27,12 +27,10 @@ export const fetchUserByEmailOrPhone = createAsyncThunk<
   User | null,
   void
 >("users/fetchUserByEmailOrPhone", async () => {
-  console.log("dataUser")
 
   try {
     const response = await axiosInternal.get("/api/get-user");
     const email = response?.data?.email;
-    console.log("dataUser", email)
 
     if (!email) {
       throw new Error("Email is required");

@@ -22,7 +22,6 @@ const SuggestedQuestions = () => {
 //     ]
 // };
   const suggests = useSelector((state: RootState) => state.chat.suggests);
-  console.log(suggests, "suggests")
   if (!suggests) {
     return null;
   }

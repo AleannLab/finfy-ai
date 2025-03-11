@@ -323,7 +323,6 @@ export const useChat = () => {
             is_processed: true,
           });
 
-          console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
         }
@@ -428,7 +427,6 @@ export const useChat = () => {
           await Promise.all(createMessagePromises);
           await fetchMessagesForChatCallback(threadId);
 
-          console.log("Message saved successfully");
         } else {
           toast.error("Thread ID not received. Please try again.");
         }

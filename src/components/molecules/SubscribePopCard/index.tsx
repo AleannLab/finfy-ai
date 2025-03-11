@@ -30,7 +30,6 @@ const SubscribePopCard = ({isOnboarding = false}: {isOnboarding?: boolean}) => {
 
     try {
       const stripe = await stripePromise;
-      console.log(stripe)
 
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -43,12 +42,10 @@ const SubscribePopCard = ({isOnboarding = false}: {isOnboarding?: boolean}) => {
           isOnboarding: isOnboarding,
         }),
       });
-      console.log(response, "responseresponse")
 
 
       const { sessionId } = await response.json();
 
-      console.log(sessionId, "responseresponse")
 
       if (!stripe) {
         throw new Error("Stripe not loaded");

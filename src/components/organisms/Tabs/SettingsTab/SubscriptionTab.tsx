@@ -40,7 +40,6 @@ const SubscriptionTab = () => {
 
   const plan = plans.find(({ id }) => id === currentPlanId);
 
-  console.log(plan, currentPlanId, plans);
 
   if (loading) {
     return <div className="text-[#547a91]">Loading...</div>;

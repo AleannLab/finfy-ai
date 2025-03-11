@@ -22,7 +22,6 @@ const CardSetupComplete = () => {
       console.log(user);
 
       if (!user?.id) {
-        console.log("User not found. Refreshing page...");
         window.location.reload()
       }
     }, 1000);

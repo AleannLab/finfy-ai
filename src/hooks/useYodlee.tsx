@@ -67,7 +67,6 @@ const useYodlee = () => {
           accountIds,
         },
       });
-      console.log(data, "data");
       if (user?.id) {
         await saveTransactionsYodlee(data.transactions, user.id);
       }

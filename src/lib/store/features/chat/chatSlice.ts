@@ -256,7 +256,6 @@ export const fetchMessagesForChat = createAsyncThunk(
         throw error;
       }
 
-      console.log(data)
       dispatch(setMessages(data));
       dispatch(setIsLoading(false));
       return data;

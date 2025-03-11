@@ -18,7 +18,6 @@ export default async function handler(
     const body = req.body;
     const [fields, files] = await form.parse(req);
     const file = files['files[0]'];
-    console.log(files,fields, 'files')
     if(file){
       const fileBuffer = fs.readFileSync(file[0].filepath);
       console.log(fileBuffer, 'fileBuffer')

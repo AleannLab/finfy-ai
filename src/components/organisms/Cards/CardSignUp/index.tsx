@@ -27,11 +27,9 @@ const CardSignUp = () => {
         const data: any = await dispatch(createUser({ email, name }));
         if (data?.error?.code !== ERROR_DUPLICATE_CODE) {
           const { errorMessage } = await createAccountAction(formData);
-          console.log("createAccountAction")
           if (errorMessage) {
             toast.error(errorMessage);
           } else {
-            console.log("onboarding/select-plan")
             router.push(`/onboarding/select-plan`);
             router.push(`/onboarding/confirm-email?email=${encodeURIComponent(email)}`);
             toast.success("A verification code has been sent to your email!");

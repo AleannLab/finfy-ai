@@ -74,8 +74,6 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
   const isActiveType =
     pathname.includes(item.href);
 
-    console.log("item.href", item.href, pathname, isActiveType)
-
   return (
     <Accordion.Item className="flex flex-col max-w-full gap-0.5" value={item.value}>
       <Accordion.Trigger
