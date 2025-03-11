@@ -10,7 +10,7 @@ import { useAppDispatch } from "@/lib/store/hooks";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const CardSelectPlan = () => {
+const CardSelectRole = () => {
   const { nextStep } = useNavigationOnboarding();
   const userCurrent = useSelector((state: RootState) => state.user.user);
   const dispatch = useAppDispatch();
@@ -77,4 +77,4 @@ const CardSelectPlan = () => {
   );
 };
 
-export { CardSelectPlan };
+export { CardSelectRole };

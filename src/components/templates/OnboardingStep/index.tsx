@@ -1,15 +1,10 @@
 // import ConfirmEmail from "@/app/(auth)/confirm-email/page";
 import {
-  CardVerifyPhoneNumber,
-  CardConfirmPhoneNumber,
-  CardSelectPlan,
-  CardPersonalize,
-  CardUserPolicy,
-  CardFinalUserPolicy,
-  CardLinkAccount,
-  CardSelectCurrency,
+  CardSelectRole,
+  CardCurrentSelectRole,
+  CardGradeLevel,
+  CardSubject,
   CardSetupComplete,
-  CardSelectCountry,
   CardConfirmEmail
 } from "@/components/organisms";
 import { AddStripe } from "@/components/organisms/Cards/AddStripe";
@@ -25,16 +20,12 @@ const stepComponents: {
   [key: string]: (props: any) => JSX.Element;
 } = {
   [routesOnboarding.confirmEmail]: CardConfirmEmail,
-  // [routesOnboarding.confirmPhoneNumber]: CardConfirmPhoneNumber,
-  [routesOnboarding.selectPlan]: CardSelectPlan,
-  // [routesOnboarding.personalize]: CardPersonalize,
-  // [routesOnboarding.userPolicy]: CardUserPolicy,
-  // [routesOnboarding.finalUserPolicy]: CardFinalUserPolicy,
-  // [routesOnboarding.selectCountry]: CardSelectCountry,
-  // [routesOnboarding.connectBank]: CardLinkAccount,
-  // [routesOnboarding.selectCurrency]: CardSelectCurrency,
-  // [routesOnboarding.addStripe]: AddStripe,
+  [routesOnboarding.selectRole]: CardSelectRole,
+  [routesOnboarding.selectCurrentRole]: CardCurrentSelectRole,
+  [routesOnboarding.gradeLevel]: CardGradeLevel,
   [routesOnboarding.setupComplete]: CardSetupComplete,
+  [routesOnboarding.subject]: CardSubject,
+  // [routesOnboarding.addStripe]: AddStripe,
 };
 
 const OnboardingStep: FC<OnboardingStepPops> = ({ step }) => {

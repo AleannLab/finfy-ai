@@ -15,20 +15,12 @@ export const cookiesKeys = {
 export const emojis = ['🗂','🧑', '🛒', '💸', '🛍️', '🎓', '📈', '🏠', '🌤️', '💳'];
 
 export const routesOnboarding = {
-  // verifyPhoneNumber: "verify-phone-number",
   confirmEmail: "confirm-email",
-  // confirmPhoneNumber: "confirm-phone-number",
-  selectPlan: "select-plan",
-  // personalize: "personalize",
-  // userPolicy: "user-policy",
-  // finalUserPolicy: "final-user-policy",
-  // selectCountry: "select-country",
-  // connectBank: "connect-bank",
-  // selectCurrency: "select-currency",
+  selectRole: "select-role",
+  selectCurrentRole: "select-current-role",
+  gradeLevel: "grade-level",
+  subject: "subject",
   // addStripe: "add-stripe",
-  // selectBank: "select-bank",
-  // connectBankAccount: "connect-bank-account",
-  // bankCredentials: "bank-credentials",
   setupComplete: "setup-complete",
 } as const;
 

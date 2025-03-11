@@ -32,7 +32,10 @@ export interface User {
   customer_id: string;
   avatar_url: string | any;
   role: string | any;
+  currentRole: string | any;
+  grade: string | any;
   is_connected_bank: boolean;
+  subject: any;
 }
 
 export interface Transaction {

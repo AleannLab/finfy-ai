@@ -20,6 +20,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
       full = false,
       icons,
       size = "base",
+      disabled,
       ...props
     },
     ref
@@ -32,12 +33,13 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     const commonClassName = cn(
       "flex justify-center group items-center cursor-pointer transition-all rounded-md text-center font-semibold text-base",
       full ? "w-full" : "w-fit",
+      disabled ? (cn("cursor-not-allowed", variant === "main" ? "opacity-75" : "")) : "",
       variantClasses[variant],
       isIconOnly ? sizeClassesWithIconOnly[size] : sizeClassesWithText[size],
       className
     );
     if (props.as === "link") {
-      const { as, disabled, ...rest } = props;
+      const { as, ...rest } = props;
       return (
         <Link
           ref={ref as Ref<HTMLAnchorElement>}
@@ -55,6 +57,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     }
     return (
       <button
+        disabled={disabled}
         ref={ref as Ref<HTMLButtonElement>}
         className={cn(commonClassName)}
         {...props}
