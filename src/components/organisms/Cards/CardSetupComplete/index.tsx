@@ -88,7 +88,7 @@ const CardSetupComplete = () => {
     </div>
   </CardTemplate.Content>
       <CardTemplate.Footer className="flex justify-between flex-col w-full gap-3 items-center mt-6">
-        <Button className="max-w-[280px]" variant="main" onClick={handleClickComplete} size="xl" full>
+        <Button className="max-w-[280px]" variant={(isPending || !user?.id) ? "outlineMain" : "main"} onClick={handleClickComplete} size="xl" full>
           {(isPending || !user?.id) ? <Loader2 className="animate-spin" /> : "I Acknowledge"}
         </Button>
       </CardTemplate.Footer>
