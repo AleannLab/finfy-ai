@@ -21,8 +21,8 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
         onClick={handleClick}
         className={cn("max-w-[342px] w-full h-[136px] px-4 py-2 bg-white rounded-lg flex-col justify-start items-start inline-flex",
           isSelected ? "!border-[#666666] border" : "!border-[#e9e9e9] border")}
-      >        <div className="self-stretch text-[#666666] text-sm font-semibold  leading-tight">{icon} {label}</div>
-        <div className="text-black text-[11px] font-medium leading-tight w-full overflow-hidden text-ellipsis line-clamp-5">
+      >        <div className={cn("self-stretch text-sm font-semibold  leading-tight", isSelected ? " text-black" : "text-[#666666]")}>{icon} {label}</div>
+        <div className={cn("text-black text-[11px] font-medium leading-tight w-full text-left overflow-hidden text-ellipsis line-clamp-5", isSelected ? " text-black" : "text-[#666666]")}>
           &quot;{content}&quot;
         </div>
       </button>
@@ -44,7 +44,7 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
 const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setTool: any, selectedTool: any, type: any }) => {
   const isTutor = typeCatagories.tutor === type;
 
-  if(!slides?.length) {
+  if (!slides?.length) {
     return <></>
   }
 

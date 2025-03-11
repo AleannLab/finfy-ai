@@ -17,6 +17,7 @@ interface SuggestBoxProps {
 const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
   const suggests = useAppSelector((state) => state.suggest.suggests);
+  const prompt = useAppSelector((state) => state.suggest.prompt);
 
 
   const { user } = useUser();
@@ -63,6 +64,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
       userId,
       assistantId,
       threadIdFromURL,
+      prompt
     });
   };
 

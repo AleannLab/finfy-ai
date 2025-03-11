@@ -3,12 +3,16 @@ import { SuggestedBox } from "@/components/atoms";
 import { useAppSelector } from "@/lib/store/hooks";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import 'swiper/swiper-bundle.css'; // Імпортуємо стилі Swiper
+import 'swiper/swiper-bundle.css';
+import { useSidebar } from "@/hooks";
+import { cn } from "@/lib/utils";
 
 const HomeSuggestBoxes = () => {
   const suggests = useAppSelector((state) => state.suggest.suggests);
   const isLgScreen = typeof window !== 'undefined' && window.innerWidth >= 1024;
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  const { open, handleToggle, handleClose } = useSidebar();
+
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
@@ -34,7 +38,7 @@ const HomeSuggestBoxes = () => {
       </div>
       <div className="w-full max-w-[1050px] hidden lg:block">
         <Swiper
-          className="min-w-[100vw] md:min-w-0 max-w-[calc(100%)]"
+          className={cn(open ? "max-w-[calc(100vw-280px)] xl:max-w-[calc(100vw-300px)]" : "max-w-[calc(100vw-120px)]")}
           spaceBetween={16}
           slidesPerView={4}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}

@@ -57,6 +57,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   const pathname = usePathname();
   const isTutor = pathname.includes('/tutor')
   const isCareerCoach = pathname.includes('/career-coach')
+  const prompt = useAppSelector((state) => state.suggest.prompt);
 
   useEffect(() => {
     const detectMobile = detectPhoneAgents();
@@ -208,7 +209,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       userId,
       assistantId: assistantId || assistantIdFromDB,
       threadIdFromURL,
-      files
+      files,
+      prompt
     });
 
     // Reset the input field after submission
@@ -224,7 +226,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
   };
 
   const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if(disable) {
+    if (disable) {
       return
     }
     if (window.innerWidth > 768) {
