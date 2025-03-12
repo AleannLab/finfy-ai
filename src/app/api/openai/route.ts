@@ -293,22 +293,16 @@ export async function POST(req: NextRequest) {
 
     const vectorStoreMap: Record<string, string> = {
       "asst_wQYJcKbahjyXKsqfEBj09lXz": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies
-      "asst_L24UZJYXDpAG3Ki6SHwFDK1a": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics
-      "asst_wu5H6HvbW3o0qLw443ojVx6V": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Maths Literacy
+      "asst_DQhvAipfIA6bPsXFi8Az1sYw": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics
+      "asst_lgVcOWp45uuUf2BtodHO7gKS": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Maths Literacy
       "asst_vaBKqqnSfyus1suFdb8BGqvK": "vs_MX5w91YMFpqJjWkVbbhfVGTg", // English
-      "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences
-      "asst_stEGiVDTlMIeDM7XGiezPI28": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
-      "asst_kosUuOZshZP2ULAD6zBOob4f": "", // Accounting (No match)
+      "asst_GqA9eIAqD6X4OEYfZRyNx6y0": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences
+      "asst_QwfjmzMvjalp9v5x6y1SAd68": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
       "asst_tmcVNihaQQXIJsgBBsmStbVh": "", // Life Sciences (No match in vector stores)
-      "asst_NlwgosvgKl7Pbhi0RWK8CBEk": "", // Computer Applications Technology (No match)
-      "asst_HbpRzr8Ne3Vigiw0K29J7AZ5": "", // Information Technology / Natural Science (No match)
-      "asst_bEooVJojtlmBl3qO2z7xgIx0": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies (Teacher Assistants)
-      "asst_quosLWwOUiWyRxoUF3sn9RBE": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics (Teacher Assistants)
-      "asst_GNr95kfHSeLTztEukBB1v3We": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Mathematical Literacy (Teacher Assistants)
-      "asst_PZLeW6Loto3Aq1Dbm4MId5Ji": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences (Teacher Assistants)
+      "asst_8ccbmmtDJWTZ7ABAdUSzbax8": "", // Computer Applications Technology (No match)
+      "asst_ub7PKtIFXKBAPOlqqcFoYy7B": "", // Information Technology / Natural Science (No match)
+      "asst_P5dJ8UFGPSa9A2BtYgDr84FD": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies (Teacher Assistants)
       "asst_74NyBtJTV1VWDufZc6E0xjla": "", // Life Sciences (Teacher Assistants, no match)
-      "asst_8ccbmmtDJWTZ7ABAdUSzbax8": "", // Computer Applications Technology (Teacher Assistants, no match)
-      "asst_ub7PKtIFXKBAPOlqqcFoYy7B": ""  // Information Technology (Teacher Assistants, no match)
     };
 
     function getVectorStoreId(assistantId: string): string[] {

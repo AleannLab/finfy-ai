@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 export enum TutorAssistants {
-  Mathematics = "asst_L24UZJYXDpAG3Ki6SHwFDK1a",
-  MathsLiteracy = "asst_wu5H6HvbW3o0qLw443ojVx6V",
+  Mathematics = "asst_DQhvAipfIA6bPsXFi8Az1sYw",
+  MathsLiteracy = "asst_lgVcOWp45uuUf2BtodHO7gKS",
   English = "asst_vaBKqqnSfyus1suFdb8BGqvK",
-  PhysicalSciences = "asst_mdg1VEgSqxVOKlHk6JlRXzTN",
-  EconomicsTutor = "asst_stEGiVDTlMIeDM7XGiezPI28",
-  Accounting = "asst_kosUuOZshZP2ULAD6zBOob4f",
+  PhysicalSciences = "asst_GqA9eIAqD6X4OEYfZRyNx6y0",
+  EconomicsTutor = "asst_QwfjmzMvjalp9v5x6y1SAd68",
+  Accounting = "asst_QwfjmzMvjalp9v5x6y1SAd68",
 
   // Newly Added Assistants
   History = "asst_Z51zCCMIQHcHIjskMTCdUShB",
@@ -14,9 +14,9 @@ export enum TutorAssistants {
   Economics = "asst_aTBwaKFPUyuF0Mf0jECA0ogY",
   LifeSciences = "asst_tmcVNihaQQXIJsgBBsmStbVh",
   Geography = "asst_7pMzMLlE5LixiysB2hFXJWKH",
-  ComputerApplicationsTechnology = "asst_NlwgosvgKl7Pbhi0RWK8CBEk",
-  InformationTechnology = "asst_HbpRzr8Ne3Vigiw0K29J7AZ5",
-  NaturalScience = "asst_HbpRzr8Ne3Vigiw0K29J7AZ5"
+  ComputerApplicationsTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
+  InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
+  NaturalScience = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
 }
 
 export enum CareerCoachAssistants {
@@ -35,13 +35,14 @@ export enum TeacherAssistants {
   // EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
   // ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
   // WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8", 
-  BusinessStudies = "asst_bEooVJojtlmBl3qO2z7xgIx0",
-  Mathematics = "asst_quosLWwOUiWyRxoUF3sn9RBE",
-  MathematicalLiteracy = "asst_GNr95kfHSeLTztEukBB1v3We",
-  PhysicalSciences = "asst_PZLeW6lOto3Aq1Dbm4MId5Ji",
+  BusinessStudies = "asst_P5dJ8UFGPSa9A2BtYgDr84FD",
+  Mathematics = "asst_DQhvAipfIA6bPsXFi8Az1sYw",
+  MathematicalLiteracy = "asst_lgVcOWp45uuUf2BtodHO7gKS",
+  PhysicalSciences = "asst_GqA9eIAqD6X4OEYfZRyNx6y0",
   LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
   ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
-  InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
+  InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
+  english = "asst_H8YzZfwkoBySa9pGwz2zyz35"
 }
 
 export const defaultCareerCoachAssistant = {
@@ -73,7 +74,7 @@ export const defaultTutor = {
   content: "Ask me any questions",
   icon: "🔢",
   category: " I’m your personal tutor",
-  assistantId: "asst_kosUuOZshZP2ULAD6zBOob4f",
+  assistantId: "asst_QwfjmzMvjalp9v5x6y1SAd68",
   instructions: `System settings:
       Tool use: enabled.
 
@@ -1236,74 +1237,6 @@ export const tutor = [
       },
     ],
   },
-  // {
-  //   title: "📖 English",
-  //   text: "Enhance your English skills and boost your grades.",
-  //   category: "I’m your personal English tutor",
-  //   assistantId: TutorAssistants.English,
-  //   suggest: [
-  //     {
-  //       label: "Practice Essay Writing",
-  //       content: "Can you provide essay prompts from past English exams?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Comprehension Focus",
-  //       content: "Help me practice comprehension questions from past papers.",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Grade My Essay",
-  //       content: "Can you grade my essay and give feedback?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Improve Writing Skills",
-  //       content: "How can I improve my essay writing for exams?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Exam Prep Plan",
-  //       content: "Help me create a study plan for my English exam.",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Review Marking Criteria",
-  //       content: "How does my essay compare to the marking criteria?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Targeted Tutoring",
-  //       content: "Which English topics should I focus on to improve my score?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Retake Practice Essays",
-  //       content: "Can I try another essay prompt and get feedback?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Detailed Feedback",
-  //       content: "Can you review my English answers and provide suggestions?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //     {
-  //       label: "Understanding Literary Devices",
-  //       content: "Can you explain literary devices like metaphors and symbolism?",
-  //       icon: "📖",
-  //       category: "english",
-  //     },
-  //   ],
-  // },
   {
     title: "📈 Economics",
     category: "I’m your personal Economics tutor ",
@@ -2251,6 +2184,74 @@ export const teacher = [
         content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
       }
     ]
+  },
+  {
+    title: "📖 English",
+    text: "Enhance your English skills and boost your grades.",
+    category: "I’m your personal English tutor",
+    assistantId: TeacherAssistants.english,
+    suggest: [
+      {
+        label: "Practice Essay Writing",
+        content: "Can you provide essay prompts from past English exams?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Comprehension Focus",
+        content: "Help me practice comprehension questions from past papers.",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Grade My Essay",
+        content: "Can you grade my essay and give feedback?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Improve Writing Skills",
+        content: "How can I improve my essay writing for exams?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Exam Prep Plan",
+        content: "Help me create a study plan for my English exam.",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Review Marking Criteria",
+        content: "How does my essay compare to the marking criteria?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Targeted Tutoring",
+        content: "Which English topics should I focus on to improve my score?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Retake Practice Essays",
+        content: "Can I try another essay prompt and get feedback?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Detailed Feedback",
+        content: "Can you review my English answers and provide suggestions?",
+        icon: "📖",
+        category: "english",
+      },
+      {
+        label: "Understanding Literary Devices",
+        content: "Can you explain literary devices like metaphors and symbolism?",
+        icon: "📖",
+        category: "english",
+      },
+    ],
   }
 ];
 
