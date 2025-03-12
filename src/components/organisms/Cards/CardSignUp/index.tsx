@@ -21,6 +21,11 @@ const CardSignUp = () => {
     startTransition(async () => {
       const email = formData.get("email") as string;
       const name = formData.get("username") as string;
+      const pass = formData.get("password") as string;
+      if (pass.length < 6) {
+        toast.error("incorrect password length")
+        return;
+      }
       const ERROR_DUPLICATE_CODE = "23505";
       try {
         resetCookies();
@@ -30,7 +35,7 @@ const CardSignUp = () => {
           if (errorMessage) {
             toast.error(errorMessage);
           } else {
-            router.push(`/onboarding/select-plan`);
+            // router.push(`/onboarding/select-plan`);
             router.push(`/onboarding/confirm-email?email=${encodeURIComponent(email)}`);
             toast.success("A verification code has been sent to your email!");
           }
