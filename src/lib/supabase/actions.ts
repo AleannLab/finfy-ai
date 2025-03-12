@@ -122,7 +122,7 @@ export const resetPasswordForEmail = async (formData: FormData) => {
     const email = formData.get("email") as string;
     const { auth } = createSupabaseClient();
     const { error } = await auth.resetPasswordForEmail(email, {
-      redirectTo: `https://app.finfy.ai//update-password`,
+      redirectTo: `https://app.espen.ai/update-password`,
       // redirectTo: `${getAppURL()}/update-password`,
     });
     if (error) {
