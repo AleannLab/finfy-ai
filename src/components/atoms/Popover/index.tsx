@@ -40,7 +40,7 @@ const PopoverContent = React.forwardRef<
     <PopoverPrimitive.Content
       ref={ref}
       className={cn(
-        "z-50 pt-2 px-5 pb-6 bg-navy-15  border-navy-5 rounded-md",
+        "z-50 pt-2 px-5 pb-6 border-[#e9e9e9] bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] outline outline-1 outline-offset-[-1px] outline-[#e9e9e9]",
         "data-[state=open]:animate-popover-in data-[state=closed]:animate-popover-out",
         className
       )}
@@ -59,7 +59,7 @@ const PopoverHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("font-medium text-xs text-grey-15 pb-2 border-b border-b-navy-5", className)} {...props} />
+  <div className={cn("font-medium text-xs text-grey-15 pb-2 border-b border-b-[#e9e9e9]", className)} {...props} />
 );
 PopoverHeader.displayName = "PopoverHeader";
 

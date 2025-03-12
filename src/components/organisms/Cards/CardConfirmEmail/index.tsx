@@ -1,7 +1,7 @@
 "use client";
 
 import { CardTemplate } from "@/components/molecules";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { Button, Field } from "@/components/atoms";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,16 @@ const CardConfirmEmail = () => {
   const { nextStep, prevStep } = useNavigationOnboarding();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
+  const { user } = useUser();
+
+  useEffect(() => {
+
+    if (user?.email_verified_at) {
+      // toast.success("Your account has been verified!");
+      nextStep();
+    }
+
+  }, [user])
 
 
 
@@ -54,12 +64,12 @@ const CardConfirmEmail = () => {
 
       if (error?.message.includes("Token has expired") || error?.message.includes("is invalid")) {
         console.log("Token expired or invalid, resending OTP...");
-      
+
         const { error: resendError } = await supabase.auth.signInWithOtp({
           email,
           options: { shouldCreateUser: true },
         });
-      
+
         if (resendError) {
           console.error("Error resending OTP:", resendError.message);
           toast.error("Failed to resend OTP. Please try again later.");
@@ -67,15 +77,10 @@ const CardConfirmEmail = () => {
           toast.success("New OTP has been sent to your email.");
         }
       }
-      
 
-      if (data.user?.id) {
-        await dispatch(
-          updateUser({
-            email_verified_at: data.user.email_confirmed_at,
-          })
-        );
-      }
+      await dispatch(fetchUserByEmailOrPhone());
+      await dispatch(updateUser({ email_verified_at: new Date().toISOString() }));
+
 
 
       if (error) {
@@ -84,9 +89,9 @@ const CardConfirmEmail = () => {
       }
 
       toast.success("Your account has been verified!");
-      nextStep();
+      // nextStep();
     } catch (error) {
-      // router.push("/sign-up")
+      router.push("/sign-up")
       toast.error(getErrorMessage(error));
     }
   };

@@ -4,31 +4,54 @@ import { CardTemplate } from "@/components/molecules";
 import { Button, Field } from "@/components/atoms";
 import { loginAction } from "@/lib/supabase/actions";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { fetchUserByEmailOrPhone } from "@/lib/store/features/user/userSlice";
 import { resetCookies } from "@/utils/helpers";
+import { supabase } from "@/lib/supabase/client";
 
 const CardLogin = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const dispatch = useAppDispatch();
 
-  const handleClickLogInButton = (formData: FormData) => {
+  const handleClickLogInButton = async (formData: FormData) => {
     startTransition(async () => {
       resetCookies();
       const { errorMessage } = await loginAction(formData);
+      const email = formData.get("email") as string;
+      console.log(email)
+
       if (errorMessage) {
-        toast.error(errorMessage);
-      } else {
-        router.push("/onboarding");
-        dispatch(fetchUserByEmailOrPhone());
-        toast.success("Successfully logged in!");
+        if (errorMessage.includes("Email not confirmed")) {
+          console.log("Email not confirmed, resending verification code...");
+
+          const { error: resendError } = await supabase.auth.signInWithOtp({
+            email,
+            options: { shouldCreateUser: false },
+          });
+
+          if (resendError) {
+            console.error("Error resending OTP:", resendError.message);
+            toast.error("Failed to resend verification code. Please try again.");
+          } else {
+            toast.success("Verification code has been resent to your email.");
+            router.push(`/onboarding/confirm-email?email=${encodeURIComponent(email)}`);
+          }
+        } else {
+          toast.error(errorMessage);
+        }
+        return;
       }
+
+      toast.success("Successfully logged in!");
+      dispatch(fetchUserByEmailOrPhone());
+      router.push("/onboarding");
     });
   };
+
 
   return (
     <CardTemplate
@@ -55,7 +78,7 @@ const CardLogin = () => {
           />
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col w-full mt-6 justify-center items-center">
-        <div className="flex flex-col gap-4 mt-4 w-full">
+          <div className="flex flex-col gap-4 mt-4 w-full">
             <Button disabled={isPending} variant="main" className="" size="xl" full type="submit">
               {isPending ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>

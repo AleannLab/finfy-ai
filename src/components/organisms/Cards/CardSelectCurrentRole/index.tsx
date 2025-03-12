@@ -19,8 +19,8 @@ const CardCurrentSelectRole = () => {
 
   const onSubmit = async (values: { currentRole?: string }) => {
     if (user?.id) {
-      // await updateUser({ currentRole: values.currentRole });
-      // toast.success("The name was successfully saved!");
+      await updateUser({ currentRole: values.currentRole });
+      toast.success("The name was successfully saved!");
       nextStep();
     }
   };
