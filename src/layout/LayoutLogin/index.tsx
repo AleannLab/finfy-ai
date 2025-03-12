@@ -12,7 +12,7 @@ interface LayoutLoginProps extends PropsWithChildren {
 
 const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
   return (
-    <RootMain className={clsx("w-full bg-[#1F1F1F] flex-col flex", classes?.wrapper)}>
+    <RootMain className={clsx("w-full bg-[#1F1F1F] !overflow-x-auto flex-col flex", classes?.wrapper)}>
       <div className="flex flex-col w-full mt-4 md:mt-[80px] items-center justify-center">
         <div data-svg-wrapper className="relative">
           <svg width="201" height="44" viewBox="0 0 201 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,51 +29,9 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
           </svg>
         </div>
       </div>
-      {/* <div
-        className={
-          "relative hidden bg-white lg:flex justify-center items-center flex-[60%]"
-        }
-      >
-        <Image
-          fill
-          src={"/images/view.png"}
-          className="!bottom-20 !top-auto !-left-1/4 !right-auto !max-w-xl !h-auto"
-          objectFit="contain"
-          alt="view"
-        />
-        <Image
-          fill
-          src={"/images/view.png"}
-          className="!top-1/3 !bottom-auto !left-1/2 !right-auto !max-w-xl !h-auto"
-          objectFit="contain"
-          alt="view"
-        />
-        <div className="flex text-[#272E48] flex-col gap-6 items-start max-w-xl">
-          <h1 className=" text-4xl font-bold">
-            Financially empower yourself with <span className="text-[#74BBC9]">Espen</span>
-          </h1> 
-          <p className=" text-lg font-medium">
-            Empower Your Financial Institution with Customizable Virtual
-            Financial Assistants and Conversational AI, Tailored to Speak Your
-            Customers Language on Their Preferred Channels.
-          </p>
-        </div>
-      </div>
-      <div className={clsx("relative flex-1 lg:flex-[40%]")}>
-        <Image
-          fill
-          src={"/images/bg-login-page.png"}
-          alt="background-login-page"
-          objectFit="cover"
-          className={""}
-        />
-        <div className={"h-full flex-col flex bg-[#547A91]"}> */}
       <div className="flex-1 flex justify-center items-center relative z-10 p-6">
         {children}
       </div>
-      {/* <FooterAuth />
-        </div>
-      </div> */}
       <div className="text-center text-sm w-full px-5 flex items-center justify-center pb-5 lg:pb-24 text-[#E9E9E9]">
         <div className="text-center text-sm max-w-[410px] text-[#E9E9E9]">
           By continuing, you agree to Espen’s{" "}

@@ -235,11 +235,11 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   }
 
   return (
-    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen !max-w-screen  !h-auto flex-col ", isModalOpen ? "bg-[#272E48] rounded-lg m-10" : "h-screen")}>
+    <><div className={cn("bg-navy-25 relative w-full p-4 pt-16 lg:p-4 flex !min-h-screen !max-w-screen  !h-auto flex-col ", isModalOpen ? "bg-[#272E48] rounded-lg m-10" : "h-[calc(100vh-64px)]")}>
       <Header />
       <>
         {!isMessages && <HeaderText />}
-        <div className="flex !max-w-[441px] w-[calc(100%)] md:w-[calc(100%-60px)] lg:!max-w-[1050px] flex-1 mx-auto flex-col">
+        <div className="flex h-full !max-w-[441px] w-[calc(100%)] md:w-[calc(100%-60px)] lg:!max-w-[1050px] flex-1 mx-auto flex-col">
           {isTeacher && (<>
             <div className="max-w-[1050px] w-full h-9 justify-between items-center inline-flex">
               <div className="justify-start items-center gap-1 flex">
@@ -332,12 +332,12 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             </div>
             )}
           {(isOn || !isTutor) && <HomeSuggestBoxes />}
-          <div className="mt-6">
+          <div className="mt-6 mb-3">
             <ChatMessageInput disable={(!tool && !isMessages && isTutor)} isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
           </div>
+          <footer className="max-w-[372px] w-full mx-auto mt-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
         </div>
       </>
-      {isMessages && <footer className="w-[372px] mt-4 mx-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>}
     </div>
     </>
   );

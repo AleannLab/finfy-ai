@@ -50,7 +50,7 @@ export default function RootLayout({
       </Head>
       <StoreProvider>
         <ClarityAnalytics />
-        <body className={clsx(inter.className, "min-h-screen !max-h-screen overflow-hidden")}>
+        <body className={clsx(inter.className, "min-h-screen !max-h-[calc(100vh-10px)] overflow-x-hidden md:overflow-y-hidden md:overflow-hidden")}>
           <FullScreenLoader />
           {children}
           <Toaster />

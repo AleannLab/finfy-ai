@@ -11,7 +11,7 @@ export default function RootLayout({
       <Sidebar />
       <div className="flex flex-col w-full mb-2 h-full">
         {children}
-        <footer className="max-w-[372px] w-[calc(100%-64px)] mb-3  mx-8 sm:mx-auto mt-3 sm:mt-8 text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
+        {/* <footer className="max-w-[372px] w-[calc(100%-64px)] mb-3  mx-8 sm:mx-auto mt-3 sm:mt-8 text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer> */}
       </div>
     </main>
   );

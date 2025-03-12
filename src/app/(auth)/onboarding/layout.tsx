@@ -16,7 +16,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <RootMain className={clsx("w-full bg-[#1F1F1F] flex-col flex")}>
+    <RootMain className={clsx("w-full bg-[#1F1F1F] !overflow-x-auto flex-col flex")}>
       <div className="flex flex-col w-full mt-4 md:mt-[80px] items-center justify-center">
         <div data-svg-wrapper className="relative">
           <svg width="201" height="44" viewBox="0 0 201 44" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -83,14 +83,6 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                 );
               })}
               <div ref={scrollRef} />
-              {/* {!!streamMessage?.length && (
-                <Message
-                  text={streamMessage}
-                  date={""}
-                  isUser={false}
-                  isLastMessage={true}
-                />
-              )} */}
               {isLoading && !streamMessage?.length && (
                 <Message
                   text={

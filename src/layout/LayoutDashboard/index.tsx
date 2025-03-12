@@ -58,13 +58,14 @@ const LayoutDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     <><div className={cn("bg-navy-25 w-full p-4 pt-16 lg:p-10 flex !min-h-[calc(100vh-64px)] !max-h-[calc(100vh-64px)] flex-col ", selectedChartId ? "bg-[#272E48] h-auto rounded-lg m-10" : "h-screen")}>
       <Header />
       <HeaderFocus user={user} open={open} setOpen={setOpen} suggest={suggest} isHome={true} />
-        <div className={cn("flex w-full lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
-          <Conversation handleOpenModal={handleOpenModal} />
-        </div>
+      <div className={cn("flex w-full lg:mt-[20px] h-full ", assistActionOpenState ? "max-h-[calc(100vh-422px)]" : "")}>
+        <Conversation handleOpenModal={handleOpenModal} />
+      </div>
       {!!messages.length && <div className="bg-[#1F263D] w-full mx-auto  max-w-[912px]">
-        <AssistInput isDark={!!selectedChartId} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState}/>
+        <AssistInput isDark={!!selectedChartId} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
       </div>}
     </div>
+      <footer className="w-[372px] mt-8 lg:mt-3 mx-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
     </>
   );
 };
