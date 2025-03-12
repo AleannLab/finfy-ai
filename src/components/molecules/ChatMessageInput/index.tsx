@@ -286,7 +286,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     <>
       <form
         action={onSubmit}
-        className={cn("flex flex-col items-center overflow-hidden p-4 text-base text-[#666] font-medium rounded-3xl border border-[#e9e9e9] shadow-[0px_0px_30px_0px_rgba(38,38,38,0.04)] relative w-full min-h-[80px]", disable ? "bg-[#EFEFEF4D]" : "bg-white")}
+        className={cn("flex flex-col items-center overflow-hidden p-4 text-base text-[#666] font-medium rounded-3xl border border-[#e9e9e9] shadow-[0px_0px_30px_0px_rgba(38,38,38,0.04)] relative w-full min-h-[80px]", disable ? "bg-white" : "bg-white")}
         style={{ height: textareaHeight }}
       >
         <textarea
@@ -311,7 +311,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             setTextareaHeight(`${adjustedHeight + 90}px`);
           }}
 
-          className="w-full resize-none min-h-[40px] max-h-[200px] outline-none overflow-y-auto"
+          className="w-full bg-white disabled:bg-white resize-none min-h-[40px] max-h-[200px] outline-none overflow-y-auto"
           placeholder={suggest?.title ? `Ask me any ${cutIcon(suggest?.title)} question...` : "Ask follow-up question..."}
           name="message"
           onKeyDown={handleEnter}
