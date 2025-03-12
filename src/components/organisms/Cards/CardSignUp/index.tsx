@@ -43,7 +43,9 @@ const CardSignUp = () => {
     });
   };
   return (
-    <CardTemplate descriptionBtn={<Link href="/login" className="text-black font-semibold ml-1">Log in</Link>} description="Already have an account?" title="Sign Up">
+    <CardTemplate classes={{
+      cardDescription: ""
+    }} descriptionBtn={<Link href="/login" className="text-black text-sm font-semibold ml-1">Log in</Link>} description="Already have an account?" title="Sign Up">
       <form action={handleClickSignUpButton}>
         <CardTemplate.Content className="flex flex-col gap-4 mt-4">
           <Field
@@ -52,15 +54,19 @@ const CardSignUp = () => {
             full
             type="text"
             disabled={isPending}
+            placeholder="Enter your email"
           />
-          <Field
-            name="password"
-            label={"Password"}
-            full
-            type="password"
-            disabled={isPending}
-          />
-          <span className="text-[#A1A1AA] text-sm">Use 6-20 characters from at least 2 categories: letters, numbers, special characters.</span>
+          <div className="flex flex-col gap-2">
+            <Field
+              name="password"
+              label={"Password"}
+              full
+              type="password"
+              disabled={isPending}
+              placeholder="Enter your password"
+            />
+            <span className="text-[#A1A1AA] text-sm">Use 6-20 characters from at least 2 categories: letters, numbers, special characters.</span>
+          </div>
           <Field
             name="username"
             label={"Username"}

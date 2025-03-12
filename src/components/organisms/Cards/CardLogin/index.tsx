@@ -42,6 +42,7 @@ const CardLogin = () => {
             disabled={isPending}
             label={"Email"}
             full
+            placeholder="Enter your email"
             type="email"
           />
           <Field
@@ -49,6 +50,7 @@ const CardLogin = () => {
             disabled={isPending}
             label={"Password"}
             full
+            placeholder="Enter your password"
             type="password"
           />
         </CardTemplate.Content>

@@ -62,7 +62,7 @@ const config: Config = {
       "2xl": {
         DEFAULT: {
           fontSize: "1.5rem",
-          lineHeight: "2rem",
+          lineHeight: "29px",
         },
       },
       "3xl": {

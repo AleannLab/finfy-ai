@@ -45,7 +45,7 @@ const CardTemplateComponent: FC<CardTemplateComponentProps> = ({
           {description && (
             <Card.Description
               className={cn(
-                "text-[#666666] text-sm font-medium leading-tight",
+                "text-[#666666] text-sm font-medium leading-[20px]",
                 classes?.cardDescription
               )}
             >
