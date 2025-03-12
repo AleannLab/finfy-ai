@@ -64,13 +64,13 @@ const CardUpdatePassword = () => {
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col w-full justify-between">
           <div className="flex flex-col gap-4 mt-4 w-full">
-            <Button disabled={isPending} size="xl" full type="submit">
+            <Button variant="main" disabled={isPending} size="xl" full type="submit">
               {isPending ? <Loader2 className="animate-spin" /> : "Submit"}
             </Button>
             <Button
               disabled={isPending}
               size="xl"
-              variant="ghost"
+              variant="outlineMain"
               full
               href="/login"
               as="link"
