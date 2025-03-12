@@ -2,7 +2,7 @@ import { SignUpPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign Up | Career Buddy",
+  title: "Sign Up | Espen",
   description: "Chat",
 };
 

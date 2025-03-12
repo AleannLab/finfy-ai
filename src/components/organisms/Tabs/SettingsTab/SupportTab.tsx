@@ -58,7 +58,7 @@ const SupportTab = () => {
           <div className="col-span-2 flex flex-col gap-2">
             <Label>Message</Label>
             <Textarea
-              placeholder="Hello Career Buddy team"
+              placeholder="Hello Espen team"
               className="border-purple-15 min-h-[111px] bg-navy-25"
             />
           </div>

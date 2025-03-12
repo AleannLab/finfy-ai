@@ -48,7 +48,7 @@ export const defaultCareerCoachAssistant = {
   label: "",
   content: "Ask me any questions",
   icon: "🔢",
-  category: " I’m your Career Buddy",
+  category: " I’m your Espen",
   assistantId: "asst_XizmVhjCdwImRlerh0Z5bh9e",
   instructions: `System settings:
       Tool use: enabled.

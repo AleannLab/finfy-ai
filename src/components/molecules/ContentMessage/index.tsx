@@ -496,7 +496,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
             <Icon height="32px" width="32px" type="LogoChatIcon" />
           </span>
           <span className="text-[#272E48] text-2xl leading-3 font-medium">
-            {isLastMessage ? "Answer" : "Career Buddy"}
+            {isLastMessage ? "Answer" : "Espen"}
           </span>
           <span className="text-[rgb(97,103,125)] mt-2 text-sm">
             {(isLastMessage && !!streamMessage?.length) && ("(typing...)")}

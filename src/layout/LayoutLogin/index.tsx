@@ -50,7 +50,7 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
         />
         <div className="flex text-[#272E48] flex-col gap-6 items-start max-w-xl">
           <h1 className=" text-4xl font-bold">
-            Financially empower yourself with <span className="text-[#74BBC9]">Career buddy</span>
+            Financially empower yourself with <span className="text-[#74BBC9]">Espen</span>
           </h1> 
           <p className=" text-lg font-medium">
             Empower Your Financial Institution with Customizable Virtual
@@ -76,7 +76,7 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
       </div> */}
       <div className="text-center text-sm w-full px-5 flex items-center justify-center pb-5 lg:pb-24 text-[#E9E9E9]">
         <div className="text-center text-sm max-w-[410px] text-[#E9E9E9]">
-          By continuing, you agree to Career Buddy’s{" "}
+          By continuing, you agree to Espen’s{" "}
           <a
             href="/terms-of-service"
             className="text-[#e9e9e9] underline hover:no-underline"

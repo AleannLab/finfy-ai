@@ -2,7 +2,7 @@ import { LoginPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login | Career Buddy",
+  title: "Login | Espen",
   description: "Chat",
 };
 

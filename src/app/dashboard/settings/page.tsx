@@ -2,7 +2,7 @@ import { SettingsPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Setting | Career Buddy",
+  title: "Setting | Espen",
   description: "Chat",
 };
 

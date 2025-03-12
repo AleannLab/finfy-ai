@@ -4,7 +4,7 @@ import { LayoutMaineDashboard } from "@/layout/LayoutMaineDashboard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Career Buddy",
+  title: "Dashboard | Espen",
   description: "Chat",
 };
 

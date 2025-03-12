@@ -2,7 +2,7 @@ import { ConfirmEmailPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Confirm Email | Career Buddy",
+  title: "Confirm Email | Espen",
   description: "Chat",
 };
 

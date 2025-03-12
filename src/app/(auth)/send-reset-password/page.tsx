@@ -2,7 +2,7 @@ import { SendResetPasswordPage } from "@/components/pages";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Send Reset Password | Career Buddy",
+  title: "Send Reset Password | Espen",
   description: "Chat",
 };
 

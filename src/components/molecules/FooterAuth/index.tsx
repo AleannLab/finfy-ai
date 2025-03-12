@@ -12,7 +12,7 @@ const FooterAuth = () => {
           <path d="M10.3402 5.99236C10.7205 6.33897 10.5921 6.93204 10.1426 7.2012C9.45047 7.6156 8.85738 8.15606 8.40262 8.78674C8.10723 9.1964 7.4564 9.31338 7.07603 8.96677L2.5705 4.86114C2.2755 4.59233 2.2755 4.1565 2.5705 3.88769L4.76635 1.88673C5.06135 1.61792 5.53963 1.61792 5.83462 1.88673L10.3402 5.99236Z" fill="#666" />
         </svg>
         <span className="text-white text-base font-semibold ">
-          Career Buddy
+          Espen
         </span>
       </div>
       <div className="flex gap-3 justify-between items-center px-2 flex-wrap md:gap-6">
