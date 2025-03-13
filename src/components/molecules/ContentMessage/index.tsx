@@ -39,7 +39,7 @@ ChartJS.register(
 );
 
 interface ContentMessageProps {
-  text: string;
+  text: ReactNode;
   isUser: boolean;
   isLoading?: boolean;
   isLastMessage?: boolean;
