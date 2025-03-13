@@ -73,7 +73,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   return (
     <>
       <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white hidden md:flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
-        <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>
+        {!!label?.length && <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>}
         <div className="self-stretch max-h-[100px] flex-col justify-start items-start gap-8 flex">
           <div className="self-stretch max-h-[80px] flex-col justify-start items-start gap-2 flex">
             <p className="text-[#666666] text-[14px] font-medium overflow-hidden text-ellipsis line-clamp-5 leading-5">
