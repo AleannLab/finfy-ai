@@ -71,7 +71,7 @@ const Sidebar = () => {
         <div
           className={cn("my-5 flex justify-between items-center", {
             "lg:flex-col-reverse lg:gap-2": !open,
-            "lg:ml-2": open,
+            "ml-2 lg:ml-2": open,
           })}
         >
           <button onClick={handleClick}>
