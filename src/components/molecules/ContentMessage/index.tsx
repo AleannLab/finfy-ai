@@ -1,9 +1,10 @@
 "use client";
 
 import { Icon } from "@/components/atoms";
+import { useGlobalErrorHandler } from "@/lib/hooks/useGlobalErrorHandler";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import React, { FC, ReactNode, useState } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -38,7 +39,7 @@ ChartJS.register(
 );
 
 interface ContentMessageProps {
-  text: ReactNode;
+  text: string;
   isUser: boolean;
   isLoading?: boolean;
   isLastMessage?: boolean;
@@ -54,6 +55,8 @@ const ContentMessage: FC<ContentMessageProps> = ({
 }) => {
   const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
   const { streamMessage } = useChat();
+  useGlobalErrorHandler();
+
 
   const toggleDropdown = (index: number) => {
     setOpenDropdowns((prev) => ({
@@ -350,39 +353,6 @@ const ContentMessage: FC<ContentMessageProps> = ({
         const padding = 40;
 
         switch (shapeType) {
-          // case "circle":
-          //   if (dimensions?.radius) {
-          //     // Scaling logic for the circle
-          //     const scaleFactor = 50; // Adjusting factor for better visibility
-          //     const radius = 50 * scaleFactor;
-          //     const numPoints = 100; // Number of points to approximate the circle
-
-          //     const circlePoints = Array.from({ length: numPoints }, (_, i) => {
-          //       const angle = (i / numPoints) * 2 * Math.PI;
-          //       const x = radius + radius * Math.cos(angle);
-          //       const y = radius + radius * Math.sin(angle);
-          //       return `${x},${y}`;
-          //     }).join(" ");
-
-          //     return (
-          //       <svg
-          //         width={radius * 2 + padding}
-          //         height={radius * 2 + padding}
-          //         radius={radius}
-          //         viewBox={`0 0 ${radius * 2 + padding} ${radius * 2 + padding}`}
-          //       >
-          //         <polyline
-          //           fill={"red"}
-          //           // fill={color || "blue"}
-          //           stroke={color || "blue"}
-          //           strokeWidth="2"
-          //           points={circlePoints}
-          //         />
-          //       </svg>
-          //     );
-          //   }
-          //   return <div>Error: Missing radius for circle.</div>;
-
           case "polygon":
             if (points && Array.isArray(points)) {
               // Find min/max values to create a dynamic scaling factor
