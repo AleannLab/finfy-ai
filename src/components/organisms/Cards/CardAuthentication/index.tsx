@@ -12,7 +12,7 @@ const CardAuthentication = () => {
         cardDescription: "text-center text-[#666]"
       }}
       title="Welcome to Espen!"
-      description="Log in or sign up for personalized AI tutoring, career guidance, homework help, exam strategies, and multilingual revision notes. Teachers also receive instant CAPS lesson plans, assessment creation and other intervention tools"
+      description="Log in or sign up for personalized AI tutoring, career guidance, homework help, exam strategies, and multilingual revision notes. Teachers also receive instant CAPS lesson plans, assessment creation and other intervention tools."
     >
       <CardTemplate.Content className="flex flex-col gap-2 mt-4" >
         <Button variant="main" className="!rounded-md" size="xl" full href="/login" as="link">
