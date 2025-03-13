@@ -61,7 +61,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
   const toggleDropdown = (index: number) => {
     setOpenDropdowns((prev) => ({
       ...prev,
-      [index]: !prev[index],
+      [index]: !prev?.[index],
     }));
   };
 
@@ -85,13 +85,13 @@ const ContentMessage: FC<ContentMessageProps> = ({
 
   const renderers = {
     details: ({ children, node }: any) => {
-      const index = node.position?.start.offset ?? Math.random();
-      const isOpen = openDropdowns[index] || false;
+      const index = node.position?.start?.offset ?? Math.random();
+      const isOpen = openDropdowns?.[index] || false;
 
       return (
         <div className="my-4 border border-[#374061] rounded-lg overflow-hidden">
           {children.map((child: any) =>
-            child.type === "summary" ? (
+            child?.type === "summary" ? (
               <button
                 key={index}
                 onClick={() => toggleDropdown(index)}
@@ -151,272 +151,294 @@ const ContentMessage: FC<ContentMessageProps> = ({
       );
     },
     div: ({ node, children }: any) => {
-      const graphId = node?.properties?.id;
-      const shapeId = node?.properties?.id;
-      const dataRaw = children;
+      try {
+        const graphId = node?.properties?.id;
+        const shapeId = node?.properties?.id;
+        const dataRaw = children;
 
-      if (graphId === "GraphId" && typeof dataRaw === "string") {
-        let parsedData;
-        try {
-          parsedData = JSON.parse(dataRaw);
-        } catch (error) {
-          console.error("Error parsing JSON for graph:", error);
-          return <div>Error parsing graph data</div>;
-        }
-
-        const csvData = parsedData?.data;
-        if (typeof csvData !== "string" || !parsedData?.data) {
-          return <div>Invalid graph data</div>;
-        }
-
-        const rows = csvData.split("\n").filter(row => row.trim() !== "");
-
-        const points = rows
-          .map(row => {
-            const [x, y] = row.split(",").map(Number);
-            if (isNaN(x) || isNaN(y)) {
-              console.error("Invalid point detected:", { x, y });
-            }
-            return { x, y };
-          })
-          .filter(point => !isNaN(point.x) && !isNaN(point.y));
-
-        if (points.length === 0) {
-          return <div>No valid data points to display</div>;
-        }
-
-        const interpolatedPoints = [];
-        for (let i = 0; i < points.length - 1; i++) {
-          interpolatedPoints.push(points[i]);
-          const midX = (points[i].x + points[i + 1].x) / 2;
-          const midY = (points[i].y + points[i + 1].y) / 2;
-          interpolatedPoints.push({ x: midX, y: midY });
-        }
-        interpolatedPoints.push(points[points.length - 1]);
-
-        let minX = Math.min(...interpolatedPoints.map(p => p.x));
-        let maxX = Math.max(...interpolatedPoints.map(p => p.x));
-        let minY = Math.min(...interpolatedPoints.map(p => p.y));
-        let maxY = Math.max(...interpolatedPoints.map(p => p.y));
-
-        minX = Math.min(minX, 0);
-        maxX = Math.max(maxX, 0);
-        minY = Math.min(minY, 0);
-        maxY = Math.max(maxY, 0);
-
-        if (minX === maxX) {
-          minX -= 1;
-          maxX += 1;
-        }
-        if (minY === maxY) {
-          minY -= 1;
-          maxY += 1;
-        }
-
-        const yPadding = (maxY - minY) * 0.001;
-        const minYWithPadding = minY - yPadding;
-        const maxYWithPadding = maxY + yPadding;
-
-        const width = 600;
-        const height = 500;
-        const padding = 60;
-
-        const scaleX = (x: number) =>
-          ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding
-        const scaleY = (y: number) =>
-          height -
-          ((y - minYWithPadding) / (maxYWithPadding - minYWithPadding)) *
-          (height - 2 * padding) -
-          padding;
-
-        const polylinePoints = interpolatedPoints
-          .map(({ x, y }) => `${scaleX(x)},${scaleY(y)}`)
-          .join(" ");
-
-        const TICK_COUNT = 5;
-        function generateTicks(minVal: number, maxVal: number) {
-          const step = (maxVal - minVal) / (TICK_COUNT - 1);
-          const arr: number[] = [];
-          for (let i = 0; i < TICK_COUNT; i++) {
-            const val = minVal + i * step;
-            arr.push(parseFloat(val.toFixed(2)));
+        if (graphId === "GraphId" && typeof dataRaw === "string") {
+          let parsedData;
+          try {
+            parsedData = JSON.parse(dataRaw);
+          } catch (error) {
+            console.error("Error parsing JSON for graph:", error);
+            return <div>Error parsing graph data</div>;
           }
-          return Array.from(new Set(arr));
-        }
 
-        const xTicks = generateTicks(minX, maxX);
-        const yTicks = generateTicks(minYWithPadding, maxYWithPadding);
+          const csvData = parsedData?.data;
+          if (typeof csvData !== "string" || !parsedData?.data) {
+            return <div>Invalid graph data</div>;
+          }
 
-        return (
-          <div className="svg-container p-3 w-full h-auto lg:p-10">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox={`0 0 ${width} ${height}`}
-              style={{ border: "1px solid #ccc" }}
-            >
-              {[...Array(10)].map((_, i) => {
-                const x = padding + (i / 9) * (width - 2 * padding);
-                const y = padding + (i / 9) * (height - 2 * padding);
-                return (
-                  <React.Fragment key={i}>
-                    <line
-                      x1={x}
-                      y1={padding}
-                      x2={x}
-                      y2={height - padding}
-                      stroke="#ddd"
-                      strokeWidth="1"
-                    />
-                    <line
-                      x1={padding}
-                      y1={y}
-                      x2={width - padding}
-                      y2={y}
-                      stroke="#ddd"
-                      strokeWidth="1"
-                    />
-                  </React.Fragment>
-                );
-              })}
+          const rows = csvData.split("\n").filter(row => row.trim() !== "");
 
-              <line
-                x1={scaleX(0)}
-                y1={padding}
-                x2={scaleX(0)}
-                y2={height - padding}
-                stroke="black"
-                strokeWidth="2"
-              />
-              <line
-                x1={padding}
-                y1={scaleY(0)}
-                x2={width - padding}
-                y2={scaleY(0)}
-                stroke="black"
-                strokeWidth="2"
-              />
-
-              <polyline fill="none" stroke="blue" strokeWidth="3" points={polylinePoints} />
-
-              <text x={scaleX(0) - 4} y={padding - 20} fontSize="14" fill="black">
-                Y
-              </text>
-              <text x={width - padding + 25} y={scaleY(0) + 15} fontSize="14" fill="black">
-                X
-              </text>
-
-              {xTicks.map((val, i) => (
-                <text
-                  key={`xTick-${i}`}
-                  x={scaleX(val)}
-                  y={scaleY(0) + 15}
-                  fontSize="12"
-                  fill="black"
-                  textAnchor="middle"
-                >
-                  {val}
-                </text>
-              ))}
-
-              {yTicks.map((val, i) => (
-                <text
-                  key={`yTick-${i}`}
-                  x={scaleX(0) - 10}
-                  y={scaleY(val) + 4}
-                  fontSize="12"
-                  fill="black"
-                  textAnchor="end"
-                >
-                  {val}
-                </text>
-              ))}
-            </svg>
-          </div>
-        );
-      }
-
-
-      if (shapeId === "ShapeId" && typeof dataRaw === "string") {
-        let parsedData;
-        try {
-          parsedData = JSON.parse(dataRaw);
-        } catch (error) {
-          console.error("Error parsing JSON for shape:", error);
-          return <div>Error parsing shape data</div>;
-        }
-
-        const { shapeType, dimensions, color, points } = parsedData;
-
-        const width = 400;
-        const height = 300;
-        const padding = 40;
-
-        switch (shapeType) {
-          case "polygon":
-            if (points && Array.isArray(points)) {
-              // Find min/max values to create a dynamic scaling factor
-              const minX = Math.min(...points.map(p => p.x));
-              const maxX = Math.max(...points.map(p => p.x));
-              const minY = Math.min(...points.map(p => p.y));
-              const maxY = Math.max(...points.map(p => p.y));
-
-              // Guard against invalid min/max values
-              if (minX === maxX || minY === maxY) {
-                console.error("Invalid range for polygon scaling");
-                return <div>Error with polygon data range</div>;
+          const points = rows
+            .map(row => {
+              const [x, y] = row.split(",").map(Number);
+              if (isNaN(x) || isNaN(y)) {
+                console.error("Invalid point detected:", { x, y });
               }
+              return { x, y };
+            })
+            .filter(point => !isNaN(point.x) && !isNaN(point.y));
 
-              const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
-              const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
+          if (points?.length === 0) {
+            return <div>No valid data points to display</div>;
+          }
 
-              const polygonPoints = points
-                .map(({ x, y }) => `${scaleX(+x)},${scaleY(+y)}`)
-                .join(" ");
+          const interpolatedPoints = [];
+          for (let i = 0; i < points?.length - 1; i++) {
+            interpolatedPoints.push(points[i]);
+            const midX = (points[i].x + points[i + 1].x) / 2;
+            const midY = (points[i].y + points[i + 1].y) / 2;
+            interpolatedPoints.push({ x: midX, y: midY });
+          }
+          interpolatedPoints.push(points[points.length - 1]);
 
-              return (
-                <svg width={width / 10} height={height / 10} viewBox={`0 0 ${width / 10} ${height / 10}`}>
-                  <polygon points={polygonPoints} fill={color || "green"} stroke={color || "black"} strokeWidth="2" />
-                </svg>
-              );
+          let minX = Math.min(...interpolatedPoints.map(p => p.x));
+          let maxX = Math.max(...interpolatedPoints.map(p => p.x));
+          let minY = Math.min(...interpolatedPoints.map(p => p.y));
+          let maxY = Math.max(...interpolatedPoints.map(p => p.y));
+
+          minX = Math.min(minX, 0);
+          maxX = Math.max(maxX, 0);
+          minY = Math.min(minY, 0);
+          maxY = Math.max(maxY, 0);
+
+          if (minX === maxX) {
+            minX -= 1;
+            maxX += 1;
+          }
+          if (minY === maxY) {
+            minY -= 1;
+            maxY += 1;
+          }
+
+          const yPadding = (maxY - minY) * 0.001;
+          const minYWithPadding = minY - yPadding;
+          const maxYWithPadding = maxY + yPadding;
+
+          const width = 600;
+          const height = 500;
+          const padding = 60;
+
+          const scaleX = (x: number) =>
+            ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding
+          const scaleY = (y: number) =>
+            height -
+            ((y - minYWithPadding) / (maxYWithPadding - minYWithPadding)) *
+            (height - 2 * padding) -
+            padding;
+
+          const polylinePoints = interpolatedPoints
+            .map(({ x, y }) => `${scaleX(x)},${scaleY(y)}`)
+            .join(" ");
+
+          const TICK_COUNT = 5;
+          function generateTicks(minVal: number, maxVal: number) {
+            const step = (maxVal - minVal) / (TICK_COUNT - 1);
+            const arr: number[] = [];
+            for (let i = 0; i < TICK_COUNT; i++) {
+              const val = minVal + i * step;
+              arr.push(parseFloat(val.toFixed(2)));
             }
-            return <div>Error: Missing points for polygon.</div>
-          default:
-            return <div>Error: Unsupported shape type.</div>;
+            return Array.from(new Set(arr));
+          }
+
+          const xTicks = generateTicks(minX, maxX);
+          const yTicks = generateTicks(minYWithPadding, maxYWithPadding);
+
+          return (
+            <div className="svg-container p-3 w-full h-auto lg:p-10">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox={`0 0 ${width} ${height}`}
+                style={{ border: "1px solid #ccc" }}
+              >
+                {[...Array(10)].map((_, i) => {
+                  const x = padding + (i / 9) * (width - 2 * padding);
+                  const y = padding + (i / 9) * (height - 2 * padding);
+                  return (
+                    <React.Fragment key={i}>
+                      <line
+                        x1={x}
+                        y1={padding}
+                        x2={x}
+                        y2={height - padding}
+                        stroke="#ddd"
+                        strokeWidth="1"
+                      />
+                      <line
+                        x1={padding}
+                        y1={y}
+                        x2={width - padding}
+                        y2={y}
+                        stroke="#ddd"
+                        strokeWidth="1"
+                      />
+                    </React.Fragment>
+                  );
+                })}
+
+                <line
+                  x1={scaleX(0)}
+                  y1={padding}
+                  x2={scaleX(0)}
+                  y2={height - padding}
+                  stroke="black"
+                  strokeWidth="2"
+                />
+                <line
+                  x1={padding}
+                  y1={scaleY(0)}
+                  x2={width - padding}
+                  y2={scaleY(0)}
+                  stroke="black"
+                  strokeWidth="2"
+                />
+
+                <polyline fill="none" stroke="blue" strokeWidth="3" points={polylinePoints} />
+
+                <text x={scaleX(0) - 4} y={padding - 20} fontSize="14" fill="black">
+                  Y
+                </text>
+                <text x={width - padding + 25} y={scaleY(0) + 15} fontSize="14" fill="black">
+                  X
+                </text>
+
+                {xTicks.map((val, i) => (
+                  <text
+                    key={`xTick-${i}`}
+                    x={scaleX(val)}
+                    y={scaleY(0) + 15}
+                    fontSize="12"
+                    fill="black"
+                    textAnchor="middle"
+                  >
+                    {val}
+                  </text>
+                ))}
+
+                {yTicks.map((val, i) => (
+                  <text
+                    key={`yTick-${i}`}
+                    x={scaleX(0) - 10}
+                    y={scaleY(val) + 4}
+                    fontSize="12"
+                    fill="black"
+                    textAnchor="end"
+                  >
+                    {val}
+                  </text>
+                ))}
+              </svg>
+            </div>
+          );
         }
+
+
+        if (shapeId === "ShapeId" && typeof dataRaw === "string") {
+          let parsedData;
+          try {
+            parsedData = JSON.parse(dataRaw);
+          } catch (error) {
+            console.error("Error parsing JSON for shape:", error);
+            return <div>Error parsing shape data</div>;
+          }
+
+          const { shapeType, dimensions, color, points } = parsedData;
+
+          const width = 400;
+          const height = 300;
+          const padding = 40;
+
+          switch (shapeType) {
+            case "polygon":
+              if (points && Array.isArray(points)) {
+                // Find min/max values to create a dynamic scaling factor
+                const minX = Math.min(...points.map(p => p.x));
+                const maxX = Math.max(...points.map(p => p.x));
+                const minY = Math.min(...points.map(p => p.y));
+                const maxY = Math.max(...points.map(p => p.y));
+
+                // Guard against invalid min/max values
+                if (minX === maxX || minY === maxY) {
+                  console.error("Invalid range for polygon scaling");
+                  return <div>Error with polygon data range</div>;
+                }
+
+                const scaleX = (x: number) => ((x - minX) / (maxX - minX)) * (width - 2 * padding) + padding;
+                const scaleY = (y: number) => height - ((y - minY) / (maxY - minY)) * (height - 2 * padding) - padding;
+
+                const polygonPoints = points
+                  .map(({ x, y }) => `${scaleX(+x)},${scaleY(+y)}`)
+                  .join(" ");
+
+                return (
+                  <svg width={width / 10} height={height / 10} viewBox={`0 0 ${width / 10} ${height / 10}`}>
+                    <polygon points={polygonPoints} fill={color || "green"} stroke={color || "black"} strokeWidth="2" />
+                  </svg>
+                );
+              }
+              return <div>Error: Missing points for polygon.</div>
+            default:
+              return <div>Error: Unsupported shape type.</div>;
+          }
+        }
+
+
+        return <div className="markdown !whitespace-normal markdown-special">{children}</div>;
+      } catch {
+        console.log("err shape")
+        return <div className=""></div>;
       }
 
-
-      return <div className="markdown !whitespace-normal markdown-special">{children}</div>;
-    },
+    }
 
 
   };
 
   function removeSpaceBeforePunctuation(text: string): string {
-    return text?.replace(/ (\.|\:)/g, '$1');
+    try {
+      return text?.replace(/ (\.|\:)/g, '$1') ?? "Error processing text";
+    } catch (error) {
+      console.error("Error in removeSpaceBeforePunctuation:", error);
+      return text;
+    }
   }
+
 
 
   function adaptMarkdownForMath(text: string): string {
-    const newlinePlaceholder = '__NEWLINE__';
-    text = text.replace(/\n/g, newlinePlaceholder);
-    // Handle \begin{align*} blocks
-    text = text.replace(/\\begin\{align\*\}(.*?)\\end\{align\*\}/gs, (_, content: string) => {
-      // Split the content into lines and wrap each in $...$
-      return content
-        .split(/\\\\/)
-        .map(line => ` $ __NEWLINE__ ${line.replace(/&/g, '').trim()} __NEWLINE__ $ `)
-        .join('__NEWLINE__');
-    });
-    text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
-    text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
-    text = text.replace(/\$\$\s+/g, '$$ ').replace(/\s+\$\$/g, ' $$');
-    text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
-    text = text.replace(/([.:])\s+(\$\$)/g, '$1$2');
-    text = text.replace(new RegExp(newlinePlaceholder, 'g'), '\n');
-    return removeSpaceBeforePunctuation(text);
+    try {
+      if (!text) return "No content available";
+
+      const newlinePlaceholder = '__NEWLINE__';
+      text = text.replace(/\n/g, newlinePlaceholder);
+
+      // Handle \begin{align*} blocks
+      text = text.replace(/\\begin\{align\*\}(.*?)\\end\{align\*\}/gs, (_, content: string) => {
+        return content
+          .split(/\\\\/)
+          .map(line => ` $ __NEWLINE__ ${line.replace(/&/g, '').trim()} __NEWLINE__ $ `)
+          .join('__NEWLINE__');
+      });
+
+      text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+      text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+      text = text.replace(/\$\$\s+/g, '$$ ').replace(/\s+\$\$/g, ' $$');
+      text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
+      text = text.replace(/([.:])\s+(\$\$)/g, '$1$2');
+      text = text.replace(new RegExp(newlinePlaceholder, 'g'), '\n');
+
+      return removeSpaceBeforePunctuation(text);
+    } catch (error) {
+      console.error("Error in adaptMarkdownForMath:", error);
+      return "Error on processing math content, please reload page...";
+    }
   }
+
 
   if (isUser) {
     return (
@@ -435,26 +457,31 @@ const ContentMessage: FC<ContentMessageProps> = ({
   }
 
   function splitByBoltParagraphs(text: string): Array<{ type: "html" | "markdown"; content: string }> {
-    const regex = /(<p className="bolt">[\s\S]*?<\/p>)(\s*\n\n)/gi;
+    try {
+      const regex = /(<p className="bolt">[\s\S]*?<\/p>)(\s*\n\n)/gi;
+      const parts: Array<{ type: "html" | "markdown"; content: string }> = [];
+      let lastIndex = 0;
 
-    const parts: Array<{ type: "html" | "markdown"; content: string }> = [];
-    let lastIndex = 0;
+      text?.replace(regex, (match, _, index) => {
+        if (index > lastIndex) {
+          parts.push({ type: "markdown", content: text.slice(lastIndex, index) });
+        }
+        parts.push({ type: "html", content: match });
+        lastIndex = index + match.length;
+        return match;
+      });
 
-    text?.replace(regex, (match, _, index) => {
-      if (index > lastIndex) {
-        parts.push({ type: "markdown", content: text.slice(lastIndex, index) });
+      if (lastIndex < text.length) {
+        parts.push({ type: "markdown", content: text.slice(lastIndex) });
       }
-      parts.push({ type: "html", content: match });
-      lastIndex = index + match.length;
-      return match;
-    });
 
-    if (lastIndex < text.length) {
-      parts.push({ type: "markdown", content: text.slice(lastIndex) });
+      return parts;
+    } catch (error) {
+      console.error("Error in splitByBoltParagraphs:", error);
+      return [];
     }
-
-    return parts;
   }
+
 
 
 
@@ -498,7 +525,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
             </> :
               <>
                 {splitByBoltParagraphs(text as string).map((part, index) =>
-                  part.type === "html" ? (
+                  part?.type === "html" ? (
                     <Markdown
                       key={index}
                       className={"markdown !whitespace-normal markdown-special"}
