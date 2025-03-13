@@ -19,6 +19,7 @@ import { HomeSlides } from "@/components/molecules/HomeSlides";
 import { typeCatagories } from "@/lib/constants";
 import { useAppSelector } from "@/lib/store/hooks";
 import { subjectsData } from "./mockPrompts";
+import { HomeSuggestWithTools } from "@/components/molecules/HomeSuggesWithTools";
 
 const StyledSelect = ({ disable, options, selectedGrade, setSelectedGrade }: any) => {
 
@@ -211,6 +212,11 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     return `${arr?.slice(1, arr?.length)?.join(" ")}`.toLocaleLowerCase().replaceAll(" ", "_");
   }
 
+  const getIcon = (title: any) => {
+    const arr = title?.split(" ")
+    return `${arr?.slice(0, 0)?.join(" ")}`;
+  }
+
   const tools: any = subjectsData?.[`${cutIcon(suggest?.title)}`]?.tools
   const prompts: any = subjectsData?.[`${cutIcon(suggest?.title)}`]?.prompts
 
@@ -331,7 +337,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
               <p className="text-base">Suggestions</p>
             </div>
             )}
-          {(isOn || !isTutor) && <HomeSuggestBoxes />}
+          {(isOn && isTutor) && <HomeSuggestWithTools prompt={prompt} label={tool} icon={suggest} assistantId={suggest?.assistantId} />}
+          {(!isTutor) && <HomeSuggestBoxes />}
           <div className="mt-6 mb-3">
             <ChatMessageInput disable={(!tool && !isMessages && isTutor)} isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
           </div>

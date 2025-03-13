@@ -74,9 +74,11 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
     <>
       <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white hidden md:flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
         <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>
-        <div className="self-stretch h-10 flex-col justify-start items-start gap-8 flex">
-          <div className="self-stretch h-10 flex-col justify-start items-start gap-2 flex">
-            <div className="self-stretch text-[#666666] text-sm font-medium  leading-tight">&quot;{content}&quot;</div>
+        <div className="self-stretch max-h-[100px] flex-col justify-start items-start gap-8 flex">
+          <div className="self-stretch max-h-[80px] flex-col justify-start items-start gap-2 flex">
+            <p className="text-[#666666] text-[14px] font-medium overflow-hidden text-ellipsis line-clamp-5 leading-5">
+              &quot;{content}&quot;
+            </p>
           </div>
         </div>
       </button>
@@ -89,7 +91,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
           <p className="pr-6 text-start text-[#666666] !text-[11px] font-medium  overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] line-clamp-2  lg:hidden">
             &quot;{content}&quot;
           </p>
-          <p className="text-[#666666] text-[11px] font-medium  leading-tight">
+          <p className="text-[#666666] text-[11px] font-medium leading-tight overflow-hidden text-ellipsis line-clamp-5">
             &quot;{content}&quot;
           </p>
           {/* <Icon

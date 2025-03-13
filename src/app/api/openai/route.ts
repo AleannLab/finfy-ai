@@ -201,7 +201,8 @@ export async function POST(req: NextRequest) {
     const message = formData.get("message") as string;
     const assistantId = formData.get("assistantId") as string;
     const chatId = formData.get("chatId") as string;
-    const additionalPrompt = formData.get("additionalPrompt") as string;
+    const additionalPrompt = "" as string;
+    // const additionalPrompt = formData.get("additionalPrompt") as string;
 
     const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
     let openAiFileIds: string[] = []; // Array to hold OpenAI file IDs
