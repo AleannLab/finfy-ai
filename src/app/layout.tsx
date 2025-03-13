@@ -24,7 +24,9 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html style={{
+      height: "100%"
+    }} lang="en">
       <Head>
         <link
           rel="apple-touch-icon"

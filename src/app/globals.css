@@ -9,6 +9,10 @@
   color: black;
 }
 
+body {
+  height: 100%;
+}
+
 .text-2xl {
   line-height: 29px !important;
 }

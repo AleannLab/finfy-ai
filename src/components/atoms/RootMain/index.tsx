@@ -6,7 +6,7 @@ interface RootMainProps extends PropsWithChildren {
 }
 
 const RootMain: FC<RootMainProps> = ({ children, className }) => {
-  return <main className={clsx("min-h-screen", className)}>{children}</main>;
+  return <main className={clsx("min-h-[100%]", className)}>{children}</main>;
 };
 
 export { RootMain };
