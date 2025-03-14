@@ -35,7 +35,7 @@ export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: 
   }}>
     {isHome &&
       (<>
-        <FocusAssistantPopover onOpenChange={() => setOpen(!open)}>
+        <FocusAssistantPopover open={open} onOpenChange={() => setOpen(!open)}>
           <ActionButton
             onClick={() => { }}
             className={cn("h-10 p-2 !z-[500]  hover:bg-black hover:text-[#E9E9E9] group rounded-[40px] justify-start items-center gap-3 text-base font-semibold leading-normal inline-flex",

@@ -6,17 +6,18 @@ import { FocusAssistantOption } from "@/components/molecules";
 import { useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
 
-interface FocusAssistantPopoverProps extends PropsWithChildren { onOpenChange?: any }
+interface FocusAssistantPopoverProps extends PropsWithChildren { onOpenChange?: any, open: boolean }
 
 const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
   children,
-  onOpenChange = () => {}
+  onOpenChange = () => {},
+  open
 }) => {
   const focusData = useAppSelector((state) => state.suggest.focusSuggests);
   const pathname = usePathname();
   const isTutor = pathname.includes("tutor")
   return (
-    <Popover onOpenChange={onOpenChange}>
+    <Popover open={open} onOpenChange={onOpenChange}>
       <Popover.Trigger className="!z-[80]">{children}</Popover.Trigger>
       <Popover.Content side="top" align="start" className="mb-4 mt-2 max-w-3xl">
         <Popover.Header className="mb-6">
@@ -31,6 +32,7 @@ const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
                 key={index}
                 suggest={item.suggest}
                 item={item}
+                onOpenChange={onOpenChange}
               />
             );
           })}

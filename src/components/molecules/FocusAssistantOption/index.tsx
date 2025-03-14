@@ -10,19 +10,24 @@ interface FocusAssistantOptionProps {
   text: string;
   suggest: any;
   item: any;
+  onOpenChange: any;
 }
 
 const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
   title,
   text,
   suggest,
-  item
+  item,
+  onOpenChange
 }) => {
   const dispatch = useAppDispatch();
   const path = usePathname();
   const router = useRouter();
   const basePath = path.split("chat")?.[0]
   const handleClick = () => {
+    if (typeof window !== 'undefined' && window?.innerWidth < 1024) {
+      onOpenChange()
+    }
     dispatch(setSuggests(suggest));
     dispatch(setSuggest(item))
     if (path.includes("chat")) {
