@@ -237,7 +237,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
 
 
   if (isLoading || streamMessage?.length) {
-    return <div className="w-screen h-screen top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
+    return <div className="w-screen h-full top-0 flex items-center justify-center bottom-0 left-0 right-0 backdrop-blur-3xl !z-[1000] absolute"><Loader /></div>
   }
 
   return (

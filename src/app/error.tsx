@@ -27,7 +27,7 @@ export default function ErrorPage() {
   };
 
   return (
-    <div className="flex flex-col p-5 items-center justify-center min-h-screen bg-gray-100 relative">
+    <div className="flex flex-col p-5 items-center justify-center min-h-full bg-gray-100 relative">
       <div className="absolute top-0 left-0 w-full h-2 bg-gray-300">
         <div
           className="h-full bg-gray-600 transition-all"

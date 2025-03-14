@@ -95,7 +95,7 @@ body {
 @layer utilities {
   /* Right sidebar */
   .right-sidebar {
-    @apply no-scrollbar min-h-screen h-full bg-[#F9F9F9] text-grey-15 flex flex-col !important;
+    @apply no-scrollbar min-h-full h-full bg-[#F9F9F9] text-grey-15 flex flex-col !important;
   }
 
   .text-16 {

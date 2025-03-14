@@ -213,7 +213,7 @@ const MenuAccordion: FC = () => {
       value={value}
       type="single"
       collapsible
-      className="flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden max-w-full max-h-[calc(100vh-180px)] scrollbar-thin"
+      className="flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden max-w-full max-h-[calc(100%-180px)] scrollbar-thin"
     >
       {menuItems.map((item) => (
         <MenuAccordionItem

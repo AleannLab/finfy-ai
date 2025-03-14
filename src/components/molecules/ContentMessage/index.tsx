@@ -110,7 +110,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
                 key={`${index}-content`}
                 className={cn(
                   "transition-all duration-500 ease-in-out",
-                  isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+                  isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
                 )}
                 style={{
                   maxHeight: isOpen ? "10000px" : "0px",
