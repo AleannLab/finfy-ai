@@ -33,7 +33,7 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
         {children}
       </div>
       <div className="text-center text-sm w-full px-5 flex items-center justify-center pb-5 lg:pb-24 text-[#E9E9E9]">
-        <div className="text-center text-sm max-w-[410px] text-[#E9E9E9]">
+        {/* <div className="text-center text-sm max-w-[410px] text-[#E9E9E9]">
           By continuing, you agree to Espen’s{" "}
           <a
             href="/terms-of-service"
@@ -56,7 +56,9 @@ const LayoutLogin: FC<LayoutLoginProps> = ({ children, classes }) => {
             Privacy Policy
           </a>
           .
-        </div>
+        </div> */}
+        <FooterAuth />
+
       </div>
     </RootMain>
   );
