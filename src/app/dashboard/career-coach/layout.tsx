@@ -7,7 +7,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <main className="flex w-full border-2 bg-navy-25 h-full absolute lg:static top-0 left-0 right-0 bottom-0 font-inter">
+    <main className="flex w-full border-2 bg-navy-25 h-full min-h-[calc(100%)] absolute lg:static top-0 left-0 right-0 bottom-0 font-inter">
       <Sidebar />
       <div className="flex flex-col w-full mb-2 h-full">
         {children}
