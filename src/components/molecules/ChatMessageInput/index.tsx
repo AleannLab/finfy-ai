@@ -294,6 +294,14 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           value={message}
           onChange={(e) => {
             handleChange(e);
+            const currentPath = window.location.href;
+            const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+            const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+            const matchTeacher = currentPath.match(/\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/);
+            const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : matchTeacher ? matchTeacher[1] : null;
+            if (threadIdFromURL || window.innerWidth <= 768) {
+              return ""
+            }
 
             e.target.style.height = "auto";
 
