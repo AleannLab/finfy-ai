@@ -266,7 +266,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
       <button
         disabled={disable || isLoading}
         type="submit"
-        className={cn("h-[40px] w-[40px] flex items-center justify-center rounded-full transition-all", disable ? "bg-[#666]" : "bg-black")}
+        className={cn("h-[40px] w-[40px] flex items-center justify-center rounded-full transition-all", disable ? "bg-[#666] opacity-50 cursor-not-allowed" : "bg-black")}
       >
         {isLoading ? (
           <Loader2 className="w-5 h-5 animate-spin text-white" />
@@ -325,8 +325,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
               </div>
             )}
             <button
+              disabled={disable}
               type="button"
-              className="flex items-center justify-center w-10 h-10 p-2 rounded-full border border-gray-300 "
+              className={cn("flex items-center justify-center w-10 h-10 p-2 rounded-full border border-gray-300 ", disable ? "opacity-50 cursor-not-allowed" : "")}
               onClick={() => setIsPopupOpen(!isPopupOpen)}
             >
               <div data-svg-wrapper>
@@ -351,8 +352,9 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           </div>
           <div className="flex items-center ml-3">
             <button
+              disabled={disable}
               type="button"
-              className="h-[40px] w-[40px] flex items-center justify-center mr-2"
+              className={cn("h-[40px] w-[40px] flex items-center justify-center mr-2", disable ? "opacity-50 cursor-not-allowed" : "")}
               onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)}
             >
               <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />

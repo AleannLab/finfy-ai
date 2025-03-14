@@ -16,11 +16,12 @@ const HomeSuggestBoxes = () => {
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
-      <div className="w-full overflow-hidden max-w-[440px] lg:hidden">
+      {/* <div className="w-full overflow-hidden lg:hidden">
         <Swiper
-          className="min-w-[100vw]  md:min-w-0 max-w-[calc(100%)]"
+          className="w-[100vw]  md:min-w-0 max-w-[calc(100%)]  min-w-[672px]"
           spaceBetween={16}
-          slidesPerView={2}
+          loop={true}
+          slidesPerView={isLgScreen ? 4 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >
@@ -35,12 +36,13 @@ const HomeSuggestBoxes = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-      <div className="w-full max-w-[1050px] hidden lg:block">
+      </div> */}
+      <div className="w-full max-w-[1050px] overflow-hidden">
         <Swiper
-          className={cn(open ? "max-w-[calc(100vw-280px)] xl:max-w-[calc(100vw-300px)]" : "max-w-[calc(100vw-120px)]")}
+          loop={true}
+          className={cn("w-full min-w-[672px]")}
           spaceBetween={16}
-          slidesPerView={4}
+          slidesPerView={isLgScreen ? 4 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >

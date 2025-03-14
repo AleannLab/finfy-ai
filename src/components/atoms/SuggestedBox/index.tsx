@@ -72,7 +72,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
 
   return (
     <>
-      <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white hidden md:flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
+      <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
         {!!label?.length && <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>}
         <div className="self-stretch max-h-[100px] flex-col justify-start items-start gap-8 flex">
           <div className="self-stretch max-h-[80px] flex-col justify-start items-start gap-2 flex">
@@ -83,7 +83,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
         </div>
       </button>
 
-      <button onClick={handleClick} className={cn(" max-h-[44px] md:hidden transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
+      {/* <button onClick={handleClick} className={cn(" max-h-[44px] md:hidden transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
         <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
           {icon} {label}
         </p>
@@ -94,12 +94,8 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
           <p className="text-[#666666] text-[11px] font-medium leading-tight overflow-hidden text-ellipsis line-clamp-5">
             &quot;{content}&quot;
           </p>
-          {/* <Icon
-          type={"UpArrowIcon"}
-          className="size-3 rotate-45 absolute bottom-0 right-0"
-        /> */}
         </div>
-      </button>
+      </button> */}
     </>
   );
 };

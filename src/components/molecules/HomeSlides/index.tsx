@@ -22,7 +22,9 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
         className={cn("max-w-[342px] w-full h-[136px] px-4 py-2 bg-white text-left rounded-lg flex-col justify-start items-start inline-flex",
           isSelected ? "!border-[#666666] border" : "!border-[#e9e9e9] border")}
       >        <div className={cn("self-stretch text-sm font-semibold  leading-tight", isSelected ? " text-black" : "text-[#666666]")}>{icon} {label}</div>
-        <div className={cn("text-black text-[11px] font-medium leading-tight w-full text-left overflow-hidden text-ellipsis line-clamp-6", isSelected ? " text-black" : "text-[#666666]")}>
+        <div style={{
+          lineHeight: "20px"
+        }} className={cn("text-black !leading-5 text-[11px] font-medium w-full text-left overflow-hidden text-ellipsis line-clamp-4", isSelected ? " text-black" : "text-[#666666]")}>
           &quot;{content}&quot;
         </div>
       </button>
@@ -43,6 +45,7 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
 
 const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setTool: any, selectedTool: any, type: any }) => {
   const isTutor = typeCatagories.tutor === type;
+  const isLgScreen = typeof window !== 'undefined' && window.innerWidth >= 1024;
 
   if (!slides?.length) {
     return <></>
@@ -51,11 +54,12 @@ const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setT
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
-      <div className="w-full overflow-hidden max-w-[440px] lg:hidden">
+      {/* <div className="w-full overflow-hidden lg:hidden">
         <Swiper
-          className="min-w-[100vw]  md:min-w-0 max-w-[calc(100%)]"
+          className="w-[100vw]  md:min-w-0 max-w-[calc(100%)]  min-w-[672px]"
           spaceBetween={16}
-          slidesPerView={2}
+          loop={true}
+          slidesPerView={isLgScreen ? 4 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >
@@ -73,12 +77,13 @@ const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setT
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-      <div className="w-full max-w-[1050px] hidden lg:block">
+      </div> */}
+      <div className="w-full max-w-[1050px] overflow-hidden block">
         <Swiper
-          className="min-w-[100vw] md:min-w-0 max-w-[calc(100%)]"
+          className=" max-w-[calc(100%)]  min-w-[672px]"
           spaceBetween={16}
-          slidesPerView={isTutor ? 4 : 3}
+          loop={true}
+          slidesPerView={isLgScreen ? isTutor ? 4 : 3 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >
