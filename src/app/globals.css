@@ -95,7 +95,6 @@ body {
 @layer utilities {
   /* Right sidebar */
   .right-sidebar {
-    max-width: 90vw !important;
     @apply no-scrollbar min-h-screen h-full bg-[#F9F9F9] text-grey-15 flex flex-col !important;
   }
 
