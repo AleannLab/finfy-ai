@@ -22,13 +22,13 @@ const DropDownModal: FC<DropDownModalProps> = ({ children, chatId, title }) => {
       <DropdownMenu.Trigger asChild>
         <div>{children}</div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="bg-navy-25 border-navy-5 !z-[300] text-[#547a91]">
+      <DropdownMenu.Content className="bg-navy-25 border-navy-5 !z-[500] text-[#547a91]">
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
-          <DropdownMenu.Item className="flex cursor-pointer hover:bg-navy-5 items-center w-full gap-4">
+          {/* <DropdownMenu.Item className="flex cursor-pointer hover:bg-navy-5 items-center w-full gap-4">
             <Icon type="ShareIcon" className="w-6 h-6 stroke-grey-15" />
             <p>Share</p>
-          </DropdownMenu.Item>
+          </DropdownMenu.Item> */}
           <RenameTitleChatPop chatId={chatId} title={title} handleClose={handleClose}>
             <DropdownMenu.Item
               onSelect={(event) => event.preventDefault()}

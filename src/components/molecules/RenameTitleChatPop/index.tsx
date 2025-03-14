@@ -52,7 +52,7 @@ const RenameTitleChatPop: FC<RenameTitleChatPopProps> = ({
           <Field full name={"title"} defaultValue={title} />
           <div className="flex w-full items-center justify-between !mt-12">
             <Dialog.Close asChild>
-              <Button size="xl" variant="destructive" className="!rounded-md">
+              <Button size="xl" variant="outlineMain" className="!rounded-md">
                 Cancel
               </Button>
             </Dialog.Close>
@@ -60,6 +60,7 @@ const RenameTitleChatPop: FC<RenameTitleChatPopProps> = ({
               size="xl"
               type={"submit"}
               disabled={isLoading}
+              variant="main"
               className="!rounded-md"
             >
               {isLoading ? <Loader2 className="animate-spin" /> : "Save"}
