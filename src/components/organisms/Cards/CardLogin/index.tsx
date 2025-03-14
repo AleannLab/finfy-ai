@@ -5,7 +5,7 @@ import { Button, Field } from "@/components/atoms";
 import { loginAction } from "@/lib/supabase/actions";
 import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { fetchUserByEmailOrPhone } from "@/lib/store/features/user/userSlice";
@@ -16,6 +16,8 @@ const CardLogin = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const dispatch = useAppDispatch();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   const handleClickLogInButton = async (formData: FormData) => {
     startTransition(async () => {
@@ -35,7 +37,28 @@ const CardLogin = () => {
 
           if (resendError) {
             console.error("Error resending OTP:", resendError.message);
-            toast.error("Failed to resend verification code. Please try again.");
+            // toast.error("Failed to resend verification code. Please try again.");
+
+            if (resendError?.message?.includes("For security purposes, you can only request this after")) {
+              setIsButtonDisabled(true);
+              setTimer(60);
+
+              const countdown = setInterval(() => {
+                setTimer((prev) => {
+                  if (prev <= 1) {
+                    clearInterval(countdown);
+                    setIsButtonDisabled(false);
+                    return 0;
+                  }
+                  return prev - 1;
+                });
+              }, 1000);
+
+              toast("Please wait a minute before trying again.");
+            } else {
+              toast.error("Failed to resend verification code. Please try again.");
+            }
+
           } else {
             toast.success("Verification code has been resent to your email.");
             router.push(`/onboarding/confirm-email?email=${encodeURIComponent(email)}`);
@@ -79,8 +102,8 @@ const CardLogin = () => {
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col w-full mt-6 justify-center items-center">
           <div className="flex flex-col gap-4 mt-4 w-full">
-            <Button disabled={isPending} variant="main" className="" size="xl" full type="submit">
-              {isPending ? <Loader2 className="animate-spin" /> : "Login"}
+            <Button disabled={isPending || isButtonDisabled} variant={isPending ? "outlineMain" : "main"} className={isPending ? "!bg-white" : ""} size="xl" full type="submit">
+              {(isPending || isButtonDisabled) ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>
             <Button
               disabled={isPending}

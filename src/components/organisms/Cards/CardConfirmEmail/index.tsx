@@ -13,6 +13,7 @@ import * as Sentry from "@sentry/nextjs";
 import { useNavigationOnboarding, useUser } from "@/hooks";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { useSearchParams } from "next/navigation";
+import { signOutAction } from "@/lib/supabase/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -44,14 +45,15 @@ const CardConfirmEmail = () => {
 
     const email = searchParams.get("email");
 
-    if (!otp) {
-      toast.error("Please enter the OTP code.");
+    if (!email) {
+      toast("Please login again or use another email to sign up");
+      const error = await signOutAction();
+      router.push("/login")     
       return;
     }
 
-    if (!email) {
-      toast.error("User not created, please use another email");
-      // router.push("/sign-up")
+    if (!otp) {
+      toast.error("Please enter the OTP code.");
       return;
     }
 
@@ -95,6 +97,7 @@ const CardConfirmEmail = () => {
       toast.error(getErrorMessage(error));
     }
   };
+  const email = searchParams.get("email");
 
   return (
     <CardTemplate
@@ -118,7 +121,7 @@ const CardConfirmEmail = () => {
         </CardTemplate.Content>
         <CardTemplate.Footer className="flex flex-col gap-4 mt-6">
           <Button variant="outlineMain" disabled={isPending} className="" type="submit" size="xl" full>
-            {isPending ? <Loader2 className="animate-spin" /> : "Verify"}
+            {isPending ? <Loader2 className="animate-spin" /> : email ? "Verify" : "Get new code"}
           </Button>
         </CardTemplate.Footer>
       </form>
