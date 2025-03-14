@@ -24,6 +24,10 @@ const HomeSuggestWithTools = ({prompt, assistantId, icon, label}: any) => {
     )
   })
 
+  if (!suggests?.length) {
+    return <div></div>
+  }
+
 
   return (
     <div className="w-full relative max-w-[1106px] mt-3 p-1">
@@ -57,7 +61,7 @@ const HomeSuggestWithTools = ({prompt, assistantId, icon, label}: any) => {
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Navigation]}
         >
-          {suggests.map((item: any) => (
+          {suggests?.map((item: any) => (
             <SwiperSlide key={item.label}>
               <SuggestedBox
                 content={item.content}
