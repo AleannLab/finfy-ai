@@ -60,7 +60,7 @@ const CardSetupComplete = () => {
       classes={{
         cardHeader: "flex flex-col justify-center items-center",
         cardDescription: "text-center",
-        card: "max-w-[688px]"
+        card: "max-w-[688px] !max-h-[70vh] overflow-auto"
       }}
       description=""
     >

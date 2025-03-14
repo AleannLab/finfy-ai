@@ -52,7 +52,7 @@ const CardGradeLevel = () => {
       title="What grade level(s) do you serve?"
       description="We currently offer tools for High School students (Grades 10–12). To help us expand and prioritize our development, please let us know which educational levels you'd like us to focus on next."
       classes={{
-        card: "max-w-[605px] w-full",
+        card: "max-w-[605px] w-full !max-h-[70vh] overflow-auto",
         cardHeader: "!text-center",
         cardTitle: "!text-center",
       }}
