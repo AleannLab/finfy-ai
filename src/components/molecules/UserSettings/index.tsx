@@ -24,7 +24,7 @@ const UserSettings = () => {
   };
   return (
     <div
-      className={cn("menu-button-btn mx-auto flex space-x-2 text-[#547a91] border-t border-[#74bbc9]/30 items-center", {
+      className={cn("menu-button-btn mx-auto flex space-x-2 text-[#666] border-t border-[#666]/30 items-center", {
         "lg:!px-1 lg:!py-2 lg:justify-center": !openSidebar,
       })}
     >
@@ -44,32 +44,32 @@ const UserSettings = () => {
           <Accordion.Content className="mt-5 justify-start">
             {/* <p className="text-grey-15 text-xs mb-2">Appearance</p> */}
             {/* <ThemeButtons /> */}
-            <p className="text-grey-15 text-xs my-2">Quick settings</p>
-            <div className="flex items-center cursor-pointer group hover:text-grey-5 mb-1">
+            <p className="text-black text-xs my-2">Quick settings</p>
+            <div className="flex items-center cursor-pointer group hover:text-[#666] mb-1">
               <Icon
                 type="SparkleIcon"
-                className="w-4 h-4 stroke-white group-hover:stroke-grey-5 mr-1"
+                className="w-4 h-4 stroke-white group-hover:stroke-[#666] mr-1"
               />
               <PersonalizePop />
             </div>
             <Link
               href="/dashboard/settings"
-              className="flex items-center  text-sm cursor-pointer group hover:text-grey-5 mb-1"
+              className="flex items-center  text-sm cursor-pointer group hover:text-[#666] mb-1"
             >
               <Icon
                 type="GearIcon"
-                className="fill-white min-w-4 h-4 group-hover:fill-grey-5 mr-1"
+                className="fill-black min-w-4 h-4 group-hover:fill-[#666] mr-1"
               />
               All settings
             </Link>
             <button
               onClick={handleClickLogOut}
               type="button"
-              className="flex items-center text-sm cursor-pointer group hover:text-grey-5"
+              className="flex items-center text-sm cursor-pointer group hover:text-[#666]"
             >
               <Icon
                 type="LoginIcon"
-                className="w-4 h-4 stroke-white group-hover:stroke-grey-5 mr-1"
+                className="w-4 h-4 stroke-black group-hover:stroke-[#666] mr-1"
               />
               Log Out
             </button>
