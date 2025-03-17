@@ -629,5 +629,112 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 ]
             }
         }
+    },
+    life_sciences: {
+        tools: [
+            {
+                "icon": "🏆",
+                "label": "Exam Mastery",
+                "content": "Ready to excel in Life Sciences tests and exams? I'll assess your responses to real past papers, provide detailed feedback using official marking guidelines, and help you achieve exam success!",
+                "toolsId": "exam_mastery"
+            },
+            {
+                "icon": "📸",
+                "label": "Homework Hero",
+                "content": "Facing a tricky Life Sciences question? Snap a photo, and I'll walk you through the solution step by step, clarifying key concepts along the way.",
+                "toolsId": "homework_hero"
+            },
+            {
+                "icon": "🎯",
+                "label": "AI-Powered Personalized Tutoring",
+                "content": "Having difficulty with genetics, reproduction, or ecology? I'll break down complex topics into clear, manageable steps, track your learning progress, and create a customized study plan just for you.",
+                "toolsId": "ai_tutoring"
+            },
+            {
+                "icon": "✍️",
+                "label": "Smart Study Notes Generator",
+                "content": "I'll generate tailored study notes on Life Sciences topics you choose, making your revision more efficient and focused for better results!",
+                "toolsId": "study_notes"
+            }
+        ],
+        prompts: {
+            "exam_mastery": {
+                "grade_10": [
+                    "Give me a past exam question on cell structure and grade my response with feedback.",
+                    "Provide a question on the process of photosynthesis from a past paper and review my solution using official feedback.",
+                    "Show me a past exam question on the biosphere and help me work through it step by step.",
+                    "Find a question on human impact on the environment from past tests and assess my answer with detailed feedback."
+                ],
+                "grade_11": [
+                    "Provide me with a past question on genetics and evaluate my answer.",
+                    "Give me a question on biodiversity from previous exams and mark my response.",
+                    "Show me a question about cell biology from past tests and help me answer with official marking criteria.",
+                    "Find a question on the human circulatory system from past exams and guide me through solving it."
+                ],
+                "grade_12": [
+                    "Provide a past NSC Grade 12 exam question on evolution and grade my answer.",
+                    "Give me a challenging question on human reproduction from a past NSC paper and mark my solution.",
+                    "Find an exam question on genetic engineering and help me solve it with feedback.",
+                    "Show me a Grade 12 question on homeostasis and rate my response with detailed comments."
+                ]
+            },
+            "homework_hero": {
+                "grade_10": [
+                    "I have a question about the transport systems in plants, let me upload a photo—guide me through the solution.",
+                    "Help me solve a question on food webs by explaining each component.",
+                    "I’m stuck on a question about cell division—can I send a photo and get a step-by-step help?",
+                    "Provide me with a water cycle problem by providing a clear breakdown of each step."
+                ],
+                "grade_11": [
+                    "I have an issue with a question on population ecology—let me upload a photo and guide me through the solution.",
+                    "Guide me in understanding the carbon cycle with a practical problem.",
+                    "I’m stuck on a question on nitrogen cycles—I'll send a picture. Assist with a clear breakdown.",
+                    "Give me a challenging question on mineral cycling by providing step-by-step guidance."
+                ],
+                "grade_12": [
+                    "I need help with a biotechnology problem. I'll upload a photo—could you walk me through it?",
+                    "Assist me in solving a Meiosis-related step-by-step.",
+                    "I’m confused about meiosis stages, can I send a photo and get some thorough guidance?",
+                    "Help me with a DNA replication problem by explaining each step thoroughly!"
+                ]
+            },
+            "ai_tutoring": {
+                "grade_10": [
+                    "Explain the role of enzymes with a worked example from past tests.",
+                    "Take me through a question on the human circulatory system functions and structure.",
+                    "Help me understand plant reproduction using real-world examples."
+                ],
+                "grade_11": [
+                    "Explain Mendelian genetics using a detailed example from past papers.",
+                    "Take me through a complex question on the nervous system from a past paper.",
+                    "Clarify the mechanism of action of hormones using real-world applications.",
+                    "Help me with understanding ecological succession with examples."
+                ],
+                "grade_12": [
+                    "Summarize key concepts of homeostasis and feedback mechanisms.",
+                    "Outline the process of cellular respiration for a quick review.",
+                    "Provide study notes on evolutionary biology to aid quick revisions."
+                ]
+            },
+            "study_notes": {
+                "grade_10": [
+                    "Summarize key concepts of homeostasis and feedback mechanisms.",
+                    "Outline the process of cellular respiration for a quick review.",
+                    "Provide study notes on evolutionary biology to aid quick revisions."
+                ],
+                "grade_11": [
+                    "Summarize key concepts of photosynthesis and environmental impact in a structured manner.",
+                    "Provide concise notes on the impact of hormones in the human body for exam readiness.",
+                    "Provide a clear explanation of evolutionary theory concepts for quick study."
+                ],
+                "grade_12": [
+                    "Create detailed study notes on DNA replication and protein synthesis.",
+                    "Summarize the key concepts of homeostasis and feedback mechanisms.",
+                    "Outline the process of cellular respiration for a quick review."
+                ]
+            }
+        }
     }
 };
+
+
