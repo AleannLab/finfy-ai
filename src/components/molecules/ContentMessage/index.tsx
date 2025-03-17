@@ -488,9 +488,13 @@ const ContentMessage: FC<ContentMessageProps> = ({
   return (
     <div className="flex flex-col w-full mb-2 h-full">
       {!isUser && !isLoading && (
-        <div className="flex items-center gap-4 mb-4">
-          <span className="w-8 h-8">
-            <Icon height="32px" width="32px" type="LogoChatIcon" />
+        <div className="flex items-center gap-2 mb-4">
+          <span className="w-5 h-5">
+            {/* <Icon height="32px" width="32px" type="LogoChatIcon" /> */}
+            <svg width="100%" height="100%" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.1509 8.24655L17.5427 19.3175H4.75906L11.1509 8.24655Z" fill="black" />
+                <path d="M6.3918 11.4772L0 0.40625L12.7836 0.406251L6.3918 11.4772Z" fill="black" />
+              </svg>
           </span>
           <span className="text-[#272E48] text-2xl leading-3 font-medium">
             {isLastMessage ? "Answer" : "Espen"}
