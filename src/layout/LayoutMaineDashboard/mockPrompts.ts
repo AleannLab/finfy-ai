@@ -341,7 +341,7 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                     "Explain loan repayment plans with an example from past papers.",
                     "Guide me through a question on interpreting inflation rates and their effects.",
                     "Break down how to compare investment options using past paper examples.",
-                    "Explain how to approach a Grade 12 NSC exam question on socio-economic issues."
+                    "Explain the steps to analyze and interpret a set of transport data."
                 ]
             },
             math_notes: {
