@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 export enum TutorAssistants {
-  Mathematics = "asst_DQhvAipfIA6bPsXFi8Az1sYw",
-  MathsLiteracy = "asst_lgVcOWp45uuUf2BtodHO7gKS",
+  Mathematics = "asst_quosLWwOUiWyRxoUF3sn9RBE",
+  MathsLiteracy = "asst_GNr95kfHSeLTztEukBB1v3We",
   English = "asst_vaBKqqnSfyus1suFdb8BGqvK",
-  PhysicalSciences = "asst_GqA9eIAqD6X4OEYfZRyNx6y0",
-  EconomicsTutor = "asst_QwfjmzMvjalp9v5x6y1SAd68",
+  PhysicalSciences = "asst_PZLeW6lOto3Aq1Dbm4MId5Ji",
+  EconomicsTutor = "asst_aTBwaKFPUyuF0Mf0jECA0ogY",
   Accounting = "asst_QwfjmzMvjalp9v5x6y1SAd68",
 
   // Newly Added Assistants
@@ -16,7 +16,7 @@ export enum TutorAssistants {
   Geography = "asst_7pMzMLlE5LixiysB2hFXJWKH",
   ComputerApplicationsTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
   InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
-  NaturalScience = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
+  // NaturalScience = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
 }
 
 export enum CareerCoachAssistants {
@@ -39,9 +39,9 @@ export enum TeacherAssistants {
   Mathematics = "asst_DQhvAipfIA6bPsXFi8Az1sYw",
   MathematicalLiteracy = "asst_lgVcOWp45uuUf2BtodHO7gKS",
   PhysicalSciences = "asst_GqA9eIAqD6X4OEYfZRyNx6y0",
-  LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
-  ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
-  InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
+  // LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
+  // ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
+  // InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
   english = "asst_H8YzZfwkoBySa9pGwz2zyz35"
 }
 
@@ -1441,73 +1441,73 @@ export const tutor = [
       },
     ],
   },
-  {
-    title: "🌱 Life Sciences",
-    text: "Master biology topics and crush your exams.",
-    assistantId: TutorAssistants.LifeSciences,
-    suggest: [
-      {
-        label: "Practice Biology Questions",
-        content: "Can you provide biology questions from past exams?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Genetics Focus",
-        content: "Help me review genetics concepts for my biology test.",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Grade My Biology Responses",
-        content: "Can you grade my biology exam answers?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Improve Biology Understanding",
-        content: "How can I improve my biology knowledge for exams?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Detailed Feedback",
-        content: "Can you review my biology answers and provide feedback?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Exam Prep Plan",
-        content: "Help me create a study plan for Life Sciences.",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Review Marking Scheme",
-        content: "How does my biology answer compare to the guidelines?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Understanding Ecology Concepts",
-        content: "Can you explain key concepts in ecology?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Targeted Tutoring",
-        content: "Which biology topics should I focus on to boost my grade?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-      {
-        label: "Retake Practice Questions",
-        content: "Can I try another biology question and get feedback?",
-        icon: "🌱",
-        category: "life-sciences",
-      },
-    ],
-  },
+  // {
+  //   title: "🌱 Life Sciences",
+  //   text: "Master biology topics and crush your exams.",
+  //   assistantId: TutorAssistants.LifeSciences,
+  //   suggest: [
+  //     {
+  //       label: "Practice Biology Questions",
+  //       content: "Can you provide biology questions from past exams?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Genetics Focus",
+  //       content: "Help me review genetics concepts for my biology test.",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Grade My Biology Responses",
+  //       content: "Can you grade my biology exam answers?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Improve Biology Understanding",
+  //       content: "How can I improve my biology knowledge for exams?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Detailed Feedback",
+  //       content: "Can you review my biology answers and provide feedback?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Exam Prep Plan",
+  //       content: "Help me create a study plan for Life Sciences.",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Review Marking Scheme",
+  //       content: "How does my biology answer compare to the guidelines?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Understanding Ecology Concepts",
+  //       content: "Can you explain key concepts in ecology?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Targeted Tutoring",
+  //       content: "Which biology topics should I focus on to boost my grade?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //     {
+  //       label: "Retake Practice Questions",
+  //       content: "Can I try another biology question and get feedback?",
+  //       icon: "🌱",
+  //       category: "life-sciences",
+  //     },
+  //   ],
+  // },
   {
     title: "📊 Business Studies",
     text: "Excel in business studies and ace every test.",
@@ -2105,86 +2105,86 @@ export const teacher = [
       }
     ]
   },
-  {
-    title: "🌱 Life Sciences",
-    text: "Teach Grade 10-12 students the wonders of biology with CAPS-aligned, NSC-focused lessons and activities that connect key concepts to South Africa’s biodiversity and health challenges.",
-    category: "I’m your Life Sciences Assistant.",
-    assistantId: TeacherAssistants.LifeSciences,
-    suggest: [
-      {
-        label: "💡🤝 Generate Group Activity Ideas",
-        content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
-      },
-      {
-        label: "💡🤝 Facilitate Peer-Led Discussions",
-        content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
-      },
-      {
-        label: "💡🤝 Create Culturally Relevant Discussion Prompts",
-        content: "Provides prompts based on local issues and cultural contexts, helping students connect course material with real-world relevance."
-      },
-      {
-        label: "💡🤝 Encourage Creative Problem-Solving Activities",
-        content: "Suggests problem-solving tasks that challenge students to think creatively, helping them apply concepts to new situations."
-      },
-      {
-        label: "💡🤝 Design Role-Play and Simulation Exercises",
-        content: "Helps teachers set up simulations and role-plays to explore topics in depth, encouraging hands-on learning and empathy."
-      },
-      {
-        label: "💡🤝 Introduce Reflective Thinking Prompts",
-        content: "Provides reflective questions that encourage students to analyze their learning, fostering self-awareness and metacognitive skills."
-      }
-    ]
-  },
-  {
-    title: "💻 Computer Applications Technology",
-    text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
-    category: "I’m your Computer Applications Technology Assistant.",
-    assistantId: TeacherAssistants.ComputerApplicationTechnology,
-    suggest: [
-      {
-        label: "💙🕊️ Identify Signs of Student Stress and Burnout",
-        content: "Monitors classroom behavior and provides tips on identifying early signs of stress, helping teachers support student well-being."
-      },
-      {
-        label: "💙🕊️ Promote Inclusivity and Positive Interactions",
-        content: "Suggests activities and guidelines that encourage inclusivity, making all students feel valued and supported."
-      },
-      {
-        label: "💙🕊️ Suggest Mindfulness and Focus Exercises",
-        content: "Recommends exercises that can reduce stress, increase focus, and create a calmer classroom environment for students."
-      },
-      {
-        label: "💙🕊️ Support Teachers with Self-Care Tips",
-        content: "Shares practical self-care strategies for teachers to manage their workload, reduce stress, and maintain a positive mindset."
-      },
-      {
-        label: "💙🕊️ Provide Classroom Management Strategies",
-        content: "Offers techniques for managing disruptive behavior constructively, fostering a positive learning environment."
-      },
-      {
-        label: "💙🕊️ Encourage Peer Support and Community Building",
-        content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
-      }
-    ]
-  },
-  {
-    title: "👨‍💻 Information Technology",
-    text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
-    category: "I’m your Information Technology Assistant.",
-    assistantId: TeacherAssistants.InformationTechnology,
-    suggest: [
-      {
-        label: "💡🤝 Generate Group Activity Ideas",
-        content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
-      },
-      {
-        label: "💡🤝 Facilitate Peer-Led Discussions",
-        content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
-      }
-    ]
-  },
+  // {
+  //   title: "🌱 Life Sciences",
+  //   text: "Teach Grade 10-12 students the wonders of biology with CAPS-aligned, NSC-focused lessons and activities that connect key concepts to South Africa’s biodiversity and health challenges.",
+  //   category: "I’m your Life Sciences Assistant.",
+  //   assistantId: TeacherAssistants.LifeSciences,
+  //   suggest: [
+  //     {
+  //       label: "💡🤝 Generate Group Activity Ideas",
+  //       content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
+  //     },
+  //     {
+  //       label: "💡🤝 Facilitate Peer-Led Discussions",
+  //       content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
+  //     },
+  //     {
+  //       label: "💡🤝 Create Culturally Relevant Discussion Prompts",
+  //       content: "Provides prompts based on local issues and cultural contexts, helping students connect course material with real-world relevance."
+  //     },
+  //     {
+  //       label: "💡🤝 Encourage Creative Problem-Solving Activities",
+  //       content: "Suggests problem-solving tasks that challenge students to think creatively, helping them apply concepts to new situations."
+  //     },
+  //     {
+  //       label: "💡🤝 Design Role-Play and Simulation Exercises",
+  //       content: "Helps teachers set up simulations and role-plays to explore topics in depth, encouraging hands-on learning and empathy."
+  //     },
+  //     {
+  //       label: "💡🤝 Introduce Reflective Thinking Prompts",
+  //       content: "Provides reflective questions that encourage students to analyze their learning, fostering self-awareness and metacognitive skills."
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: "💻 Computer Applications Technology",
+  //   text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
+  //   category: "I’m your Computer Applications Technology Assistant.",
+  //   assistantId: TeacherAssistants.ComputerApplicationTechnology,
+  //   suggest: [
+  //     {
+  //       label: "💙🕊️ Identify Signs of Student Stress and Burnout",
+  //       content: "Monitors classroom behavior and provides tips on identifying early signs of stress, helping teachers support student well-being."
+  //     },
+  //     {
+  //       label: "💙🕊️ Promote Inclusivity and Positive Interactions",
+  //       content: "Suggests activities and guidelines that encourage inclusivity, making all students feel valued and supported."
+  //     },
+  //     {
+  //       label: "💙🕊️ Suggest Mindfulness and Focus Exercises",
+  //       content: "Recommends exercises that can reduce stress, increase focus, and create a calmer classroom environment for students."
+  //     },
+  //     {
+  //       label: "💙🕊️ Support Teachers with Self-Care Tips",
+  //       content: "Shares practical self-care strategies for teachers to manage their workload, reduce stress, and maintain a positive mindset."
+  //     },
+  //     {
+  //       label: "💙🕊️ Provide Classroom Management Strategies",
+  //       content: "Offers techniques for managing disruptive behavior constructively, fostering a positive learning environment."
+  //     },
+  //     {
+  //       label: "💙🕊️ Encourage Peer Support and Community Building",
+  //       content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: "👨‍💻 Information Technology",
+  //   text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
+  //   category: "I’m your Information Technology Assistant.",
+  //   assistantId: TeacherAssistants.InformationTechnology,
+  //   suggest: [
+  //     {
+  //       label: "💡🤝 Generate Group Activity Ideas",
+  //       content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
+  //     },
+  //     {
+  //       label: "💡🤝 Facilitate Peer-Led Discussions",
+  //       content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
+  //     }
+  //   ]
+  // },
   {
     title: "📖 English",
     text: "Enhance your English skills and boost your grades.",
