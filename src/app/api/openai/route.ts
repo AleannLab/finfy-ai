@@ -340,7 +340,7 @@ export async function POST(req: NextRequest) {
       assistant_id: assistantId,
       additional_messages: additionalMessages as any,
       tools: [{ type: "file_search" }, ...tools],
-      instructions: "Ensure consistent formatting: structured, clear, uniform style. Use render_graph if you need to render or generate graph " + JSON.stringify(additionalPrompt)
+      // instructions: "Ensure consistent formatting: structured, clear, uniform style. Use render_graph if you need to render or generate graph " + JSON.stringify(additionalPrompt)
     });
 
     const encoder = new TextEncoder();
