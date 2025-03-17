@@ -69,18 +69,16 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   };
 
   const pathname = usePathname();
+  const isTeacher = pathname.includes("teacher")
+  const isCareerCoach = pathname.includes("career-coach")
 
   return (
     <>
       <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
-        {!!label?.length && <div className="self-stretch text-black text-sm font-semibold  leading-tight">{icon} {label}</div>}
-        <div className="self-stretch max-h-[100px] flex-col justify-start items-start gap-8 flex">
-          <div className="self-stretch max-h-[80px] flex-col justify-start items-start gap-2 flex">
-            <p className="text-[#666666] text-[14px] font-medium overflow-hidden text-ellipsis line-clamp-5 leading-5">
-              &quot;{content}&quot;
-            </p>
-          </div>
-        </div>
+        {!!label?.length && <div className={cn("self-stretch text-black text-sm font-semibold  leading-tight", (isTeacher || isCareerCoach) ? "min-h-[38px] max-h-[38px] overflow-hidden text-ellipsis line-clamp-2" : "")}>{icon} {label}</div>}
+        <p className={cn("text-[#666666] text-[14px] font-medium overflow-hidden leading-5", (isTeacher || isCareerCoach) ? "text-ellipsis max-h-[42px] line-clamp-2" : "text-ellipsis line-clamp-5")}>
+          &quot;{content}&quot;
+        </p>
       </button>
 
       {/* <button onClick={handleClick} className={cn(" max-h-[44px] md:hidden transition-all duration-200 border  px-4 py-2 rounded-lg max-w-[230px] lg:max-w-[100%] w-full overflow-hidden lg:min-h-[116px] lg:max-h-[116px] flex-grow bg-white border-[#e9e9e9] hover:border-black flex flex-col items-start block-suggest", item?.assistantId === suggest?.assistantId ? "" : "", (pathname.includes("teacher") && suggests?.length > 4) ? "" : "")}>
