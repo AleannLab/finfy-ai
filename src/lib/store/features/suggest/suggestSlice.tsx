@@ -1101,7 +1101,7 @@ export const teacherSuggestionData = [
 export const tutor = [
   {
     title: "🔢 Mathematics",
-    text: "Master math concepts and ace your exams.",
+    text: "Master math concepts and excel in exams.",
     category: "I’m your personal Mathematics tutor ",
     assistantId: TutorAssistants.Mathematics,
     suggest: [
@@ -1169,7 +1169,7 @@ export const tutor = [
   },
   {
     title: "🔬 Physical Sciences",
-    text: "Conquer science topics and excel in exams.",
+    text: "Master science concepts and boost your exam marks.",
     category: "I’m your personal Physical Science tutor",
     assistantId: TutorAssistants.PhysicalSciences,
     suggest: [
@@ -1238,7 +1238,7 @@ export const tutor = [
   {
     title: "📈 Economics",
     category: "I’m your personal Economics tutor ",
-    text: "Understand economics deeply and score high marks.",
+    text: "Master economic concepts and maximize your grades.",
     assistantId: TutorAssistants.EconomicsTutor,
     suggest: [
       {
@@ -1305,7 +1305,7 @@ export const tutor = [
   },
   {
     title: "📐 Mathematical Literacy",
-    text: "Grasp math concepts and excel in exams.",
+    text: "Grasp key math skills and succeed in tests.",
     category: "I’m your personal Math Literacy tutor",
     assistantId: TutorAssistants.MathsLiteracy,
     suggest: [
@@ -1373,7 +1373,7 @@ export const tutor = [
   },
   {
     title: "💼 Accounting",
-    text: "Ace accounting principles and top your tests.",
+    text: "Learn accounting principles and achieve top results.",
     category: "I’m your accounting tutor",
     assistantId: TutorAssistants.Accounting,
     suggest: [
@@ -1440,8 +1440,8 @@ export const tutor = [
     ],
   },
   {
-    title: "🌱 Life Sciences",
-    text: "Master biology topics and crush your exams.",
+    title: "🧬 Life Sciences",
+    text: "Learn biology concepts and excel in exams.",
     assistantId: TutorAssistants.LifeSciences,
     suggest: [
       {
@@ -1508,7 +1508,7 @@ export const tutor = [
   },
   {
     title: "📊 Business Studies",
-    text: "Excel in business studies and ace every test.",
+    text: "Understand business principles and ace every exam.",
     assistantId: TutorAssistants.BusinessStudies,
     suggest: [
       {
@@ -1552,7 +1552,7 @@ export const tutor = [
   },
   {
     title: "🌍 Geography",
-    text: "Master geography topics and ace your exams.",
+    text: "Understand global systems and score high in exams.",
     assistantId: TutorAssistants.Geography,
     suggest: [
       {
@@ -1618,8 +1618,8 @@ export const tutor = [
     ],
   },
   {
-    title: "👨‍💻 Information Technology",
-    text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
+    title: "🖥️ Information Technology",
+    text: "Develop coding and problem-solving skills.",
     category: "I’m your Information Technology Assistant.",
     assistantId: TutorAssistants.InformationTechnology,
     suggest: [
@@ -1634,15 +1634,15 @@ export const tutor = [
     ]
   },
   {
-    title: "⏰ History",
-    text: "Represents time, history, and past events",
+    title: "⏳ History",
+    text: "Explore historical events and their lasting impact.",
     category: "I’m your History Assistant.",
     assistantId: TutorAssistants.History,
     suggest: []
   },
   {
     title: "💻 Computer Applications Technology",
-    text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
+    text: " Build digital skills with, CAPS-aligned lessons.",
     category: "I’m your Computer Applications Technology Assistant.",
     assistantId: TutorAssistants.ComputerApplicationsTechnology,
     suggest: [
