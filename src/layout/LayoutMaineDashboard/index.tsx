@@ -160,6 +160,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   useEffect(() => {
     setTool(null);
     setIsOn(false)
+    setPrompt([])
   }, [suggest?.title]);
 
   const fetchDataBasedOnRole = async (dataSet: any[]) => {
