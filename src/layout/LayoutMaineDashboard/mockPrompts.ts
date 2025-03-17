@@ -764,7 +764,7 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 icon: "🎯",
                 label: "Tutor Me",
                 content: "Understand key Information Systems concepts with ease",
-                toolsId: "tutor_me"
+                toolsId: "ai_tutoring"
             },
             {
                 icon: "✍️",
@@ -874,7 +874,7 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 icon: "🎯",
                 label: "Tutor Me",
                 content: "Understand key CAT concepts with ease",
-                toolsId: "tutor_me"
+                toolsId: "ai_tutoring"
             },
             {
                 icon: "✍️",
