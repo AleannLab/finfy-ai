@@ -107,13 +107,15 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
             exam_mastery: {
                 grade_10: [
                     "Provide me with a past NSC exam question on motion in one dimension and evaluate my response with detailed feedback.",
-                    "Give a question on energy conservation from a past exam and help me solve it step by step.",
+                    "Show me a Grade 10 NSC exam question about the periodic table and mark my answer using official guidelines.",
+                    "Give a question on energy transformation from a past exam and help me solve it step by step.",
                     "Find a prior exam question on chemical bonding and assess my solution for accuracy."
                 ],
                 grade_11: [
                     "Provide me with a past NSC exam question on work, energy, and power and evaluate my response with feedback.",
-                    "Show me a Grade 11 NSC exam question on gravitational fields and mark my answer using official guidelines.",
-                    "Give a question on acids and bases and assess my solution for accuracy."
+                    "Show me a Grade 11 NSC exam question regarding chemical equilibrium and mark my answer using official guidelines.",
+                    "Give a question on the electromagnetic spectrum from a past exam and help me solve it step by step.",
+                    "Find a prior exam question on acids and bases and assess my solution for accuracy."
                 ],
                 grade_12: [
                     "Give me a past NSC exam question on projectile motion and grade my answer with detailed feedback.",
@@ -125,21 +127,21 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
             homework_hero: {
                 grade_10: [
                     "I have a challenging question on forces and vectors. Let me upload a photo—guide me through solving it.",
-                    "Help me solve this chemical reaction setup step by step.",
+                    "Help me solve this chemical reaction equation step by step.",
                     "I need assistance with a thermal expansion problem—guide me through the calculations.",
                     "Guide me through a question on separating mixtures using physical methods."
                 ],
                 grade_11: [
                     "I have a challenging kinematics question. Let me upload a photo—guide me through solving it.",
-                    "Help me solve this complex equation step by step.",
-                    "Assist me with an electric circuits problem—guide me through the calculations.",
+                    "Help me solve this chemical rate equation step by step.",
+                    "I need assistance with an electric circuits problem—guide me through the calculations.",
                     "Guide me through a question on the molecular structure using covalent bonds."
                 ],
                 grade_12: [
-                    "I'm stuck on a projectile motion problem; can you walk me through the solution step by step if I upload my photo?",
-                    "Help me see the step-by-step energy transformation in a system by providing a clear, detailed explanation from my uploaded problem.",
-                    "Assist me with an electric circuits problem? I’ve snapped a photo of the question and need a step-by-step breakdown.",
-                    "I’m stuck with a wave phenomenon question—upload my photo and guide me through a detailed, stepwise solution."
+                    "I'm stuck on a projectile motion problem; can you walk me through the solution step by step after I upload my photo?",
+                    "Help me solve this energy transformation question by providing a clear, detailed explanation from my uploaded problem.",
+                    "Can you assist me with an electric circuits problem? I’ve snapped a photo of the question and need a step-by-step breakdown.",
+                    "I need help with a wave phenomena question—upload my photo and guide me through a detailed, stepwise breakdown."
                 ]
             },
             ai_tutoring: {
@@ -156,9 +158,10 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                     "Explain how to solve a Grade 11 past exam question on heat and temperature."
                 ],
                 grade_12: [
-                    "Break down the principles of energy conservation for me with a step-by-step tutorial and check questions.",
+                    "Break down the principles of energy conservation for me with a step-by-step tutorial and practice questions.",
                     "Help me understand electric circuits and electromagnetic induction with tailored explanations and problem-solving examples.",
-                    "Walk me through wave interference and diffraction concepts in detail, and provide practice exercises to monitor my progress."
+                    "Walk me through wave interference and diffraction concepts in detail, and provide practice exercises to monitor my progress.",
+                    "Explain advanced quantum mechanics concepts related to energy levels and photon interactions."
                 ]
             },
             science_notes: {
@@ -169,13 +172,16 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                     "Give me a quick study guide on electromagnetism, including basic concepts and applications."
                 ],
                 grade_11: [
-                    "Generate concise study notes on capacitor circuits, including formulas and examples."
+                    "Generate concise study notes on the conservation of energy.",
+                    "Summarize key laws and equations related to wave properties in the NSC syllabus.",
+                    "Create a revision cheat sheet for chemical reactions and their types.",
+                    "Give me a quick study guide on capacitor circuits, including formulas and examples "
                 ],
                 grade_12: [
                     "Generate concise study notes on projectile motion, including key formulas and concepts for quick review.",
-                    "Create exam-focused notes on energy conservation, highlighting essential points for fast recall.",
+                    "Create exam-focused notes on energy conservation, highlighting essential points for efficient review.",
                     "Summarize the key concepts and formulas of electric circuits and electromagnetism in a clear, digestible guide.",
-                    "Prepare a broad, comprehensive summary of wave phenomena, covering interference and diffraction for fast revision."
+                    "Provide a brief, comprehensive summary of wave phenomena, covering interference and diffraction for fast revision."
                 ]
             }
         }
@@ -682,18 +688,18 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 "grade_10": [
                     "I have a question about the transport systems in plants, let me upload a photo—guide me through the solution.",
                     "Help me solve a question on food webs by explaining each component.",
-                    "I’m stuck on a question about cell division—can I send a photo and get a step-by-step help?",
-                    "Provide me with a water cycle problem by providing a clear breakdown of each step."
+                    "I’m stuck on a question about cell division—can I send a photo and get step-by-step help?",
+                    "Assist me with a water cycle problem by providing a clear breakdown of each step."
                 ],
                 "grade_11": [
                     "I have an issue with a question on population ecology—let me upload a photo and guide me through the solution.",
                     "Guide me in understanding the carbon cycle with a practical problem.",
                     "I’m stuck on a question on nitrogen cycles—I'll send a picture. Assist with a clear breakdown.",
-                    "Give me a challenging question on mineral cycling by providing step-by-step guidance."
+                    "Assist with a challenging question on mineral cycling by breaking down the processes involved."
                 ],
                 "grade_12": [
                     "I need help with a biotechnology problem. I'll upload a photo—could you walk me through it?",
-                    "Assist me in solving a Meiosis-related step-by-step.",
+                    "Assist me in solving a Menstrual cycle question step-by-step.",
                     "I’m confused about meiosis stages, can I send a photo and get some thorough guidance?",
                     "Help me with a DNA replication problem by explaining each step thoroughly!"
                 ]
@@ -701,36 +707,41 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
             "ai_tutoring": {
                 "grade_10": [
                     "Explain the role of enzymes with a worked example from past tests.",
-                    "Take me through a question on the human circulatory system functions and structure.",
-                    "Help me understand plant reproduction using real-world examples."
+                    "Take me through a question on the human respiratory system, including functions and structure.",
+                    "Help me understand plant reproduction using real-life examples.",
+                    "Guide me in solving ecosystem-related questions with practical examples."
                 ],
                 "grade_11": [
-                    "Explain Mendelian genetics using a detailed example from past papers.",
-                    "Take me through a complex question on the nervous system from a past paper.",
-                    "Clarify the mechanism of action of hormones using real-world applications.",
-                    "Help me with understanding ecological succession with examples."
+                    "Explain natural selection with examples from past exams.",
+                    "Help me understand plant reproduction through past paper practice.",
+                    "Clarify the concepts of symbiotic relationships with practical examples.",
+                    "Provide insights into energy transfer through trophic levels using past paper questions."
                 ],
                 "grade_12": [
-                    "Summarize key concepts of homeostasis and feedback mechanisms.",
-                    "Outline the process of cellular respiration for a quick review.",
-                    "Provide study notes on evolutionary biology to aid quick revisions."
+                    "Explain Mendelian genetics using a detailed example from past papers.",
+                    "Take me through a complex question on the nervous system from an NSC past paper.",
+                    "Clarify the mechanism of action of hormones using real-world examples.",
+                    "Help me with understanding ecological succession with examples from exams."
                 ]
             },
             "study_notes": {
                 "grade_10": [
-                    "Summarize key concepts of homeostasis and feedback mechanisms.",
-                    "Outline the process of cellular respiration for a quick review.",
-                    "Provide study notes on evolutionary biology to aid quick revisions."
+                    "Generate concise study notes on ecosystems and energy flow in the biosphere.",
+                    "Create a revision guide for cell organelles and their functions.",
+                    "Summarize the key points about the impact of human activities on ecosystems.",
+                    "Provide a quick overview of photosynthesis stages and related processes."
                 ],
                 "grade_11": [
-                    "Summarize key concepts of photosynthesis and environmental impact in a structured manner.",
-                    "Provide concise notes on the impact of hormones in the human body for exam readiness.",
+                    "Summarize key concepts of animal nutrition for Grade 11 Life Sciences.",
+                    "Create a cheat sheet on human impact on the environment and its implications.",
+                    "Summarize the roles of hormones in the human body for easy revision.",
                     "Provide a clear explanation of evolutionary theory concepts for quick study."
                 ],
                 "grade_12": [
                     "Create detailed study notes on DNA replication and protein synthesis.",
                     "Summarize the key concepts of homeostasis and feedback mechanisms.",
-                    "Outline the process of cellular respiration for a quick review."
+                    "Outline the process of cellular respiration for a quick review.",
+                    "Provide study notes on evolutionary biology to aid quick revisions."
                 ]
             }
         }
