@@ -157,6 +157,10 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
     dispatch(setMessages([]));
   }, [streamMessage, isLoading]);
 
+  useEffect(() => {
+    setTool(null);
+  }, [suggest?.title]);
+
   const fetchDataBasedOnRole = async (dataSet: any[]) => {
     // Wrap `useSearchParams` in a `useEffect` to ensure it only runs on the client
     const searchParams = new URLSearchParams(window.location.search); // Use `window.location.search` directly to avoid server-side rendering issues

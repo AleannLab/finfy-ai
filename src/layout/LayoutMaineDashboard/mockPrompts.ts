@@ -734,7 +734,225 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 ]
             }
         }
+    },
+    information_technology: {
+        tools: [
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past IT papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with IT problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key Information Systems concepts with ease",
+                toolsId: "tutor_me"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized IT notes for revision",
+                toolsId: "study_notes"
+            }
+        ],
+        prompts: {
+            exam_mastery: {
+                grade_10: [
+                    "Provide a past exam question on the role of an operating system and evaluate my response.",
+                    "Give me a question about the different types of computer software and mark my answer.",
+                    "Share a question on the functions of a processor from past papers and guide me through it.",
+                    "Assess my solution to a question on the basic structure of a computer system from past tests."
+                ],
+                grade_11: [
+                    "Give me a past question on system software and provide feedback on my approach.",
+                    "Show an exam problem related to information retrieval systems and assess my answer.",
+                    "Provide a question on cybersecurity principles and evaluate my solution.",
+                    "Guide me through a past exam question on database design and mark my response."
+                ],
+                grade_12: [
+                    "Provide a past NSC exam question on system integration and evaluate my answer.",
+                    "Show a complex query from a Grade 12 NSC paper on data analysis and mark my response.",
+                    "Help me solve a problem on advanced networking from NSC past exams.",
+                    "Give feedback on my solution to a programming troubleshooting question from an NSC exam."
+                ]
+            },
+            homework_hero: {
+                grade_10: [
+                    "I've got a question on sorting algorithms—here's a photo, help me find the solution.",
+                    "Guide me step-by-step through a logic gate problem I found challenging.",
+                    "Show me how to solve a network basics question, including IP addressing.",
+                    "Assist me with a data representation problem using the photo I'll upload."
+                ],
+                grade_11: [
+                    "I'm having trouble with a task on data encryption—here's a photo for guidance.",
+                    "Help me solve a problem on software lifecycle stages, step by step.",
+                    "Assist with a systems analysis and design question from my homework.",
+                    "Walk me through solving a data integrity issue using my uploaded image."
+                ],
+                grade_12: [
+                    "I'm stuck on a question about emerging technologies—here’s a photo for your help.",
+                    "Guide me through solving a layered network architecture problem.",
+                    "Identify errors in my approach to a database optimization exercise.",
+                    "Assist with a systems development lifecycle question using the uploaded image."
+                ]
+            },
+            ai_tutoring: {
+                grade_10: [
+                    "Explain basic programming concepts with a practical example from past exams.",
+                    "Take me through array data structures with illustrative examples.",
+                    "Demonstrate how to solve problems involving digital communications.",
+                    "Guide me through understanding GUI components with past paper examples."
+                ],
+                grade_11: [
+                    "Explain the workings of relational databases with applied examples.",
+                    "Break down a system security topic and how to apply it in practice.",
+                    "Take me through strategies for managing data in large systems.",
+                    "Guide my understanding of network troubleshooting with real-world scenarios."
+                ],
+                grade_12: [
+                    "Explain cloud computing models and strategies with scenarios from past exams.",
+                    "Navigate through a data security enhancement problem using theoretical and practical insights.",
+                    "Simplify the steps involved in software application development with comprehensive examples.",
+                    "Guide my understanding of IT project management techniques with past NSC paper contexts."
+                ]
+            },
+            study_notes: {
+                grade_10: [
+                    "Generate concise notes on the evolution of computer systems.",
+                    "Summarize key concepts of basic software applications for easy reference.",
+                    "Create a revision guide on hardware components and their functions.",
+                    "Quickly outline the principles of digital communication systems."
+                ],
+                grade_11: [
+                    "Craft notes on the basic concepts of network topology for quick revision.",
+                    "Write a summary of security protocols and their implementations.",
+                    "Generate a cheat sheet on the principles of data modeling.",
+                    "Summarize the key features of operating system functions."
+                ],
+                grade_12: [
+                    "Draft concise notes on the latest trends in information systems and technologies.",
+                    "Outline the key concepts of enterprise system integration for quick study.",
+                    "Produce a study guide on effective solutions for system security threats.",
+                    "Create a revision sheet on sophisticated data processing techniques."
+                ]
+            }
+        }
+    },
+    computer_applications_technology: {
+        tools: [
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past CAT papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with CAT problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key CAT concepts with ease",
+                toolsId: "tutor_me"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes Generator",
+                content: "Create personalized CAT notes for revision",
+                toolsId: "study_notes"
+            }
+        ],
+        prompts: {
+            exam_mastery: {
+                grade_10: [
+                    "Provide a past exam question on word processing and guide me in drafting the correct format.",
+                    "Show me an example of a spreadsheet function question, and help me solve it step by step.",
+                    "Share a database question from a past test with instructions on setting up fields and records.",
+                    "Give me a communications technology question to practice, including tips for efficient responses."
+                ],
+                grade_11: [
+                    "Show me a past paper question on advanced spreadsheet functions and provide feedback on my solution.",
+                    "Give me a word processing question that involves advanced formatting from a past exam.",
+                    "Help me practice a past exam question on managing emails effectively with feedback.",
+                    "Share a networking basics question to solve and mark my response."
+                ],
+                grade_12: [
+                    "Give me a past NSC exam question on database queries and grade my response with feedback.",
+                    "Provide a networking question from a Grade 12 NSC paper and mark my answer using official guidelines.",
+                    "Show me a past NSC exam question on spreadsheet modeling and assist me in solving it step by step.",
+                    "Help me tackle a past NSC exam question on internet technologies and check my solution for errors."
+                ]
+            },
+            homework_hero: {
+                grade_10: [
+                    "I'm stuck on a spreadsheet graph problem. Let me upload a photo—explain how to complete it.",
+                    "Help me troubleshoot a presentation software error step by step.",
+                    "I need assistance with database queries in my homework.",
+                    "Guide me through fixing formatting issues in a word processing task."
+                ],
+                grade_11: [
+                    "I have trouble with a database setup task. Let me upload a photo—guide me in fixing it.",
+                    "Help me solve this spreadsheet data analysis problem step by step.",
+                    "Provide assistance with a word processing document error I'm facing.",
+                    "Guide me through setting up a secure network with available resources."
+                ],
+                grade_12: [
+                    "I'm stuck on a programming logic task. Let me upload a photo—guide me through the solution.",
+                    "Assist me with troubleshooting a complex database issue step by step.",
+                    "I need help sorting data using advanced spreadsheet techniques in my homework.",
+                    "Guide me through a network setup problem using clear, detailed steps."
+                ]
+            },
+            ai_tutoring: {
+                grade_10: [
+                    "Explain the basics of data organization with a worked past paper example.",
+                    "Help me understand how to create presentation slides effectively with past exam insights.",
+                    "Break down a complex spreadsheet function question into understandable steps.",
+                    "Teach me about network basics using practical past exam scenarios."
+                ],
+                grade_11: [
+                    "Explain database management essentials with a practical past paper example.",
+                    "Take me through a complex spreadsheet analysis task with past exam insights.",
+                    "Break down challenging network configuration concepts into understandable parts.",
+                    "Explain data validation using a Grade 11 past exam question."
+                ],
+                grade_12: [
+                    "Explain programming logic using a worked NSC past paper example.",
+                    "Take me through a detailed database query design with past exam insights.",
+                    "Break down a Grade 12 past exam question on complex network setups.",
+                    "Explain advanced spreadsheet modeling using a NSC exam question."
+                ]
+            },
+            study_notes: {
+                grade_10: [
+                    "Generate concise study notes on spreadsheet functions and formulas.",
+                    "Summarize key concepts of effective communication technology usage.",
+                    "Create a revision cheat sheet for word processing tools and their applications.",
+                    "Give me a quick study guide on database setups and management."
+                ],
+                grade_11: [
+                    "Generate concise study notes on complex spreadsheet analyses.",
+                    "Summarize key concepts for securing network connections efficiently.",
+                    "Create a revision cheat sheet for database management and handling.",
+                    "Give me a study guide on advanced word processing techniques."
+                ],
+                grade_12: [
+                    "Create summarized study notes on key database management principles.",
+                    "Generate a concise study guide on effective network configurations in the NSC syllabus.",
+                    "Produce a revision cheat sheet for advanced spreadsheet modeling techniques.",
+                    "Craft a quick study guide on efficient programming logic methodologies."
+                ]
+            }
+        }
     }
 };
-
-

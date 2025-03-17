@@ -7,16 +7,12 @@ export enum TutorAssistants {
   PhysicalSciences = "asst_PZLeW6lOto3Aq1Dbm4MId5Ji",
   EconomicsTutor = "asst_aTBwaKFPUyuF0Mf0jECA0ogY",
   Accounting = "asst_QwfjmzMvjalp9v5x6y1SAd68",
-
-  // Newly Added Assistants
   History = "asst_Z51zCCMIQHcHIjskMTCdUShB",
   BusinessStudies = "asst_wQYJcKbahjyXKsqfEBj09lXz",
-  Economics = "asst_aTBwaKFPUyuF0Mf0jECA0ogY",
   LifeSciences = "asst_tmcVNihaQQXIJsgBBsmStbVh",
   Geography = "asst_7pMzMLlE5LixiysB2hFXJWKH",
   ComputerApplicationsTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
   InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
-  // NaturalScience = "asst_ub7PKtIFXKBAPOlqqcFoYy7B"
 }
 
 export enum CareerCoachAssistants {
@@ -29,21 +25,23 @@ export enum CareerCoachAssistants {
 }
 
 export enum TeacherAssistants {
-  // LessonCraft = "asst_nxJVZh17j23ovTc4923NOdc4",
-  // AssessGenie = "asst_Vjl8Br7Coh1M2waAnahdbvZ7",
-  // InsightMax = "asst_BvSZyrPkHJUu27VBJgigiMgK",
-  // EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
-  // ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
-  // WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8", 
   BusinessStudies = "asst_P5dJ8UFGPSa9A2BtYgDr84FD",
   Mathematics = "asst_DQhvAipfIA6bPsXFi8Az1sYw",
   MathematicalLiteracy = "asst_lgVcOWp45uuUf2BtodHO7gKS",
   PhysicalSciences = "asst_GqA9eIAqD6X4OEYfZRyNx6y0",
-  // LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
-  // ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
-  // InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
   english = "asst_H8YzZfwkoBySa9pGwz2zyz35"
 }
+// export enum TeacherAssistants {
+//   // LessonCraft = "asst_nxJVZh17j23ovTc4923NOdc4",
+//   // AssessGenie = "asst_Vjl8Br7Coh1M2waAnahdbvZ7",
+//   // InsightMax = "asst_BvSZyrPkHJUu27VBJgigiMgK",
+//   // EngageAI = "asst_UFL50keGMUrmNRlR2Hdh1yfx",
+//   // ClarityBot = "asst_h9xwAFmreZXrVWbjlDujBTrE",
+//   // WellnessWatch = "asst_RDT2lipIUg4wCmvJL3Sedes8", 
+//   // LifeSciences = "asst_74NyBtJTV1VWDufZc6E0xjla",
+//   // ComputerApplicationTechnology = "asst_8ccbmmtDJWTZ7ABAdUSzbax8",
+//   // InformationTechnology = "asst_ub7PKtIFXKBAPOlqqcFoYy7B",
+// }
 
 export const defaultCareerCoachAssistant = {
   label: "",
@@ -1619,6 +1617,54 @@ export const tutor = [
       },
     ],
   },
+  {
+    title: "👨‍💻 Information Technology",
+    text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
+    category: "I’m your Information Technology Assistant.",
+    assistantId: TutorAssistants.InformationTechnology,
+    suggest: [
+      {
+        label: "💡🤝 Generate Group Activity Ideas",
+        content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
+      },
+      {
+        label: "💡🤝 Facilitate Peer-Led Discussions",
+        content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
+      }
+    ]
+  },
+  {
+    title: "💻 Computer Applications Technology",
+    text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
+    category: "I’m your Computer Applications Technology Assistant.",
+    assistantId: TutorAssistants.ComputerApplicationsTechnology,
+    suggest: [
+      {
+        label: "💙🕊️ Identify Signs of Student Stress and Burnout",
+        content: "Monitors classroom behavior and provides tips on identifying early signs of stress, helping teachers support student well-being."
+      },
+      {
+        label: "💙🕊️ Promote Inclusivity and Positive Interactions",
+        content: "Suggests activities and guidelines that encourage inclusivity, making all students feel valued and supported."
+      },
+      {
+        label: "💙🕊️ Suggest Mindfulness and Focus Exercises",
+        content: "Recommends exercises that can reduce stress, increase focus, and create a calmer classroom environment for students."
+      },
+      {
+        label: "💙🕊️ Support Teachers with Self-Care Tips",
+        content: "Shares practical self-care strategies for teachers to manage their workload, reduce stress, and maintain a positive mindset."
+      },
+      {
+        label: "💙🕊️ Provide Classroom Management Strategies",
+        content: "Offers techniques for managing disruptive behavior constructively, fostering a positive learning environment."
+      },
+      {
+        label: "💙🕊️ Encourage Peer Support and Community Building",
+        content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
+      }
+    ]
+  },
 ];
 
 export const careerCoach = [
@@ -2134,54 +2180,6 @@ export const teacher = [
   //     {
   //       label: "💡🤝 Introduce Reflective Thinking Prompts",
   //       content: "Provides reflective questions that encourage students to analyze their learning, fostering self-awareness and metacognitive skills."
-  //     }
-  //   ]
-  // },
-  // {
-  //   title: "💻 Computer Applications Technology",
-  //   text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
-  //   category: "I’m your Computer Applications Technology Assistant.",
-  //   assistantId: TeacherAssistants.ComputerApplicationTechnology,
-  //   suggest: [
-  //     {
-  //       label: "💙🕊️ Identify Signs of Student Stress and Burnout",
-  //       content: "Monitors classroom behavior and provides tips on identifying early signs of stress, helping teachers support student well-being."
-  //     },
-  //     {
-  //       label: "💙🕊️ Promote Inclusivity and Positive Interactions",
-  //       content: "Suggests activities and guidelines that encourage inclusivity, making all students feel valued and supported."
-  //     },
-  //     {
-  //       label: "💙🕊️ Suggest Mindfulness and Focus Exercises",
-  //       content: "Recommends exercises that can reduce stress, increase focus, and create a calmer classroom environment for students."
-  //     },
-  //     {
-  //       label: "💙🕊️ Support Teachers with Self-Care Tips",
-  //       content: "Shares practical self-care strategies for teachers to manage their workload, reduce stress, and maintain a positive mindset."
-  //     },
-  //     {
-  //       label: "💙🕊️ Provide Classroom Management Strategies",
-  //       content: "Offers techniques for managing disruptive behavior constructively, fostering a positive learning environment."
-  //     },
-  //     {
-  //       label: "💙🕊️ Encourage Peer Support and Community Building",
-  //       content: "Offers ideas for fostering peer support among students, creating a supportive community within the classroom."
-  //     }
-  //   ]
-  // },
-  // {
-  //   title: "👨‍💻 Information Technology",
-  //   text: "Inspire Grade 10-12 learners with CAPS-aligned, NSC-focused coding projects, algorithm explanations, and debugging exercises to build programming excellence.",
-  //   category: "I’m your Information Technology Assistant.",
-  //   assistantId: TeacherAssistants.InformationTechnology,
-  //   suggest: [
-  //     {
-  //       label: "💡🤝 Generate Group Activity Ideas",
-  //       content: "Suggests engaging group activities like debates, projects, and role-plays, promoting collaboration and critical thinking in class."
-  //     },
-  //     {
-  //       label: "💡🤝 Facilitate Peer-Led Discussions",
-  //       content: "Offers guidance on structuring peer discussions, helping students practice communication skills and build confidence in sharing ideas."
   //     }
   //   ]
   // },
