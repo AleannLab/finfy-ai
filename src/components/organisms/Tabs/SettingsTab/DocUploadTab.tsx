@@ -3,7 +3,7 @@ import { DropzoneComponent } from "@/components/molecules";
 const DocUploadTab = () => {
   return (
     <div className="my-9">
-      <div className="p-3 border rounded-md bg-navy-15 border-navy-5">
+      <div className="p-3 border rounded-md bg-navy-15 border-[#666]">
         <DropzoneComponent
           name={""}
           onSubmit={function (files: {

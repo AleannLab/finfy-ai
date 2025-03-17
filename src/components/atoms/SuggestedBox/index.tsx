@@ -85,7 +85,7 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
         <p className="mb-1 hidden lg:block text-start  !text-[#272e48] text-sm font-semibold leading-tight">
           {icon} {label}
         </p>
-        <div className="relative !text-[#547a91]">
+        <div className="relative !text-[#666]">
           <p className="pr-6 text-start text-[#666666] !text-[11px] font-medium  overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] line-clamp-2  lg:hidden">
             &quot;{content}&quot;
           </p>

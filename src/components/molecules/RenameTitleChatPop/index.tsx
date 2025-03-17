@@ -47,7 +47,7 @@ const RenameTitleChatPop: FC<RenameTitleChatPopProps> = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger className="text-sm w-full">{children}</Dialog.Trigger>
-      <Dialog.Content className="text-[#547a91] bg-navy-25 rounded-none border-none pt-4 max-w-96">
+      <Dialog.Content className="text-[#666] bg-navy-25 rounded-none border-none pt-4 max-w-96">
         <form action={onSubmit} className="mt-5">
           <Field full name={"title"} defaultValue={title} />
           <div className="flex w-full items-center justify-between !mt-12">

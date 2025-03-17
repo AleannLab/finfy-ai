@@ -19,7 +19,7 @@ const EmbedTerms: FC<EmbedTermsProps> = ({ documentType }) => {
 
   return (
     <div
-      className="getterms-document-embed text-[#547a91]"
+      className="getterms-document-embed text-[#666]"
       data-getterms="Vriik"
       data-getterms-document={documentType}
       data-getterms-lang="en-us"

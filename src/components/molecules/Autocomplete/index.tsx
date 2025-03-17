@@ -178,7 +178,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
           )}
           <div
             className={cx(
-              "rounded-md bg-navy-25 border border-navy-5 py-2 relative flex items-center focus:shadow-lg border-secondary px-3",
+              "rounded-md bg-navy-25 border border-[#666] py-2 relative flex items-center focus:shadow-lg border-secondary px-3",
               classes?.containerInput,
               full ? "w-full" : "w-fit",
               { "!border-accent-content": helperText }
@@ -186,7 +186,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
           >
             {left}
             {selectOption?.value && !isOpen && (
-              <div className="bg-transparent text-sm font-medium text-[#547a91] absolute top-1/2 -translate-y-1/2">
+              <div className="bg-transparent text-sm font-medium text-[#666] absolute top-1/2 -translate-y-1/2">
                 {selectOption.label}
               </div>
             )}
@@ -197,7 +197,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
               onChange={handleChange}
               onFocus={handleOpenList}
               className={cx(
-                "text-[#547a91] bg-transparent outline-none z-10 text-sm font-medium h-full w-full placeholder:text-sm placeholder:font-medium",
+                "text-[#666] bg-transparent outline-none z-10 text-sm font-medium h-full w-full placeholder:text-sm placeholder:font-medium",
                 { "placeholder:text-transparent": selectOption?.value },
                 props?.className
               )}
@@ -205,7 +205,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
             {isOpen && (
               <ul
                 className={cx(
-                  "absolute max-h-60 left-0 z-10 w-full bg-navy-25 border-navy-5 overflow-auto my-1 rounded-md border border-secondary shadow",
+                  "absolute max-h-60 left-0 z-10 w-full bg-navy-25 border-[#666] overflow-auto my-1 rounded-md border border-secondary shadow",
                   isRenderTop ? "bottom-full" : "top-full",
                   classes?.list
                 )}
@@ -221,7 +221,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                         key={option.value}
                         onClick={() => handleClick(option)}
                         className={cn(
-                          "px-4 pl-10 py-2 flex gap-1 relative items-center text-[#547a91] text-sm font-medium hover:bg-navy-15 cursor-pointer",
+                          "px-4 pl-10 py-2 flex gap-1 relative items-center text-[#666] text-sm font-medium hover:bg-navy-15 cursor-pointer",
                           {
                             "bg-navy-15": selectOption?.value === option.value,
                           }
@@ -239,7 +239,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     );
                   })
                 ) : (
-                  <li className="px-4 py-2 text-[#547a91] hover:bg-gray-100 cursor-pointer">
+                  <li className="px-4 py-2 text-[#666] hover:bg-gray-100 cursor-pointer">
                     Nothing found
                   </li>
                 )}

@@ -24,7 +24,7 @@ const ChartVisualizeButton: FC<ChartVisualizeButtonProps> = ({
       <Button
         onClick={onClick}
         full
-        className="chart-button-border px-3 py-4 !rounded-lg text-base text-[#547a91] justify-between bg-purple-15 bg-opacity-10"
+        className="chart-button-border px-3 py-4 !rounded-lg text-base text-[#666] justify-between bg-purple-15 bg-opacity-10"
         variant="ghost"
       >
         {text}

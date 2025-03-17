@@ -90,7 +90,7 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                       <span className="w-4 h-4">
                         <div className="small-loader" />
                       </span>
-                      <span className="text-[#547a91] text-2xl leading-3 font-medium">
+                      <span className="text-[#666] text-2xl leading-3 font-medium">
                         Answer
                       </span>
                     </div>

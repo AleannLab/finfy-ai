@@ -4,16 +4,16 @@ import { DropzoneComponent, FieldForm } from "@/components/molecules";
 const SupportTab = () => {
   return (
     <div className="my-9">
-      <div className="p-4 border rounded-md bg-navy-15 border-navy-5">
+      <div className="p-4 border rounded-md bg-navy-15 border-[#666]">
         <div className="flex flex-col gap-4 mb-8">
-          <h3 className="flex gap-2 text-2xl font-semibold text-[#547a91] items-center">
+          <h3 className="flex gap-2 text-2xl font-semibold text-[#666] items-center">
             <Icon
               type="SupportIcon"
               className="w-6 h-6 stroke-transparent fill-white"
             />
             Contact us
           </h3>
-          <p className="text-[#547a91] font-semibold text-sm">
+          <p className="text-[#666] font-semibold text-sm">
             Our friendly support team is here to help you.
           </p>
         </div>

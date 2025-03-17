@@ -65,7 +65,7 @@ const ManageProfileTab = () => {
     <>
       <div className="mt-8 w-full flex flex-col">
         <p className="my-4">Account</p>
-        <div className="p-3 border w-full rounded-md bg-[#F9F9F9] border-navy-5 text-[#000]">
+        <div className="p-3 border w-full rounded-md bg-[#F9F9F9] border-[#666] text-[#000]">
           <div className="w-full flex items-center justify-between">
             <p>Avatar</p>
             <UserAvatarWithUpload />

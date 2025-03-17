@@ -346,7 +346,7 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
               disabled={!isConnected || isConnecting}
               onClick={handleDisconnectChat}
             >
-              {<Cross2Icon className="size-4 text-[#547a91]" color="white" />}
+              {<Cross2Icon className="size-4 text-[#666]" color="white" />}
             </Button>
           </div>
         }

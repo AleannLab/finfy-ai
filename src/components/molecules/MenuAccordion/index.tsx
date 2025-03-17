@@ -118,7 +118,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                   return (
                     <div
                       key={index}
-                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group md:max-w-full hover:bg-[#547A91] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#547A91] !text-[#E9E9E9]" : "")}
+                      className={cn("flex justify-between !z-[200] max-w-[calc(100%-20px)] group md:max-w-full hover:bg-[#ECECEC] p-2 rounded-sm", pathname.includes(content?.chatId) ? "bg-[#ECECEC] !text-[#E9E9E9]" : "")}
                     >
                       <button
                         onClick={() =>

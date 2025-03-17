@@ -9,8 +9,8 @@ interface SwitchTemplateProps {
 const SwitchTemplate: FC<SwitchTemplateProps> = ({ label, id }) => {
   return (
     <div className="flex items-center space-x-2">
-      <Label htmlFor={id} className="text-sm font-medium text-[#547a91]">{label}</Label>
-      <Switch defaultChecked id={id} className="border-navy-5 border " />
+      <Label htmlFor={id} className="text-sm font-medium text-[#666]">{label}</Label>
+      <Switch defaultChecked id={id} className="border-[#666] border " />
     </div>
   );
 };

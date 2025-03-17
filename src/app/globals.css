@@ -106,7 +106,7 @@ body {
     @apply font-semibold text-[#272E48] text-4xl;
   }
   .suggest-box {
-    @apply border text-sm flex-1 p-3 rounded-md border-navy-5 hover:bg-navy-5 cursor-pointer;
+    @apply border text-sm flex-1 p-3 rounded-md border-[#666] hover:bg-[#ECECEC] cursor-pointer;
   }
   .menu-button-btn {
     @apply p-4 text-[#272E48];
@@ -117,7 +117,7 @@ body {
   }
 
   .card-modal {
-    @apply min-w-[400px] min-h-[133px] z-20 bg-navy-25 border-navy-5 mx-auto;
+    @apply min-w-[400px] min-h-[133px] z-20 bg-navy-25 border-[#666] mx-auto;
   }
 
   .home-assist-btn {
@@ -125,7 +125,7 @@ body {
   }
 
   .co-pilot-btn {
-    @apply h-6 rounded-full gap-1 text-sm flex items-center border bg-navy-5 px-2 w-fit shadow-none border-navy-5 hover:border-purple-5;
+    @apply h-6 rounded-full gap-1 text-sm flex items-center border bg-navy-5 px-2 w-fit shadow-none border-[#666] hover:border-purple-5;
   }
 
   .error {

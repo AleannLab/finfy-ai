@@ -6,7 +6,7 @@ const variantClasses: Record<Color, string> = {
   outline:
     "border border-input bg-background shadow-sm text-[#272E48] hover:bg-navy-15 hover:text-navy-15-foreground",
   secondary: "bg-secondary text-[#272E48] shadow-sm hover:bg-secondary/80",
-  ghost: "hover:bg-navy-5 text-grey-15 hover:text-[#272E48]",
+  ghost: "hover:bg-[#ECECEC] text-grey-15 hover:text-[#272E48]",
   link: "text-[#272E48] underline-offset-4 hover:underline",
   transparent: "!bg-transparent h-10 w-10 !rounded-[50px] ",
   outlineMain: "h-10 text-black bg-white hover:bg-black hover:text-white text-base font-semibold  leading-normal px-4 py-2 !rounded-lg  !shadow-[inset_0px_2px_0px_0px_rgba(255,255,255,0.15)] border border-black justify-center items-center gap-3 inline-flex overflow-hidden !rounded-lg",

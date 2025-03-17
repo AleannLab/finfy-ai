@@ -4,8 +4,8 @@ import { Icon, Button } from "@/components/atoms";
 const PersonalizeTab = () => {
   return (
     <div className="my-9">
-      <div className="p-3 border rounded-md bg-navy-15 border-navy-5">
-        <div className="text-[#547a91] rounded-none border-none pt-4">
+      <div className="p-3 border rounded-md bg-navy-15 border-[#666]">
+        <div className="text-[#666] rounded-none border-none pt-4">
           <Icon
             type="QuestionMarkCircle"
             className="absolute top-3.5 right-10 cursor-pointer"

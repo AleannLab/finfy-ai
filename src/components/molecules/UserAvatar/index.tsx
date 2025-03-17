@@ -10,7 +10,7 @@ interface UserAvatarProps {
 
 const UserAvatar: FC<UserAvatarProps> = ({ className, src, initials }) => {
   return (
-    <Avatar className={cn("border-navy-5 border w-16 h-16", className)}>
+    <Avatar className={cn("border-[#666] border w-16 h-16", className)}>
       <Avatar.Image height={64} width={64} src={src} />
       <Avatar.Fallback>
         {initials ? (

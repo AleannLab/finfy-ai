@@ -9,7 +9,7 @@ const FieldForm: FC<FieldFormProps> = (props) => {
       {...props}
       classes={{
         ...props?.classes,
-        containerInput: "border-navy-5 border bg-navy-25 rounded-sm",
+        containerInput: "border-[#666] border bg-navy-25 rounded-sm",
       }}
     />
   );

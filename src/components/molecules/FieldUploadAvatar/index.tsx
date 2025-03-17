@@ -17,7 +17,7 @@ const FieldUploadAvatar: FC<FieldUploadAvatarProps> = ({
         accept="image/png, image/jpeg, image/jpg, image/gif"
         className="absolute w-0 h-0 translate-x-full"
       />
-      <span className="bg-navy-15 p-1.5 -right-1 absolute -bottom-1 border cursor-pointer border-navy-5 w-7 h-7 rounded-full flex justify-center items-center ">
+      <span className="bg-navy-15 p-1.5 -right-1 absolute -bottom-1 border cursor-pointer border-[#666] w-7 h-7 rounded-full flex justify-center items-center ">
         <Icon type="PlusIcon" className="w-4 h-4 stroke-purple-15" />
       </span>
     </label>

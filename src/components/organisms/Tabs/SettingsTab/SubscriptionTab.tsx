@@ -42,14 +42,14 @@ const SubscriptionTab = () => {
 
 
   if (loading) {
-    return <div className="text-[#547a91]">Loading...</div>;
+    return <div className="text-[#666]">Loading...</div>;
   }
 
   return (
     <div className="my-9">
-      <div className="p-4 border rounded-md bg-navy-15 border-navy-5">
+      <div className="p-4 border rounded-md bg-navy-15 border-[#666]">
         <div className="flex flex-col gap-4 mb-8">
-          <h3 className="flex gap-2 text-2xl font-semibold text-[#547a91] items-center">
+          <h3 className="flex gap-2 text-2xl font-semibold text-[#666] items-center">
             <Icon
               type="DollarIcon"
               className="w-6 h-6 stroke-transparent fill-white"
@@ -60,7 +60,7 @@ const SubscriptionTab = () => {
             {plan ? (
               <CardSubscribePlan plan={plan as Plan} />
             ) : (
-              <div className="text-[#547a91]">No plan found.</div>
+              <div className="text-[#666]">No plan found.</div>
             )}
           </div>
         </div>

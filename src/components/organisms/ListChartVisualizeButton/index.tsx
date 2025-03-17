@@ -16,7 +16,7 @@ const ListChartVisualizeButton: FC<ListChartVisualizeButtonProps> = ({ data, han
 
   return (
     <div className="flex flex-col gap-4 px-5 w-full">
-      <h3 className="text-[#547a91] text-2xl font-semibold">Chart</h3>
+      <h3 className="text-[#666] text-2xl font-semibold">Chart</h3>
       <ul className="w-full flex flex-col gap-4">
         {data.map(([key, chart]) => (
           <ChartVisualizeButton

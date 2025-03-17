@@ -96,7 +96,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
                 key={index}
                 onClick={() => toggleDropdown(index)}
                 className={cn(
-                  "w-full flex justify-between hover:bg-white hover:bg-opacity-5 duration-300 items-center px-4 py-3 text-lg font-semibold text-[#547a91]  rounded-lg transition-all", isOpen ? " mb-4" : ""
+                  "w-full flex justify-between hover:bg-white hover:bg-opacity-5 duration-300 items-center px-4 py-3 text-lg font-semibold text-[#666]  rounded-lg transition-all", isOpen ? " mb-4" : ""
                 )}
               >
                 <div className="flex items-center gap-4">

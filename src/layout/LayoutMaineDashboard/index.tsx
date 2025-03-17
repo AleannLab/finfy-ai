@@ -256,7 +256,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             <div className="max-w-[1050px] w-full h-9 justify-between items-center inline-flex">
               <div className="justify-start items-center gap-1 flex">
                 <div data-svg-wrapper className="relative">
-                  <Icon type="LightningBolt" className="text-[#547a91]" />
+                  <Icon type="LightningBolt" className="text-[#666]" />
                 </div>
                 <div className="text-[#666666] text-base font-medium  leading-tight">All tools</div>
               </div>
@@ -283,7 +283,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             <div className="max-w-[1050px] w-full h-9 justify-between items-center inline-flex">
               <div className="justify-start items-center gap-1 flex">
                 <div data-svg-wrapper className="relative">
-                  <Icon type="LightningBolt" className="text-[#547a91]" />
+                  <Icon type="LightningBolt" className="text-[#666]" />
                 </div>
                 <div className="text-[#666666] text-base font-medium  leading-tight">All tools</div>
               </div>
@@ -312,7 +312,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                   <ToggleSwitch disable={!tool} isOn={isOn} setIsOn={setIsOn} />
                   <div className={cn("justify-start items-center gap-1 flex", !tool ? "opacity-60" : "")}>
                     <div data-svg-wrapper className="relative">
-                      <Icon type="LightningBolt" className="text-[#547a91]" />
+                      <Icon type="LightningBolt" className="text-[#666]" />
                     </div>
                     <div className="text-[#666666] text-base font-medium  leading-tight">Suggested</div>
                   </div>
@@ -338,8 +338,8 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                 </div>
               </div>
             )
-            : (<div className="flex items-center h-fit text-[#547a91]">
-              <Icon type="LightningBolt" className="text-[#547a91]" />
+            : (<div className="flex items-center h-fit text-[#666]">
+              <Icon type="LightningBolt" className="text-[#666]" />
               <p className="text-base">Suggestions</p>
             </div>
             )}
