@@ -13,6 +13,10 @@ const HomeSuggestWithTools = ({prompt, assistantId, icon, label}: any) => {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
   const { open, handleToggle, handleClose } = useSidebar();
 
+  if (!prompt) {
+    return <></>
+  }
+
   const suggests = prompt.map((item: any)=> {
     return (
       {

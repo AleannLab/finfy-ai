@@ -1634,6 +1634,13 @@ export const tutor = [
     ]
   },
   {
+    title: "⏰ History",
+    text: "Represents time, history, and past events",
+    category: "I’m your History Assistant.",
+    assistantId: TutorAssistants.History,
+    suggest: []
+  },
+  {
     title: "💻 Computer Applications Technology",
     text: "Prepare your Grade 10-12 students for the digital world with CAPS-aligned, NSC-ready tutorials, real-world projects, and comprehensive assessments.",
     category: "I’m your Computer Applications Technology Assistant.",

@@ -965,5 +965,115 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
                 ]
             }
         }
+    },
+    history: {
+        tools: [
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Tackle past History papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with History questions",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Learn History concepts in a clear, structured way",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized History notes for revision",
+                toolsId: "study_notes"
+            }
+        ],
+        prompts: {
+            exam_mastery: {
+                grade_10: [
+                    "Provide a past exam question on ancient civilizations and assess my answer with feedback.",
+                    "Give me a question on the Industrial Revolution from a Grade 10 past paper and grade my response.",
+                    "Show me a question about the French Revolution from previous tests and guide me in crafting a thorough answer.",
+                    "Provide a World War I question from past papers and evaluate my solution step by step."
+                ],
+                grade_11: [
+                    "Give me a past test question on nationalism movements and assess my answer.",
+                    "Provide a Grade 11 exam question on World War II and review my response using guidelines.",
+                    "Show me an apartheid-era question from previous tests and help me solve it comprehensively.",
+                    "Offer a question on the Cold War from past papers and critique my answer."
+                ],
+                grade_12: [
+                    "Provide a past exam question on African decolonization and mark my answer with feedback.",
+                    "Give me an essay question on the South African Liberation Struggle from a past paper and assess my response.",
+                    "Show me a question on the Middle East conflict from previous NSC papers and help me formulate a detailed answer.",
+                    "Provide a transitional justice question from past exams and evaluate my historical analysis."
+                ]
+            },
+            homework_hero: {
+                grade_10: [
+                    "I need help understanding a question about colonialism’s impact—let me upload a photo.",
+                    "Help me explore key events of the Renaissance with step-by-step analysis.",
+                    "Assist me with a question on exploration and expansion during the Age of Discovery.",
+                    "Guide me through an analysis question on the Enlightenment philosophers."
+                ],
+                grade_11: [
+                    "Let me upload a photo of a Cold War question I’m struggling with for guidance.",
+                    "Help me deconstruct a question on economic systems during the Depression era.",
+                    "Assist with analyzing sources related to the rise of dictatorships in the 20th century.",
+                    "Provide steps for evaluating the causes of the Russian Revolution."
+                ],
+                grade_12: [
+                    "Snap a photo of a question on globalization—help me break it down.",
+                    "Assist with an analysis of apartheid era events step by step.",
+                    "Help me solve a problem related to the Truth and Reconciliation Commission.",
+                    "Guide me through constructing an argument about the end of the Cold War."
+                ]
+            },
+            ai_tutoring: {
+                grade_10: [
+                    "Explain key causes and effects of World War II with examples from past papers.",
+                    "Take me through a significant event of the American Revolution using a worked example.",
+                    "Break down complex ideas about the Slave Trade and how to approach related questions.",
+                    "Help me understand and analyze major figures of the Scientific Revolution."
+                ],
+                grade_11: [
+                    "Explain the apartheid laws using examples from past Grade 11 papers.",
+                    "Guide me through a question on decolonization and its global impact.",
+                    "Break down complex arguments regarding the formation of the United Nations.",
+                    "Assist with understanding the ideological conflicts during the Cold War."
+                ],
+                grade_12: [
+                    "Explain key post-apartheid events using past paper examples to contextualize.",
+                    "Navigate through a NSC paper’s question on international relations post-World War II.",
+                    "Break down historiographical debates regarding the Holocaust with relevant examples.",
+                    "Assist in understanding the shift in global power dynamics post-Cold War."
+                ]
+            },
+            study_notes: {
+                grade_10: [
+                    "Generate clear notes on ancient Egyptian society and its historical significance.",
+                    "Summarize causes and outcomes of the Industrial Revolution with quick bullet points.",
+                    "Create a concise overview of key events leading up to World War I.",
+                    "Produce study notes on the impacts of colonization in Africa and Asia."
+                ],
+                grade_11: [
+                    "Create notes on key policies during the apartheid era in South Africa.",
+                    "Summarize significant post-WWII political landscapes in concise segments.",
+                    "Generate a quick study guide on landmark agreements like the Treaty of Versailles.",
+                    "Provide an overview of major movements for independence in the 20th century."
+                ],
+                grade_12: [
+                    "Create detailed notes on apartheid and its global implications.",
+                    "Summarize pivotal moments in international relations since the 20th century.",
+                    "Generate a revision guide on the role of the United Nations in peacekeeping.",
+                    "Produce concise notes on the major decisions of the Geneva Conference."
+                ]
+            }
+        }
     }
 };
