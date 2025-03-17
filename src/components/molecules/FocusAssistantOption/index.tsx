@@ -25,9 +25,7 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
   const router = useRouter();
   const basePath = path.split("chat")?.[0]
   const handleClick = () => {
-    if (typeof window !== 'undefined' && window?.innerWidth < 1024) {
-      onOpenChange()
-    }
+    onOpenChange()
     dispatch(setSuggests(suggest));
     dispatch(setSuggest(item))
     if (path.includes("chat")) {
