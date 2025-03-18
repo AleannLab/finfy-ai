@@ -117,7 +117,7 @@ export const tutorSuggestionData = [
   {
     title: "🔢 Mathematics",
     text: "Master math concepts and ace your exams.",
-    category: "I’m your personal Mathematics tutor ",
+    category: "I’m your personal Mathematics tutor",
     assistantId: TutorAssistants.Mathematics,
     label: "Mathematics",
     isDefault: "true",
@@ -1102,7 +1102,7 @@ export const tutor = [
   {
     title: "🔢 Mathematics",
     text: "Master math concepts and excel in exams.",
-    category: "I’m your personal Mathematics tutor ",
+    category: "I’m your personal Mathematics tutor",
     assistantId: TutorAssistants.Mathematics,
     suggest: [
       {
