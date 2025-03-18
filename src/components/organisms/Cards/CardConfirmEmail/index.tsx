@@ -91,7 +91,7 @@ const CardConfirmEmail = () => {
       }
 
       toast.success("Your account has been verified!");
-      // nextStep();
+      nextStep();
     } catch (error) {
       router.push("/sign-up")
       toast.error(getErrorMessage(error));
