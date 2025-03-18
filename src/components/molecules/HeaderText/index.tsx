@@ -189,7 +189,7 @@ const HeaderText = () => {
           </>
         )}
       </div>
-      <div className="lg:hidden flex flex-col h-full w-full items-center justify-center pb-5 lg:pb-10">
+      <div className="hidden  flex-col h-full w-full items-center justify-center pb-5 lg:pb-10">
         <Icon type="LogoIcon" />
       </div>
     </div>
