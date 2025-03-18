@@ -155,7 +155,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
             <>
               <Accordion.Content className="flex justify-between">
                 <Link
-                  href={item.link}
+                  href={`${item?.link}`.replace("/chat", "")}
                   className="menu-list-btn flex gap-1 ml-1 items-center"
                 >
                   Start a new thread...
