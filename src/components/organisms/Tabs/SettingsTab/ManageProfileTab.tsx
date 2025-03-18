@@ -49,8 +49,8 @@ const ManageProfileTab = () => {
           })
         );
 
-          toast.success("Username updated successfully");
-          // setUser((prev: any) => ({ ...prev, name: username })); // Update local state
+        toast.success("Username updated successfully");
+        // setUser((prev: any) => ({ ...prev, name: username })); // Update local state
         setIsEditingUsername(false);
       } catch (error) {
         console.error("Failed to update username:", error);
@@ -84,12 +84,13 @@ const ManageProfileTab = () => {
                   className="border rounded-md border-none min-h-[28px] max-w-[200px] bg-transparent outline-none w-full"
                 />
               ) : (
-                <div className="flex items-center gap-2">
-                  <span>{user?.name}</span>
+                <div className="flex max-w-48 items-center gap-2 overflow-hidden">
+                  <span className="truncate w-full">{user?.name}</span>
                   <Button variant="ghost" onClick={() => setIsEditingUsername(true)}>
                     <Icon type="PenIcon" className="h-4 w-4 fill-grey-15" />
                   </Button>
                 </div>
+
               )}
             </div>
           </div>
