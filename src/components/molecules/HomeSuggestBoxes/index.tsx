@@ -6,11 +6,22 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { useSidebar } from "@/hooks";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 const HomeSuggestBoxes = () => {
   const suggests = useAppSelector((state) => state.suggest.suggests);
-  const isLgScreen = typeof window !== 'undefined' && window.innerWidth >= 1024;
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  const [isLgScreen, setIsLgScreen] = useState(
+    typeof window !== "undefined" && window.innerWidth >= 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLgScreen(window.innerWidth >= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
   const { open, handleToggle, handleClose } = useSidebar();
 
   if (!suggests?.length) {

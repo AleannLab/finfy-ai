@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { typeCatagories } from "@/lib/constants";
 
 const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type }: any) => {
@@ -45,7 +45,18 @@ const SlideBox: any = ({ content, label, icon, item, setTool, selectedTool, type
 
 const HomeSlides = ({ slides, setTool, selectedTool, type }: { slides: any, setTool: any, selectedTool: any, type: any }) => {
   const isTutor = typeCatagories.tutor === type;
-  const isLgScreen = typeof window !== 'undefined' && window.innerWidth >= 1024;
+  const [isLgScreen, setIsLgScreen] = useState(
+    typeof window !== "undefined" && window.innerWidth >= 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLgScreen(window.innerWidth >= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (!slides?.length) {
     return <></>
