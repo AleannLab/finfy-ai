@@ -28,11 +28,21 @@ const CardConfirmEmail = () => {
 
   useEffect(() => {
 
-    if (user?.email_verified_at) {
-      // toast.success("Your account has been verified!");
-      nextStep();
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user?.confirmed_at) {
+        await dispatch(updateUser({ email_verified_at: data?.user?.confirmed_at }));
+        nextStep();
+
+      }
+
     }
 
+    if (user?.email_verified_at) {
+      toast.success("Your account has been verified!");
+      nextStep();
+    }
+    checkUser();
   }, [user])
 
 
@@ -48,7 +58,7 @@ const CardConfirmEmail = () => {
     if (!email) {
       toast("Please login again or use another email to sign up");
       const error = await signOutAction();
-      router.push("/login")     
+      router.push("/login")
       return;
     }
 
