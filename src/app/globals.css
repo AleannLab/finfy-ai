@@ -201,8 +201,32 @@ input:-webkit-autofill {
   width: 100%;
 }
 
+@keyframes animate {
+  0% {
+    animation-timing-function: cubic-bezier(0.51, 0.03, 0.89, 0.56);
+    transform: translate(0px, 0px) rotate(0deg) scale(1, 1) skew(0deg, 0deg);
+    opacity: 1;
+  }
+  52% {
+    animation-timing-function: cubic-bezier(0.17, 0.39, 0.55, 0.91);
+    transform: translate(0px, 0px) rotate(211.13deg);
+  }
+  100% {
+    animation-timing-function: cubic-bezier(0.17, 0.39, 0.55, 0.91);
+    transform: translate(0px, 0px) rotate(360deg);
+  }
+}
 
 .loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ff6b6b, #556270);
+  animation: animate 2s infinite;
+}
+
+
+/* .loader {
   width: 4.8px;
   height: 10px;
   display: inline-block;
@@ -230,7 +254,7 @@ input:-webkit-autofill {
 .loader::after {
   top: -13px;
   animation-delay: 0s;
-}
+} */
 
 .transition-max-height {
   transition: max-height 0.5s ease, opacity 0.5s ease;
