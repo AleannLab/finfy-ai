@@ -181,7 +181,7 @@ const HeaderText = () => {
     <div className="h-full lg:h-max">
       {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white" />}
       <HeaderFocus user={user} isHome={isHome} open={open} setOpen={setOpen} suggest={suggest} />
-      <div className="lg:flex hidden mt-[124px] flex-col w-full items-center justify-center pb-5 lg:pb-10">
+      <div className="lg:flex hidden mt-[64px] flex-col w-full items-center justify-center pb-5 lg:pb-10">
         {content && (
           <>
             <h1 className="header text-center">{content.title}</h1>
