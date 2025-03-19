@@ -10,7 +10,7 @@ export const menuItems: MenuItem[] = [
         className="w-4 h-4"
       />
     ),
-    title: "Career Coach",
+    title: "Career",
     link: "/dashboard/career-coach/chat",
     href: "/dashboard/career-coach",
     contents: [],

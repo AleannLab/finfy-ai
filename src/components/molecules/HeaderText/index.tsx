@@ -75,11 +75,12 @@ const HeaderText = () => {
   const firstName = "Nieve";
   let isHome = false;
 
+  const isCareerCoach = pathname.includes("career-coach")
   const headerText = {
     home: {
       title: (
         <>
-          <span className="text-black">Hey {user?.name}!</span> <span className="text-grey">{suggest?.category || " I’m your Espen"}{suggest?.category?.slice(-1) === "!" ? "" : "."}</span>
+          <span className="text-black">Hey {user?.name}!</span> <span className="text-grey">{isCareerCoach ? "I’m your Career Coach" : suggest?.category || ` I’m your Espen`}{suggest?.category?.slice(-1) === "!" ? "" : "."}</span>
         </>
       ),
       cta: <></>,
