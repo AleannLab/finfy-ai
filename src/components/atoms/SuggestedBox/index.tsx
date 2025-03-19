@@ -75,8 +75,8 @@ const SuggestedBox: FC<SuggestBoxProps> = ({ content, label, icon, item }) => {
   return (
     <>
       <button onClick={handleClick} className="max-w-[266px] w-full h-28 p-3 bg-white flex rounded-lg border border-[#e9e9e9] flex-col justify-start items-start gap-2">
-        {!!label?.length && <div className={cn("self-stretch text-black text-sm font-semibold  leading-tight", (isTeacher || isCareerCoach) ? "min-h-[38px] max-h-[38px] overflow-hidden text-ellipsis line-clamp-2" : "")}>{icon} {label}</div>}
-        <p className={cn("text-[#666666] text-[14px] font-medium overflow-hidden leading-5", (isTeacher || isCareerCoach) ? "text-ellipsis max-h-[42px] line-clamp-2" : "text-ellipsis line-clamp-5")}>
+        {!!label?.length && <div className={cn("self-stretch text-start text-black text-sm font-semibold  leading-tight", (isTeacher || isCareerCoach) ? "min-h-[38px] max-h-[38px] overflow-hidden text-ellipsis line-clamp-2" : "")}>{icon} {label}</div>}
+        <p className={cn("text-[#666666] text-[14px] text-start font-medium overflow-hidden leading-5", (isTeacher || isCareerCoach) ? "text-ellipsis max-h-[42px] line-clamp-2" : "text-ellipsis line-clamp-5")}>
           &quot;{content}&quot;
         </p>
       </button>

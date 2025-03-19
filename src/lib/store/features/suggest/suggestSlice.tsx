@@ -609,59 +609,27 @@ export const tutorSuggestionData = [
 export const careerCoachAssistantSuggestionData = [
   {
     title: "🧭 CoachXpert",
-    text: "Guiding your career growth.",
+    text: "Get expert career advice and professional growth support.",
     category: "I’m your personal Career Coach",
     assistantId: CareerCoachAssistants.CareerXpert,
     label: "CoachXpert",
     isDefault: "true",
     suggest: [
       {
-        label: "🧭 Choosing Grade 9 Subjects",
-        content: "What subjects should I choose in Grade 9?"
+        label: "🧭 Career Paths & Interests",
+        content: "What career paths match my skills and interests?"
       },
       {
-        label: "🧭 Aligning Subjects with Careers",
-        content: "How do I align my subject choices with future career goals?"
+        label: "🧭 Improving My Resume",
+        content: "How can I improve my resume for job applications?"
       },
       {
-        label: "🧭 Preparing for FET Phase",
-        content: "How do I prepare for the transition from Grade 9 to FET?"
+        label: "🧭 Advancing My Career",
+        content: "What steps should I take to advance my career?"
       },
       {
-        label: "🧭 Creating a Study Plan",
-        content: "How can I create an effective study plan for Grade 12?"
-      },
-      {
-        label: "🧭 Exploring University Pathways",
-        content: "Which university courses align with my subjects?"
-      },
-      {
-        label: "🧭 Preparing for Bursary Applications",
-        content: "How do I get ready to apply for bursaries?"
-      },
-      {
-        label: "🧭 Setting Career Goals",
-        content: "How do I set career goals while still in school?"
-      },
-      {
-        label: "🧭 Exploring Vocational Training",
-        content: "What are the best vocational training options in South Africa?"
-      },
-      {
-        label: "🧭 Understanding TVET Colleges",
-        content: "What are TVET colleges, and should I apply?"
-      },
-      {
-        label: "🧭 Planning for High-Demand Careers",
-        content: "Which high-demand careers should I consider?"
-      },
-      {
-        label: "🧭 Finding Mentorship Opportunities",
-        content: "How can I find a mentor in my field of interest?"
-      },
-      {
-        label: "🧭 Balancing Studies and Extracurriculars",
-        content: "How do I balance my studies with sports and hobbies?"
+        label: "🧭 High-Demand Careers",
+        content: "Can you suggest high-demand careers in my field?"
       }
     ],
     content: "Your Personalized South African Career Guide.",
@@ -686,58 +654,26 @@ export const careerCoachAssistantSuggestionData = [
   {
     title: "🏫 CampusNavigator",
     label: "CampusNavigator",
-    text: "Discover your perfect school.",
+    text: "Explore and choose the right university for you.",
     category: "I’m here to help you find a place to study",
     assistantId: CareerCoachAssistants.CampusNavigator,
     isDefault: "true",
     suggest: [
       {
-        label: "Top TVET Colleges",
-        content: "How do I find a top TVET college?"
+        label: "🏫 Choosing a University",
+        content: "What factors should I consider when choosing a university?"
       },
       {
-        label: "Best Technical Universities",
-        content: "What's the best technical university in SA?"
+        label: "🏫 Affordable Universities",
+        content: "Find affordable universities for my chosen degree."
       },
       {
-        label: "Private Engineering Colleges",
-        content: "Which private colleges offer engineering courses?"
+        label: "🏫 TVET vs University",
+        content: "How do TVET colleges compare to universities in terms of career opportunities?"
       },
       {
-        label: "TVET College Application",
-        content: "How do I apply to a TVET college?"
-      },
-      {
-        label: "University vs TVET",
-        content: "What's the difference between universities and TVET colleges?"
-      },
-      {
-        label: "Study Graphic Design",
-        content: "Where can I study graphic design in SA?"
-      },
-      {
-        label: "Public vs Private Colleges",
-        content: "How do I choose between public and private colleges?"
-      },
-      {
-        label: "Online Degree Programs",
-        content: "Which universities offer online degree programs?"
-      },
-      {
-        label: "Find Right Campus",
-        content: "How do I find the right campus for me?"
-      },
-      {
-        label: "Top Business Schools",
-        content: "What are the top-rated business schools in South Africa?"
-      },
-      {
-        label: "Evening Classes",
-        content: "Which universities offer evening classes?"
-      },
-      {
-        label: "Local University Scholarships",
-        content: "How do I find scholarships for local universities?"
+        label: "🏫 Private vs Public Institutions",
+        content: "What are the key differences between private institutions and universities?"
       }
     ],
     content: "Discover Your Future Career Path",
@@ -761,7 +697,7 @@ export const careerCoachAssistantSuggestionData = [
   },
   {
     title: "📖 PersonalityQuiz",
-    text: "Pursue the ideal courses.",
+    text: "Uncover your personality type and find the best career path.",
     category: "courses",
     assistantId: CareerCoachAssistants.PersonalityQuiz,
     label: "PersonalityQuiz",
@@ -770,36 +706,20 @@ export const careerCoachAssistantSuggestionData = [
     icon: "📚",
     suggest: [
       {
-        label: "📚 Discover My Personality",
-        content: "Can you help me discover my personality type before we dive into career suggestions?"
+        label: "📖 Take the Quiz",
+        content: "Take the quiz and uncover what makes you unique!"
       },
       {
-        label: "📚 Start My Personality Assessment",
-        content: "I’d like to start the personality assessment to learn more about myself. How do I begin?"
+        label: "📖 Careers & Personality",
+        content: "Which careers match my personality type?"
       },
       {
-        label: "📚 What’s My Personality Type?",
-        content: "Can you help me find out my personality type first? I want to see how it affects my study habits."
+        label: "📖 Strengths & Career Match",
+        content: "Suggest a career based on my strengths and interests."
       },
       {
-        label: "📚 Take the Quiz for Personal Insights",
-        content: "Could you guide me through the personality quiz? I’m curious about my strengths and weaknesses."
-      },
-      {
-        label: "📚 Identify My Core Traits",
-        content: "I want to know my core personality traits. Can I start with an assessment?"
-      },
-      {
-        label: "📚 Discover Career Paths for My Personality",
-        content: "Can you help me identify my personality type first, so I can see which careers might fit me?"
-      },
-      {
-        label: "📚 Find Subjects that Match My Personality",
-        content: "Can I take the personality assessment to see which school subjects might be a good match for me?"
-      },
-      {
-        label: "📚 Get Started with Self-Discovery",
-        content: "I’m ready to explore my personality type and see how it can help with my career goals. Can we start the quiz?"
+        label: "📖 University Majors & Personality",
+        content: "Which university majors suit an analytical thinker?"
       }
     ],
 
@@ -823,61 +743,29 @@ export const careerCoachAssistantSuggestionData = [
   {
     label: "BursaryFinder",
     title: "🎓 BursaryFinder",
-    text: "Unlock scholarships for you.",
+    text: "Find scholarships and financial aid opportunities.",
     category: "I’m here to help you find bursaries             ",
     assistantId: CareerCoachAssistants.BursaryFinder,
     isDefault: "true",
     suggest: [
       {
-        label: "2024 Bursaries",
-        content: "Where can I find bursaries for 2024?"
+        label: "🎓 Available Scholarships",
+        content: "What scholarships are available for my field of study?"
       },
       {
-        label: "SA Bursaries",
-        content: "Which companies offer bursaries in South Africa?"
+        label: "🎓 Applying for Bursaries",
+        content: "How can I apply for bursaries in South Africa?"
       },
       {
-        label: "Bursary Application",
-        content: "How do I apply for a bursary?"
+        label: "🎓 Scholarships for International Students",
+        content: "Find scholarships for international students in my country."
       },
       {
-        label: "First-Year Bursaries",
-        content: "Are there bursaries for first-year students?"
-      },
-      {
-        label: "Study Abroad Bursaries",
-        content: "Can I get a bursary for studying abroad?"
-      },
-      {
-        label: "Engineering Bursaries",
-        content: "What bursaries are available for engineering?"
-      },
-      {
-        label: "Bursary Motivation Letter",
-        content: "How do I write a bursary motivation letter?"
-      },
-      {
-        label: "Postgrad Bursaries",
-        content: "Are there bursaries for postgraduate studies?"
-      },
-      {
-        label: "Field-Specific Bursaries",
-        content: "How can I get a bursary for my field?"
-      },
-      {
-        label: "Bursary Deadlines",
-        content: "When is the deadline for bursary applications?"
-      },
-      {
-        label: "Rural Bursaries",
-        content: "Are there bursaries for rural students?"
-      },
-      {
-        label: "Women in STEM",
-        content: "What bursaries are available for women in STEM?"
+        label: "🎓 Postgraduate Funding",
+        content: "Are there funding options for postgraduate studies?"
       }
     ],
-    content: "Where can I find bursaries for 2024?",
+    content: "Where can I find bursaries for 2025?",
     icon: "🎓",
     instructions: `System settings:
       Tool use: enabled.
@@ -1677,357 +1565,150 @@ export const tutor = [
 export const careerCoach = [
   {
     title: "🧭 CoachXpert",
-    text: "Guiding your career growth.",
+    text: "Get expert career advice and professional growth support.",
     category: "I’m your personal Career Coach",
     assistantId: CareerCoachAssistants.CareerXpert,
     suggest: [
       {
-        label: "🧭 Choosing Grade 9 Subjects",
-        content: "What subjects should I choose in Grade 9?"
+        label: "🧭 Career Paths & Interests",
+        content: "What career paths match my skills and interests?"
       },
       {
-        label: "🧭 Aligning Subjects with Careers",
-        content: "How do I align my subject choices with future career goals?"
+        label: "🧭 Improving My Resume",
+        content: "How can I improve my resume for job applications?"
       },
       {
-        label: "🧭 Preparing for FET Phase",
-        content: "How do I prepare for the transition from Grade 9 to FET?"
+        label: "🧭 Advancing My Career",
+        content: "What steps should I take to advance my career?"
       },
       {
-        label: "🧭 Creating a Study Plan",
-        content: "How can I create an effective study plan for Grade 12?"
-      },
-      {
-        label: "🧭 Exploring University Pathways",
-        content: "Which university courses align with my subjects?"
-      },
-      {
-        label: "🧭 Preparing for Bursary Applications",
-        content: "How do I get ready to apply for bursaries?"
-      },
-      {
-        label: "🧭 Setting Career Goals",
-        content: "How do I set career goals while still in school?"
-      },
-      {
-        label: "🧭 Exploring Vocational Training",
-        content: "What are the best vocational training options in South Africa?"
-      },
-      {
-        label: "🧭 Understanding TVET Colleges",
-        content: "What are TVET colleges, and should I apply?"
-      },
-      {
-        label: "🧭 Planning for High-Demand Careers",
-        content: "Which high-demand careers should I consider?"
-      },
-      {
-        label: "🧭 Finding Mentorship Opportunities",
-        content: "How can I find a mentor in my field of interest?"
-      },
-      {
-        label: "🧭 Balancing Studies and Extracurriculars",
-        content: "How do I balance my studies with sports and hobbies?"
+        label: "🧭 High-Demand Careers",
+        content: "Can you suggest high-demand careers in my field?"
       }
     ]
   },
   {
     title: "🎓 BursaryFinder",
-    text: "Unlock scholarships for you.",
-    category: "I’m here to help you find bursaries             ",
+    text: "Find scholarships and financial aid opportunities.",
+    category: "I’m here to help you find bursaries",
     assistantId: CareerCoachAssistants.BursaryFinder,
     suggest: [
       {
-        label: "2024 Bursaries",
-        content: "Where can I find bursaries for 2024?"
+        label: "🎓 Available Scholarships",
+        content: "What scholarships are available for my field of study?"
       },
       {
-        label: "SA Bursaries",
-        content: "Which companies offer bursaries in South Africa?"
+        label: "🎓 Applying for Bursaries",
+        content: "How can I apply for bursaries in South Africa?"
       },
       {
-        label: "Bursary Application",
-        content: "How do I apply for a bursary?"
+        label: "🎓 Scholarships for International Students",
+        content: "Find scholarships for international students in my country."
       },
       {
-        label: "First-Year Bursaries",
-        content: "Are there bursaries for first-year students?"
-      },
-      {
-        label: "Study Abroad Bursaries",
-        content: "Can I get a bursary for studying abroad?"
-      },
-      {
-        label: "Engineering Bursaries",
-        content: "What bursaries are available for engineering?"
-      },
-      {
-        label: "Bursary Motivation Letter",
-        content: "How do I write a bursary motivation letter?"
-      },
-      {
-        label: "Postgrad Bursaries",
-        content: "Are there bursaries for postgraduate studies?"
-      },
-      {
-        label: "Field-Specific Bursaries",
-        content: "How can I get a bursary for my field?"
-      },
-      {
-        label: "Bursary Deadlines",
-        content: "When is the deadline for bursary applications?"
-      },
-      {
-        label: "Rural Bursaries",
-        content: "Are there bursaries for rural students?"
-      },
-      {
-        label: "Women in STEM",
-        content: "What bursaries are available for women in STEM?"
+        label: "🎓 Postgraduate Funding",
+        content: "Are there funding options for postgraduate studies?"
       }
     ]
   },
   {
     title: "🏫 CampusNavigator",
-    text: "Discover your perfect school.",
+    text: "Explore and choose the right university for you.",
     category: "I’m here to help you find a place to study",
     assistantId: CareerCoachAssistants.CampusNavigator,
     suggest: [
       {
-        label: "Top TVET Colleges",
-        content: "How do I find a top TVET college?"
+        label: "🏫 Choosing a University",
+        content: "What factors should I consider when choosing a university?"
       },
       {
-        label: "Best Technical Universities",
-        content: "What's the best technical university in SA?"
+        label: "🏫 Affordable Universities",
+        content: "Find affordable universities for my chosen degree."
       },
       {
-        label: "Private Engineering Colleges",
-        content: "Which private colleges offer engineering courses?"
+        label: "🏫 TVET vs University",
+        content: "How do TVET colleges compare to universities in terms of career opportunities?"
       },
       {
-        label: "TVET College Application",
-        content: "How do I apply to a TVET college?"
-      },
-      {
-        label: "University vs TVET",
-        content: "What's the difference between universities and TVET colleges?"
-      },
-      {
-        label: "Study Graphic Design",
-        content: "Where can I study graphic design in SA?"
-      },
-      {
-        label: "Public vs Private Colleges",
-        content: "How do I choose between public and private colleges?"
-      },
-      {
-        label: "Online Degree Programs",
-        content: "Which universities offer online degree programs?"
-      },
-      {
-        label: "Find Right Campus",
-        content: "How do I find the right campus for me?"
-      },
-      {
-        label: "Top Business Schools",
-        content: "What are the top-rated business schools in South Africa?"
-      },
-      {
-        label: "Evening Classes",
-        content: "Which universities offer evening classes?"
-      },
-      {
-        label: "Local University Scholarships",
-        content: "How do I find scholarships for local universities?"
+        label: "🏫 Private vs Public Institutions",
+        content: "What are the key differences between private institutions and universities?"
       }
     ]
   },
   {
     title: "🔍 CareerExplorer",
-    text: "Find your passion, shape future.",
-    category: " I’m here to help you discover careers",
+    text: "Discover careers that match your skills and interests.",
+    category: "I’m here to help you discover careers",
     assistantId: CareerCoachAssistants.CareerExplorer,
     suggest: [
       {
-        label: "Careers in Demand",
-        content: "What careers are in demand in South Africa?"
+        label: "🔍 Careers for Problem-Solvers",
+        content: "What careers are best for someone who loves problem-solving?"
       },
       {
-        label: "Explore Career Options",
-        content: "How do I explore different career options?"
+        label: "🔍 Jobs for Creatives & Analysts",
+        content: "Suggest jobs for a creative and analytical thinker."
       },
       {
-        label: "Emerging SA Careers",
-        content: "What are emerging careers in SA?"
+        label: "🔍 Growing Industries",
+        content: "What industries are growing and have good job opportunities?"
       },
       {
-        label: "Find Your Passion",
-        content: "How do I find my passion?"
-      },
-      {
-        label: "Creative Careers",
-        content: "What's a good career for creatives?"
-      },
-      {
-        label: "Top-Paying Careers",
-        content: "Which careers pay the most in SA?"
-      },
-      {
-        label: "Renewable Energy Careers",
-        content: "How can I start a career in renewable energy?"
-      },
-      {
-        label: "Introvert-Friendly Careers",
-        content: "What's the best career for introverts?"
-      },
-      {
-        label: "Become a Data Scientist",
-        content: "How do I become a data scientist?"
-      },
-      {
-        label: "Helping Professions",
-        content: "What careers suit someone who loves helping others?"
-      },
-      {
-        label: "Career Trends",
-        content: "What are the top career trends in SA?"
-      },
-      {
-        label: "Start in AI",
-        content: "How do I start a career in AI?"
+        label: "🔍 Career & Personality Fit",
+        content: "Help me find a career that fits my personality."
       }
     ]
   },
   {
     title: "📖 PersonalityQuiz",
-    text: "Pursue the ideal courses.",
+    text: "Uncover your personality type and find the best career path.",
     category: "I'm here to help you discover your personality type and align it with the best career path for you",
     assistantId: CareerCoachAssistants.PersonalityQuiz,
     suggest: [
       {
-        label: "📚 Discover My Personality",
-        content: "Can you help me discover my personality type before we dive into career suggestions?"
+        label: "📖 Take the Quiz",
+        content: "Take the quiz and uncover what makes you unique!"
       },
       {
-        label: "📚 Start My Personality Assessment",
-        content: "I’d like to start the personality assessment to learn more about myself. How do I begin?"
+        label: "📖 Careers & Personality",
+        content: "Which careers match my personality type?"
       },
       {
-        label: "📚 What’s My Personality Type?",
-        content: "Can you help me find out my personality type first? I want to see how it affects my study habits."
+        label: "📖 Strengths & Career Match",
+        content: "Suggest a career based on my strengths and interests."
       },
       {
-        label: "📚 Take the Quiz for Personal Insights",
-        content: "Could you guide me through the personality quiz? I’m curious about my strengths and weaknesses."
-      },
-      {
-        label: "📚 Identify My Core Traits",
-        content: "I want to know my core personality traits. Can I start with an assessment?"
-      },
-      {
-        label: "📚 Discover Career Paths for My Personality",
-        content: "Can you help me identify my personality type first, so I can see which careers might fit me?"
-      },
-      {
-        label: "📚 Find Subjects that Match My Personality",
-        content: "Can I take the personality assessment to see which school subjects might be a good match for me?"
-      },
-      {
-        label: "📚 Get Started with Self-Discovery",
-        content: "I’m ready to explore my personality type and see how it can help with my career goals. Can we start the quiz?"
+        label: "📖 University Majors & Personality",
+        content: "Which university majors suit an analytical thinker?"
       }
-    ],
+    ]
   },
   {
     title: "🏛 SubjectWise",
-    text: "Helping You Choose the Right Subjects, for Your Dream Career",
-    category: "Hi Niev! I'm here to guide you through your Grade 10 subject selection and help you make the best choices for your future. Let’s get started!",
+    text: "Pick the right subjects for your career goals.",
+    category: "I'm here to guide you through your Grade 10 subject selection and help you make the best choices for your future.",
     assistantId: CareerCoachAssistants.SubjectWise,
     suggest: [
       {
-        label: "🏛 Top Tips for Subject Selection",
-        content: "How do I decide which subjects to choose?"
+        label: "🏛 Engineering Subjects",
+        content: "What high school subjects should I take for engineering?"
       },
       {
-        label: "🏛 Best Subjects for My Career",
-        content: "Which subjects should I choose to become an engineer?"
+        label: "🏛 Medicine-Related Subjects",
+        content: "Which subjects are essential for a career in medicine?"
       },
       {
-        label: "🏛 Choosing Between Math Options",
-        content: "Should I take Pure Mathematics or Mathematical Literacy?"
+        label: "🏛 Subjects for Law",
+        content: "Help me choose the best subjects for law school."
       },
       {
-        label: "🏛 Personality-Based Subjects",
-        content: "Which subjects align with my personality type?"
-      },
-      {
-        label: "🏛 University Entry Requirements",
-        content: "What subjects are required for university admission in South Africa?"
-      },
-      {
-        label: "🏛 Exploring Elective Options",
-        content: "Which electives should I take if I enjoy science and technology?"
-      },
-      {
-        label: "🏛 Balancing Grades and Interests",
-        content: "How do I pick subjects I like and also perform well in?"
-      },
-      {
-        label: "🏛 Subjects for a Creative Career",
-        content: "What are the best subjects for a career in the arts?"
-      },
-      {
-        label: "🏛 Career Opportunities with Math Literacy",
-        content: "What careers are possible with Mathematical Literacy?"
-      },
-      {
-        label: "🏛 Changing My Subject Choices",
-        content: "Can I change my subjects after starting Grade 10?"
-      },
-      {
-        label: "🏛 Impact of Subject Choices",
-        content: "How will my subject choices affect my career options?"
-      },
-      {
-        label: "🏛 Subjects for Medical Careers",
-        content: "What subjects should I choose to become a doctor?"
-      },
-      {
-        label: "🏛 Importance of Life Sciences",
-        content: "Why is Life Sciences important for my career?"
-      },
-      {
-        label: "🏛 Subject Choices for Law",
-        content: "Which subjects are best for pursuing a career in law?"
-      },
-      {
-        label: "🏛 Business-Focused Subjects",
-        content: "What subjects should I take if I want to start my own business?"
-      },
-      {
-        label: "🏛 Subjects for Engineering Pathways",
-        content: "Which subjects will help me get into engineering?"
-      },
-      {
-        label: "🏛 Math Requirements for Careers",
-        content: "What careers require Pure Mathematics?"
-      },
-      {
-        label: "🏛 Balancing Practical and Academic Goals",
-        content: "What subjects are best if I want both a degree and practical skills?"
-      },
-      {
-        label: "🏛 Subjects for Creative Industries",
-        content: "What subjects should I take for a career in design or media?"
-      },
-      {
-        label: "🏛 Exploring Geography as a Subject",
-        content: "What careers can I pursue with Geography as a subject?"
+        label: "🏛 Versatile Subject Choices",
+        content: "What subjects will give me the most career options?"
       }
     ]
   }
 ];
+
 
 export const teacher = [
   {

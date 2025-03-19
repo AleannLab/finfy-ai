@@ -145,6 +145,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();
+  const isCareerCoach = pathname.includes("career-coach")
 
   const [assistActionOpenState, setAssisitActionOpenState] = useState<AssistAction | null>(null);
   const [tool, setTool] = useState<any>(null);
@@ -358,7 +359,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             )
             : (<div className="flex items-center h-fit text-[#666]">
               <Icon type="LightningBolt" className="text-[#666]" />
-              <p className="text-base">Suggestions</p>
+              <p className="text-base">{isCareerCoach ? "Featured assistants" : "Suggestions"}</p>
             </div>
             )}
           {(isOn && isTutor) && <HomeSuggestWithTools prompt={prompt} label={tool} icon={suggest} assistantId={suggest?.assistantId} />}
