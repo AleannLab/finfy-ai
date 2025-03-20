@@ -37,10 +37,10 @@ const FocusAssistantOption: FC<FocusAssistantOptionProps> = ({
   return (
     <button
       onClick={handleClick}
-      className={cn("flex flex-col gap-2 items-start hover:bg-[#ECECEC] p-2 rounded-md", item?.assistantId ? "opacity-100" : " opacity-20")}
+      className={cn("flex flex-col gap-2 max-w-[230px] items-start hover:bg-[#ECECEC] p-2 rounded-md", item?.assistantId ? "opacity-100" : " opacity-20")}
     >
       <h3 className="text-[#000] font-semibold text-sm text-start">{title}</h3>
-      <p className=" text-[#666666] text-xs font-medium text-start">&quot;{text}&quot;</p>
+      <p className=" text-[#666666] overflow-hidden max-h-[32px] text-ellipsis line-clamp-2 text-xs font-medium text-start">&quot;{text}&quot;</p>
     </button>
   );
 };
