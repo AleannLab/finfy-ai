@@ -46,11 +46,11 @@ const HomeSuggestWithTools = ({prompt, assistantId, icon, label}: any) => {
 
 
   return (
-    <div className="w-full relative max-w-[1106px] mt-3 p-1">
+    <div className="w-full relative max-w-[1106px]">
       {/* <div className="w-full overflow-hidden lg:hidden">
         <Swiper
           className="w-[100vw]  md:min-w-0 max-w-[calc(100%)] min-w-[672px]"
-          spaceBetween={16}
+          spaceBetween={10}
           loop={true}
           slidesPerView={isLgScreen ? 4 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
@@ -71,7 +71,7 @@ const HomeSuggestWithTools = ({prompt, assistantId, icon, label}: any) => {
       <div className="w-full max-w-[1050px] overflow-hidden">
         <Swiper
           className={cn("w-full min-w-[672px] ")}
-          spaceBetween={16}
+          spaceBetween={10}
           loop={true}
           slidesPerView={isLgScreen ? 4 : 3}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}

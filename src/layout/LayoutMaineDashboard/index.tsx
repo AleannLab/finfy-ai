@@ -225,6 +225,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
   const isTeacher = pathname.includes("teacher") && !!0 //disable teacher
   const isTutor = pathname.includes("tutor")
 
+
   // const tools = [
   //   { icon: "🏆", label: "Exam Mastery", content: "Want to practice real past math papers? I’ll grade your answers, provide feedback based on official marking guidelines, and help you strengthen your skills!", toolsId: "exam_mastery" },
   //   { icon: "📸", label: "Homework Hero", content: "Stuck on a tricky math problem? Take a photo, and I’ll guide you step by step to the correct solution.", toolsId: "homework_hero" },
@@ -299,7 +300,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
             />
           </>)}
           {isTutor && (<>
-            <div className="max-w-[1050px] w-full h-9 justify-between items-center inline-flex">
+            <div className="max-w-[1050px] mb-6 w-full h-5 justify-between items-center inline-flex">
               <div className="justify-start items-center gap-1 flex">
                 <div data-svg-wrapper className="relative">
                   <Icon type="LightningBolt" className="text-[#666]" />
@@ -326,7 +327,7 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
           </>)}
           {(isTeacher || isTutor) ?
             (
-              <div className="max-w-[1050px] w-full mt-6 mb-2 justify-between gap-6 md:items-center flex-col-reverse md:flex-row flex">
+              <div className="max-w-[1050px] w-full mt-5 mb-2 justify-between gap-6 md:items-center flex-col-reverse md:flex-row flex">
                 <div className="justify-start items-center gap-2 flex">
                   <ToggleSwitch disable={!tool} isOn={isOn} setIsOn={setIsOn} />
                   <div className={cn("justify-start items-center gap-1 flex", !tool ? "opacity-60" : "")}>
@@ -357,14 +358,14 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
                 </div>
               </div>
             )
-            : (<div className="flex items-center h-fit text-[#666]">
+            : (<div className="flex items-center mb-4 h-fit text-[#666]">
               <Icon type="LightningBolt" className="text-[#666]" />
-              <p className="text-base">{isCareerCoach ? "Featured assistants" : "Suggestions"}</p>
+              <p className="text-base">{(isCareerCoach && !suggest?.title) ? "Featured assistants" : "Suggestions"}</p>
             </div>
             )}
           {(isOn && isTutor) && <HomeSuggestWithTools prompt={prompt} label={tool} icon={suggest} assistantId={suggest?.assistantId} />}
           {(!isTutor) && <HomeSuggestBoxes />}
-          <div className="mt-6 mb-3">
+          <div className="mt-4 mb-3">
             <ChatMessageInput disable={(!tool && !isMessages && isTutor)} isDark={false} assistActionOpenState={assistActionOpenState} setAssistActionOpenState={setAssisitActionOpenState} />
           </div>
           <footer className="max-w-[372px] w-full mx-auto mt-auto text-center text-black text-sm font-medium leading-normal">Espen can make mistakes. Check important info.</footer>
