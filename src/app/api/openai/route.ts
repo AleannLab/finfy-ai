@@ -329,7 +329,7 @@ export async function POST(req: NextRequest) {
       console.log("Vector stores found!", getVectorStoreId(assistantId)?.[0]);
       const updateResponse = await openai.beta.assistants.update(assistantId, (getVectorStoreId(assistantId)?.length ? {
         tool_resources: { file_search: { vector_store_ids: getVectorStoreId(assistantId) } },
-        instructions: "Please search for answers in the vector store first before responding.",
+        // instructions: "Please search for answers in the vector store first before responding.",
         tools: [{ type: "file_search" }]
       } : {
 
