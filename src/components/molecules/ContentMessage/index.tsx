@@ -426,6 +426,7 @@ const ContentMessage: FC<ContentMessageProps> = ({
       });
 
       text = text.replace(/\\\[(.*?)\\\]/gs, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
+      text = text.replace(/【.*?】/gs, "");
       text = text.replace(/\\\((.*?)\\\)/g, (_, formula: string) => ` $$ ${formula.trim()} $$ `);
       text = text.replace(/\$\$\s+/g, '$$ ').replace(/\s+\$\$/g, ' $$');
       text = text.replace(/\s*(\$\$)\s*([.:])/g, '$1$2');
