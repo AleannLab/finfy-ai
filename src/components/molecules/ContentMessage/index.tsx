@@ -141,6 +141,9 @@ const ContentMessage: FC<ContentMessageProps> = ({
         </table>
       </div>
     ),
+    img: ({ node, ...props }: any) => {
+      return <></>;
+    },
     a: ({ children, node }: any) => {
       const href = node?.properties?.href || '#';
 
