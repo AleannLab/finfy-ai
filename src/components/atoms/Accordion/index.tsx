@@ -36,25 +36,6 @@ const AccordionTrigger = React.forwardRef<
 
 
   const onClick = () => {
-
-    if (pathname.includes('tutor')) {
-      dispatch(setFocusSuggests(tutor))
-      dispatch(setSuggest(defaultTutor))
-      dispatch(setSuggests(tutorSuggestionData))
-      dispatch(setSuggests(focusData?.[0]?.suggest));
-      dispatch(setSuggest(focusData?.[0]))
-    }
-    if (pathname.includes('career-coach')) {
-      dispatch(setFocusSuggests(careerCoach))
-      dispatch(setSuggest(defaultCareerCoachAssistant))
-      dispatch(setSuggests(careerCoachAssistantSuggestionData))
-
-    }
-    if (pathname.includes('teacher')) {
-      dispatch(setFocusSuggests(teacher))
-      dispatch(setSuggest(defaultTeacher))
-      dispatch(setSuggests(teacherSuggestionData))
-    }
   }
   return (
   <AccordionPrimitive.Header onClick={onClick} className="flex items-center max-w-full ">

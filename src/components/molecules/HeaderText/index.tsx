@@ -158,26 +158,6 @@ const HeaderText = () => {
     isHome = true;
   }
 
-  useEffect(() => {
-    if (pathname.includes('tutor')) {
-      dispatch(setFocusSuggests(tutor))
-      dispatch(setSuggest(defaultTutor))
-      dispatch(setSuggests(tutorSuggestionData))
-      // dispatch(setSuggests(focusData?.[0]?.suggest));
-      // dispatch(setSuggest(focusData?.[0]))
-    }
-    if (pathname.includes('career-coach')) {
-      dispatch(setFocusSuggests(careerCoach))
-      dispatch(setSuggest(defaultCareerCoachAssistant))
-      dispatch(setSuggests(careerCoachAssistantSuggestionData))
-    }
-    if (pathname.includes('teacher')) {
-      dispatch(setFocusSuggests(teacher))
-      dispatch(setSuggest(defaultTeacher))
-      dispatch(setSuggests(teacherSuggestionData))
-    }
-  }, [pathname])
-
   return (
     <div className="h-full lg:h-max">
       {open && <div className="fixed z-20 opacity-70 top-0 bottom-0 left-0 right-0 bg-white" />}

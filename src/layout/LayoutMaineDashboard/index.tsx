@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { setMessages } from "@/lib/store/features/chat/chatSlice";
 import { AssistAction } from "../LayoutDashboard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { careerCoach, setPrompt, setSuggest, setSuggests, teacher, tutor } from "@/lib/store/features/suggest/suggestSlice";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, setPrompt, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor } from "@/lib/store/features/suggest/suggestSlice";
 import { HomeSlides } from "@/components/molecules/HomeSlides";
 import { typeCatagories } from "@/lib/constants";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -140,7 +140,7 @@ const ToggleSwitch = ({ isOn, setIsOn, disable }: { isOn: boolean, setIsOn: any,
 interface LayoutDashboardProps extends PropsWithChildren { }
 
 const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
-  const { messages, isLoading, streamMessage } = useChat();
+  const { isLoading, streamMessage } = useChat();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -165,11 +165,13 @@ const LayoutMaineDashboard: FC<LayoutDashboardProps> = ({ children }) => {
       dispatch(setSuggest(tutor?.[0]))
     }
     if (pathname.includes('career-coach')) {
-
+      dispatch(setSuggest(defaultCareerCoachAssistant))
+      dispatch(setSuggests(careerCoachAssistantSuggestionData))
     }
     if (pathname.includes('teacher')) {
-
-    }
+      dispatch(setSuggest(defaultTeacher))
+      dispatch(setSuggests(teacherSuggestionData))
+   }
   }, [pathname, dispatch])
 
   useEffect(() => {

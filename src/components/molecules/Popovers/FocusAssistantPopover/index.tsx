@@ -1,10 +1,11 @@
 "use client";
 
 import { Popover } from "@/components/atoms";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect } from "react";
 import { FocusAssistantOption } from "@/components/molecules";
-import { useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { usePathname } from "next/navigation";
+import { careerCoach, careerCoachAssistantSuggestionData, defaultCareerCoachAssistant, defaultTeacher, defaultTutor, setFocusSuggests, setSuggest, setSuggests, teacher, teacherSuggestionData, tutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 
 interface FocusAssistantPopoverProps extends PropsWithChildren { onOpenChange?: any, open: boolean }
 
@@ -18,6 +19,21 @@ const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
   const isTutor = pathname.includes("tutor")
   const isTeacher = pathname.includes("teacher")
   const isCareer = pathname.includes("career-coach")
+  const dispatch = useAppDispatch();
+
+
+  useEffect(() => {
+    if (pathname.includes('tutor')) {
+      dispatch(setFocusSuggests(tutor))
+    }
+    if (pathname.includes('career-coach')) {
+      dispatch(setFocusSuggests(careerCoach))
+    }
+    if (pathname.includes('teacher')) {
+      dispatch(setFocusSuggests(teacher))
+    }
+  }, [pathname])
+  
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <Popover.Trigger className="!z-[80]">{children}</Popover.Trigger>
