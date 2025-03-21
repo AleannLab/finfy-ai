@@ -8,10 +8,10 @@ type Tool = {
 export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<string, Record<string, string[]>> }> = {
     mathematics: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Want to practice real past math papers? I’ll grade your answers, provide feedback based on official marking guidelines, and help you strengthen your skills!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Stuck on a tricky math problem? Take a photo, and I’ll guide you step by step to the correct solution.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Struggling with calculus, algebra, or statistics? I’ll break them down into easy-to-follow steps, ensuring you understand every detail. Plus, I’ll track your progress and create a personalized study plan to help you improve!", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Math Notes Generator", content: "I’ll generate customized study notes based on your topics, making revision easier and more effective!", toolsId: "math_notes" }
+            { icon: "🏆", label: "Exam Mastery", content: "Practice past Math papers with feedback", toolsId: "exam_mastery" },
+            { icon: "📸", label: "Homework Hero", content: "Solve math problems with step-by-step help", toolsId: "homework_hero" },
+            { icon: "🎯", label: "Tutor Me", content: "Get expert help on any math topic", toolsId: "ai_tutoring" },
+            { icon: "✍️", label: "Smart Notes", content: "Custom Math study notes for better revision", toolsId: "math_notes" }
         ],
         prompts: {
             exam_mastery: {
@@ -98,10 +98,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     physical_sciences: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Want to tackle real NSC past Physical Sciences papers? I’ll grade your responses, offer feedback aligned with official marking schemes, and boost your exam readiness!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Stuck on a challenging Physics or Chemistry problem? Snap a photo, and I'll guide you step by step to the solution with clear explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Struggling with mechanics, electricity, or waves? I'll simplify complex topics into manageable steps, ensuring you understand completely, while tracking your progress and tailoring a study plan just for you!", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "I'll craft personalized study notes based on your chosen topics, making your Physical Sciences revision efficient and focused!", toolsId: "science_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Tackle past Physical Sciences papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help for Physics & Chemistry",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Get clear, structured explanations for any science topic.",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Craft personalized study notes for revision.",
+                toolsId: "science_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -188,10 +208,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     economics: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Ready to ace Economics past exam papers? I'll provide detailed grading and feedback based on official marking guidelines to enhance your exam preparedness!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Facing a tough Economics problem? Snap a photo, and I'll walk you through the solution with clear, step-by-step explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Having trouble with microeconomics, macroeconomics, or economic indicators? I'll break down complex concepts into easy steps, track your learning, and customize a study plan for you!", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "I'll create personalized notes for your selected Economics topics, making your study sessions more focused and efficient!", toolsId: "economics_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past Economics papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with Economics problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key Economics concepts with ease",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized Economics notes for revision",
+                toolsId: "economics_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -278,10 +318,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     mathematical_literacy: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Dive into real past Mathematical Literacy exam papers. I'll evaluate your responses, provide feedback using official marking schemes and enhance your confidence for exam success!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Encountering a tricky Mathematical Literacy problem? Just snap a photo, and I'll guide you through a step-by-step solution with clear, understandable explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Stuck on challenging Mathematical Literacy concepts like finance systems or measurement? I'll break down these topics into simple steps, ensuring thorough understanding, while tracking your progress and tailoring a study plan for your needs.", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "Allow me to create personalized study notes based on your specific Mathematical Literacy topics, making your revision effective and targeted to what you need most.", toolsId: "math_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with Math Lit problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key Math Lit concepts with ease",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes Generator",
+                content: "Create personalized study notes for revision",
+                toolsId: "math_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -368,10 +428,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     accounting: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Struggling with Accounting test papers? I'll assess your responses, provide feedback aligned with official guidelines, and elevate your exam performance!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Facing a difficult Accounting problem? Snap a photo, and I'll walk you through it with step-by-step guidance and detailed explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Need help with accruals, depreciation, or ratio analysis? I'll break down complex topics into easy steps, track your progress, and customize a study plan just for you!", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "I'll create personalized notes on your chosen Accounting topics, making your revision targeted and effective!", toolsId: "accounting_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past Accounting papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with Accounting problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key Accounting concepts with ease",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized Accounting notes for revision",
+                toolsId: "accounting_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -458,10 +538,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     business_studies: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Ready to ace your Business Studies tests? I'll assess your responses to past papers, provide feedback using official marking guidelines, and enhance your exam skills!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Facing a challenging business problem? Upload a photo, and I'll walk you through it step-by-step with clear, concise explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Need help with entrepreneurship, financial management, or market analysis? I'll break down complex topics into simple steps, ensuring you fully grasp each concept while tailoring a study plan to fit your needs!", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "Want focused Business Studies revision? I'll create personalized study notes on your chosen topics, making your study sessions efficient and effective!", toolsId: "business_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Tackle past Business Studies papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with business problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Clear, simple explanations for any business topic",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized study notes for revision",
+                toolsId: "business_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -548,10 +648,30 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     },
     geography: {
         tools: [
-            { icon: "🏆", label: "Exam Mastery", content: "Eager to excel using real past Geography papers? I'll evaluate your answers, provide feedback using official marking guidelines, and enhance your exam preparedness!", toolsId: "exam_mastery" },
-            { icon: "📸", label: "Homework Hero", content: "Encountered a tough Geography problem? Snap a photo, and I'll guide you through the solution with clear, step-by-step explanations.", toolsId: "homework_hero" },
-            { icon: "🎯", label: "AI-Powered Personalized Tutoring", content: "Struggling with geomorphology, population dynamics, or climate change? I'll break down complex topics into easy-to-understand steps, track your progress, and customize a study plan tailored to you.", toolsId: "ai_tutoring" },
-            { icon: "✍️", label: "Smart Study Notes Generator", content: "I'll create personalized study notes based on your selected Geography topics, ensuring your revision is efficient and targeted!", toolsId: "geo_notes" }
+            {
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Tackle past Geography papers with feedback",
+                toolsId: "exam_mastery"
+            },
+            {
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with Geography problems",
+                toolsId: "homework_hero"
+            },
+            {
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand Geography topics quickly and clearly",
+                toolsId: "ai_tutoring"
+            },
+            {
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized Geography notes for revision",
+                toolsId: "geo_notes"
+            }
         ],
         prompts: {
             exam_mastery: {
@@ -639,28 +759,28 @@ export const subjectsData: Record<string, { tools: Tool[]; prompts: Record<strin
     life_sciences: {
         tools: [
             {
-                "icon": "🏆",
-                "label": "Exam Mastery",
-                "content": "Ready to excel in Life Sciences tests and exams? I'll assess your responses to real past papers, provide detailed feedback using official marking guidelines, and help you achieve exam success!",
-                "toolsId": "exam_mastery"
+                icon: "🏆",
+                label: "Exam Mastery",
+                content: "Practice past Life Science papers with feedback",
+                toolsId: "exam_mastery"
             },
             {
-                "icon": "📸",
-                "label": "Homework Hero",
-                "content": "Facing a tricky Life Sciences question? Snap a photo, and I'll walk you through the solution step by step, clarifying key concepts along the way.",
-                "toolsId": "homework_hero"
+                icon: "📸",
+                label: "Homework Hero",
+                content: "Get step-by-step help with Life Sciences problems",
+                toolsId: "homework_hero"
             },
             {
-                "icon": "🎯",
-                "label": "AI-Powered Personalized Tutoring",
-                "content": "Having difficulty with genetics, reproduction, or ecology? I'll break down complex topics into clear, manageable steps, track your learning progress, and create a customized study plan just for you.",
-                "toolsId": "ai_tutoring"
+                icon: "🎯",
+                label: "Tutor Me",
+                content: "Understand key Life Sciences concepts with ease",
+                toolsId: "ai_tutoring"
             },
             {
-                "icon": "✍️",
-                "label": "Smart Study Notes Generator",
-                "content": "I'll generate tailored study notes on Life Sciences topics you choose, making your revision more efficient and focused for better results!",
-                "toolsId": "study_notes"
+                icon: "✍️",
+                label: "Smart Study Notes",
+                content: "Create personalized Life Sciences notes for revision",
+                toolsId: "study_notes"
             }
         ],
         prompts: {
