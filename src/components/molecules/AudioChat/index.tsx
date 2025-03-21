@@ -328,7 +328,7 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
                 <Icon
                   width="24"
                   height="24"
-                  className="w-6 h-6 text-[#547A91]"
+                  className="w-6 h-6 text-[#666]"
                   type="MicIcon"
                   
                 />

@@ -17,7 +17,7 @@ const PersonalizeTab = () => {
             </div>
           </div>
 
-          <p className="w-full rounded-sm bg-navy-5 text-base flex font-normal items-center p-3">
+          <p className="w-full rounded-sm bg-[#666]/30 text-base flex font-normal items-center p-3">
             Get better AI answers by telling us about yourself.
           </p>
           <p className="!mt-8 mb-2">

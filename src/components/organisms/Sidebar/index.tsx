@@ -151,7 +151,7 @@ const Sidebar = () => {
             iconLeft: (
               <Icon
                 type="DownloadIcon"
-                className="w-6 h-6 stroke-grey-15 group-hover:stroke-white"
+                className="w-6 h-6 stroke-[#666] group-hover:stroke-white"
               />
             ),
           }}
@@ -171,7 +171,7 @@ const Sidebar = () => {
             iconLeft: (
               <Icon
                 type="DotsIcon"
-                className="w-6 h-6 stroke-grey-15 group-hover:stroke-white"
+                className="w-6 h-6 stroke-[#666] group-hover:stroke-white"
               />
             ),
           }}

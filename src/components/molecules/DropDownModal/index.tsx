@@ -26,7 +26,7 @@ const DropDownModal: FC<DropDownModalProps> = ({ children, chatId, title }) => {
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
           {/* <DropdownMenu.Item className="flex cursor-pointer hover:bg-[#ECECEC] items-center w-full gap-4">
-            <Icon type="ShareIcon" className="w-6 h-6 stroke-grey-15" />
+            <Icon type="ShareIcon" className="w-6 h-6 stroke-[#666]" />
             <p>Share</p>
           </DropdownMenu.Item> */}
           <RenameTitleChatPop chatId={chatId} title={title} handleClose={handleClose}>

@@ -16,7 +16,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ className, src, initials }) => {
         {initials ? (
           initials
         ) : (
-          <Icon type="UserIcon" className="w-8 h-8 stroke-grey-15" />
+          <Icon type="UserIcon" className="w-8 h-8 stroke-[#666]" />
         )}
       </Avatar.Fallback>
     </Avatar>

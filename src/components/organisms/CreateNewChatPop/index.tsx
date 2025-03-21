@@ -31,7 +31,7 @@ const CreateNewChatPop: FC<CreateNewChatPopProps> = ({ children }) => {
         <Dialog.Close asChild className="w-fit self-end -top-14 right-4 absolute z-[60] cursor-pointer">
           <Icon
             type="CloseIcon"
-            className={"w-6 h-6 stroke-2 stroke-grey-15 "}
+            className={"w-6 h-6 stroke-2 stroke-[#666] "}
           />
         </Dialog.Close>
         <AssistInput

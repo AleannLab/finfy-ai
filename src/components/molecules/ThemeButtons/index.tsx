@@ -6,14 +6,14 @@ const ThemeButtons = () => {
       <Button variant="ghost" className="text-xs shadow-none !rounded-sm p-2">
         <Icon
           type="MicroChipIcon"
-          className="w-4 h-4  mr-1 stroke-grey-15 group-hover:stroke-white"
+          className="w-4 h-4  mr-1 stroke-[#666] group-hover:stroke-white"
         />
         System
       </Button>
       <Button variant="ghost" className="text-xs shadow-none !rounded-sm p-2">
         <Icon
           type="SunIcon" 
-          className="w-4 h-4 mr-1 stroke-grey-15 group-hover:stroke-white"
+          className="w-4 h-4 mr-1 stroke-[#666] group-hover:stroke-white"
         />
         Light
       </Button>

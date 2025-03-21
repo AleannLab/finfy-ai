@@ -125,7 +125,7 @@ body {
   }
 
   .co-pilot-btn {
-    @apply h-6 rounded-full gap-1 text-sm flex items-center border bg-navy-5 px-2 w-fit shadow-none border-[#666] hover:border-purple-5;
+    @apply h-6 rounded-full gap-1 text-sm flex items-center border bg-[#666]/30 px-2 w-fit shadow-none border-[#666] hover:border-purple-5;
   }
 
   .error {

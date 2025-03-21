@@ -19,7 +19,7 @@ const PersonalizePop = () => {
           </div>
         </Dialog.Header>
 
-        <Dialog.Description className="w-full rounded-sm bg-navy-5 text-base flex font-normal items-center p-3">
+        <Dialog.Description className="w-full rounded-sm bg-[#666]/30 text-base flex font-normal items-center p-3">
           Get better AI answers by telling us about yourself.
         </Dialog.Description>
         <Dialog.Description className="!mt-8 mb-2">
@@ -28,7 +28,7 @@ const PersonalizePop = () => {
         </Dialog.Description>
         <TextareaTemplate />
         <div className="flex w-full items-center justify-between !mt-12">
-          <Button size="xl">Save changes</Button>
+          <Button variant="main" size="xl">Save changes</Button>
           <div className="flex flex-col gap-2 items-end">
             <SwitchTemplate
               label="Enable Personalization"

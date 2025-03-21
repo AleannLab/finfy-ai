@@ -87,7 +87,7 @@ const UserSettings = () => {
       {!open && openSidebar && (
         <Link
           href="/dashboard/settings">
-          <Icon type="GearIcon" className="min-w-4 h-4 !ml-3 fill-[#547a91]" />
+          <Icon type="GearIcon" className="min-w-4 h-4 !ml-3 fill-[#666]" />
 
         </Link>
       )}

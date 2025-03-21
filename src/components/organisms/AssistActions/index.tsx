@@ -16,7 +16,7 @@ const AssistActions: FC<AssistActionsProps> = ({ children, onClose }) => {
           className="absolute z-[999] top-4 right-2 md:top-6 md:right-6 cursor-pointer"
           onClick={onClose}
         >
-          <Cross2Icon className="size-4 text-[#547A91]" color="#547A91" />
+          <Cross2Icon className="size-4 text-[#666]" color="#666" />
         </div>
       }
       {children}
