@@ -270,7 +270,7 @@ export async function POST(req: NextRequest) {
     }
 
     const additionalMessages: AdditionalMessage[] = [
-      { role: "user", content: `${message} { Please use tools when asked for graph or figure, never return image in response in all messages, never replay for message in {} - just us it as instructions }` }
+      { role: "user", content: `${message}` }
     ];
 
     if (openAiFileIds.length > 0) {
