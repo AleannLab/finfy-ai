@@ -22,12 +22,12 @@ const FocusAssistantPopover: FC<FocusAssistantPopoverProps> = ({
     <Popover open={open} onOpenChange={onOpenChange}>
       <Popover.Trigger className="!z-[80]">{children}</Popover.Trigger>
       <Popover.Content side="top" align="start" className="mb-4 mt-2 max-w-3xl">
-        <Popover.Header className="mb-6">
+        <Popover.Header className="mb-6 ml-2">
           {isCareer && <span>Focus Assistant</span>}
           {isTutor && <span>Focus Tutors</span>}
           {isTeacher && <span>Teacher Focused Assistant</span>}
         </Popover.Header>
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-3 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-3 lg:grid-cols-3 gap-2.5">
           {focusData.map((item: any, index: number) => {
             return (
               <FocusAssistantOption

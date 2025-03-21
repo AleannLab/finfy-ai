@@ -50,7 +50,7 @@ export const HeaderFocus = ({ isHome, setOpen, open, suggest, user }: { isHome: 
             text={suggest?.title ? cutIcon(suggest?.title) : "Focus"}
             IconAfter={<Icon
               type="ChIcon"
-              className={cn("group-hover:stroke-[#E9E9E9] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#E9E9E9] -rotate-180 -translate-x-1" : "stroke-[#547A91]")}
+              className={cn("group-hover:stroke-[#E9E9E9] transition-all duration-200 h-3.5 w-5", open ? "stroke-[#E9E9E9] -rotate-180 -translate-x-1" : "stroke-black")}
             />}
           />
         </FocusAssistantPopover>

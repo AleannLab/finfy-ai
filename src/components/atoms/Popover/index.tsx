@@ -40,7 +40,7 @@ const PopoverContent = React.forwardRef<
     <PopoverPrimitive.Content
       ref={ref}
       className={cn(
-        "!z-[502] pt-2 px-5 mx-4 !max-h-[70vh] overflow-auto !max-w-[90vw] pb-6 border-[#e9e9e9] bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] outline outline-1 outline-offset-[-1px] outline-[#e9e9e9]",
+        "!z-[502] pt-2 mx-4 !max-h-[70vh] overflow-auto px-3 !max-w-[90vw] pb-6 border-[#e9e9e9] bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] outline outline-1 outline-offset-[-1px] outline-[#e9e9e9]",
         "data-[state=open]:animate-popover-in data-[state=closed]:animate-popover-out",
         className
       )}
