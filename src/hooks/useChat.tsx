@@ -23,6 +23,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { useAppSelector } from "@/lib/store/hooks";
 
+const cutChatTitle = (text: string) => {
+  if (text.length > 50) {
+    return text.slice(0, 50) + "...";
+  }
+  return text;
+};
+
+
 export const useChat = () => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
@@ -220,7 +228,7 @@ export const useChat = () => {
 
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
-                  createChatCallback(userId, message.slice(0, 30) + "...", threadId, type, assistantId).then(async () => {
+                  createChatCallback(userId, cutChatTitle(message), threadId, type, assistantId).then(async () => {
                     await fetchCreateMessage({
                       chat_id: threadId,
                       user_id: userId,
@@ -402,7 +410,7 @@ export const useChat = () => {
                 if (json.threadId && !pathname.includes("thread")) {
                   threadId = json.threadId;
                   router.push(`${pathname}/chat/${threadId}`, undefined);
-                  createChatCallback(userId, messages[0].message.slice(0, 30) + "...", threadId, type, assistantId);
+                  createChatCallback(userId, cutChatTitle(messages[0].message.slice(0, 30)), threadId, type, assistantId);
                 }
               } catch (error) {
                 console.error("Error parsing chunk:", error);

@@ -129,7 +129,7 @@ const MenuAccordionItem: FC<MenuAccordionItemProps> = ({
                         }
                         className="flex flex-col w-[90%] md:w-[180px]"
                       >
-                        <p className={cn("menu-list-btn max-w-[calc(100%)] text-start m-0 ", pathname.includes(content?.chatId) ? " " : "")}>
+                        <p className={cn("menu-list-btn text-[12px] w-max max-w-[calc(100%)] text-start m-0 ", pathname.includes(content?.chatId) ? " " : "")}>
                           {content.title}
                         </p>
                       </button>
