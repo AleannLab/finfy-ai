@@ -27,27 +27,33 @@ export default function RootLayout({
     <html style={{
       height: "100%"
     }} lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/favicon-v2.ico"
+        />
+      </head>
       <Head>
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/favicon.ico?v=2"
+          href="/favicon-v2.ico?v=2"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicon.ico?v=2"
+          href="/favicon-v2.ico?v=2"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicon.ico?v=2"
+          href="/favicon-v2.ico?v=2"
         />
         <link
           rel="icon"
-          href="/favicon.ico?v=2"
+          href="/favicon-v2.ico"
         />
         <link rel="manifest" href="/site.webmanifest?v=2" />
         <meta name="msapplication-TileColor" content="#da532c" />
