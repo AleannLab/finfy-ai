@@ -23,6 +23,6 @@
       "@/public/*": ["./public/*"],
     }
   },
-  "include": ["custom.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/кщгеуюеі"],
+  "include": ["custom.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/кщгеуюеі", "src/components/atoms/Togler/index.jsx"],
   "exclude": ["node_modules"]
 }
