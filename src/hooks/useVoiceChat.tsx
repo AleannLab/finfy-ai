@@ -5,6 +5,7 @@ import { RealtimeClient } from "@openai/realtime-api-beta";
 import { instructions } from "@/lib/prompt";
 import { ReactNode } from "react";
 import { ItemType } from "@openai/realtime-api-beta/dist/lib/client";
+import { config } from "@/config/env";
 import { defaultTutor, tutorSuggestionData } from "@/lib/store/features/suggest/suggestSlice";
 // import Resume from "@/features/chat/components/resume";
 // import ScheduleButton from "@/features/chat/components/scheduleButton";
@@ -27,7 +28,7 @@ const useVoiceChat = (instructionsForAssistant?: string) => {
   const clientRef = useRef<RealtimeClient>(
     new RealtimeClient({
       apiKey:
-        "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",
+      config.STRIPE_PUBLIC_KEY,
       dangerouslyAllowAPIKeyInBrowser: true,
     })
   );
