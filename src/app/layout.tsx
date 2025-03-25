@@ -37,25 +37,25 @@ export default function RootLayout({
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/favicon-v2.ico?v=2"
+          href="/favicon-v2.ico?v=3"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicon-v2.ico?v=2"
+          href="/favicon-v2.ico?v=3"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicon-v2.ico?v=2"
+          href="/favicon-v2.ico?v=3"
         />
         <link
           rel="icon"
           href="/favicon-v2.ico"
         />
-        <link rel="manifest" href="/site.webmanifest?v=2" />
+        <link rel="manifest" href="/site.webmanifest?v=3" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
