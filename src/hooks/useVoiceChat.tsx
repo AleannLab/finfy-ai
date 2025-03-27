@@ -71,7 +71,7 @@ const useVoiceChat = (instructionsForAssistant?: string) => {
 
     client.updateSession({
       instructions: instructionsForAssistant ? instructionsForAssistant : instructions,
-      voice: "alloy",
+      voice: "ash",
       input_audio_transcription: { model: "whisper-1" },
       turn_detection: { type: "server_vad" },
     });
