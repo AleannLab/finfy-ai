@@ -63,9 +63,10 @@ const Conversation: FC<ConversationProps> = ({ handleOpenModal }) => {
                 const calculations = message.calculations
                   ? JSON.parse(message.calculations)
                   : null;
+                  const uniqueKey = message.id ? `${message.id}-${index}` : `message-${index}`;
 
                 return (
-                  <Fragment key={message.id}>
+                  <Fragment key={uniqueKey}>
                     <Message
                       files={message?.files}
                       text={message.content}

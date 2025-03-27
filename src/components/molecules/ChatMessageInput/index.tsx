@@ -190,7 +190,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
     const matchTeacher = currentPath.match(/\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/);
     const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : matchTeacher ? matchTeacher[1] : null;
 
-    const assistantId = suggest?.assistantId;
+    const assistantId = suggest?.assistantId;//
     let assistantIdFromDB = assistantId;
 
     if (threadIdFromURL) {
@@ -362,7 +362,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             <button
               disabled={disable}
               type="button"
-              className={cn("h-[40px] w-[40px] flex items-center justify-center mr-2", disable ? "opacity-50 cursor-not-allowed" : "")}
+              className={cn("h-[40px] w-[40px] !stroke-black !text-black flex items-center justify-center mr-2", disable ? "opacity-50 cursor-not-allowed" : "")}
               onClick={() => openAssistAction(AssistAction.AUDIO_CHAT)}
             >
               <Icon width="24" height="24" className="w-6 h-6" type="MicIcon" />
@@ -371,7 +371,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           </div>
         </div>
       </form>
-      {!isUserUsingMobile && assistActionOpenState && <div ref={audioChatRef} className="w-full py-6">
+      {/* {!isUserUsingMobile && assistActionOpenState && <div ref={audioChatRef} className="w-full py-6">
         <AssistActions
           onClose={closeAssistAction}
         >
@@ -379,14 +379,14 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader onSubmit={onSubmitFile} />}
           {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
         </AssistActions>
-      </div>}
-      {isUserUsingMobile && <Modal
+      </div>} */}
+      {<Modal
         open={assistActionOpenState !== null}
         onClose={closeAssistAction}
         classes={{
-          container: "!p-2 !w-[90%] md:w-[50%] flex items-center justify-center",
+          container: "!p-2 relative !w-[90%] md:w-[50%] flex items-center justify-center",
           background: "backdrop-blur-none",
-          wrapper: "!w-[98%] md:!w-[40%] md:h-[50%] backdrop-blur-none bg-white rounded-xl",
+          wrapper: "max-w-[800px] absolute !top-[50vh] sm:!top-[50vh] md:!top-[50vh] lg:!top-[-50vh] xl:!top-[-50vh] 2xl:!top-[-50vh]  h-[90vh] w-[90vw] max-h-[520px] lg:px-[100px] px-6 py-4 lg:py-[60px] relative bg-gradient-to-br from-white to-[#f6f8fb] rounded-3xl shadow-[0px_4px_30px_0px_rgba(54,80,127,0.10)] shadow-[inset_4px_4px_40px_0px_rgba(255,255,255,1.00)] outline outline-1 outline-offset-[-1px] outline-[#e2eafb] backdrop-blur-[7.50px] inline-flex flex-col justify-center items-center gap-20",
         }}
       >
         {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}

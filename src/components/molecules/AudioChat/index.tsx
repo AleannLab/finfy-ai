@@ -2,9 +2,9 @@
 
 import { Button, Icon } from "@/components/atoms";
 import { useChat, useUser } from "@/hooks";
-import useVoiceChat from "@/hooks/useVoiceChat";
 import { useAppSelector } from "@/lib/store/hooks";
-import { WavRenderer } from "@/lib/wavtools";
+import { WavRecorder } from "@/lib/wavtools";
+import axios from "axios";
 import {
   Cross2Icon,
   SpeakerLoudIcon,
@@ -13,6 +13,8 @@ import {
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { config } from "@/config/env";
+import { fetchChatByTread } from "@/lib/store/features/chat/chatSlice";
 
 interface AudioChatProps {
   onClose: () => void;
@@ -22,175 +24,186 @@ interface AudioChatProps {
 
 const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
   const suggest = useAppSelector((state) => state.suggest.suggest);
-  const {
-    connectConversation,
-    toggleMute,
-    isConnected,
-    isMuted,
-    isTalking,
-    disconnectConversation,
-    isListening,
-    wavRecorderRef,
-    wavStreamPlayerRef,
-    items,
-  } = useVoiceChat(suggest?.instructions + chatContext);
-
-  const clientCanvasRef = useRef<HTMLCanvasElement>(null);
-  const serverCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const { createMessage, submitChatFromAudioChat, sendAudioChatContext, fetchMessagesForChat } =
-    useChat();
+  const { createMessage, submitChat, sendAudioChatContext, fetchMessagesForChat } = useChat();
   const { user } = useUser();
-  const [processedIds, setProcessedIds] = useState(new Set());
+  const userId = user?.id;
+
+  const [isMuted, setIsMuted] = useState(true);
+  const [audioChunks, setAudioChunks] = useState<BlobPart[]>([]);
   const [preparedMessagesToStore, setPreparedMessagesToStore] = useState<
     { id: string; role: string; message: string }[]
   >([]);
-  const conversationStarted = useRef(false);
+  const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
 
-  const userId = useMemo(() => {
-    return user?.id;
-  }, [user]);
 
-  const threadId = useMemo(() => {
-    const currentPath = window.location.href;
-    const match = currentPath.match(
-      /\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/
-    );
-    const matchCareerCoach = currentPath.match(
-      /\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/
-    );
-    const matchCareerTeacher = currentPath.match(
-      /\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/
-    );
-    const threadIdFromURL = match
-      ? match[1]
-      : matchCareerCoach
-      ? matchCareerCoach[1]
-      : matchCareerTeacher
-      ? matchCareerTeacher[1]
-      : null;
+  const toggleMute = async () => {
+    const wavRecorder = wavRecorderRef.current;
 
-    return threadIdFromURL;
-  }, [window.location.href]);
-
-  useEffect(() => {
-    if (!conversationStarted.current) {
-      conversationStarted.current = true;
-      connectConversation();
+    if (!wavRecorder) {
+      console.error("❌ WavRecorder.");
+      return;
     }
-  }, [conversationStarted]);
 
-  useEffect(() => {
-    const processMessages = () => {
-      items.forEach((item) => {
-        const { id, formatted } = item;
+    if (isMuted) {
+      if (!wavRecorder.recording) {
+        try {
+          await wavRecorder.begin();
+          wavRecorder.record((data) => {
+            setAudioChunks((prevChunks) => [...prevChunks, data.mono]);
+          });
 
-        if (
-          !processedIds.has(id) &&
-          item.role &&
-          item.status === "completed" &&
-          (formatted.text || formatted.transcript)
-        ) {
-          const messageText = formatted.text || formatted.transcript || "";
-          setProcessedIds((prevIds) => new Set(prevIds).add(id));
-          setPreparedMessagesToStore((prev) => [
-            ...prev,
-            { id: id, role: item.role as string, message: messageText },
-          ]);
-          if (formatted.text && formatted.text.trim() !== "") {
-            storeMessage(formatted.text, item.role);
-          } else if (
-            formatted.transcript &&
-            formatted.transcript.trim().length > 0
-          ) {
-            storeMessage(formatted.transcript, item.role);
-          }
+          setIsMuted(false);
+        } catch (error) {
+          console.error("❌ Error on start recording:", error);
         }
-      });
-    };
-    const prepareMessagesToStore = () => {
-      items.forEach((item) => {
-        const { id, formatted, status, role } = item;
-        if (role === "user") {
-          const messageText = formatted.text || formatted.transcript || "";
-          if (!processedIds.has(id)) {
-            setProcessedIds((prevIds) => new Set(prevIds).add(id));
-            setPreparedMessagesToStore((prev) => [
-              ...prev,
-              { id: id, role: role as string, message: messageText },
-            ]);
-          } else {
-            if (status === "completed") {
-              const updatedPreparedMessages = preparedMessagesToStore.map(
-                (msg) => {
-                  if (msg.id === id) {
-                    return {
-                      id: id,
-                      role: role as string,
-                      message: messageText,
-                    };
-                  }
-
-                  return msg;
-                }
-              );
-              setPreparedMessagesToStore(updatedPreparedMessages);
-            }
-          }
-        } else if (role === "assistant") {
-          const messageText = formatted.text || formatted.transcript || "";
-          if (!processedIds.has(id) && status === "completed") {
-            setProcessedIds((prevIds) => new Set(prevIds).add(id));
-            setPreparedMessagesToStore((prev) => [
-              ...prev,
-              { id: id, role: role as string, message: messageText },
-            ]);
-          }
-        }
-      });
-    };
-    if (threadId) {
-      processMessages();
-    } else {
-      prepareMessagesToStore();
-    }
-  }, [items, processedIds, threadId]);
-
-  const storeMessage = (content: string, role: string) => {
-    const dataForStore = {
-      chat_id: threadId,
-      user_id: userId,
-      content,
-      message_type: role,
-      is_processed: true,
-    };
-
-    createMessage(dataForStore).then(() => {
-        if (threadId) {
-            fetchMessagesForChat(threadId)
-        }
-    });
-  };
-
-  const handleDisconnectChat = async () => {
-    disconnectConversation();
-    onClose();
-    if (preparedMessagesToStore.length > 0) {
-      if (!threadId) {
-        await submitChatFromAudioChat({
-          messages: preparedMessagesToStore,
-          assistantId: suggest?.assistantId || "",
-          userId: userId,
-        });
       } else {
-        await sendAudioChatContext({
-          messages: preparedMessagesToStore,
-          assistantId: suggest?.assistantId || "",
-          threadId,
-        });
+        console.log("⚠️ Recording already active.");
+      }
+    } else {
+      if (wavRecorder.recording) {
+        console.log("🛑 Pause...");
+        try {
+          wavRecorder.pause();
+          setIsMuted(true);
+
+          if (wavRecorder.stream) {
+            wavRecorder.stream.getTracks().forEach(track => track.stop()); // Вимикаємо мікрофон
+            console.log("🎙️ Muted.");
+          }
+
+          await wavRecorder.end(); // Завершуємо запис
+        } catch (error) {
+          console.error("❌ Error in recording process:", error);
+        }
+      } else {
+        console.log("⚠️ No active recording.");
       }
     }
   };
+
+
+
+  const createWavFile = async (audioChunks: BlobPart[]) => {
+    const blob = new Blob(audioChunks, { type: "audio/wav" });
+    const arrayBuffer = await blob.arrayBuffer();
+    const view = new DataView(arrayBuffer);
+
+    const header = new ArrayBuffer(44);
+    const headerView = new DataView(header);
+
+    const sampleRate = 24000;
+    const numChannels = 1;
+    const bitsPerSample = 16;
+    const dataSize = view.byteLength;
+    const fileSize = 36 + dataSize;
+
+    headerView.setUint32(0, 0x52494646, false);
+    headerView.setUint32(4, fileSize, true);
+    headerView.setUint32(8, 0x57415645, false);
+
+    headerView.setUint32(12, 0x666d7420, false);
+    headerView.setUint32(16, 16, true);
+    headerView.setUint16(20, 1, true);
+    headerView.setUint16(22, numChannels, true);
+    headerView.setUint32(24, sampleRate, true);
+    headerView.setUint32(28, sampleRate * numChannels * bitsPerSample / 8, true);
+    headerView.setUint16(32, numChannels * bitsPerSample / 8, true);
+    headerView.setUint16(34, bitsPerSample, true);
+
+    headerView.setUint32(36, 0x64617461, false);
+    headerView.setUint32(40, dataSize, true);
+
+    const wavArray = new Uint8Array(header.byteLength + arrayBuffer.byteLength);
+    wavArray.set(new Uint8Array(header), 0);
+    wavArray.set(new Uint8Array(arrayBuffer), header.byteLength);
+
+    return new Blob([wavArray], { type: "audio/wav" });
+  };
+
+
+  const transcribeAudio = async () => {
+    if (audioChunks.length === 0) {
+      console.log("⚠️ No audio");
+      return;
+    }
+
+    const audioBlob = await createWavFile(audioChunks);
+
+    const formData = new FormData();
+    formData.append("file", audioBlob, "audio.wav");
+    formData.append("model", "whisper-1");
+    formData.append("language", "en");
+    try {
+      const response = await axios.post("https://api.openai.com/v1/audio/transcriptions", formData, {
+        headers: {
+          "Authorization": `Bearer ${config.REAL_TIME_CLIENT}`
+        },
+      });
+
+      const text = response.data.text;
+
+      if (text.trim()) {
+        const userId = user?.id;
+        const currentPath = window.location.href;
+        const match = currentPath.match(/\/dashboard\/career-coach\/chat\/(thread_[\w\d]+)/);
+        const matchCareerCoach = currentPath.match(/\/dashboard\/tutor\/chat\/(thread_[\w\d]+)/);
+        const matchTeacher = currentPath.match(/\/dashboard\/teacher\/chat\/(thread_[\w\d]+)/);
+        const threadIdFromURL = match ? match[1] : matchCareerCoach ? matchCareerCoach[1] : matchTeacher ? matchTeacher[1] : null;
+
+        const assistantId = suggest?.assistantId;//
+        let assistantIdFromDB = assistantId;
+
+        if (threadIdFromURL) {
+          const tread: any = await fetchChatByTread(threadIdFromURL);
+          assistantIdFromDB = tread?.[0]?.assistantId;
+        }
+
+        if (userId) {
+          await submitChat({
+            message: text,
+            userId,
+            assistantId: suggest?.assistantId || assistantIdFromDB,
+            threadIdFromURL: threadIdFromURL,
+            files: null,
+            prompt
+          });
+        }
+
+      }
+
+    } catch (error) {
+      console.error("❌ Error:", error);
+    }
+
+    console.log("🧹 Clear audio.");
+    setAudioChunks([]);
+  };
+
+
+
+  const handleSendTranscription = async () => {
+    console.log("🛑 Stop recording...");
+    await transcribeAudio();
+    if (wavRecorderRef.current?.recording) {
+      await wavRecorderRef.current.end();
+    }
+  };
+
+  const handleDisconnectChat = async () => {
+    await handleSendTranscription();
+    onClose();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleSendTranscription();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     if (isClosed) {
@@ -198,158 +211,62 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
     }
   }, [isClosed]);
 
-  useEffect(() => {
-    let isLoaded = true;
-
-    const wavRecorder = wavRecorderRef.current;
-    const clientCanvas = clientCanvasRef.current;
-    let clientCtx: CanvasRenderingContext2D | null = null;
-
-    const wavStreamPlayer = wavStreamPlayerRef.current;
-    const serverCanvas = serverCanvasRef.current;
-    let serverCtx: CanvasRenderingContext2D | null = null;
-
-    const render = () => {
-      if (isLoaded) {
-        if (clientCanvas) {
-          if (!clientCanvas.width || !clientCanvas.height) {
-            clientCanvas.width = clientCanvas.offsetWidth;
-            clientCanvas.height = clientCanvas.offsetHeight;
-          }
-          clientCtx = clientCtx || clientCanvas.getContext("2d");
-          if (clientCtx) {
-            clientCtx.clearRect(0, 0, clientCanvas.width, clientCanvas.height);
-            const result = wavRecorder.recording
-              ? wavRecorder.getFrequencies("voice")
-              : { values: new Float32Array([0]) };
-            WavRenderer.drawBars(
-              clientCanvas,
-              clientCtx,
-              result.values,
-              "#0099ff",
-              10,
-              0,
-              8
-            );
-          }
-        }
-        if (serverCanvas) {
-          if (!serverCanvas.width || !serverCanvas.height) {
-            serverCanvas.width = serverCanvas.offsetWidth;
-            serverCanvas.height = serverCanvas.offsetHeight;
-          }
-          serverCtx = serverCtx || serverCanvas.getContext("2d");
-          if (serverCtx) {
-            serverCtx.clearRect(0, 0, serverCanvas.width, serverCanvas.height);
-            const result = wavStreamPlayer.analyser
-              ? wavStreamPlayer.getFrequencies("voice")
-              : { values: new Float32Array([0]) };
-            WavRenderer.drawBars(
-              serverCanvas,
-              serverCtx,
-              result.values,
-              "#009900",
-              10,
-              0,
-              8
-            );
-          }
-        }
-        window.requestAnimationFrame(render);
-      }
-    };
-    render();
-
-    return () => {
-      isLoaded = false;
-    };
-  }, []);
-
   return (
     <div
       className={clsx(
-        "flex flex-col gap-6 md:gap-12 items-center justify-center"
+        "flex flex-col gap-6 md:gap-8 items-center justify-center"
       )}
     >
-      <div className="flex flex-col gap-1">
-        <Image
+      <div className="flex flex-col mb-12 gap-1">
+        {/* <Image
           width={512}
           height={512}
           src={"/images/f0f1946b-d4c4-4409-a22a-1d9ae2d34108-Photoroom 2.png"}
           alt=""
           objectFit="cover"
           className={"w-36 aspect-square opacity-80"}
-        />
+        /> */}
+        <svg xmlns="http://www.w3.org/2000/svg" width="88" height="76" viewBox="0 0 88 76" fill="none">
+          <path d="M55.9365 31.5084L88 76H23.8731L55.9365 31.5084Z" fill="black" />
+          <path d="M32.0635 44.4916L0 0L64.1269 4.33054e-06L32.0635 44.4916Z" fill="black" />
+        </svg>
+      </div>
+      <div className="self-stretch inline-flex justify-center items-center gap-2">
+        <div className="justify-start text-black text-sm font-semibold leading-tight">Start speaking</div>
       </div>
       <div className="h-20 flex flex-col items-center justify-center">
-        {/* {!conversationStarted && (
-            <Button
-                size="xl"
-                className="start-conversation w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
-                disabled={isConnecting}
-                onClick={() => {
-                connectConversation();
-                }}
-            >
-                <PlusCircledIcon className="size-4" color="white" />
-            </Button>
-            )} */}
-        {
-          <div
-            className={clsx(
-              "w-full flex gap-10 items-center justify-center",
-              { "opacity-100": isConnected },
-              { "opacity-0": !isConnected }
-            )}
+        <div
+          className={clsx(
+            "w-full flex gap-6 items-center justify-center"
+          )}
+        >
+          <Button
+            size="xl"
+            className="flex gap-2 items-center justify-center w-[60px] h-[60px] p-3 !rounded-full bg-[#666666] hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
+            onClick={toggleMute}
           >
-            <Button
-              size="xl"
-              className="w-10 h-10 p-3 !rounded-full bg-gray-500 hover:bg-gray-400 disabled:opacity-30 disabled:pointer-events-none"
-              disabled={isConnecting}
-              onClick={() => {
-                toggleMute();
-              }}
-            >
-              {isMuted && <SpeakerOffIcon className="size-4" color="white" />}
-              {!isMuted && <SpeakerLoudIcon className="size-4" color="white" />}
-            </Button>
-            {/* {
-              <div className=" p-1 z-10 flex gap-0.5 rounded-lg visualization">
-                <div className="relative flex items-center h-10 w-24 gap-1 text-blue-500 visualization-entry client">
-                  <canvas ref={clientCanvasRef} className="w-full h-full" />
-                </div>
-                <div className="relative flex items-center h-10 w-24 gap-1 text-green-600 visualization-entry server">
-                  <canvas ref={serverCanvasRef} className="w-full h-full" />
-                </div>
-              </div>
-            } */}
-            {
-              <div className="flex gap-2 items-center">
-                <Icon
-                  width="24"
-                  height="24"
-                  className="w-6 h-6 text-[#666]"
-                  type="MicIcon"
-                  
-                />
-                {/* <Icon 
-                    width="24"
-                    height="24"
-                    className="w-6 h-6"
-                    type="AudioLogo" 
-                /> */}
-              </div>
-            }
-            <Button
-              size="xl"
-              className="w-10 h-10 p-3 !rounded-full bg-red-500 hover:bg-red-400 disabled:opacity-30 disabled:pointer-events-none"
-              disabled={!isConnected || isConnecting}
-              onClick={handleDisconnectChat}
-            >
-              {<Cross2Icon className="size-4 text-[#666]" color="white" />}
-            </Button>
+            {isMuted ? (
+              <SpeakerOffIcon className="size-6" color="white" />
+            ) : (
+              <SpeakerLoudIcon className="size-6" color="white" />
+            )}
+          </Button>
+          <div className="flex gap-2 items-center justify-center w-[60px] h-[60px] bg-[#666666] rounded-full">
+            <Icon
+              width="24"
+              height="24"
+              className="w-6 h-6 !stroke-white !text-[#fff]"
+              type="MicIcon"
+            />
           </div>
-        }
+          <Button
+            size="xl"
+            className="flex gap-2 items-center justify-center w-[60px] h-[60px] !rounded-full bg-red-500 hover:bg-red-400"
+            onClick={handleDisconnectChat}
+          >
+            <Cross2Icon className="size-4 text-[#666]" color="white" />
+          </Button>
+        </div>
       </div>
     </div>
   );

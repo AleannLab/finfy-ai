@@ -76,49 +76,7 @@ const useVoiceChat = (instructionsForAssistant?: string) => {
       turn_detection: { type: "server_vad" },
     });
 
-    const tools = [
-    //   {
-    //     name: "good_bye",
-    //     description:
-    //       "Use this tool whenever the user says goodbye and wants to end the conversation.",
-    //     parameters: {},
-    //     handler: async () => {
-    //       setTimeout(() => {
-    //         setCurrentTool(null);
-    //         disconnectConversation();
-    //       }, 4000);
-    //       return "Goodbye";
-    //     },
-    //   },
-      //   {
-      //     name: "schedule_call",
-      //     description: "Shows a button which can be used to schedule a call.",
-      //     parameters: {},
-      //     handler: async () => {
-      //       setCurrentTool(<ScheduleButton />);
-      //       return { ok: true };
-      //     },
-      //   },
-      //   {
-      //     name: "show_resume",
-      //     description:
-      //       "Shows resume and provides the user with more info ",
-      //     parameters: {},
-      //     handler: async () => {
-      //       setCurrentTool(<Resume onClose={() => setCurrentTool(null)} />);
-      //       return {
-      //         ok: true,
-      //       };
-      //     },
-      //   },
-    ];
 
-    // tools.forEach((tool) =>
-    //   client.addTool(
-    //     { name: tool.name, description: tool.description, parameters: {} },
-    //     tool.handler
-    //   )
-    // );
 
     client.realtime.on("server.error", async (error: unknown) => {
       console.error(error);
