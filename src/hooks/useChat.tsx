@@ -75,14 +75,14 @@ export const useChat = () => {
   const fetchCreateMessage = useCallback(
     async (data: any) => {
       // if (data.message_type === "bot") {
-        const newFiles = data?.files ? 
-        data?.files.map((file: any)=> {
+      const newFiles = data?.files ?
+        data?.files.map((file: any) => {
           const filePath = `uploads/${file.path}`;
 
           const { data } = supabase.storage
-          .from("avatars")
-          .getPublicUrl(filePath);
-        
+            .from("avatars")
+            .getPublicUrl(filePath);
+
           const publicURL = data?.publicUrl; // Correctly access publicUrl
 
           return {
@@ -91,10 +91,10 @@ export const useChat = () => {
           }
         })
         : null;
-        const message = {
-          ...data,
-          files: newFiles
-        }
+      const message = {
+        ...data,
+        files: newFiles
+      }
       createMessageInDB(message)
       // } else {
       //   await dispatch(createMessage(data));
@@ -134,7 +134,7 @@ export const useChat = () => {
         });
       }
 
-      
+
       if (!message || !userId) {
         console.error("Missing message or userId");
         setIsLoadingSendQuery(false);
@@ -146,7 +146,7 @@ export const useChat = () => {
         content: message,
         date: `${Date.now()}`,
         message_type: "user",
-        files: files?.Dropzone?.map((file: File)=> {
+        files: files?.Dropzone?.map((file: File) => {
           return {
             ...file,
             saverSRC: `/uploads/${file?.name}`
@@ -164,12 +164,12 @@ export const useChat = () => {
           content: message,
           message_type: "user",
           is_processed: true,
-          files: files?.Dropzone?.map((file: File)=> {
+          files: files?.Dropzone?.map((file: File) => {
             return {
               ...file,
               saverSRC: `/uploads/${file?.name}`
             }
-  
+
           }),
         });
       }
@@ -235,12 +235,12 @@ export const useChat = () => {
                       content: message,
                       message_type: "user",
                       is_processed: true,
-                      files: files?.Dropzone?.map((file: File)=> {
+                      files: files?.Dropzone?.map((file: File) => {
                         return {
                           ...file,
                           saverSRC: `/uploads/${file.name}`
                         }
-              
+
                       }),
                     }).then(() => {
                       router.push(`${pathname}/chat/${threadId}`, undefined);
@@ -380,16 +380,19 @@ export const useChat = () => {
           .map(item => `${item.role}: ${item.message}`)
           .join(",\n")}. Save it to history of this chat`;
 
+        const formData = new FormData();
+        formData.append("message", dialogText);
+        formData.append("assistantId", assistantId);
+        formData.append("chatId", threadId || "");
+        formData.append("additionalPrompt", "voice");
+
+
+
+
         const response = await fetch("/api/openai", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: dialogText,
-            assistantId,
-            chatId: null,
-            additionalPrompt: ""
-          }),
-        });
+          body: formData,
+        }); ///TODO
 
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
@@ -465,16 +468,16 @@ export const useChat = () => {
           .map(item => `${item.role}: ${item.message}`)
           .join(",\n")}. Save it to history of this chat`;
 
+          const formData = new FormData();
+          formData.append("message", dialogText);
+          formData.append("assistantId", assistantId);
+          formData.append("chatId", threadId || "");
+          formData.append("additionalPrompt", "voice");
+
         await fetch("/api/openai", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: dialogText,
-            assistantId,
-            chatId: threadId,
-            additionalPrompt: ""
-          }),
-        });
+          body: formData,
+        }); ///TODO
       } catch (error) {
         console.error("Error in sendAudioChatContext:", error);
         toast.error("Something went wrong. Please try again.");

@@ -332,12 +332,12 @@ const AudioChat = ({ onClose, isClosed, chatContext = "" }: AudioChatProps) => {
                   type="MicIcon"
                   
                 />
-                <Icon 
+                {/* <Icon 
                     width="24"
                     height="24"
                     className="w-6 h-6"
                     type="AudioLogo" 
-                />
+                /> */}
               </div>
             }
             <Button
