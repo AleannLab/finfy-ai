@@ -28,7 +28,7 @@ const useVoiceChat = (instructionsForAssistant?: string) => {
   const clientRef = useRef<RealtimeClient>(
     new RealtimeClient({
       apiKey:
-      config.STRIPE_PUBLIC_KEY,
+      config.REAL_TIME_CLIENT,
       dangerouslyAllowAPIKeyInBrowser: true,
     })
   );
