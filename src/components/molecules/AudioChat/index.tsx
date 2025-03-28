@@ -1,16 +1,295 @@
 "use client";
 
-import { WavRecorder } from "@/lib/wavtools";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { config } from "@/config/env";
-import WaveSurfer from "wavesurfer.js";
-import { createWavFile } from "./createWavFile";
 import { SubmitAudio } from "./SubmitAudio";
 import { CloseButton } from "./CloseButton";
 import { LoadButton } from "./LoadButton";
-import { useWavesurfer } from '@wavesurfer/react';
-import Timeline from 'wavesurfer.js/dist/plugins/timeline.esm.js';
+import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
+
+const Lines = () => {
+  return (<div className="w-[833px] inline-flex justify-start items-center gap-[3px]">
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-[#e9e9e9]" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+    <div className="w-1 h-0 origin-top-left -rotate-90 outline outline-2 outline-offset-[-1px] outline-black" />
+  </div>)
+}
 
 interface AudioChatProps {
   onClose: () => void;
@@ -22,79 +301,17 @@ interface AudioChatProps {
 const AudioChat = ({ onClose, isClosed, chatContext = "", handleChange }: AudioChatProps) => {
   const [isFirst, setIsFirst] = useState(true);
   const [clicked, setClicked] = useState(false);
-  const [audioChunks, setAudioChunks] = useState<BlobPart[]>([]);
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const [recordingTime, setRecordingTime] = useState(0);
-
-  const waveformContainerRef = useRef<HTMLDivElement>(null);
-  const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // const { wavesurfer } = useWavesurfer({
-  //   container: waveformContainerRef,
-  //   waveColor: '#666',
-  //   progressColor: '#4a90e2',
-  //   cursorWidth: 2,
-  //   height: 40,
-  //   url: "/sounds/test_audio.wav",
-  //   plugins: [Timeline.create()],
-  // });
+  const recorderControls = useVoiceVisualizer({});
 
-  const stopRecording = async () => {
-    const wavRecorder = wavRecorderRef.current;
-
-    if (!wavRecorder) return;
-
-    try {
-      if (wavRecorder.recording) {
-        console.log("🛑 Stopping recording...");
-        await wavRecorder.end();
-
-        if (wavRecorder.stream) {
-          wavRecorder.stream.getTracks().forEach(track => track.stop());
-          wavRecorder.stream = null;
-        }
-
-        if (intervalRef.current) clearInterval(intervalRef.current);
-
-        console.log("✅ Recording successfully stopped.");
-      }
-    } catch (error) {
-      console.error("❌ Error during stopping recording:", error);
-    }
-  };
-
-  const startRecording = async () => {
-    const wavRecorder = wavRecorderRef.current;
-
-    if (!wavRecorder) return;
-
-    if (wavRecorder.recording) {
-      console.log("⚠️ Recording is already active.");
-      return;
-    }
-
-    try {
-      await wavRecorder.begin();
-      console.log("🎙️ Recording started.");
-
-      wavRecorder.record((data) => {
-        setAudioChunks((prevChunks) => [...prevChunks, data.mono]);
-
-        const newBlob = new Blob([data.mono], { type: "audio/wav" });
-        if (newBlob.size > 0) {
-          setAudioBlob(newBlob);
-        }
-      });
-
-      intervalRef.current = setInterval(() => {
-        setRecordingTime((prevTime) => prevTime + 1);
-      }, 1000);
-
-    } catch (error) {
-      console.error("❌ Error on starting recording:", error);
-    }
-  };
+  const {
+    recordedBlob,
+    startRecording,
+    stopRecording,
+    togglePauseResume,
+    recordingTime
+  } = recorderControls;
 
   useEffect(() => {
     if (isFirst) {
@@ -103,14 +320,12 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", handleChange }: AudioC
     }
   }, []);
 
-  const handleSendTranscription = async () => {
-    if (audioChunks.length === 0) return;
-
+  const handleSendTranscription = async (blobToUse: Blob) => {
     try {
-      const finalAudioBlob = await createWavFile(audioChunks);
+      console.log("✅ Processing the recorded blob...");
 
       const formData = new FormData();
-      formData.append("file", finalAudioBlob, "audio.wav");
+      formData.append("file", blobToUse, "audio.webm");
       formData.append("model", "whisper-1");
       formData.append("language", "en");
 
@@ -125,35 +340,70 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", handleChange }: AudioC
     } catch (error) {
       console.error("❌ Error in transcription process:", error);
     }
-
-    setAudioChunks([]);
   };
+
+  useEffect(() => {
+    const process = async () => {
+      if (recordedBlob) {
+        await handleSendTranscription(recordedBlob);
+        onClose();
+      } else {
+        console.log("❌ No recordedBlob available.");
+      }
+    }
+    process()
+  }, [recordedBlob]);
 
   const handleAddAnswer = async () => {
-    await handleSendTranscription();
-    await stopRecording();
-    onClose();
+
     setClicked(true);
+
+    togglePauseResume();
+    stopRecording()
+
+    clearInterval(intervalRef.current!);
+
+
+
   };
 
-  const handleClose = async () => {
-    await stopRecording();
+  const handleClose = () => {
+    togglePauseResume();
+    clearInterval(intervalRef.current!);
     handleChange("");
     onClose();
   };
 
+  const formatRecordingTime = (timeInMs: number): string => {
+    const totalSeconds = Math.floor(timeInMs / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+
   return (
     <div className="flex gap-6 mt-2 md:gap-8 w-full max-h-10 items-center justify-between">
-      <CloseButton onClick={() => handleClose()} />
-      
+      <CloseButton onClick={handleClose} />
       <div className="w-full h-10 relative overflow-hidden">
-        <div ref={waveformContainerRef} className="w-full h-full"></div>
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-black">
-          {Math.floor(recordingTime / 60)}:{('0' + (recordingTime % 60)).slice(-2)}
+      <div className="w-full flex absolute top-[18px]  h-1">
+          <Lines />
         </div>
+        {!clicked && <VoiceVisualizer
+          controls={recorderControls}
+          mainBarColor="#000"
+          height={40}
+          isControlPanelShown={false}
+          isDefaultUIShown={false}
+          isAudioProcessingTextShown={false}
+          isProgressIndicatorTimeShown={false}
+        />}
       </div>
-      
-      {clicked ? <LoadButton /> : <SubmitAudio onClick={() => handleAddAnswer()} />}
+
+      <div className="text-xs flex items-center justify-center min-h-10 min-w-8 text-black">
+        {formatRecordingTime(recordingTime)}
+      </div>
+      {clicked ? <LoadButton /> : <SubmitAudio onClick={handleAddAnswer} />}
     </div>
   );
 };

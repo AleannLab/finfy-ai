@@ -1,7 +1,6 @@
 "use client";
-export const createWavFile = async (audioChunks: BlobPart[]) => {
-  const blob = new Blob(audioChunks, { type: "audio/wav" });
-  const arrayBuffer = await blob.arrayBuffer();
+export const createWavFile = async (audioBlob: Blob) => {
+  const arrayBuffer = await audioBlob.arrayBuffer();
   const view = new DataView(arrayBuffer);
 
   const header = new ArrayBuffer(44);

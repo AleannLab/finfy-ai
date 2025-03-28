@@ -285,59 +285,59 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    async function getAllVectorStoreIds(): Promise<string[]> {
-      const vectorStores = await openai.beta.vectorStores.list();
-      console.log("vector stores found", vectorStores);
+    // async function getAllVectorStoreIds(): Promise<string[]> {
+    //   const vectorStores = await openai.beta.vectorStores.list();
+    //   console.log("vector stores found", vectorStores);
 
-      return vectorStores.data.map(vs => vs.id);
-    }
+    //   return vectorStores.data.map((vs: { id: any; }) => vs.id);
+    // }
 
-    const vectorStoreMap: Record<string, string> = {
-      "asst_wQYJcKbahjyXKsqfEBj09lXz": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies
-      "asst_DQhvAipfIA6bPsXFi8Az1sYw": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Espen Teacher Maths 
-      "asst_lgVcOWp45uuUf2BtodHO7gKS": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Maths Literacy
-      "asst_vaBKqqnSfyus1suFdb8BGqvK": "vs_MX5w91YMFpqJjWkVbbhfVGTg", // English
-      "asst_GqA9eIAqD6X4OEYfZRyNx6y0": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences
-      "asst_QwfjmzMvjalp9v5x6y1SAd68": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
-      "asst_tmcVNihaQQXIJsgBBsmStbVh": "vs_67b72532c52c81918cc2b57aeadfbe89", // Life Sciences (No match in vector stores)
-      "asst_8ccbmmtDJWTZ7ABAdUSzbax8": "vs_67b73ef6bc7881919ab82f3b98c92bfc", // Computer Applications Technology (No match)
-      "asst_ub7PKtIFXKBAPOlqqcFoYy7B": "vs_67b74044b6b4819195dbcede53ae7312", // Information Technology / Natural Science (No match)
-      "asst_P5dJ8UFGPSa9A2BtYgDr84FD": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies (Teacher Assistants)
-      "asst_xYdJNkDJQoKTS6S5sNAnhGY6": "vs_67b87fad16e481918c4db0089b935d5f", // Kenya Income tax 
-      "asst_7pMzMLlE5LixiysB2hFXJWKH": "vs_67b72656d1348191b23568eeff972c88", // Geography 
-      "asst_PZLeW6lOto3Aq1Dbm4MId5Ji": "vs_67b728ed741481918058550d0e2694c0", // Physical Sciences  
-      "asst_GNr95kfHSeLTztEukBB1v3We": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics Literacy new
-      "asst_quosLWwOUiWyRxoUF3sn9RBE": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics new
-      "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences 
-      "asst_wu5H6HvbW3o0qLw443ojVx6V": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Mathematics Literacy old
-      "asst_tuNCDC6ugI9hi1d2Bd7vllvH": "vs_vnbDfE1SOPGRtKaHd23baOrj", // Discovery Agent. 
-      "asst_stEGiVDTlMIeDM7XGiezPI28": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
-      "asst_8A4XomYXUr72FiCpGFpeka9w": "vs_V1eoQfy9239a6iy2Qa4aoGtc", // CFP Assistant 
-      "asst_F0t5kwftVyUBthhNWnrkGFZL": "vs_1brM1INAoNazPKp5BEj226T0", // Kenyan Product Recomendations 
-    };
+    // const vectorStoreMap: Record<string, string> = {
+    //   "asst_wQYJcKbahjyXKsqfEBj09lXz": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies
+    //   "asst_DQhvAipfIA6bPsXFi8Az1sYw": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Espen Teacher Maths 
+    //   "asst_lgVcOWp45uuUf2BtodHO7gKS": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Maths Literacy
+    //   "asst_vaBKqqnSfyus1suFdb8BGqvK": "vs_MX5w91YMFpqJjWkVbbhfVGTg", // English
+    //   "asst_GqA9eIAqD6X4OEYfZRyNx6y0": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences
+    //   "asst_QwfjmzMvjalp9v5x6y1SAd68": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
+    //   "asst_tmcVNihaQQXIJsgBBsmStbVh": "vs_67b72532c52c81918cc2b57aeadfbe89", // Life Sciences (No match in vector stores)
+    //   "asst_8ccbmmtDJWTZ7ABAdUSzbax8": "vs_67b73ef6bc7881919ab82f3b98c92bfc", // Computer Applications Technology (No match)
+    //   "asst_ub7PKtIFXKBAPOlqqcFoYy7B": "vs_67b74044b6b4819195dbcede53ae7312", // Information Technology / Natural Science (No match)
+    //   "asst_P5dJ8UFGPSa9A2BtYgDr84FD": "vs_W3WYfN3aSaosEBpkbMf2yk6t", // Business Studies (Teacher Assistants)
+    //   "asst_xYdJNkDJQoKTS6S5sNAnhGY6": "vs_67b87fad16e481918c4db0089b935d5f", // Kenya Income tax 
+    //   "asst_7pMzMLlE5LixiysB2hFXJWKH": "vs_67b72656d1348191b23568eeff972c88", // Geography 
+    //   "asst_PZLeW6lOto3Aq1Dbm4MId5Ji": "vs_67b728ed741481918058550d0e2694c0", // Physical Sciences  
+    //   "asst_GNr95kfHSeLTztEukBB1v3We": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics Literacy new
+    //   "asst_quosLWwOUiWyRxoUF3sn9RBE": "vs_37ssYcJuMUHoZsMKRCRzC7j0", // Mathematics new
+    //   "asst_mdg1VEgSqxVOKlHk6JlRXzTN": "vs_yAhxo3ebp10fMKvIGJNzU22f", // Physical Sciences 
+    //   "asst_wu5H6HvbW3o0qLw443ojVx6V": "vs_ENtFMjPHa0PLUtN2SJ2JrTNX", // Mathematics Literacy old
+    //   "asst_tuNCDC6ugI9hi1d2Bd7vllvH": "vs_vnbDfE1SOPGRtKaHd23baOrj", // Discovery Agent. 
+    //   "asst_stEGiVDTlMIeDM7XGiezPI28": "vs_OTSyuB9kwQpQCorFpQ5HTlP1", // Economics Tutor
+    //   "asst_8A4XomYXUr72FiCpGFpeka9w": "vs_V1eoQfy9239a6iy2Qa4aoGtc", // CFP Assistant 
+    //   "asst_F0t5kwftVyUBthhNWnrkGFZL": "vs_1brM1INAoNazPKp5BEj226T0", // Kenyan Product Recomendations 
+    // };
 
-    function getVectorStoreId(assistantId: string): string[] {
-      return [vectorStoreMap[assistantId]];
-    }
+    // function getVectorStoreId(assistantId: string): string[] {
+    //   return [vectorStoreMap[assistantId]];
+    // }
 
 
-    const vectorStoreIds = await getAllVectorStoreIds();
+    // const vectorStoreIds = await getAllVectorStoreIds();
 
-    if (!getVectorStoreId(assistantId)?.[0]) {
-      console.log("No vector stores found!", getVectorStoreId(assistantId)?.[0]);
-    } else {
-      console.log("Vector stores found!", getVectorStoreId(assistantId)?.[0]);
-      const updateResponse = await openai.beta.assistants.update(assistantId, (getVectorStoreId(assistantId)?.length ? {
-        tool_resources: { file_search: { vector_store_ids: getVectorStoreId(assistantId) } },
-        // instructions: "Please search for answers in the vector store first before responding.",
-        tools: [{ type: "file_search" }]
-      } : {
+    // if (!getVectorStoreId(assistantId)?.[0]) {
+    //   console.log("No vector stores found!", getVectorStoreId(assistantId)?.[0]);
+    // } else {
+    //   console.log("Vector stores found!", getVectorStoreId(assistantId)?.[0]);
+    //   const updateResponse = await openai.beta.assistants.update(assistantId, (getVectorStoreId(assistantId)?.length ? {
+    //     tool_resources: { file_search: { vector_store_ids: getVectorStoreId(assistantId) } },
+    //     // instructions: "Please search for answers in the vector store first before responding.",
+    //     tools: [{ type: "file_search" }]
+    //   } : {
 
-      }));
-      console.log("Updated assistant:", updateResponse);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Ensure update is applied
+    //   }));
+    //   console.log("Updated assistant:", updateResponse);
+    //   await new Promise(resolve => setTimeout(resolve, 2000)); // Ensure update is applied
 
-    }
+    // }
 
     // const vectorStoreFiles = await openai.beta.vectorStores.files.list('vs_37ssYcJuMUHoZsMKRCRzC7j0');
 
