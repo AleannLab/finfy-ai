@@ -325,7 +325,7 @@ const AudioChat = ({ onClose, isClosed, chatContext = "", handleChange }: AudioC
       console.log("✅ Processing the recorded blob...");
 
       const formData = new FormData();
-      formData.append("file", blobToUse, "audio.webm");
+      formData.append("file", blobToUse, "audio.wav");
       formData.append("model", "whisper-1");
       formData.append("language", "en");
 
