@@ -324,7 +324,8 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           name="message"
           onKeyDown={handleEnter}
         />
-        <div className="flex w-full justify-between mt-2">
+        {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat handleChange={setMessage} isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
+        {assistActionOpenState !== AssistAction.AUDIO_CHAT && <div className="flex w-full justify-between mt-2">
           <div className="relative flex items-center">
             {isPopupOpen && (
               <div className="absolute left-0 bottom-12 bg-white p-2 rounded-md border shadow-md z-50 flex gap-2">
@@ -369,7 +370,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
             </button>
             <SubmitButton disable={disable} isLoading={isLoading} />
           </div>
-        </div>
+        </div>}
       </form>
       {/* {!isUserUsingMobile && assistActionOpenState && <div ref={audioChatRef} className="w-full py-6">
         <AssistActions
@@ -381,7 +382,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
         </AssistActions>
       </div>} */}
       {<Modal
-        open={assistActionOpenState !== null}
+        open={!!(assistActionOpenState === AssistAction.UPLOAD_FILE || assistActionOpenState === AssistAction.QUESTION_SCANNER)}
         onClose={closeAssistAction}
         classes={{
           container: "!p-2 relative !w-[90%] md:w-[50%] flex items-center justify-center",
@@ -389,7 +390,7 @@ const ChatMessageInput: FC<ChatMessageInputProps> = ({ handleClose, isDark = fal
           wrapper: "max-w-[800px] absolute !top-[50vh] sm:!top-[50vh] md:!top-[50vh] lg:!top-[-50vh] xl:!top-[-50vh] 2xl:!top-[-50vh]  h-[90vh] w-[90vw] max-h-[520px] lg:px-[100px] px-6 py-4 lg:py-[60px] relative bg-gradient-to-br from-white to-[#f6f8fb] rounded-3xl shadow-[0px_4px_30px_0px_rgba(54,80,127,0.10)] shadow-[inset_4px_4px_40px_0px_rgba(255,255,255,1.00)] outline outline-1 outline-offset-[-1px] outline-[#e2eafb] backdrop-blur-[7.50px] inline-flex flex-col justify-center items-center gap-20",
         }}
       >
-        {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />}
+        {/* {assistActionOpenState === AssistAction.AUDIO_CHAT && <AudioChat isClosed={closeAudioChat} chatContext={chatContext} onClose={closeAssistAction} />} */}
         {assistActionOpenState === AssistAction.UPLOAD_FILE && <FileUploader onSubmit={onSubmitFile} />}
         {assistActionOpenState === AssistAction.QUESTION_SCANNER && <QuestionScanner />}
       </Modal>}
